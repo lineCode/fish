@@ -267,16 +267,9 @@ namespace MessageHelper
 			}
 		}
 
-		int size = writer->Length();
-		
-		int maxsz = (size + 2047) / 2048 * 2 + size;
-		char* data = (char*)malloc(maxsz);
-
-		int cnt = Zeropack(writer->Data(),writer->Length(),data,maxsz);
+		lua_pushlstring(L,writer->Data(),writer->Length());
 
 		app->WriterPool().Push(writer);
-		lua_pushlightuserdata(L,data);
-		lua_pushinteger(L,cnt);
-		return 2;
+		return 1;
 	}
 }

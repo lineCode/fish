@@ -166,7 +166,7 @@ namespace MessageHelper
 	{
 		ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
 		char* data;
-		int size;
+		size_t size;
 		bool needFree = false;
 		if (lua_isuserdata(L,2))
 		{
@@ -177,26 +177,12 @@ namespace MessageHelper
 		else
 			data = (char*)lua_tolstring(L,1,(size_t*)&size);
 
-		void* ndata = malloc(size);
-		int r = Zerounpack(data, size, ndata, &size);
-		if (r < 0)
-			return luaL_error(L, "Invalid unpack stream");
-		if (r > size) 
-		{
-			free(ndata);
-			ndata = malloc(r);
-		}
-		r = Zerounpack((void*)data, size, ndata, &r);
-
 		lua_newtable(L);
 		int index = 1;
-		MessageReader* reader = new MessageReader((char*)ndata,r);
+		MessageReader* reader = new MessageReader((char*)data,size);
 		while (reader->Left() > 0)
 		{
 			uint8 tt = reader->read<uint8>();
-			if (tt == 0)
-				break;	
-		
 			switch(tt)
 			{
 			case TYPE_BOOL:
@@ -277,6 +263,7 @@ namespace MessageHelper
 				luaL_error(L,"error type:%d\n",tt);
 			}
 		}
+
 		if (needFree)
 			free((void*)data);
 		
