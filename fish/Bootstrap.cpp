@@ -20,9 +20,14 @@ Bootstrap::~Bootstrap(void)
 void Bootstrap::Startup(const char* file)
 {
 	LoadConfig(file);
+
 	FishApp* app = new FishApp(_config["boot"].GetString());
-	app->ConnectMongo(_config["mongo"]["ip"].GetString(),_config["mongo"]["port"].GetInt());
+
+	if (_config.HasMember("mongo"))
+		app->ConnectMongo(_config["mongo"]["ip"].GetString(),_config["mongo"]["port"].GetInt());
+	
 	app->Init();
+
 	app->Run();
 }
 

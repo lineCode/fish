@@ -1,4 +1,5 @@
-local core = require "MessageWriter"
+local writerCore = require "MessageWriter"
+local readerCore = require "MessageReader"
 
 local TYPE_BOOL = 1
 local TYPE_UINT8 = 2
@@ -16,7 +17,7 @@ local TYPE_STRING = 12
 
 local _M = {}
 
-function _M:new()
+function _M:New()
 	local obj = setmetatable({},{__index = self})
 	obj.data = {}
 	return obj
@@ -80,8 +81,12 @@ function _M:WriteString(str)
 	table.insert(self.data,str)
 end
 
-function _M:Done()
-	return core.Write(table.unpack(self.data))
+function _M:Pack()
+	return writerCore.Write(table.unpack(self.data))
+end
+
+function _M:Unpack(...)
+	return readerCore.Read(...)
 end
 
 return _M
