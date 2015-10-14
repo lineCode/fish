@@ -254,6 +254,14 @@ function _M.Now()
 	return Core.Now()
 end
 
+function _M.Timestamp()
+	return Core.Timestamp()
+end
+
+function _M.Timestamp2Second(ti)
+	return Core.TimestampToSecond(ti)
+end
+
 local function dispatchServer(source,session,type,param,...)
 	local server = _serverInfo[source]
 	if type == 1 then
