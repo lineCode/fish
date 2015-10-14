@@ -10,7 +10,11 @@ fish.Start(function ()
 	inst:WriteInt32(26)
 	inst:WriteFloat(123.456)
 	inst:WriteDouble(456.789)
+	inst:WriteInt32(64)
+	for i=1,5 do
+		inst:WriteString("mrq"..i)
+	end
 
 	local data = inst:Pack()
-	util.dump_table(inst:Unpack(data))
+	util.dump_table(stream.Unpack(data))
 end)

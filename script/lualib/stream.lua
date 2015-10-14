@@ -72,10 +72,12 @@ function _M:WriteFloat(v)
 	table.insert(self.data,TYPE_FLOAT)
 	table.insert(self.data,v)
 end
+
 function _M:WriteDouble(v)
 	table.insert(self.data,TYPE_DOUBLE)
 	table.insert(self.data,v)
 end
+
 function _M:WriteString(str)
 	table.insert(self.data,TYPE_STRING)
 	table.insert(self.data,str)
@@ -85,7 +87,7 @@ function _M:Pack()
 	return writerCore.Write(table.unpack(self.data))
 end
 
-function _M:Unpack(...)
+function _M.Unpack(...)
 	return readerCore.Read(...)
 end
 
