@@ -43,6 +43,9 @@ namespace MessageHelper
 
 		static int Register(lua_State* L);
 		static int _Write(lua_State* L);
+		static int _New(lua_State* L);
+		static int _Delete(lua_State* L);
+		static int _Append(lua_State* L);
 
 	protected:
 		void reserve(int cnt);

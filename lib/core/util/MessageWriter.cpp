@@ -173,6 +173,9 @@ namespace MessageHelper
 		luaL_Reg l[] =
 		{
 			{ "Write" , MessageWriter::_Write },
+			{ "New" , MessageWriter::_New },
+			{ "Delete" , MessageWriter::_Delete },
+			{ "Append" , MessageWriter::_Append },
 			{ NULL, NULL },
 		};
 
@@ -190,81 +193,84 @@ namespace MessageHelper
 
 	int MessageWriter::_Write(lua_State* L)
 	{
-		int n = lua_gettop(L);
-		if (n%2 != 0)
-			return luaL_error(L, "Invalid argument count");
-
 		ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
 
 		MessageWriter* writer;
 		app->WriterPool().Pop(writer);
 		writer->Reset();
 
-		for (int i = 1;i <= n;i+=2)
+		int len = lua_rawlen(L,-1);
+
+		for (int i = 1;i <= len;i+=2)
 		{
-			int kt = lua_tointeger(L,i);
+			lua_rawgeti(L,-1,i);
+			int kt = lua_tointeger(L,-1);
+			lua_pop(L,1);
+			lua_rawgeti(L,-1,i+1);
 			switch(kt)
 			{
 			case TYPE_BOOL:
 				{
-					(*writer) << (bool)lua_toboolean(L,i+1);
+					(*writer) << (bool)lua_toboolean(L,-1);
 					break;
 				}
 			case TYPE_UINT8:
 				{
-					(*writer) << (uint8)lua_tointeger(L,i+1);
+					(*writer) << (uint8)lua_tointeger(L,-1);
 					break;
 				}
 			case TYPE_UINT16:
 				{
-					(*writer) << (uint16)lua_tointeger(L,i+1);
+					(*writer) << (uint16)lua_tointeger(L,-1);
 					break;
 				}
 			case TYPE_UINT32:
 				{
-					(*writer) << (uint32)lua_tointeger(L,i+1);
+					(*writer) << (uint32)lua_tointeger(L,-1);
 					break;
 				}
 			case TYPE_INT8:
 				{
-					(*writer) << (int8)lua_tointeger(L,i+1);
+					(*writer) << (int8)lua_tointeger(L,-1);
 					break;
 				}
 			case TYPE_INT16:
 				{
-					(*writer) << (int16)lua_tointeger(L,i+1);
+					(*writer) << (int16)lua_tointeger(L,-1);
 					break;
 				}
 			case TYPE_INT32:
 				{
-					(*writer) << (int32)lua_tointeger(L,i+1);
+					(*writer) << (int32)lua_tointeger(L,-1);
 					break;
 				}
 			case TYPE_INT64:
 				{
-					(*writer) << (int64)lua_tonumber(L,i+1);
+					(*writer) << (int64)lua_tonumber(L,-1);
 					break;
 				}
 			case TYPE_FLOAT:
 				{
-					(*writer) << (float)lua_tonumber(L,i+1);
+					(*writer) << (float)lua_tonumber(L,-1);
 					break;
 				}
 			case TYPE_DOUBLE:
 				{
-					(*writer) << (double)lua_tonumber(L,i+1);
+					(*writer) << (double)lua_tonumber(L,-1);
 					break;
 				}
 			case TYPE_STRING:
 				{
 					size_t size;
-					const char* str = lua_tolstring(L,i+1,&size);
+					const char* str = lua_tolstring(L,-1,&size);
 					writer->AppendString(str,(int)size);
 					break;
 				}
 			default:
+				lua_pop(L,1);
 				luaL_error(L,"error type:%d\n",kt);
 			}
+			lua_pop(L,1);
 		}
 
 		lua_pushlstring(L,writer->Data(),writer->Length());
@@ -272,4 +278,31 @@ namespace MessageHelper
 		app->WriterPool().Push(writer);
 		return 1;
 	}
+
+	int MessageWriter::_New(lua_State* L)
+	{
+		ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
+
+		MessageWriter* writer;
+		app->WriterPool().Pop(writer);
+		writer->Reset();
+
+		lua_pushlightuserdata(L,(void*)writer);
+
+		return 1;
+	}
+
+	int MessageWriter::_Delete(lua_State* L)
+	{
+		ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
+		MessageWriter* writer = (MessageWriter*)lua_touserdata(L,1);
+		app->WriterPool().Push(writer);
+		return 0;
+	}
+
+	int MessageWriter::_Append(lua_State* L)
+	{
+		return 0;
+	}
+
 }

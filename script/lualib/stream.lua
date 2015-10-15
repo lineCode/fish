@@ -89,7 +89,7 @@ function _M:WriteString(str)
 end
 
 function _M:Pack()
-	return coreWrite(tunpack(self.data))
+	return coreWrite(self.data)
 end
 
 function _M.Unpack(...)
