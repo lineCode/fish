@@ -1,6 +1,6 @@
 CC = g++
 AR = ar
-CFLAG = -g -Wall
+CFLAG = -g -O2 -fPIC -Wall
 
 INCLUDE = -I. -I./src
 TARGET = ./libbson.a

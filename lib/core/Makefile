@@ -1,6 +1,6 @@
 CC = g++
 AR = ar
-CFLAG = -g -Wall
+CFLAG = -g -O2 -fPIC -Wall
 
 INCLUDE = -I. -I../3rd -I../3rd/bson -I../3rd/bson/src -I../3rd/protobuf-2.6.0/src
 TARGET = ./libcore.a

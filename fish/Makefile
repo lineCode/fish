@@ -1,6 +1,6 @@
 CC = g++
 AR = ar
-CFLAG = -g -Wall
+CFLAG = -g -O2 -fPIC -Wall
 
 INCLUDE = -I. -I../lib/core -I../lib/3rd -I../lib/3rd/lua/src -I../lib/3rd/bson -I../lib/3rd/bson/src
 TARGET = ./fish
