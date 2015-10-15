@@ -35,22 +35,18 @@ namespace MessageHelper
 		MessageWriter& operator<<(const char *str);
 
 		MessageWriter& AppendString(const char* str,int size);
-
 		
 		char* Data();
-		int Length();
 		void Reset();
-
+		int Length();
+	
 		static int Register(lua_State* L);
 		static int _Write(lua_State* L);
-		static int _New(lua_State* L);
-		static int _Delete(lua_State* L);
-		static int _Append(lua_State* L);
 
 	protected:
 		void reserve(int cnt);
 		void append(uint8* type,uint8* val,int size);
-		void appendStr(char* str,int size);
+		void append(char* str,int size);
 
 		int					_pos;
 		std::vector<char>   _data;
