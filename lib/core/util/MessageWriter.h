@@ -48,8 +48,9 @@ namespace MessageHelper
 		void append(uint8* type,uint8* val,int size);
 		void append(char* str,int size);
 
-		int					_pos;
-		std::vector<char>   _data;
+		char* _data;
+		int _offset;
+		int _size;
 	};
 }
 

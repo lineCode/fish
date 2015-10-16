@@ -6,9 +6,9 @@
 
 namespace MessageHelper
 {
-	MessageWriter::MessageWriter(int size):_pos(0)
+	MessageWriter::MessageWriter(int size):_offset(0),_size(size)
 	{
-		_data.resize(size);
+		_data = (char*)malloc(size);
 	}
 
 	MessageWriter::~MessageWriter(void)
@@ -112,49 +112,50 @@ namespace MessageHelper
 
 	char* MessageWriter::Data()
 	{
-		return &_data[0];
+		return _data;
 	}
 
 	void MessageWriter::Reset()
 	{
-		_pos = 0;
+		_offset = 0;
 	}
 
 	int MessageWriter::Length()
 	{
-		return _pos;
+		return _offset;
 	}
 
 	void MessageWriter::reserve(int cnt)
 	{
-		int size = _data.size();
-		int need = _pos + cnt;
+		int size = _size;
+		int need = _offset + cnt;
 		if (size < need)
 		{
 			while(size < need)
 				size = size * 2;
-			_data.resize(size);
+			_size = size;
+			_data = (char*)realloc(_data,size);
 		}
 	}
 
 	void MessageWriter::append(uint8* type,uint8* val,int cnt)
 	{
 		reserve(cnt + 1);
-		_data[_pos] = *type;
-		_pos += 1;
-		memcpy((void*)&_data[_pos],val,cnt);
-		_pos += cnt;
+		_data[_offset] = *type;
+		_offset += 1;
+		memcpy((void*)&_data[_offset],val,cnt);
+		_offset += cnt;
 	}
 
 	void MessageWriter::append(char* str,int size)
 	{
 		reserve(size + 3);
-		_data[_pos] = TYPE_STRING;
-		_pos += 1;
-		memcpy(&_data[_pos],&size,2);
-		_pos += 2;
-		memcpy(&_data[_pos],str,size);
-		_pos += size;
+		_data[_offset] = TYPE_STRING;
+		_offset += 1;
+		memcpy(&_data[_offset],&size,2);
+		_offset += 2;
+		memcpy(&_data[_offset],str,size);
+		_offset += size;
 	}
 
 	int MessageWriter::Register(lua_State* L)
