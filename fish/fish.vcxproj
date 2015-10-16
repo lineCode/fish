@@ -81,12 +81,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Bootstrap.h" />
+    <ClInclude Include="scene\scenemanager.h" />
     <ClInclude Include="FishApp.h" />
+    <ClInclude Include="scene\sceneobject.h" />
+    <ClInclude Include="scene\scene.h" />
+    <ClInclude Include="scene\updater.h" />
+    <ClInclude Include="scene\updatermanager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bootstrap.cpp" />
+    <ClCompile Include="scene\scenemanager.cpp" />
     <ClCompile Include="FishApp.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="scene\sceneobject.cpp" />
+    <ClCompile Include="scene\scene.cpp" />
+    <ClCompile Include="scene\updatermanager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

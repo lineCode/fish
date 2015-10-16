@@ -9,12 +9,12 @@ fish.Start(function ()
 	-- 	mongo.Insert("fish.role",{id=i,name="mrq."..i})
 	-- end
 
-	local updator = {}
-	updator["$set"] = {id = 1,name = "dl"}
-	mongo.Update("fish.role",{id = 1},updator)
+	-- local updator = {}
+	-- updator["$set"] = {id = 1,name = "dl"}
+	-- mongo.Update("fish.role",{id = 1},updator)
 
-	local result = mongo.FindOne("fish.role",{id = 1})
-	util.dump_table(result)
+	-- local result = mongo.FindOne("fish.role",{id = 1})
+	-- util.dump_table(result)
 	
 	local result = mongo.FindAll("fish.role")
 	for _,info in pairs(result) do

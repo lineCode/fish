@@ -25,7 +25,8 @@ public:
 
 	virtual int Run();
 
-	
+	virtual int HandleTimeout();
+
 private:
 	std::string _file;
 	Network::Connector<MongoSession> _mongoConnector;

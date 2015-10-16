@@ -4,7 +4,6 @@ local util = require "lualib.util"
 local cjson = require "cjson"
 local serialize = require "serialize"
 local bson = require "bson"
-local bsoncpp = require "BsonCpp"
 
 fish.Start(function ()
 	
@@ -31,32 +30,32 @@ fish.Start(function ()
 
 	print("stream",fish.Timestamp2Second(time2-time1))
 
-	local tbl = {single = true,name = "mrq",age = 26,test1 = 123.456,test2=456.789,test3=64}
-	for i =1 ,1024*1024 do
-		cjson.encode(tbl)
-	end
+	-- local tbl = {single = true,name = "mrq",age = 26,test1 = 123.456,test2=456.789,test3=64}
+	-- for i =1 ,1024*1024 do
+	-- 	cjson.encode(tbl)
+	-- end
 
-	local time3 = fish.Timestamp()
-	print("cjson",fish.Timestamp2Second(time3-time2))
+	-- local time3 = fish.Timestamp()
+	-- print("cjson",fish.Timestamp2Second(time3-time2))
 
-	for i =1 ,1024*1024 do
-		serialize.pack(tbl)
-	end
+	-- for i =1 ,1024*1024 do
+	-- 	serialize.pack(tbl)
+	-- end
 
-	local time4 = fish.Timestamp()
-	print("serialize",fish.Timestamp2Second(time4-time3))
+	-- local time4 = fish.Timestamp()
+	-- print("serialize",fish.Timestamp2Second(time4-time3))
 
-	for i =1 ,1024*1024 do
-		bson.encode(tbl)
-	end
+	-- for i =1 ,1024*1024 do
+	-- 	bson.encode(tbl)
+	-- end
 
-	local time5 = fish.Timestamp()
-	print("bson",fish.Timestamp2Second(time5-time4))
+	-- local time5 = fish.Timestamp()
+	-- print("bson",fish.Timestamp2Second(time5-time4))
 
-	for i =1 ,1024*1024 do
-		bsoncpp.Encode(tbl)
-	end
+	-- for i =1 ,1024*1024 do
+	-- 	bsoncpp.Encode(tbl)
+	-- end
 
-	local time6 = fish.Timestamp()
-	print("bsoncpp",fish.Timestamp2Second(time6-time5))
+	-- local time6 = fish.Timestamp()
+	-- print("bsoncpp",fish.Timestamp2Second(time6-time5))
 end)
