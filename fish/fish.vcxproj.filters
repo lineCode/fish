@@ -21,24 +21,6 @@
     <ClInclude Include="Bootstrap.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="scene\AoiObject.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="scene\Scene.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="scene\SceneAoi.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="scene\SceneApp.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="scene\SceneManager.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="scene\SceneMongo.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FishApp.cpp">
@@ -48,24 +30,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Bootstrap.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="scene\AoiObject.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="scene\Scene.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="scene\SceneAoi.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="scene\SceneApp.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="scene\SceneManager.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="scene\SceneMongo.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
