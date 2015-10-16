@@ -1,7 +1,7 @@
 local fish = require "lualib.fish"
 local util = require "lualib.util"
 local Core = require "Core"
-local Bson = require "Bson"
+local Bson = require "BsonCpp"
 local Mongo = require "MongoCore"
 
 local _M = {}

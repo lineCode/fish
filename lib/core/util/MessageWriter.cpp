@@ -13,6 +13,7 @@ namespace MessageHelper
 
 	MessageWriter::~MessageWriter(void)
 	{
+		free((void*)_data);
 	}
 
 	MessageWriter& MessageWriter::operator<<(bool value) 

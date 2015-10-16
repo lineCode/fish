@@ -43,7 +43,7 @@ int ServerApp::Init()
 #endif
 	
 	_LuaManager->Require("Core",LuaFish::Register);
-	_LuaManager->Require("Bson",LuaBson::Register);
+	_LuaManager->Require("BsonCpp",LuaBson::Register);
 	_LuaManager->Require("Acceptor",LuaAcceptor::Register);
 	_LuaManager->Require("Connector",LuaConnector::Register);
 	_LuaManager->Require("SocketCore",LuaSocket::Register);

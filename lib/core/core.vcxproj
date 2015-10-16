@@ -39,7 +39,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>..\..\libs\</OutDir>
-    <IncludePath>E:\boost_1_58_0;E:\fish\lib\3rd\protobuf-2.6.0\src;..\3rd\pbc;..\3rd;..\3rd\lpeg;..\3rd\lua\src;..\3rd\bson\src;..\3rd\bson;$(IncludePath)</IncludePath>
+    <IncludePath>E:\boost_1_58_0;E:\fish\lib\3rd\protobuf-2.6.0\src;..\3rd\pbc;..\3rd;..\3rd\lpeg;..\3rd\lua\src;..\3rd\bsoncpp\src;..\3rd\bsoncpp;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -144,6 +144,7 @@
     <ClInclude Include="util\MessageReader.h" />
     <ClInclude Include="util\MessageWriter.h" />
     <ClInclude Include="util\ObjectPool.h" />
+    <ClInclude Include="util\PoolObject.h" />
     <ClInclude Include="util\Singleton.h" />
     <ClInclude Include="AppThread.h" />
     <ClInclude Include="util\ZeroPack.h" />

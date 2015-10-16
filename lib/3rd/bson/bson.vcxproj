@@ -11,18 +11,18 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{E5823452-E7CD-41F3-8223-2E7C788772A6}</ProjectGuid>
+    <ProjectGuid>{1A828E3E-A4DE-4F1F-9A9A-DE2AC04822A2}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>bson</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
@@ -38,11 +38,14 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>E:\boost_1_58_0;..\bson;..\bson\src;$(IncludePath)</IncludePath>
+    <LinkIncremental>true</LinkIncremental>
     <OutDir>..\..\..\libs\</OutDir>
+    <IncludePath>..\lua\src;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\..\libs;$(LibraryPath)</LibraryPath>
+    <EmbedManifest>false</EmbedManifest>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>E:\boost_1_58_0;..\bson\src;..\bson;$(IncludePath)</IncludePath>
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -50,11 +53,12 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>lua.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -65,7 +69,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;BSON_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -75,43 +79,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="lib\atomic_int.h" />
-    <ClInclude Include="lib\base64.h" />
-    <ClInclude Include="lib\md5.h" />
-    <ClInclude Include="lib\md5.hpp" />
-    <ClInclude Include="lib\nonce.h" />
-    <ClInclude Include="src\bson-inl.h" />
-    <ClInclude Include="src\bson.h" />
-    <ClInclude Include="src\bsonassert.h" />
-    <ClInclude Include="src\bsonelement.h" />
-    <ClInclude Include="src\bsonmisc.h" />
-    <ClInclude Include="src\bsonobj.h" />
-    <ClInclude Include="src\bsonobjbuilder.h" />
-    <ClInclude Include="src\bsonobjiterator.h" />
-    <ClInclude Include="src\bsontypes.h" />
-    <ClInclude Include="src\bson_db.h" />
-    <ClInclude Include="src\inline_decls.h" />
-    <ClInclude Include="src\oid.h" />
-    <ClInclude Include="src\ordering.h" />
-    <ClInclude Include="src\stringdata.h" />
-    <ClInclude Include="src\util\builder.h" />
-    <ClInclude Include="src\util\embedded_builder.h" />
-    <ClInclude Include="src\util\hex.h" />
-    <ClInclude Include="src\util\json.h" />
-    <ClInclude Include="src\util\misc.h" />
-    <ClInclude Include="src\util\optime.h" />
-    <ClInclude Include="src\util\time_support.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="lib\base64.cpp" />
-    <ClCompile Include="lib\md5.c" />
-    <ClCompile Include="lib\nonce.cpp" />
-    <ClCompile Include="src\bsonobj.cpp" />
-    <ClCompile Include="src\oid.cpp" />
-    <ClCompile Include="src\util\json.cpp" />
+    <ClCompile Include="lua-bson.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

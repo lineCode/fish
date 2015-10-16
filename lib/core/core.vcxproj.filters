@@ -48,9 +48,6 @@
     <ClCompile Include="lualib\LuaAcceptor.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="lualib\LuaBson.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="lualib\LuaConnector.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -108,6 +105,9 @@
     <ClCompile Include="lualib\LuaServer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="lualib\LuaBson.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="platform.h">
@@ -156,9 +156,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="lualib\LuaAcceptor.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="lualib\LuaBson.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="lualib\LuaConnector.h">
@@ -228,6 +225,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="lualib\LuaServer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="util\PoolObject.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="lualib\LuaBson.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
