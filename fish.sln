@@ -27,6 +27,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "luafilesystem", "lib\3rd\lu
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "protobuf", "lib\3rd\protobuf\protobuf.vcxproj", "{AE979B64-0EA9-4D90-A105-508BE1B96BB0}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "serialize", "lib\3rd\serialize\serialize.vcxproj", "{E4DF0B80-E123-47CD-9C0B-A83FB43AB1DB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -77,6 +79,10 @@ Global
 		{AE979B64-0EA9-4D90-A105-508BE1B96BB0}.Debug|Win32.Build.0 = Debug|Win32
 		{AE979B64-0EA9-4D90-A105-508BE1B96BB0}.Release|Win32.ActiveCfg = Release|Win32
 		{AE979B64-0EA9-4D90-A105-508BE1B96BB0}.Release|Win32.Build.0 = Release|Win32
+		{E4DF0B80-E123-47CD-9C0B-A83FB43AB1DB}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E4DF0B80-E123-47CD-9C0B-A83FB43AB1DB}.Debug|Win32.Build.0 = Debug|Win32
+		{E4DF0B80-E123-47CD-9C0B-A83FB43AB1DB}.Release|Win32.ActiveCfg = Release|Win32
+		{E4DF0B80-E123-47CD-9C0B-A83FB43AB1DB}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -93,5 +99,6 @@ Global
 		{82356F33-956B-4931-9977-BD7994B1C761} = {98F09C55-423C-4AEC-BC80-75EA772F6691}
 		{2100A70F-D648-41C5-9CF6-2F8AA1F16F6B} = {98F09C55-423C-4AEC-BC80-75EA772F6691}
 		{AE979B64-0EA9-4D90-A105-508BE1B96BB0} = {98F09C55-423C-4AEC-BC80-75EA772F6691}
+		{E4DF0B80-E123-47CD-9C0B-A83FB43AB1DB} = {98F09C55-423C-4AEC-BC80-75EA772F6691}
 	EndGlobalSection
 EndGlobal

@@ -11,7 +11,6 @@ namespace MessageHelper
 		_data.resize(size);
 	}
 
-
 	MessageWriter::~MessageWriter(void)
 	{
 	}
@@ -95,19 +94,19 @@ namespace MessageHelper
 
 	MessageWriter& MessageWriter::operator<<(const std::string& str)
 	{
-		appendStr((char*)str.c_str(),str.length());
+		append((char*)str.c_str(),str.length());
 		return *this;
 	}
 
 	MessageWriter& MessageWriter::operator<<(const char *str) 
 	{
-		appendStr((char*)str,strlen(str));
+		append((char*)str,strlen(str));
 		return *this;
 	}
 
 	MessageWriter& MessageWriter::AppendString(const char* str,int size)
 	{
-		appendStr((char*)str,size);
+		append((char*)str,size);
 		return *this;
 	}
 
@@ -116,35 +115,28 @@ namespace MessageHelper
 		return &_data[0];
 	}
 
-	int MessageWriter::Length()
-	{
-		return _pos;
-	}
-
 	void MessageWriter::Reset()
 	{
 		_pos = 0;
 	}
 
+	int MessageWriter::Length()
+	{
+		return _pos;
+	}
+
 	void MessageWriter::reserve(int cnt)
 	{
-		if (cnt == 0)
-			return;
-		if (_data.size() < _pos + cnt + 1)
+		int size = _data.size();
+		int need = _pos + cnt;
+		if (size < need)
 		{
-			int size = _data.size();
-			for (;;)
-			{
+			while(size < need)
 				size = size * 2;
-				if (size > _pos + cnt)
-				{
-					_data.resize(size);
-					break;
-				}
-			}
-
+			_data.resize(size);
 		}
 	}
+
 	void MessageWriter::append(uint8* type,uint8* val,int cnt)
 	{
 		reserve(cnt + 1);
@@ -154,10 +146,9 @@ namespace MessageHelper
 		_pos += cnt;
 	}
 
-	void MessageWriter::appendStr(char* str,int size)
+	void MessageWriter::append(char* str,int size)
 	{
 		reserve(size + 3);
-
 		_data[_pos] = TYPE_STRING;
 		_pos += 1;
 		memcpy(&_data[_pos],&size,2);
@@ -173,9 +164,6 @@ namespace MessageHelper
 		luaL_Reg l[] =
 		{
 			{ "Write" , MessageWriter::_Write },
-			{ "New" , MessageWriter::_New },
-			{ "Delete" , MessageWriter::_Delete },
-			{ "Append" , MessageWriter::_Append },
 			{ NULL, NULL },
 		};
 
@@ -277,32 +265,6 @@ namespace MessageHelper
 
 		app->WriterPool().Push(writer);
 		return 1;
-	}
-
-	int MessageWriter::_New(lua_State* L)
-	{
-		ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
-
-		MessageWriter* writer;
-		app->WriterPool().Pop(writer);
-		writer->Reset();
-
-		lua_pushlightuserdata(L,(void*)writer);
-
-		return 1;
-	}
-
-	int MessageWriter::_Delete(lua_State* L)
-	{
-		ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
-		MessageWriter* writer = (MessageWriter*)lua_touserdata(L,1);
-		app->WriterPool().Push(writer);
-		return 0;
-	}
-
-	int MessageWriter::_Append(lua_State* L)
-	{
-		return 0;
 	}
 
 }
