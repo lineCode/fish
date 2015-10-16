@@ -4,7 +4,6 @@
 #include "lualib/LuaSocket.h"
 #include "lualib/LuaServer.h"
 #include "lualib/LuaTimer.h"
-#include "lualib/LuaBson.h"
 #include "lualib/LuaMongo.h"
 #include "util/BufferHelper.h"
 #include "util/format.h"
@@ -43,7 +42,6 @@ int ServerApp::Init()
 #endif
 	
 	_LuaManager->Require("Core",LuaFish::Register);
-	_LuaManager->Require("BsonCpp",LuaBson::Register);
 	_LuaManager->Require("Acceptor",LuaAcceptor::Register);
 	_LuaManager->Require("Connector",LuaConnector::Register);
 	_LuaManager->Require("SocketCore",LuaSocket::Register);

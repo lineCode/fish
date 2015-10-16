@@ -4,7 +4,7 @@
 
 bool MongoCursor::More()
 {
-	int total = _size - _pos;
+	int total = _size - _offset;
 	if (total == 0)
 		return false;
 
@@ -16,8 +16,8 @@ bool MongoCursor::More()
 
 char* MongoCursor::Next()
 {
-	char* data = (char*)_data;
-	_pos += MongoCursor::BsonSize(data);
+	char* data = (char*)_data + _offset;
+	_offset += MongoCursor::BsonSize(data);
 	return data;
 }
 

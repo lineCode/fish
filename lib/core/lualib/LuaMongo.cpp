@@ -1,6 +1,7 @@
 #include "LuaMongo.h"
 #include "../ServerApp.h"
 #include "../mongo/MongoBase.h"
+#include "../mongo/MongoCursor.h"
 #include <stdlib.h>
 
 namespace LuaMongo
@@ -17,13 +18,9 @@ namespace LuaMongo
 
 		size_t nsize;
 		const char* name = lua_tolstring(L,1,&nsize);
-
 		const char* cmd = (const char*)lua_touserdata(L,2);
-		int csize = lua_tointeger(L,3);
 
-		int session = mongo->doRunCommand(name,nsize,cmd,csize);
-
-		free((void*)cmd);
+		int session = mongo->doRunCommand(name,nsize,cmd,MongoCursor::BsonSize(cmd));
 
 		lua_pushinteger(L,session);
 		return 1;
@@ -35,27 +32,18 @@ namespace LuaMongo
 		MongoBase* mongo = (MongoBase*)app->Mongo();
 		if (mongo == NULL)
 			luaL_error(L,"mongo not init!");
-
 		if (mongo->IsAlive() == false)
 			luaL_error(L,"mongo not connected!");
 
 		size_t nsize;
 		const char* name = lua_tolstring(L,1,&nsize);
-
 		const char* query = (const char*)lua_touserdata(L,2);
-		int qsize = lua_tointeger(L,3);
+		const char* selector = (const char*)lua_touserdata(L,3);
+		int flag = lua_tointeger(L,4);
+		int skip = lua_tointeger(L,5);
+		int number = lua_tointeger(L,6);
 
-		const char* selector = (const char*)lua_touserdata(L,4);
-		int ssize = lua_tointeger(L,5);
-
-		int flag = lua_tointeger(L,6);
-		int skip = lua_tointeger(L,7);
-		int number = lua_tointeger(L,8);
-
-		int session = mongo->doQuery(name,nsize,query,qsize,selector,ssize,flag,skip,number);
-
-		free((void*)query);
-		free((void*)selector);
+		int session = mongo->doQuery(name,nsize,query,MongoCursor::BsonSize(query),selector,MongoCursor::BsonSize(selector),flag,skip,number);
 
 		lua_pushinteger(L,session);
 		return 1;
@@ -97,19 +85,11 @@ namespace LuaMongo
 
 		size_t nsize;
 		const char* name = lua_tolstring(L,1,&nsize);
-
 		int flag = lua_tointeger(L,2);
-
 		const char* selector = (const char*)lua_touserdata(L,3);
-		int ssize = lua_tointeger(L,4);
+		const char* updator = (const char*)lua_touserdata(L,4);
 
-		const char* updator = (const char*)lua_touserdata(L,5);
-		int usize = lua_tointeger(L,6);
-
-		mongo->doUpdate(name,nsize,flag,selector,ssize,updator,usize);
-
-		free((void*)selector);
-		free((void*)updator);
+		mongo->doUpdate(name,nsize,flag,selector,MongoCursor::BsonSize(selector),updator,MongoCursor::BsonSize(updator));
 
 		return 0;
 	}
@@ -126,15 +106,10 @@ namespace LuaMongo
 
 		size_t nsize;
 		const char* name = lua_tolstring(L,1,&nsize);
-
 		int flag = lua_tointeger(L,2);
-
 		const char* document = (const char*)lua_touserdata(L,3);
-		int dsize = lua_tointeger(L,4);
 
-		mongo->doInsert(name,nsize,flag,document,dsize);
-
-		free((void*)document);
+		mongo->doInsert(name,nsize,flag,document,MongoCursor::BsonSize(document));
 
 		return 0;
 	}

@@ -4,7 +4,6 @@ local mongo = require "lualib.mongo"
 local util = require "lualib.util"
 local Core = require "Core"
 local cjson = require "cjson"
-local bson = require "BsonCpp"
 local httpd = require "lualib.http.httpd"
 local sockethelper = require "lualib.http.sockethelper"
 local urllib = require "lualib.http.url"
@@ -151,11 +150,15 @@ fish.Start(function ()
 
 	fish.Log("tset mongo")
 
-	for i = 1,10000 do
-		fish.Fork(function ()
-			local result = mongo.FindAll("u3d.role")
-		end)
+	-- for i = 1,10000 do
+	-- 	mongo.Insert("fish.role",{id=i,name="mrq."..i})
+	-- end
+
+	local result = mongo.FindAll("fish.role")
+	for _,info in pairs(result) do
+		print(info.id,info.name)
 	end
+
 
 	socket.Listen("0.0.0.0",1992,function (source)
 		socket.Start(source)

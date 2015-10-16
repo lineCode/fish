@@ -5,7 +5,7 @@
 class MongoCursor
 {
 public:
-	MongoCursor(const char* data,int size):_data(data),_size(size),_pos(0){}
+	MongoCursor(const char* data,int size):_data(data),_size(size),_offset(0){}
 
 	~MongoCursor(void) {}
 
@@ -18,7 +18,7 @@ public:
 private:
 	const char* _data;
 	int _size;
-	int _pos;
+	int _offset;
 };
 
 #endif

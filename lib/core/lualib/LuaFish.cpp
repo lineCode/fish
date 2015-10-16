@@ -209,9 +209,7 @@ int LuaFish::DispatchMongo(int source,int session,const char* data,int size)
 	{
 		char* data = cursor.Next();
 		int size =  MongoCursor::BsonSize(data);
-
-		lua_pushlstring(_L,data,size);
-
+		lua_pushlightuserdata(_L,data);
 		lua_rawseti(_L,-2,index++);
 	}
 	

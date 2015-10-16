@@ -1,7 +1,7 @@
 local fish = require "lualib.fish"
 local util = require "lualib.util"
 local Core = require "Core"
-local Bson = require "BsonCpp"
+local bson = require "bson"
 local Mongo = require "MongoCore"
 
 local _M = {}
@@ -11,11 +11,11 @@ local _replyCo = {}
 local function dispatch(source,_,session,docs)
 	local result = {}
 	if #docs == 1 then
-		result = Bson.Decode(docs[1])
+		result = bson.decode(docs[1])
 	else
 		result = {}
 		for _,doc in pairs(docs) do
-			table.insert(result,Bson.Decode(doc))
+			table.insert(result,bson.decode(doc))
 		end
 	end
 
@@ -28,24 +28,28 @@ local function dispatch(source,_,session,docs)
 end
 
 function _M.RunCommand(func,name,cmd,cmdv,...)
-	local bsonCmd,bsonSize
+	local bsonCmd
 	if not cmdv then
-		bsonCmd,bsonSize = Bson.EncodeOrder(cmd,1)
+		bsonCmd = bson.encode_order(cmd,1)
 	else
-		bsonCmd,bsonSize = Bson.EncodeOrder(cmd,cmdv,...)
+		bsonCmd = bson.encode_order(cmd,cmdv,...)
 	end
 
-	local session = Mongo.RunCommand(name..".$cmd",bsonCmd,bsonSize)
+	local session = Mongo.RunCommand(name..".$cmd",bsonCmd)
 	replyFuncs[session] = func
+	
+	fish.Wait()
+
+	local result = _replyCo[session].result
+	_replyCo[session] = nil
+	return result
 end
 
 function _M.FindOne(name,query,selector)
 	query = query or {}
 	selector = selector or {}
 
-	local queryData,querySize = Bson.Encode(query)
-	local selectorData,selectorSize = Bson.Encode(selector)
-	local session = Mongo.Query(name,queryData,querySize,selectorData,selectorSize,0,0,1)
+	local session = Mongo.Query(name,bson.encode(query),bson.encode(selector),0,0,1)
 	_replyCo[session] = {co = coroutine.running(),result = nil}
 
 	fish.Wait()
@@ -59,9 +63,7 @@ function _M.FindAll(name,query,selector)
 	query = query or {}
 	selector = selector or {}
 
-	local queryData,querySize = Bson.Encode(query)
-	local selectorData,selectorSize = Bson.Encode(selector)
-	local session = Mongo.Query(name,queryData,querySize,selectorData,selectorSize,0,0,10000)
+	local session = Mongo.Query(name,bson.encode(query),bson.encode(selector),0,0,10000)
 	_replyCo[session] = {co = coroutine.running(),result = nil}
 
 	fish.Wait()
@@ -72,15 +74,12 @@ function _M.FindAll(name,query,selector)
 end
 
 function _M.Insert(name,documents)
-	local doc,docSize = Bson.Encode(documents)
-	Mongo.Insert(name,0,doc,docSize)
+	Mongo.Insert(name,0,bson.encode(documents))
 end
 
 function _M.Update(name,selector,updator,upsert,multi)
 	local flags	= (upsert and 1	or 0) +	(multi and 2 or	0)
-	local selector,selectorsize = Bson.Encode(selector)
-	local updator,updatorsize = Bson.Encode(updator)
-	Mongo.Update(name,flags,selector,selectorsize,updator,updatorsize)
+	Mongo.Update(name,flags,bson.encode(selector),bson.encode(updator))
 end
 
 function _M.Clear()
