@@ -3,7 +3,7 @@ AR = ar
 CFLAG = -g -O2 -fPIC -Wall
 
 INCLUDE = -I. -I./src
-TARGET = ./libbson.a
+TARGET = ./libbsoncpp.a
 
 OBJ = bsonobj.o \
 	  oid.o \

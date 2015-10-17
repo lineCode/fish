@@ -2,7 +2,7 @@ CC = g++
 AR = ar
 CFLAG = -g -O2 -fPIC -Wall
 
-INCLUDE = -I. -I../3rd -I../3rd/bson -I../3rd/bson/src -I../3rd/protobuf-2.6.0/src
+INCLUDE = -I. -I../3rd -I../3rd/bsoncpp -I../3rd/bsoncpp/src
 TARGET = ./libcore.a
 
 OBJ = EventPoller.o \
@@ -13,7 +13,6 @@ OBJ = EventPoller.o \
 	  Session.o \
 	  WakeupSession.o \
 	  LuaAcceptor.o \
-	  LuaBson.o \
 	  LuaConnector.o \
 	  LuaMongo.o \
 	  LuaReader.o \
@@ -39,7 +38,7 @@ OBJ = EventPoller.o \
 
 
 SRC = ./network/EventPoller.cpp ./network/EpollPoller.cpp ./network/TcpReader.cpp ./network/Network.cpp ./network/Reader.cpp ./network/Session.cpp ./network/WakeupSession.cpp \
-./lualib/LuaAcceptor.cpp ./lualib/LuaBson.cpp ./lualib/LuaConnector.cpp ./lualib/LuaMongo.cpp ./lualib/LuaReader.cpp ./lualib/LuaFish.cpp ./lualib/LuaServer.cpp ./lualib/LuaSocket.cpp ./lualib/LuaTimer.cpp \
+./lualib/LuaAcceptor.cpp ./lualib/LuaConnector.cpp ./lualib/LuaMongo.cpp ./lualib/LuaReader.cpp ./lualib/LuaFish.cpp ./lualib/LuaServer.cpp ./lualib/LuaSocket.cpp ./lualib/LuaTimer.cpp \
 ./mongo/MongoBase.cpp ./mongo/MongoCursor.cpp ./mongo/MongoSession.cpp \
 ./thread/Thread.cpp \
 ./time/TimerManager.cpp ./time/Timestamp.cpp \

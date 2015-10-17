@@ -21,21 +21,6 @@
     <ClInclude Include="Bootstrap.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="scene\scene.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="scene\sceneobject.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="scene\updater.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="scene\updatermanager.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="scene\scenemanager.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FishApp.cpp">
@@ -45,18 +30,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Bootstrap.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="scene\scene.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="scene\sceneobject.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="scene\updatermanager.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="scene\scenemanager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

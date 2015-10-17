@@ -1,8 +1,6 @@
 #include "FishApp.h"
 #include "Logger.h"
 #include "util/format.h"
-#include "scene/updatermanager.h"
-#include "scene/scenemanager.h"
 
 FishApp::FishApp(std::string file):
 	_file(file),
@@ -20,9 +18,6 @@ int FishApp::Init()
 	ServerApp::Init();
 
 	_LuaManager->DoFile(_file.c_str());
-
-	SceneManager* sceneMgr = new SceneManager();
-	sceneMgr->Init();
 
 	return 0;
 }
@@ -58,6 +53,5 @@ int FishApp::Run()
 int FishApp::HandleTimeout()
 {
 	ServerApp::HandleTimeout();
-	UpdaterManager::GetSingleton().Update(Now());
 	return 0;
 }
