@@ -4,8 +4,8 @@ CFLAG = -g -O2 -fPIC -Wall
 
 INCLUDE = -I. -I../lib/core -I../lib/3rd -I../lib/3rd/lua/src -I../lib/3rd/bson -I../lib/3rd/bson/src
 TARGET = ./fish
-OBJ = main.o FishApp.o Bootstrap.o
-SRC = ./main.cpp ./FishApp.cpp ./Bootstrap.cpp
+OBJ = main.o FishApp.o Bootstrap.o ClientAcceptor.o ClientSession.o MessageHandler.o
+SRC = main.cpp FishApp.cpp Bootstrap.cpp ClientAcceptor.cpp ClientSession.cpp MessageHandler.cpp
 
 all:$(TARGET)
 
