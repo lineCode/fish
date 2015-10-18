@@ -25,6 +25,9 @@ void Bootstrap::Startup(const char* file)
 
 	if (_config.HasMember("mongo"))
 		app->ConnectMongo(_config["mongo"]["ip"].GetString(),_config["mongo"]["port"].GetInt());
+
+	if (_config.HasMember("client"))
+		app->ListenClient(_config["client"]["ip"].GetString(),_config["client"]["port"].GetInt());
 	
 	app->Init();
 

@@ -283,7 +283,6 @@ int LuaFish::Register(lua_State* L)
 		{ "TimestampToSecond",LuaFish::_TimestampToSecond},
 		{ "GenSession" ,LuaFish::_GenSession },
 		{ "CallBack" ,LuaFish::_CallBack },
-		{ "ConfigInit" ,LuaFish::_ConfigInit },
 		{ NULL, NULL },
 	};
 
@@ -411,20 +410,3 @@ int LuaFish::_CallBack(lua_State* L)
 	app->LuaManager()->CallBack(luaL_ref(L, LUA_REGISTRYINDEX));
 	return 0;
 }
-
-int LuaFish::_ConfigInit(lua_State* L)
-{
-	ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
-
-	size_t size = 0;
-	const char* name = lua_tolstring(L,1,&size);
-
-	int id = lua_tointeger(L,2);
-
-	size_t jsonsize = 0;
-	const char* json = lua_tolstring(L,3,&jsonsize);
-
-	app->ConfigInit(id,name,json,jsonsize);
-	return 0;
-}
-

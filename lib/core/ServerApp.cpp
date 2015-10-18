@@ -99,33 +99,12 @@ uint64 ServerApp::Now()
 {
 	return _now;
 }
-void ServerApp::RegisterCallback(int id,MessageCallBack cb)
-{
-	_callbackMap[id] = cb;
-}
 
 int ServerApp::Dispatch(int fd,const char* ptr,int size)
 {
 	BufferHelper helper((char*)ptr,size);
 
-	bool response = 0;
-	short session;
-	short method = 0;
-	helper >> response >> session >> method;
-
-	CallBackMap::iterator iter = _callbackMap.find(method);
-	if (iter != _callbackMap.end())
-		iter->second(fd,helper);
-	else
-		_LuaManager->DispatchClient(fd,method,helper.begin(),helper.length());
-
-	free((void*)ptr);
 	return 0;
-}
-
-void ServerApp::ConfigInit(int id,const char* name,const char* json,int size)
-{
-
 }
 
 void ServerApp::Mongo(Network::Session* session)

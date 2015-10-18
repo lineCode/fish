@@ -9,6 +9,7 @@ int main(int argc, char *argv[])
 	const char* config = argv[1];
 
 	Logger* logger = Logger::CreateLogger();
+
 	Bootstrap bootstrap;
 	bootstrap.Startup(config);
 

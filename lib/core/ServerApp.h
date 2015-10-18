@@ -18,8 +18,6 @@ class MongoSession;
 class ServerApp : public TimeoutHandler
 {
 public:
-	typedef boost::function<void (int,BufferHelper&)> MessageCallBack;
-	typedef std::map<int,MessageCallBack> CallBackMap;
 	typedef std::map<int,Network::Session*>	SessionMap;
 
 public:
@@ -46,11 +44,7 @@ public:
 
 	virtual uint64					Now();
 
-	virtual void					RegisterCallback(int id,MessageCallBack cb);
-
 	virtual int						Dispatch(int fd,const char* ptr,int size);
-
-	virtual void					ConfigInit(int id,const char* name,const char* json,int size);
 
 	void							Mongo(Network::Session* mongo);
 
@@ -65,7 +59,6 @@ protected:
 	LuaFish*			   _LuaManager;
 	Network::Session*	   _mongo;
 	SessionMap			   _sessionMap;
-	CallBackMap			   _callbackMap;
 	uint64				   _now;
 	ObjectPool<MemoryStream> _streamPool;
 	ObjectPool<MessageHelper::MessageWriter> _writerPool;
