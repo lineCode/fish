@@ -1,5 +1,5 @@
 local fish = require "lualib.fish"
-local telnet = require "lualib.telnet.telnet"
+local telnet = require "lualib.telnet"
 
 
 local cmd = {}
