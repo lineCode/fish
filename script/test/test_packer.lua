@@ -4,9 +4,10 @@ local util = require "lualib.util"
 local cjson = require "cjson"
 local serialize = require "serialize"
 local bson = require "bson"
+local profiler = require "profiler"
 
 fish.Start(function ()
-	
+	profiler.start("record")
 	local time1 = fish.Timestamp()
 	local inst = stream:New()
 	inst:WriteString("single")
@@ -29,7 +30,7 @@ fish.Start(function ()
 	local time2 = fish.Timestamp()
 
 	print("stream",fish.Timestamp2Second(time2-time1))
-
+	profiler.stop()
 	-- local tbl = {single = true,name = "mrq",age = 26,test1 = 123.456,test2=456.789,test3=64}
 	-- for i =1 ,1024*1024 do
 	-- 	cjson.encode(tbl)

@@ -29,6 +29,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bsoncpp", "lib\3rd\bsoncpp\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bson", "lib\3rd\bson\bson.vcxproj", "{1A828E3E-A4DE-4F1F-9A9A-DE2AC04822A2}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "luaprofiler", "lib\3rd\luaprofiler\luaprofiler.vcxproj", "{7D9CD966-624B-454F-9DC7-58BF87D8FCE8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -83,6 +85,10 @@ Global
 		{1A828E3E-A4DE-4F1F-9A9A-DE2AC04822A2}.Debug|Win32.Build.0 = Debug|Win32
 		{1A828E3E-A4DE-4F1F-9A9A-DE2AC04822A2}.Release|Win32.ActiveCfg = Release|Win32
 		{1A828E3E-A4DE-4F1F-9A9A-DE2AC04822A2}.Release|Win32.Build.0 = Release|Win32
+		{7D9CD966-624B-454F-9DC7-58BF87D8FCE8}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7D9CD966-624B-454F-9DC7-58BF87D8FCE8}.Debug|Win32.Build.0 = Debug|Win32
+		{7D9CD966-624B-454F-9DC7-58BF87D8FCE8}.Release|Win32.ActiveCfg = Release|Win32
+		{7D9CD966-624B-454F-9DC7-58BF87D8FCE8}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -100,5 +106,6 @@ Global
 		{E4DF0B80-E123-47CD-9C0B-A83FB43AB1DB} = {98F09C55-423C-4AEC-BC80-75EA772F6691}
 		{CEA93792-A718-4775-AFEB-2CFFF5A54FD1} = {98F09C55-423C-4AEC-BC80-75EA772F6691}
 		{1A828E3E-A4DE-4F1F-9A9A-DE2AC04822A2} = {98F09C55-423C-4AEC-BC80-75EA772F6691}
+		{7D9CD966-624B-454F-9DC7-58BF87D8FCE8} = {98F09C55-423C-4AEC-BC80-75EA772F6691}
 	EndGlobalSection
 EndGlobal

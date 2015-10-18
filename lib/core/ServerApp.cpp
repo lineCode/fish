@@ -36,9 +36,11 @@ int ServerApp::Init()
 #if defined (WIN32)
 	_LuaManager->LuaPath("..\\script\\?.lua;");	
 	_LuaManager->LuaPath("..\\lib\\3rd\\pbc\\binding\\lua\\?.lua;");
+	_LuaManager->LuaPath("..\\lib\\3rd\\luaprofiler\\analyzer\\?.lua;");
 #else
 	_LuaManager->LuaPath("../script/?.lua;");
 	_LuaManager->LuaPath("../lib/3rd/pbc/binding/lua/?.lua;");
+	_LuaManager->LuaPath("../lib/3rd/luaprofiler/analyzer/?.lua;");
 #endif
 	
 	_LuaManager->Require("Core",LuaFish::Register);
