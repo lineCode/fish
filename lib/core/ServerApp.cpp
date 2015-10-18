@@ -5,7 +5,6 @@
 #include "lualib/LuaServer.h"
 #include "lualib/LuaTimer.h"
 #include "lualib/LuaMongo.h"
-#include "util/BufferHelper.h"
 #include "util/format.h"
 #include "time/Timestamp.h"
 
@@ -20,6 +19,7 @@ ServerApp::ServerApp():
 	_LuaManager = new LuaFish();
 	_mongo = NULL;
 	_now = Now();
+	_state = AppRun;
 }
 
 
@@ -59,9 +59,19 @@ int ServerApp::Fina()
 	return 0;
 }
 
+void ServerApp::Stop()
+{
+	_state = AppStop;
+}
+
 int ServerApp::Run()
 {
-	return this->_poller->ProcessEvents();
+	while (_state == AppRun)
+	{
+		this->_poller->ProcessEvents();
+	}
+	this->Fina();
+	return 0; 
 }
 
 int ServerApp::HandleTimeout()
@@ -98,13 +108,6 @@ Network::EventPoller* ServerApp::Poller()
 uint64 ServerApp::Now()
 {
 	return _now;
-}
-
-int ServerApp::Dispatch(int fd,const char* ptr,int size)
-{
-	BufferHelper helper((char*)ptr,size);
-
-	return 0;
 }
 
 void ServerApp::Mongo(Network::Session* session)

@@ -33,6 +33,13 @@ struct List
 		return _head == NULL? true:false;
 	}
 
+	Node* Next(Node* node)
+	{
+		if (node == NULL)
+			return _head;
+		return _head->_next;
+	}
+
 	T* Front()
 	{
 		return _head->_data;

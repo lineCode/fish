@@ -48,11 +48,7 @@ int FishApp::Fina()
 
 int FishApp::Run()
 {
-	for (;;)
-	{
-		ServerApp::Run();
-	}
-
+	ServerApp::Run();
 	return 0;
 }
 

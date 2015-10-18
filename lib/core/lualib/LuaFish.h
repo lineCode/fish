@@ -60,7 +60,7 @@ public:
 	static int _TimestampToSecond(lua_State* L);
 	static int _GenSession(lua_State* L);
 	static int _CallBack(lua_State* L);
-
+	static int _Stop(lua_State* L);
 protected:
 	lua_State*	_L;
 	int			_callback;

@@ -283,6 +283,7 @@ int LuaFish::Register(lua_State* L)
 		{ "TimestampToSecond",LuaFish::_TimestampToSecond},
 		{ "GenSession" ,LuaFish::_GenSession },
 		{ "CallBack" ,LuaFish::_CallBack },
+		{ "Stop" ,LuaFish::_Stop },
 		{ NULL, NULL },
 	};
 
@@ -408,5 +409,12 @@ int LuaFish::_CallBack(lua_State* L)
 {
 	ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
 	app->LuaManager()->CallBack(luaL_ref(L, LUA_REGISTRYINDEX));
+	return 0;
+}
+
+int LuaFish::_Stop(lua_State* L)
+{
+	ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
+	app->Stop();
 	return 0;
 }

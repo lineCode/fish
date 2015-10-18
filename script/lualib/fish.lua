@@ -262,6 +262,10 @@ function _M.Timestamp2Second(ti)
 	return Core.TimestampToSecond(ti)
 end
 
+function _M.Stop()
+	return Core.Stop()
+end
+
 local function dispatchServer(source,session,type,param,...)
 	local server = _serverInfo[source]
 	if type == 1 then

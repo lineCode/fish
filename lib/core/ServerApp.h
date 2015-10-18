@@ -19,7 +19,7 @@ class ServerApp : public TimeoutHandler
 {
 public:
 	typedef std::map<int,Network::Session*>	SessionMap;
-
+	enum AppState{AppRun,AppStop};
 public:
 	ServerApp(void);
 	virtual ~ServerApp(void);
@@ -27,6 +27,8 @@ public:
 	virtual int						Init();
 
 	virtual int						Fina();
+
+	virtual void					Stop();
 
 	virtual int						Run();
 
@@ -44,8 +46,6 @@ public:
 
 	virtual uint64					Now();
 
-	virtual int						Dispatch(int fd,const char* ptr,int size);
-
 	void							Mongo(Network::Session* mongo);
 
 	Network::Session*				Mongo();
@@ -55,6 +55,7 @@ public:
 	ObjectPool<MessageHelper::MessageWriter>& WriterPool();
 
 protected:
+	AppState			   _state;
 	Network::EventPoller * _poller;
 	LuaFish*			   _LuaManager;
 	Network::Session*	   _mongo;
