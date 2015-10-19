@@ -1,4 +1,6 @@
 #include "MessageHandler.h"
+#include "ClientSession.h"
+#include "FishMongo.h"
 #include <iostream>
 
 
@@ -23,4 +25,7 @@ DEFINE_HANDLER(CMD_AUTH)
 	reader >> str0 >> valBool >> str1 >> valStr >> str2 >> valInt0 >> str3 >> valFloat >> str4 >> valDouble >> str5 >> valInt1;
 
 	std::cout << fmt::format("{} {} {} {} {} {} {} {} {} {} {} {}",str0,valBool,str1,valStr,str2,valInt0,str3,valDouble,str4,valDouble,str5,valInt1) << std::endl;
+
+	FishMongo* mongo = (FishMongo*)((ClientSession*)session)->GetApp()->Mongo();
+	mongo->LoadRoles();
 }

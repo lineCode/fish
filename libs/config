@@ -1,5 +1,10 @@
 {
     "boot": "../script/test/test_client.lua",
+    "mongo":
+    {
+    	"ip":"192.168.15.246",
+    	"port":10005
+    },
     "client":
     {
     	"ip":"127.0.0.1",

@@ -19,6 +19,7 @@ public:
 	int Forward(const char * ptr,int size);
 
 	void SetApp(ServerApp* app);
+	ServerApp* GetApp();
 
 private:
 	ServerApp* _app;

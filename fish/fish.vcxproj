@@ -83,12 +83,14 @@
     <ClInclude Include="Bootstrap.h" />
     <ClInclude Include="ClientSession.h" />
     <ClInclude Include="FishApp.h" />
+    <ClInclude Include="FishMongo.h" />
     <ClInclude Include="MessageHandler.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bootstrap.cpp" />
     <ClCompile Include="ClientSession.cpp" />
     <ClCompile Include="FishApp.cpp" />
+    <ClCompile Include="FishMongo.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MessageHandler.cpp" />
   </ItemGroup>

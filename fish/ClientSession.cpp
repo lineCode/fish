@@ -37,3 +37,8 @@ void ClientSession::SetApp(ServerApp* app)
 {
 	_app = app;
 }
+
+ServerApp* ClientSession::GetApp()
+{
+	return _app;
+}

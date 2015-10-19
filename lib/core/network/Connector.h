@@ -21,6 +21,8 @@ namespace Network
 
 		virtual int ConnectDone();
 
+		virtual SESSION* MakeSession(int fd);
+
 		virtual SESSION* GetSession();
 	protected:
 		EventPoller*	_poller;
@@ -100,7 +102,7 @@ namespace Network
 		int id = _poller->GenId(_fd);
 		if (id != 0)
 		{
-			_session = new SESSION(_poller,_fd);
+			_session = MakeSession(_fd);
 			_session->SetId(id);
 			_poller->RegisterRead(id,_fd,_session);
 			_poller->RegisterError(id,_session);
@@ -111,6 +113,12 @@ namespace Network
 			SocketClose(_fd);
 
 		return 0;
+	}
+
+	template<class SESSION>
+	SESSION* Connector<SESSION>::MakeSession(int fd)
+	{
+		return new SESSION(_poller,_fd);
 	}
 
 	template<class SESSION>

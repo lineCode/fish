@@ -130,6 +130,7 @@
     <ClInclude Include="platform.h" />
     <ClInclude Include="ServerAcceptor.h" />
     <ClInclude Include="ServerApp.h" />
+    <ClInclude Include="ServerConnector.h" />
     <ClInclude Include="thread\Mutex.h" />
     <ClInclude Include="thread\thread.h" />
     <ClInclude Include="time\TimerHandler.h" />

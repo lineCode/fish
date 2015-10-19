@@ -4,7 +4,7 @@
 
 FishApp::FishApp(std::string file):
 	_file(file),
-	_mongoConnector(_poller),
+	_mongoConnector(this,_poller),
 	_clientAcceptor(this,_poller)
 {
 }
@@ -33,7 +33,6 @@ void FishApp::ConnectMongo(const char* host,int port)
 
 	LOG_ERROR(fmt::format("FishApp connect mongodb success"));
 	this->Mongo(_mongoConnector.GetSession());
-	((MongoSession*)_mongo)->SetApp(this);
 }
 
 void FishApp::ListenClient(const char* host,int port)

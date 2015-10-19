@@ -27,6 +27,9 @@
     <ClInclude Include="MessageHandler.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="FishMongo.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FishApp.cpp">
@@ -42,6 +45,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="MessageHandler.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="FishMongo.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

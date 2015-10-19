@@ -6,9 +6,9 @@
 #include <map>
 #include <string>
 
-#include "network/Connector.h"
-#include "mongo/MongoSession.h"
+#include "ServerConnector.h"
 #include "ServerAcceptor.h"
+#include "FishMongo.h"
 #include "ClientSession.h"
 
 class FishApp:public ServerApp
@@ -32,7 +32,7 @@ public:
 
 private:
 	std::string _file;
-	Network::Connector<MongoSession> _mongoConnector;
+	ServerConnector<FishMongo> _mongoConnector;
 	ServerAcceptor<ClientSession> _clientAcceptor;
 };
 
