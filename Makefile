@@ -34,6 +34,10 @@ SERIALIZE_SO := ./libs/serialize.so
 SERIALIZE_NAME ?= serialize.so
 SERIALIZE_INC ?= ./lib/3rd/serialize
 
+PROFILER_SO := ./libs/profiler.so
+PROFILER_NAME ?= profiler.so
+PROFILER_INC ?= ./lib/3rd/luaprofiler
+
 FISH := ./libs/fish
 FISH_INC ?= ./fish
 
@@ -41,7 +45,7 @@ FISH_INC ?= ./fish
 LIBS_DIR := ./libs
 
 
-all: $(LUA_STATICLIB) $(PBC_STATICLIB) $(LPEG_SO) $(CJSON_SO) $(LFS_SO) $(PROTOBUF_SO) $(BSON_SO) $(SERIALIZE_SO) $(CORE_STATICLIB) $(FISH)
+all: $(LUA_STATICLIB) $(PBC_STATICLIB) $(LPEG_SO) $(CJSON_SO) $(LFS_SO) $(PROTOBUF_SO) $(BSON_SO) $(SERIALIZE_SO) $(PROFILER_SO) $(CORE_STATICLIB) $(FISH)
 
 $(LUA_STATICLIB) :
 	cd $(LUA_INC)&& $(MAKE) linux
@@ -79,6 +83,10 @@ $(BSON_SO) :
 $(SERIALIZE_SO) :
 	cd $(SERIALIZE_INC) && $(MAKE)
 	mv $(SERIALIZE_INC)/$(SERIALIZE_NAME) $(LIBS_DIR) 
+
+$(PROFILER_SO) :
+	cd $(PROFILER_INC) && $(MAKE)
+	mv $(PROFILER_INC)/$(PROFILER_NAME) $(LIBS_DIR) 
  
 $(FISH) :
 	cd $(FISH_INC) && $(MAKE)
@@ -95,4 +103,5 @@ clean :
 	rm -rf $(LIBS_DIR)/lfs.so $(LFS_INC)/*.o
 	rm -rf $(LIBS_DIR)/bson.so $(BSON_INC)/*.o
 	rm -rf $(LIBS_DIR)/serialize.so $(SERIALIZE_INC)/*.o
+	rm -rf $(LIBS_DIR)/profiler.so $(PROFILER_INC)/*.o
 	
