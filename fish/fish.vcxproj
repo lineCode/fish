@@ -81,14 +81,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Bootstrap.h" />
-    <ClInclude Include="ClientAcceptor.h" />
     <ClInclude Include="ClientSession.h" />
     <ClInclude Include="FishApp.h" />
     <ClInclude Include="MessageHandler.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bootstrap.cpp" />
-    <ClCompile Include="ClientAcceptor.cpp" />
     <ClCompile Include="ClientSession.cpp" />
     <ClCompile Include="FishApp.cpp" />
     <ClCompile Include="main.cpp" />

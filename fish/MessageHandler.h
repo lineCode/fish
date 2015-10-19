@@ -6,6 +6,7 @@
 #include "network/Session.h"
 #include "util/MessageReader.h"
 
+#define CMD_AUTH (1)
 #define CMD_MAX (1024)
 
 typedef void (*HandlerFunc)(Network::Session* session,MessageHelper::MessageReader& reader);

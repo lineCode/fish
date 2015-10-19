@@ -1,3 +1,8 @@
 {
-    "boot": "../script/test/profiler.lua"
+    "boot": "../script/test/test_client.lua",
+    "client":
+    {
+    	"ip":"127.0.0.1",
+    	"port":1990
+    }
 }

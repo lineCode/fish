@@ -154,17 +154,16 @@ function _M.Send(fd,...)
 end
 
 function _M.Close(fd)
-	print("close",fd)
 	local s = _socket[fd]
 	assert(s ~= nil,fd)
 	if s.type == "socket" then
 		assert(s.connected == true)
-		_socket[fd] = nil
 		local r = SocketCore.Close(s.core)
 		if not r then
 			s.co = coroutine.running()
 			fish.Wait()
 		end
+		_socket[fd] = nil
 		SocketCore.Delete(s.core)
 	elseif s.type == "acceptor" then
 		_socket[fd] = nil

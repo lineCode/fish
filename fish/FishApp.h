@@ -8,7 +8,8 @@
 
 #include "network/Connector.h"
 #include "mongo/MongoSession.h"
-#include "ClientAcceptor.h"
+#include "ServerAcceptor.h"
+#include "ClientSession.h"
 
 class FishApp:public ServerApp
 {
@@ -32,7 +33,7 @@ public:
 private:
 	std::string _file;
 	Network::Connector<MongoSession> _mongoConnector;
-	ClientAcceptor _clientAcceptor;
+	ServerAcceptor<ClientSession> _clientAcceptor;
 };
 
 #endif

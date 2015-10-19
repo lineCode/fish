@@ -227,5 +227,8 @@
     <ClInclude Include="util\PoolObject.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="ServerAcceptor.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

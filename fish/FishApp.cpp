@@ -5,7 +5,7 @@
 FishApp::FishApp(std::string file):
 	_file(file),
 	_mongoConnector(_poller),
-	_clientAcceptor(_poller,this)
+	_clientAcceptor(this,_poller)
 {
 }
 

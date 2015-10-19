@@ -128,6 +128,7 @@
     <ClInclude Include="network\session.h" />
     <ClInclude Include="network\tcpreader.h" />
     <ClInclude Include="platform.h" />
+    <ClInclude Include="ServerAcceptor.h" />
     <ClInclude Include="ServerApp.h" />
     <ClInclude Include="thread\Mutex.h" />
     <ClInclude Include="thread\thread.h" />
