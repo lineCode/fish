@@ -45,9 +45,9 @@ fish.Start(function ()
 	
 	local data = inst:Pack()
 
-	for i = 1,1 do
-		socket.Send(fd,packMessage(1,data))
-	end
+	
+	socket.Send(fd,packMessage(1,data))
+	socket.Send(fd,packMessage(2,data))
 
 	socket.Close(fd)
 	fish.Log("close ")

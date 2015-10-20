@@ -32,6 +32,8 @@ void Bootstrap::Startup(const char* file)
 	app->Init();
 
 	app->Run();
+
+	app->Fina();
 }
 
 void Bootstrap::LoadConfig(const char* configFile)

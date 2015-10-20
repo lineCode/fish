@@ -6,7 +6,6 @@ FishMongo::FishMongo(Network::EventPoller * poller,int fd):Super(poller,fd)
 {
 }
 
-
 FishMongo::~FishMongo(void)
 {
 }

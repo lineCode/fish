@@ -72,7 +72,6 @@ int ServerApp::Run()
 	{
 		this->_poller->ProcessEvents();
 	}
-	this->Fina();
 	return 0; 
 }
 
