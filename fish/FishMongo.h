@@ -10,9 +10,9 @@ public:
 	FishMongo(Network::EventPoller * poller,int fd);
 	~FishMongo(void);
 
-	void LoadRoles();
+	void LoadRole(int id);
 
-	void LoadRolesReply(const char* data,int size);
+	void LoadRoleReply(int id,const char* data,int size);
 };
 
 #endif

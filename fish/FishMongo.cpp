@@ -11,14 +11,15 @@ FishMongo::~FishMongo(void)
 {
 }
 
-void FishMongo::LoadRoles()
+void FishMongo::LoadRole(int id)
 {
 	bson::BSONObj query;
 	bson::BSONObj selector;
-	this->Query(boost::bind(&FishMongo::LoadRolesReply,this,_1,_2),"u3d.role",query,selector,0,0,10000);
+
+	this->Query(boost::bind(&FishMongo::LoadRoleReply,this,id,_1,_2),"u3d.role",query,selector,0,0,10000);
 }
 
-void FishMongo::LoadRolesReply(const char* data,int size)
+void FishMongo::LoadRoleReply(int id,const char* data,int size)
 {
 	MongoCursor cursor(data,size);
 	while (cursor.More())

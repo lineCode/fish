@@ -27,5 +27,5 @@ REGISTER_HANDLER(CMD_AUTH)
 	std::cout << fmt::format("{} {} {} {} {} {} {} {} {} {} {} {}",key[0],valBool,key[1],valStr,key[2],valInt0,key[3],valDouble,key[4],valDouble,key[5],valInt1) << std::endl;
 
 	FishMongo* mongo = (FishMongo*)((ClientSession*)session)->GetApp()->Mongo();
-	mongo->LoadRoles();
+	mongo->LoadRole(1);
 }
