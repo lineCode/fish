@@ -39,7 +39,7 @@ struct RegisterHandler
 	}
 };
 
-#define DEFINE_HANDLER(CMD) \
+#define REGISTER_HANDLER(CMD) \
 	static void handler##CMD(Network::Session* session,MessageHelper::MessageReader& reader); \
 	static RegisterHandler register##CMD(CMD,handler##CMD); \
 	static void handler##CMD(Network::Session* session,MessageHelper::MessageReader& reader)

@@ -13,18 +13,18 @@ int DispatchHandler(int cmd,Network::Session* session,MessageHelper::MessageRead
 	return 0;
 }
 
-DEFINE_HANDLER(CMD_AUTH)
+REGISTER_HANDLER(CMD_AUTH)
 {
-	std::string str0,str1,str2,str3,str4,str5;
+	std::string key[6];
 	bool valBool;
 	std::string valStr;
 	int valInt0,valInt1;
 	float valFloat;
 	double valDouble;
 
-	reader >> str0 >> valBool >> str1 >> valStr >> str2 >> valInt0 >> str3 >> valFloat >> str4 >> valDouble >> str5 >> valInt1;
+	reader >> key[0] >> valBool >> key[1] >> valStr >> key[2] >> valInt0 >> key[3] >> valFloat >> key[4] >> valDouble >> key[5] >> valInt1;
 
-	std::cout << fmt::format("{} {} {} {} {} {} {} {} {} {} {} {}",str0,valBool,str1,valStr,str2,valInt0,str3,valDouble,str4,valDouble,str5,valInt1) << std::endl;
+	std::cout << fmt::format("{} {} {} {} {} {} {} {} {} {} {} {}",key[0],valBool,key[1],valStr,key[2],valInt0,key[3],valDouble,key[4],valDouble,key[5],valInt1) << std::endl;
 
 	FishMongo* mongo = (FishMongo*)((ClientSession*)session)->GetApp()->Mongo();
 	mongo->LoadRoles();
