@@ -24,7 +24,7 @@ namespace Network
 		if (_reader->Read(_fd) < 0)
 		{
 			_state = Invalid;
-			_poller->AddError(_id);
+			this->HandleError();
 		}
 		return 0;
 	}
@@ -79,17 +79,14 @@ namespace Network
 		}
 
 		if (_state == Invalid)
-		{
-			_poller->AddError(_id);
-			_poller->DeRegisterWrite(_id,_fd);
-		}
+			this->HandleError();
 		else
 		{
 			if (_sendQueue.empty())
 			{
 				_poller->DeRegisterWrite(_id,_fd);
 				if (_state == Closed)
-					_poller->AddError(_id);
+					this->HandleError();
 			}
 		}
 
@@ -161,7 +158,7 @@ namespace Network
 			{
 				_state = Invalid;
 				delete ms;
-				_poller->AddError(_id);
+				this->HandleError();
 			}
 		}
 

@@ -129,8 +129,6 @@ namespace Network
 		writeFDs = _writeSet;
 		errorFds = _errorSet;
 
-		this->ClearError();
-
 		if (readFDs.fd_count == 0 && writeFDs.fd_count == 0)
 			Thread::Sleep(10);
 		else
@@ -162,12 +160,6 @@ namespace Network
 				int fd = errorFds.fd_array[ i ];
 				--countReady;
 				this->HandleError(_fdMap[fd]);
-			}
-
-			for (int i = 0;i < (int)_errorIds.size();i++)
-			{
-				int id = _errorIds[i];
-				this->HandleError(id);
 			}
 		}
 		

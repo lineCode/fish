@@ -17,7 +17,6 @@ namespace Network
 		_errorHandles.resize(_maxSize);
 	}
 
-
 	EventPoller::~EventPoller(void)
 	{
 	}
@@ -137,16 +136,6 @@ namespace Network
 	void EventPoller::RetrieveId(int fd,int id)
 	{
 		_idPool.push(id);
-	}
-
-	void EventPoller::AddError(int id)
-	{
-		this->_errorIds.push_back(id);
-	}
-
-	void EventPoller::ClearError()
-	{
-		this->_errorIds.clear();
 	}
 
 	void EventPoller::RegisterTimer(TimeoutHandler* handler,int ti)

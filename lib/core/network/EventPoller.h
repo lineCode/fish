@@ -54,9 +54,6 @@ namespace Network
 		virtual int  GenId(int fd);
 		virtual void RetrieveId(int fd,int id);
 
-		virtual void ClearError();
-		virtual void AddError(int id);
-
 		void RegisterTimer(TimeoutHandler* handler,int ti);
 		
 		TimerManager& TimerMgr();
@@ -66,7 +63,6 @@ namespace Network
 	protected:
 		int					_maxSize;
 		std::queue<int>		_idPool;
-		ErrorIds			_errorIds;
 
 		ReadHandles			_readHandles;
 		WriteHandles		_writeHandles;

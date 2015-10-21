@@ -75,8 +75,6 @@ namespace Network
 	{
 		const int MAX_EVENTS = 128;
 		struct epoll_event events[ MAX_EVENTS ];
-		
-		this->ClearError();
 
 		int nfds = epoll_wait(_epfd,events,MAX_EVENTS,-1);
 
@@ -85,10 +83,7 @@ namespace Network
 			uint32 id = events[i].data.u32;
 			
 			if (events[i].events & (EPOLLERR|EPOLLHUP))
-			{
-				//only connect failed reach here
-				this->AddError(id);
-			}
+				this->HandleError(id);
 			else
 			{
 				if (events[i].events & EPOLLIN)
@@ -97,14 +92,6 @@ namespace Network
 				if (events[i].events & EPOLLOUT)
 					this->HandleWrite(id);
 			}
-			
-		
-		}
-
-		for (int i = 0;i < (int)_errorIds.size();i++)
-		{
-			int id = _errorIds[i];
-			this->HandleError(id);
 		}
 
 		return true;
