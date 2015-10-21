@@ -20,7 +20,7 @@ public:
 
 	virtual SESSION* MakeSession(int fd)
 	{
-		SESSION* session = new SESSION(_poller,fd);
+		SESSION* session = new SESSION(this->_poller,fd);
 		session->SetApp(_app);
 		return session;
 	}
