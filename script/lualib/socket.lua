@@ -58,6 +58,7 @@ end
 function _M.Listen(host,port,func)
 	local acceptor = Acceptor.New()
 	local fd = Acceptor.Listen(acceptor,host,port)
+	assert(fd ~= -1,"listen error")
 	_socket[fd] = {core = acceptor,type = "acceptor",func = func}
 	return fd
 end
