@@ -84,16 +84,21 @@ namespace Network
 		{
 			uint32 id = events[i].data.u32;
 			
-			if (events[i].events & EPOLLIN)
-				this->HandleRead(id);
-
-			else if (events[i].events & EPOLLOUT)
-				this->HandleWrite(id);
-			else
+			if (events[i].events & (EPOLLERR|EPOLLHUP))
 			{
 				//only connect failed reach here
 				this->AddError(id);
 			}
+			else
+			{
+				if (events[i].events & EPOLLIN)
+					this->HandleRead(id);
+
+				if (events[i].events & EPOLLOUT)
+					this->HandleWrite(id);
+			}
+			
+		
 		}
 
 		for (int i = 0;i < (int)_errorIds.size();i++)
