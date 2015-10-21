@@ -96,7 +96,9 @@ namespace Network
 	int Session::HandleError()
 	{	
 		this->Clean();
-		return this->Fina();
+		this->Fina();
+		_state = Invalid;
+		return 0;
 	}
 
 	int Session::Clean()
