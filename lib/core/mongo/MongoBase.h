@@ -6,6 +6,7 @@
 #include "../network/Session.h"
 #include "../util/MemoryStream.h"
 #include "../util/List.h"
+#include "../Typedef.h"
 #include "bson.h"
 
 extern "C"
@@ -149,9 +150,9 @@ public:
 	};
 
 	typedef boost::function<void (const char*,int)>	CallBackFunc;
-	typedef std::map<int,CallBackFunc> QueryCallBack;
-	typedef std::map<int,std::string> QueryCollection;
-	typedef std::map<int,MemoryStream*> QueryResults;
+	typedef FishMap<int,CallBackFunc> QueryCallBack;
+	typedef FishMap<int,std::string> QueryCollection;
+	typedef FishMap<int,MemoryStream*> QueryResults;
 	typedef List<MemoryStream> StreamList;
 public:
 	MongoBase(Network::EventPoller * poller,int fd);

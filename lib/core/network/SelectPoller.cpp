@@ -74,7 +74,6 @@ namespace Network
 
 		FD_SET(fd, &_writeSet);
 
-		++_writeCount;
 		return true;
 	}
 

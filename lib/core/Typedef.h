@@ -39,3 +39,11 @@ typedef uint64_t	uint64;
 #define TYPE_STRING		12
 
 #endif
+
+#ifdef USE_BOOST
+#include <boost/unordered_map.hpp>
+#define FishMap boost::unordered_map 
+#else
+#include <map>
+#define FishMap std::map 
+#endif

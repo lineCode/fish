@@ -11,14 +11,14 @@
 #include "network/Session.h"
 #include "lualib/LuaFish.h"
 #include "time/TimerHandler.h"
-
+#include "Typedef.h"
 
 class MongoSession;
 
 class ServerApp : public TimeoutHandler
 {
 public:
-	typedef std::map<int,Network::Session*>	SessionMap;
+	typedef FishMap<int,Network::Session*>	SessionMap;
 	enum AppState{AppRun,AppStop};
 public:
 	ServerApp(void);

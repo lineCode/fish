@@ -19,7 +19,7 @@ fish.Start(function ()
 		end
 	end)
 
-	local fd = assert(socket.Connect("127.0.0.1",10001))
+	local fd = assert(socket.Connect("127.0.0.1",10000))
 	socket.Start(fd)
 	socket.Send(fd,"mrq")
 	socket.Close(fd)

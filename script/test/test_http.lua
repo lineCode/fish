@@ -15,6 +15,7 @@ end
 local function response(id, ...)
 	local ok, err = httpd.write_response(sockethelper.writefunc(id), ...)
 	if not ok then
+		print("!@#!@#")
 		-- if err == sockethelper.socket_error , that means socket closed.
 		fish.Log(string.format("fd = %d, %s", id, err))
 	end

@@ -50,10 +50,10 @@ namespace Network
 		_port = port;
 
 		bool connected = false;
-		_fd = SocketConnect(host,port,true,connected);
+		if ((_fd = SocketConnect(host,port,true,connected)) < 0)
+			return -1;
 
 		_id = _poller->GenId(_fd);
-
 		if (_id == 0)
 		{
 			SocketClose(_fd);

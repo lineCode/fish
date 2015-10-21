@@ -31,6 +31,7 @@ function _ev.OnClose(fd)
 	if s.co ~= nil then
 		fish.Wakeup(s.co)
 	else
+		_socket[fd] = nil
 		SocketCore.Delete(s.core)
 	end
 end
@@ -150,6 +151,7 @@ end
 
 function _M.Send(fd,...)
 	local s = _socket[fd]
+	assert(s ~= nil,fd)
 	SocketCore.Send(s.core,...)
 	return true
 end

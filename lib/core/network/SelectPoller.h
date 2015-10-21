@@ -1,14 +1,10 @@
 #ifndef SELECTPOLLER_H
 #define SELECTPOLLER_H
 
-#if defined( __WIN32__ ) || defined( WIN32 ) || defined( _WIN32 )
 #include <WinSock2.h>
-#endif
-
-#include <vector>
-#include <map>
 #include "Interface.h"
 #include "EventPoller.h"
+#include "../Typedef.h"
 
 namespace Network 
 {
@@ -33,11 +29,10 @@ namespace Network
 		virtual int ProcessEvents();
 
 	protected:
-		std::map<int,int>	_fdMap;
-		fd_set				_readSet;
-		fd_set				_writeSet;
-		fd_set				_errorSet;
-		int					_writeCount;
+		FishMap<int,int> _fdMap;
+		fd_set _readSet;
+		fd_set _writeSet;
+		fd_set _errorSet;
 	};
 
 }
