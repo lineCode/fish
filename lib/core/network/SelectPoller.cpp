@@ -113,52 +113,52 @@ namespace Network
 
 	int SelectPoller::ProcessEvents() 
 	{
-		fd_set readFDs;
-		fd_set writeFDs;
-		fd_set errorFds;
+		fd_set readsets;
+		fd_set writesets;
+		fd_set errorsets;
+
+		FD_ZERO(&readsets);
+		FD_ZERO(&writesets);
+		FD_ZERO(&errorsets);
+
+		readsets = _readSet;
+		writesets = _writeSet;
+		errorsets = _errorSet;
 
 		struct timeval timeOut;
 		timeOut.tv_sec = 0;
 		timeOut.tv_usec = 10 * 1000;
 
-		FD_ZERO(&readFDs);
-		FD_ZERO(&writeFDs);
-		FD_ZERO(&errorFds);
-
-		readFDs = _readSet;
-		writeFDs = _writeSet;
-		errorFds = _errorSet;
-
-		if (readFDs.fd_count == 0 && writeFDs.fd_count == 0)
+		if (readsets.fd_count == 0 && writesets.fd_count == 0 && errorsets.fd_count == 0)
 			Thread::Sleep(10);
 		else
 		{
-			int countReady = select(0,&readFDs,&writeFDs,&errorFds,&timeOut);
+			int nfds = select(0,&readsets,&writesets,&errorsets,&timeOut);
 
-			if (countReady < 0)
+			if (nfds < 0)
 			{
 				LOG_ERROR(fmt::format("SelectPoller::select error:{}",WSAGetLastError()));
 				return -1;
 			}
-			for (unsigned i=0; i < readFDs.fd_count; ++i)
+			for (unsigned i=0; i < readsets.fd_count; ++i)
 			{
-				int fd = readFDs.fd_array[ i ];
-				--countReady;
+				int fd = readsets.fd_array[i];
+				--nfds;
 				this->HandleRead(_fdMap[fd]);
 			}
 
-			for (unsigned i=0; i < writeFDs.fd_count; ++i)
+			for (unsigned i=0; i < writesets.fd_count; ++i)
 			{
-				int fd = writeFDs.fd_array[ i ];
-				--countReady;
+				int fd = writesets.fd_array[i];
+				--nfds;
 				this->HandleWrite(_fdMap[fd]);
 			}
 
-			for (unsigned i=0; i < errorFds.fd_count; ++i)
+			for (unsigned i=0; i < errorsets.fd_count; ++i)
 			{
 				//only aync connect reach here
-				int fd = errorFds.fd_array[ i ];
-				--countReady;
+				int fd = errorsets.fd_array[i];
+				--nfds;
 				this->HandleError(_fdMap[fd]);
 			}
 		}
