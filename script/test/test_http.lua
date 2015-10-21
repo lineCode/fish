@@ -4,6 +4,7 @@ local socket = require "lualib.socket"
 local httpd = require "lualib.http.httpd"
 local sockethelper = require "lualib.http.sockethelper"
 local urllib = require "lualib.http.url"
+local mongo = require "lualib.mongo"
 
 local function loadConfig()
 	local f = assert(io.open("config" , "rb"))
@@ -47,6 +48,8 @@ fish.Start(function ()
 						assert(false,content_type)
 					end
 				end
+
+				local result = mongo.FindAll("fish.role")
 
 				response(source, code, "hello,i am fish")
 			end

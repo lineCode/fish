@@ -25,7 +25,7 @@ int FishApp::Init()
 
 void FishApp::ConnectMongo(const char* host,int port)
 {
-	if (_mongoConnector.Connect("192.168.15.246",10005) < 0)
+	if (_mongoConnector.Connect(host,port) < 0)
 	{
 		LOG_ERROR(fmt::format("FishApp connect mongodb fail"));
 		assert(false);
