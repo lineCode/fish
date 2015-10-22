@@ -14,7 +14,7 @@ function sockethelper.readfunc(fd)
 		if ret then
 			return ret
 		else
-			error(socket_error)
+			error(tostring(socket_error))
 		end
 	end
 end
@@ -23,7 +23,7 @@ function sockethelper.writefunc(fd)
 	return function(content)
 		local ok = writebytes(fd, content)
 		if not ok then
-			error(socket_error)
+			error(tostring(socket_error))
 		end
 	end
 end

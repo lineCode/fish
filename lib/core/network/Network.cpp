@@ -231,7 +231,7 @@ _failed:
 				case WSAEWOULDBLOCK:
 					return total;
 				default:
-					fprintf(stderr,"send fd :%d error",fd);
+					fprintf(stderr,"send fd :%d error\n",fd);
 					return WriteError;
 				}
 #else
@@ -242,7 +242,7 @@ _failed:
 				case EAGAIN:
 					return total;
 				default:
-					fprintf(stderr,"send fd :%d error",fd);
+					fprintf(stderr,"send fd :%d error\n",fd);
 					return WriteError;
 				}
 #endif
