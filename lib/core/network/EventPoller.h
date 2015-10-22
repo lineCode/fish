@@ -13,8 +13,7 @@ namespace Network
 	class OutputHandler;
 	class ErrorHandler;
 
-	typedef std::vector<int>				ErrorIds;
-	
+	typedef std::vector<int>				IDMap;
 	typedef std::vector<InputHandler*>		ReadHandles;
 	typedef std::vector<OutputHandler*>		WriteHandles;
 	typedef std::vector<ErrorHandler*>		ErrorHandles;
@@ -42,9 +41,9 @@ namespace Network
 		bool DeRegisterWrite(int id,int fd);
 		bool DeRegisterError(int id);
 
-		virtual bool HandleRead(int id);
-		virtual bool HandleWrite(int id);
-		virtual bool HandleError(int id);
+		virtual bool HandleRead(int id,int fd);
+		virtual bool HandleWrite(int id,int fd);
+		virtual bool HandleError(int id,int fd);
 
 		virtual bool isRegistered(int id, bool isForRead);
 		virtual bool isRegisteredError(int id);
@@ -63,11 +62,10 @@ namespace Network
 	protected:
 		int					_maxSize;
 		std::queue<int>		_idPool;
-
+		IDMap				_idMap;
 		ReadHandles			_readHandles;
 		WriteHandles		_writeHandles;
 		ErrorHandles		_errorHandles;
-
 		TimerManager		_timerMgr;
 	};
 

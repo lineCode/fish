@@ -1,5 +1,5 @@
 {
-    "boot": "../script/test/test_server.lua",
+    "boot": "../script/test/test_http.lua",
     "mongo":
     {
     	"ip":"192.168.15.246",

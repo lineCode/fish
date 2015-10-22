@@ -12,6 +12,7 @@ namespace Network
 		for (int i = 1; i < _maxSize;i++)
 			_idPool.push(i);
 	
+		_idMap.resize(_maxSize);
 		_readHandles.resize(_maxSize);
 		_writeHandles.resize(_maxSize);
 		_errorHandles.resize(_maxSize);
@@ -92,12 +93,21 @@ namespace Network
 		return _errorHandles[id] != NULL;
 	}
 
-	bool EventPoller::HandleRead(int id) 
+	bool EventPoller::HandleRead(int id,int fd) 
 	{
+		int ofd = _idMap[id];
+		if (ofd != fd)
+		{
+			//避免id回绕
+			fprintf(stderr,"HandleRead error,id:%d not math[%d:%d]\n",id,fd,ofd);
+			return false;
+		}
+
 		InputHandler* handler = _readHandles[id];
 
 		if (handler == NULL)
 		{
+			//避免在回调此id前对应的handler已经销毁
 			fprintf(stderr,"HandleRead error,id:%d not found\n",id);
 			return false;
 		}
@@ -106,12 +116,21 @@ namespace Network
 		return true;
 	}
 
-	bool EventPoller::HandleWrite(int id) 
+	bool EventPoller::HandleWrite(int id,int fd) 
 	{
+		int ofd = _idMap[id];
+		if (ofd != fd)
+		{
+			//避免id回绕
+			fprintf(stderr,"HandleWrite error,id:%d not math[%d:%d]\n",id,fd,ofd);
+			return false;
+		}
+
 		OutputHandler* handler = _writeHandles[id];
 
 		if (handler == NULL)
 		{
+			//避免在回调此id前对应的handler已经销毁
 			fprintf(stderr,"HandleWrite error,id:%d not found\n",id);
 			return false;
 		}
@@ -120,12 +139,21 @@ namespace Network
 		return true;
 	}
 
-	bool EventPoller::HandleError(int id) 
+	bool EventPoller::HandleError(int id,int fd) 
 	{
+		int ofd = _idMap[id];
+		if (ofd != fd)
+		{
+			//避免id回绕
+			fprintf(stderr,"HandleError error,id:%d not math[%d:%d]\n",id,fd,ofd);
+			return false;
+		}
+
 		ErrorHandler* handler = _errorHandles[id];
 
 		if (handler == NULL)
 		{
+			//避免在回调此id前对应的handler已经销毁
 			fprintf(stderr,"HandleError error,id:%d not found\n",id);
 			return false;
 		}
@@ -140,6 +168,7 @@ namespace Network
 		{
 			int id = _idPool.front();
 			_idPool.pop();
+			_idMap[id] = fd;
 			return id;
 		}
 		return 0;
@@ -147,6 +176,7 @@ namespace Network
 
 	void EventPoller::RetrieveId(int fd,int id)
 	{
+		_idMap[id] = 0;
 		_idPool.push(id);
 	}
 

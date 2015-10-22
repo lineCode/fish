@@ -143,14 +143,14 @@ namespace Network
 			{
 				int fd = readsets.fd_array[i];
 				--nfds;
-				this->HandleRead(_fdMap[fd]);
+				this->HandleRead(_fdMap[fd],fd);
 			}
 
 			for (unsigned i=0; i < writesets.fd_count; ++i)
 			{
 				int fd = writesets.fd_array[i];
 				--nfds;
-				this->HandleWrite(_fdMap[fd]);
+				this->HandleWrite(_fdMap[fd],fd);
 			}
 
 			for (unsigned i=0; i < errorsets.fd_count; ++i)
@@ -158,7 +158,7 @@ namespace Network
 				//only aync connect reach here
 				int fd = errorsets.fd_array[i];
 				--nfds;
-				this->HandleError(_fdMap[fd]);
+				this->HandleError(_fdMap[fd],fd);
 			}
 		}
 		

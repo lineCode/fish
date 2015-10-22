@@ -31,7 +31,7 @@ namespace Network
 
 		struct epoll_event ev;
 		memset(&ev, 0, sizeof(ev));
-		ev.data.u32 = id;
+		ev.data.u64 = id | (fd << 32);
 
 		int op;
 		
@@ -80,17 +80,17 @@ namespace Network
 
 		for (int i = 0; i < nfds; ++i)
 		{
-			uint32 id = events[i].data.u32;
+			uint64 mask = events[i].data.u64;
 			
 			if (events[i].events & (EPOLLERR|EPOLLHUP))
-				this->HandleError(id);
+				this->HandleError(mask&0xffffffff,mask >> 32);
 			else
 			{
 				if (events[i].events & EPOLLIN)
-					this->HandleRead(id);
+					this->HandleRead(mask&0xffffffff,mask >> 32);
 
 				if (events[i].events & EPOLLOUT)
-					this->HandleWrite(id);
+					this->HandleWrite(mask&0xffffffff,mask >> 32);
 			}
 		}
 
