@@ -97,7 +97,6 @@ namespace Network
 	{	
 		this->Clean();
 		this->Fina();
-		_state = Invalid;
 		return 0;
 	}
 
@@ -115,6 +114,8 @@ namespace Network
 		SocketClose(_fd);
 
 		_poller->RetrieveId(_fd,_id);
+		
+		_state = Invalid;
 
 		return 0;
 	}
