@@ -20,8 +20,6 @@ public:
 
 	virtual int Fina();
 
-	virtual int Close();
-
 	virtual int Forward(const char * ptr,int size);
 
 	static int		Register(lua_State* L);

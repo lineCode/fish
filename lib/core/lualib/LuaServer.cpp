@@ -23,15 +23,6 @@ int LuaServer::Fina()
 	return _app->LuaManager()->DispatchServerEvent(_fd,false);
 }
 
-int LuaServer::Close()
-{
-	_state = Session::Closed;
-
-	if (_sendQueue.empty())
-		this->HandleError();
-	return 0;
-}
-
 int LuaServer::Forward(const char * ptr,int size)
 {
 	return _app->LuaManager()->DispatchServer(_fd,ptr,size);

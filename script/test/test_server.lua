@@ -31,6 +31,7 @@ fish.Start(function ()
 			local data,size = fish.Call(source,1,cjson.encode({name = "mrq",age = 26}))
 			fish.Log(string.format("client:call server return:%s",data))
 			fish.Close(source)
+			fish.Log("done")
 		end,
 		function (source)
 			fish.Log(string.format("client on close:%d",source))
