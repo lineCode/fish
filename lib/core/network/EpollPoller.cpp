@@ -31,7 +31,7 @@ namespace Network
 
 		struct epoll_event ev;
 		memset(&ev, 0, sizeof(ev));
-		ev.data.u64 = id | (fd << 32);
+		ev.data.u64 = id | ((uint64)fd << 32);
 
 		int op;
 		

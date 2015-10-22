@@ -1,7 +1,10 @@
 #ifndef SELECTPOLLER_H
 #define SELECTPOLLER_H
 
+#if defined(WIN32)
 #include <WinSock2.h>
+#endif
+
 #include "Interface.h"
 #include "EventPoller.h"
 #include "../Typedef.h"
