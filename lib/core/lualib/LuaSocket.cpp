@@ -241,14 +241,13 @@ int LuaSocket::_Close(lua_State* L)
 {
 	LuaSocket* self = (LuaSocket*)lua_touserdata(L,1);
 
-	if (self->_state == Session::Closed)
-		luaL_error(L,"socket:%d already closed!",self->_fd);
-	if (self->_state == Session::Invalid)
-		luaL_error(L,"socket:%d invalid!",self->_fd);
+	if (self->IsAlive() == false)
+		luaL_error(L,"socket:%d not alive!",self->_fd);
 
 	int done = 1;
 	if (self->Close() < 0)
 		done = 0;
+
 	lua_pushboolean(L,done);
 	return 1;
 }

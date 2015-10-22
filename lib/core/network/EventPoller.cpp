@@ -96,9 +96,13 @@ namespace Network
 	{
 		InputHandler* handler = _readHandles[id];
 
-		assert(handler != NULL);
-		handler->HandleInput();
+		if (handler == NULL)
+		{
+			fprintf(stderr,"HandleRead error,id:%d not found\n",id);
+			return false;
+		}
 
+		handler->HandleInput();
 		return true;
 	}
 
@@ -106,19 +110,27 @@ namespace Network
 	{
 		OutputHandler* handler = _writeHandles[id];
 
-		assert(handler != NULL);
-		handler->HandleOutput();
+		if (handler == NULL)
+		{
+			fprintf(stderr,"HandleWrite error,id:%d not found\n",id);
+			return false;
+		}
 
+		handler->HandleOutput();
 		return true;
 	}
 
 	bool EventPoller::HandleError(int id) 
 	{
 		ErrorHandler* handler = _errorHandles[id];
-		assert(handler != NULL);
+
+		if (handler == NULL)
+		{
+			fprintf(stderr,"HandleError error,id:%d not found\n",id);
+			return false;
+		}
 
 		handler->HandleError();
-
 		return true;
 	}
 

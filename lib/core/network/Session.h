@@ -21,7 +21,7 @@ namespace Network
 				  public Network::OutputHandler
 	{	
 	public:
-		enum SessionState {Alive,Closed,Invalid};
+		enum SessionState {Alive,Closed,Error,Invalid};
 		typedef std::queue<MemoryStream*> SendQueue;
 	public:
 		Session(Network::EventPoller* poller,int fd);

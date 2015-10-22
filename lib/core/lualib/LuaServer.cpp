@@ -99,10 +99,10 @@ int LuaServer::_Delete(lua_State* L)
 int LuaServer::_Close(lua_State* L)
 {
 	LuaServer* self = (LuaServer*)lua_touserdata(L,1);
-	if (self->_state == Session::Closed)
-		luaL_error(L,"socket:%d already closed!",self->_fd);
-	if (self->_state == Session::Invalid)
-		luaL_error(L,"socket:%d invalid!",self->_fd);
+
+	if (self->IsAlive() == false)
+		luaL_error(L,"socket:%d not alive",self->_fd);
+
 	self->Close();
 	return 0;
 }

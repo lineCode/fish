@@ -8,7 +8,6 @@ namespace Network
 		_state = Alive;
 	}
 
-
 	Session::~Session(void)
 	{
 		while(_sendQueue.empty() == false)
@@ -23,7 +22,7 @@ namespace Network
 	{
 		if (_reader->Read(_fd) < 0)
 		{
-			_state = Invalid;
+			_state = Error;
 			this->HandleError();
 		}
 		return 0;
@@ -31,10 +30,10 @@ namespace Network
 
 	int Session::HandleOutput()
 	{
-		if (_state == Invalid)
+		if (_state == Error || _state == Invalid)
 			return -1;
 	
-		while (_sendQueue.empty() == false && _state != Invalid)
+		while (_sendQueue.empty() == false && _state != Error)
 		{
 			MemoryStream* ms = _sendQueue.front();
 
@@ -67,7 +66,7 @@ namespace Network
 				else
 				{
 					//send error
-					_state = Invalid;
+					_state = Error;
 					break;
 				}
 			}
@@ -78,7 +77,7 @@ namespace Network
 			}
 		}
 
-		if (_state == Invalid)
+		if (_state == Error)
 			this->HandleError();
 		else
 		{
@@ -128,13 +127,11 @@ namespace Network
 
 	int Session::Send(MemoryStream* ms)
 	{
-		if (_state == Closed || _state == Invalid)
+		if (!IsAlive())
 			return -1;
 
 		if (_poller->isRegistered(_id,false))
-		{
 			_sendQueue.push(ms);
-		}
 		else
 		{
 			int n = Network::SocketWrite(_fd,ms->data(),ms->length());
@@ -159,8 +156,8 @@ namespace Network
 			}
 			else
 			{
-				_state = Invalid;
 				delete ms;
+				_state = Error;
 				this->HandleError();
 				return -1;
 			}
@@ -171,7 +168,7 @@ namespace Network
 
 	int Session::Close()
 	{
-		if (_state == Closed || _state == Invalid)
+		if (!IsAlive())
 			return -1;
 
 		_state = Closed;
