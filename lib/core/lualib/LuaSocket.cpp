@@ -228,12 +228,13 @@ int LuaSocket::_Send(lua_State* L)
 	else
 		data = (char*)lua_tolstring(L,2,&size);
 
-	self->Send((char*)data,size);
+	int result = self->Send((char*)data,size);
 
 	if (needFree)
 		free((void*)data);
 	
-	return 0;
+	lua_pushboolean(L,result == 0);
+	return 1;
 }
 
 int LuaSocket::_Close(lua_State* L)

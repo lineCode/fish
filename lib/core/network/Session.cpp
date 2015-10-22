@@ -161,6 +161,7 @@ namespace Network
 				_state = Invalid;
 				delete ms;
 				this->HandleError();
+				return -1;
 			}
 		}
 

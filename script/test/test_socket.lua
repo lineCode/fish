@@ -23,6 +23,5 @@ fish.Start(function ()
 	socket.Start(fd)
 	socket.Send(fd,"mrq")
 	socket.Close(fd)
-
 end)
 

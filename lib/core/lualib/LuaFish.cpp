@@ -346,9 +346,10 @@ int LuaFish::_Send(lua_State* L)
 	if (needFree)
 		free(buffer);
 
-	session->Send(ms);
+	int result = session->Send(ms);
 
-	return 0;
+	lua_pushboolean(L,result == 0);
+	return 1;
 }
 
 int LuaFish::_SendClient(lua_State* L)

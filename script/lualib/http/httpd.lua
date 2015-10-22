@@ -148,7 +148,12 @@ local function writeall(writefunc, statuscode, bodyfunc, header)
 end
 
 function httpd.write_response(...)
-	return xpcall(writeall,debug.traceback(), ...)
+	return xpcall(writeall,function (err)
+		local tbl = {}
+		table.insert(tbl,tostring(err))
+		table.insert(tbl,debug.traceback())
+		return table.concat(tbl,"\n")
+	end, ...)
 end
 
 return httpd

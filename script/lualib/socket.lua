@@ -152,8 +152,7 @@ end
 function _M.Send(fd,...)
 	local s = _socket[fd]
 	assert(s ~= nil,fd)
-	SocketCore.Send(s.core,...)
-	return true
+	return SocketCore.Send(s.core,...)
 end
 
 function _M.Close(fd)
