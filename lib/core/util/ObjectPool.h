@@ -3,17 +3,13 @@
 
 #include <list>
 #include <string>
-#include "util/format.h"
-#include "util/List.h"
-#include "thread/Mutex.h"
+#include "format.h"
+#include "List.h"
+#include "../thread/Mutex.h"
 #include "../Logger.h"
-#include <iostream>
 
 #define OBJ_POOL_INIT_SIZE 16
 #define OBJ_POOL_WARNING_SIZE 1024
-
-
-
 
 template<typename T>
 class ObjectPool

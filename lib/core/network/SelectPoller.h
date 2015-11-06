@@ -3,8 +3,10 @@
 
 #include "../platform.h"
 #include "../Typedef.h"
+#include "../util/ObjectPool.h"
 #include "Interface.h"
 #include "EventPoller.h"
+
 #include <set>
 
 namespace Network 
@@ -35,6 +37,7 @@ namespace Network
 
 	protected:
 		FishMap<int,int> _fdMap;
+		ObjectPool<fd_set> _fdsetPool;
 		FdSet _readSet;
 		FdSet _writeSet;
 		FdSet _errorSet;

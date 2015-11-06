@@ -7,7 +7,7 @@
 
 namespace Network 
 {
-	SelectPoller::SelectPoller(void):_readSet(),_writeSet(),_errorSet()
+	SelectPoller::SelectPoller(void):_fdsetPool("fd_set"),_readSet(),_writeSet(),_errorSet()
 	{
 #if defined( WIN32 )
 		WSAData wsdata;
@@ -144,7 +144,7 @@ namespace Network
 							--nfds;
 							this->HandleRead(_fdMap[fd],fd);
 						}
-						free(readset);
+						_fdsetPool.Push(readset);
 					}
 					
 					if (writeset != NULL)
@@ -155,7 +155,7 @@ namespace Network
 							--nfds;
 							this->HandleWrite(_fdMap[fd],fd);
 						}
-						free(writeset);
+						_fdsetPool.Push(writeset);
 					}
 					
 					if (errorset != NULL)
@@ -167,7 +167,7 @@ namespace Network
 							--nfds;
 							this->HandleError(_fdMap[fd],fd);
 						}
-						free(errorset);
+						_fdsetPool.Push(errorset);
 					}
 				}
 			}
@@ -179,7 +179,9 @@ namespace Network
 
 	void SelectPoller::MakePiece(FdSet& set,std::vector<fd_set*>& result)
 	{
-		fd_set* tmpSets = (fd_set*)malloc(sizeof(fd_set));
+		fd_set* tmpSets;
+		_fdsetPool.Pop(tmpSets);
+		assert(tmpSets != NULL);
 		result.push_back(tmpSets);
 		FD_ZERO(tmpSets);
 
@@ -187,7 +189,9 @@ namespace Network
 		{
 			if (tmpSets->fd_count >= FD_SETSIZE)
 			{
-				tmpSets = (fd_set*)malloc(sizeof(fd_set));
+				tmpSets = NULL;
+				_fdsetPool.Pop(tmpSets);
+				assert(tmpSets != NULL);
 				result.push_back(tmpSets);
 				FD_ZERO(tmpSets);
 			}
