@@ -1,4 +1,5 @@
 #include "LuaConnector.h"
+#include <assert.h>
 
 LuaConnector::LuaConnector(ServerApp* app,Network::EventPoller* poller):
 	_app(app),
@@ -48,7 +49,7 @@ int LuaConnector::Connect(const char * host,int port,bool& done)
 	{
 		_poller->RegisterError(_id,this);
 		_poller->RegisterWrite(_id,_fd,this);
-		_poller->AddConnecter(_fd);
+		assert(_poller->AddConnecter(_fd) == true);
 	}
 
 	done = false;

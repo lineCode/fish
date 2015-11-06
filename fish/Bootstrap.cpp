@@ -43,10 +43,10 @@ void Bootstrap::LoadConfig(const char* configFile)
 
 	fseek(file,0,SEEK_END);
 	int len = ftell(file);
-	char* json = (char*)malloc(len+1);
+	char* json = (char*)malloc(len);
+	memset(json,0,len);
 	rewind(file);
 	fread(json,1,len,file);
-	json[len] = 0;
 
 	assert(_config.ParseInsitu(json).HasParseError() == false);
 }

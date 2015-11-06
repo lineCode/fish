@@ -93,7 +93,7 @@ function _M.Connect(host,port)
 end
 
 function _M.Start(fd,buffsize)
-	local s,err = SocketCore.New(fd,_bufferSize)
+	local s,err = SocketCore.New(fd,buffsize or _bufferSize)
 	if not s then
 		_socket[fd] = nil
 		return false,err
@@ -152,6 +152,7 @@ end
 function _M.Send(fd,...)
 	local s = _socket[fd]
 	assert(s ~= nil,fd)
+	assert(s.connected == true)
 	return SocketCore.Send(s.core,...)
 end
 

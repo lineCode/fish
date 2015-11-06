@@ -75,6 +75,9 @@
     <None Include="Makefile" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="aoi\AoiManager.cpp" />
+    <ClCompile Include="aoi\AoiObject.cpp" />
+    <ClCompile Include="aoi\AoiTower.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="lualib\LuaAcceptor.cpp" />
     <ClCompile Include="lualib\LuaConnector.cpp" />
@@ -106,6 +109,10 @@
     <ClCompile Include="util\ZeroPack.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="aoi\AoiManager.h" />
+    <ClInclude Include="aoi\AoiObject.h" />
+    <ClInclude Include="aoi\AoiTower.h" />
+    <ClInclude Include="aoi\Common.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="lualib\LuaAcceptor.h" />
     <ClInclude Include="lualib\LuaConnector.h" />

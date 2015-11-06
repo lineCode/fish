@@ -105,6 +105,15 @@
     <ClCompile Include="lualib\LuaServer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="aoi\AoiObject.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="aoi\AoiManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="aoi\AoiTower.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="platform.h">
@@ -231,6 +240,18 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="ServerConnector.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="aoi\AoiObject.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="aoi\Common.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="aoi\AoiManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="aoi\AoiTower.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

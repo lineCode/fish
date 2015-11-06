@@ -57,7 +57,6 @@ namespace Network
 	bool EventPoller::RegisterError(int id,ErrorHandler* handler) 
 	{
 		assert(_errorHandles[id] == NULL);
-
 		_errorHandles[id] = handler;
 		return true;
 	}

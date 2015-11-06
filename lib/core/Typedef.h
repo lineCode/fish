@@ -2,7 +2,7 @@
 #define TYPEDEF_H
 
 
-#if defined( __WIN32__ ) || defined( WIN32 ) || defined( _WIN32 )
+#if defined( WIN32 )
 #include <BaseTsd.h>
 typedef INT8	int8;
 typedef INT16	int16;

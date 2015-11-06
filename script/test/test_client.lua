@@ -45,10 +45,10 @@ fish.Start(function ()
 	
 	local data = inst:Pack()
 
-	
-	socket.Send(fd,packMessage(1,data))
-	socket.Send(fd,packMessage(2,data))
-
+	for i = 1,10000 do
+		socket.Send(fd,packMessage(1,data))
+		-- socket.Send(fd,packMessage(2,data))
+	end
 	socket.Close(fd)
 	fish.Log("close ")
 end)

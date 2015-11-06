@@ -143,7 +143,12 @@ function _M.Timeout(ti,func)
 	local co = coCreate(function ()
 		local timerInfo = _timerMgr[id]
 		if timerInfo.cancel == false then
-			local r,err = xpcall(func,debug.traceback())
+			local r,err = xpcall(func,function (err)
+				local errlist = {}
+				table.insert(errlist,err)
+				table.insert(errlist,debug.traceback())
+				return table.concat(errlist,"\n")
+			end)
 			if not r then
 				_M.Log(err)
 			end
@@ -236,9 +241,8 @@ local function dispatchMessage(proto,source,response,session,...)
 			assert(false)
 		end
 	end
-
-	runFork()
 	runWakeup()
+	runFork()
 end
 
 function _M.Start(func)

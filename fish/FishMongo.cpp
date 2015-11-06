@@ -20,11 +20,11 @@ void FishMongo::LoadRole(int id)
 
 void FishMongo::LoadRoleReply(int id,const char* data,int size)
 {
-	MongoCursor cursor(data,size);
+	/*MongoCursor cursor(data,size);
 	while (cursor.More())
 	{
-		char* next = cursor.Next();
-		bson::BSONObj bobj(next);
-		std::cout << bobj << std::endl;
-	}
+	char* next = cursor.Next();
+	bson::BSONObj bobj(next);
+	std::cout << bobj << std::endl;
+	}*/
 }

@@ -18,7 +18,7 @@ ServerApp::ServerApp():
 	_poller->RegisterTimer(this,100);
 	_LuaManager = new LuaFish();
 	_mongo = NULL;
-	_now = Now();
+	_now = ::Now();
 	_state = AppRun;
 }
 
@@ -52,7 +52,6 @@ int ServerApp::Init()
 	_LuaManager->Require("MongoCore",LuaMongo::Register);
 	_LuaManager->Require("MessageWriter",MessageHelper::MessageWriter::Register);
 	_LuaManager->Require("MessageReader",MessageHelper::MessageReader::Register);
-
 	return 0;
 }
 
@@ -77,7 +76,7 @@ int ServerApp::Run()
 
 int ServerApp::HandleTimeout()
 {
-	_now = Now();
+	_now = ::Now();
 	return 0;
 }
 

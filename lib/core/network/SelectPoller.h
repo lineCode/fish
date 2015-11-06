@@ -1,18 +1,18 @@
 #ifndef SELECTPOLLER_H
 #define SELECTPOLLER_H
 
-#if defined(WIN32)
-#include <WinSock2.h>
-#endif
-
+#include "../platform.h"
+#include "../Typedef.h"
 #include "Interface.h"
 #include "EventPoller.h"
-#include "../Typedef.h"
+#include <set>
 
 namespace Network 
 {
 	class SelectPoller : public EventPoller
 	{
+	public:
+		typedef std::set<int> FdSet;
 	public:
 		SelectPoller();
 		~SelectPoller();
@@ -31,11 +31,13 @@ namespace Network
 
 		virtual int ProcessEvents();
 
+		virtual void MakePiece(FdSet& set,std::vector<fd_set*>& result);
+
 	protected:
 		FishMap<int,int> _fdMap;
-		fd_set _readSet;
-		fd_set _writeSet;
-		fd_set _errorSet;
+		FdSet _readSet;
+		FdSet _writeSet;
+		FdSet _errorSet;
 	};
 
 }

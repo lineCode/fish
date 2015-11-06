@@ -27,11 +27,13 @@ LuaSocket::~LuaSocket(void)
 
 int LuaSocket::Init()
 {
+	_app->SessionEnter(_fd,this);
 	return 0;
 }
 
 int LuaSocket::Fina()
 {
+	_app->SessionLeave(_fd);
 	return _app->LuaManager()->DispatchSocketEvent(_fd,LuaFish::Close);
 }
 

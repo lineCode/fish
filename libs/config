@@ -1,13 +1,5 @@
 {
-    "boot": "../script/test/test_server.lua",
-    "mongo":
-    {
-    	"ip":"192.168.15.246",
-    	"port":10005
-    },
-    "client":
-    {
-    	"ip":"127.0.0.1",
-    	"port":1989
-    }
+    "boot":"../script/robot/main.lua",
+    "host": "192.168.15.246",
+    "port": 10000
 }
