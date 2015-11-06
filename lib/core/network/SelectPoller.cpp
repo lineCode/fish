@@ -117,10 +117,6 @@ namespace Network
 				fd_set* writeset = writeIndex < writeCount ? writeSets[writeIndex++]:NULL;
 				fd_set* errorset = errorIndex < errorCount ? errorSets[errorIndex++]:NULL;
 
-				struct timeval tv;
-				tv.tv_sec = 0;
-				tv.tv_usec = ti * 1000;
-
 				if (readset == NULL && writeset == NULL && errorset == NULL)
 				{
 					Thread::Sleep(ti);
@@ -128,7 +124,10 @@ namespace Network
 				}
 				else
 				{
-					int nfds = select(0,readset,writeset,errorset,NULL);
+					struct timeval tv;
+					tv.tv_sec = 0;
+					tv.tv_usec = 0;
+					int nfds = select(0,readset,writeset,errorset,&tv);
 
 					if (nfds < 0)
 					{
