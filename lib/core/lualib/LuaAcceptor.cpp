@@ -21,7 +21,7 @@ int LuaAcceptor::Listen(const char * host,int port)
 	_port = port;
 
 	int fd = Network::SocketBind(_host.c_str(),_port,IPPROTO_TCP);
-	if (Network::SocketListen(fd,100) == -1) 
+	if (Network::SocketListen(fd,32) == -1) 
 		return -1;
 
 	_fd = fd;

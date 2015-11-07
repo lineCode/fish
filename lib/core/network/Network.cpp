@@ -263,6 +263,17 @@ _failed:
 
 		return total;
 	}
+
+	bool SocketHasError(int fd)
+	{
+		int error;
+		socklen_t len = sizeof(error);  
+		int code = getsockopt(fd, SOL_SOCKET, SO_ERROR, (char*)&error, &len);
+
+		if (code < 0 || error)
+			return true;
+		return false;
+	}
 }
 
 

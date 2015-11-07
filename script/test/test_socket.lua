@@ -6,22 +6,21 @@ local util = require "lualib.util"
 fish.Start(function ()
 	fish.Log("test socket")
 
-	socket.Listen("127.0.0.1",10000,function (source)
-		socket.Start(source)
-		while true do
-			local data = socket.Read(source,3)
-			if data == false then
-				fish.Log("socket close")
-				return
+
+	for i = 1,500 do
+		fish.Fork(function ()
+			local fd = assert(socket.Connect("127.0.0.1",10000))
+			socket.Start(fd)
+			socket.Send(fd,"mrq.1989.1103.2109")
+
+			local data = socket.Read(fd)
+			print(fd,data)
+			local data = socket.Read(fd)
+			if not data then
+				print(fd,"close")
 			end
-
-			fish.Log(string.format("socket read:%s",data))
-		end
-	end)
-
-	local fd = assert(socket.Connect("127.0.0.1",10000))
-	socket.Start(fd)
-	socket.Send(fd,"mrq")
-	socket.Close(fd)
+		end)
+	end
+	-- socket.Close(fd)
 end)
 
