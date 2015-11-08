@@ -114,6 +114,9 @@
     <ClCompile Include="aoi\AoiTower.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="network\SelectPollerEx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="platform.h">
@@ -252,6 +255,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="aoi\AoiTower.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="network\FdSet.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="network\SelectPollerEx.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

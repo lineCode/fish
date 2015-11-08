@@ -1,6 +1,7 @@
 #include "EventPoller.h"
 #include "EpollPoller.h"
 #include "SelectPoller.h"
+#include "SelectPollerEx.h"
 #include "Network.h"
 
 namespace Network
@@ -188,11 +189,16 @@ namespace Network
 	{
 		return _timerMgr;
 	}
-	
+
+#define MY_FD_SET
 	EventPoller* EventPoller::Create() 
 	{
-#if defined( __WIN32__ ) || defined( WIN32 ) || defined( _WIN32 )
+#if defined( WIN32 )
+#ifdef MY_FD_SET
+		return new SelectPollerEx();
+#else
 		return new SelectPoller();
+#endif
 #else
 		return new EpollPoller();
 #endif
