@@ -18,7 +18,7 @@ fish.Start(function ()
 
 	fish.RunInMainTick(doSend)
 
-	local fd = assert(socket.Connect("127.0.0.1",10000))
+	local fd = assert(socket.Connect("192.168.15.246",1990))
 	socket.Start(fd)
 	for i = 1,10000 do
 		

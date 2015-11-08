@@ -397,9 +397,7 @@ int LuaFish::_SendClient(lua_State* L)
 
 int LuaFish::_Log(lua_State* L)
 {
-	const char* log = lua_tostring(L,1);
-	std::string str(log);
-	Logger::GetSingleton().LuaLog(str);
+	Logger::GetSingleton().LuaLog(lua_tostring(L,1));
 	return 0;
 }
 

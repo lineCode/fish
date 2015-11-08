@@ -19,42 +19,44 @@ public:
 		LogEnd
 	};
 public:
-	Logger(void);
+	Logger(const char* file);
 	~Logger(void);
 
 	// void Log(const char* file,int line,Loglevel level,std::string& content);
 
-	void Log(const char* file,int line,Loglevel level,std::string content);
+	void Log(const char* file,int line,Loglevel level,const char* content);
 
-	void LuaLog(std::string& content);
 	void LuaLog(const char* content);
 
 	static void		SetLogLevel(Loglevel level);
+	
 	static Loglevel LogLevel();
 
-	static Logger* CreateLogger();
+	static Logger* CreateLogger(const char* file);
 private:
 	Thread::Mutex _metux;
 
 	static Loglevel _level;
+	
+	FILE* _handle;
 };
 
 #define LOG_TRACE(x) if (Logger::LogLevel() >= Logger::Trace) \
-	Logger::GetSingleton().Log(__FILE__,__LINE__,Logger::Trace,(x))
+	Logger::GetSingleton().Log(__FILE__,__LINE__,Logger::Trace,(x).c_str())
 
 #define LOG_DEBUG(x) if (Logger::LogLevel() >= Logger::Debug) \
-	Logger::GetSingleton().Log(__FILE__,__LINE__,Logger::Debug,(x))
+	Logger::GetSingleton().Log(__FILE__,__LINE__,Logger::Debug,(x).c_str())
 
 #define LOG_INFO(x) if (Logger::LogLevel() >= Logger::Info) \
-	Logger::GetSingleton().Log(__FILE__,__LINE__,Logger::Info,(x))
+	Logger::GetSingleton().Log(__FILE__,__LINE__,Logger::Info,(x).c_str())
 
 #define LOG_WARN(x) if (Logger::LogLevel() >= Logger::Warn) \
-	Logger::GetSingleton().Log(__FILE__,__LINE__,Logger::Warn,(x))
+	Logger::GetSingleton().Log(__FILE__,__LINE__,Logger::Warn,(x).c_str())
 
 #define LOG_ERROR(x) if (Logger::LogLevel() >= Logger::Error) \
-	Logger::GetSingleton().Log(__FILE__,__LINE__,Logger::Error,(x))
+	Logger::GetSingleton().Log(__FILE__,__LINE__,Logger::Error,(x).c_str())
 
 #define LOG_FATAL(x) if (Logger::LogLevel() >= Logger::Fatal) \
-	Logger::GetSingleton().Log(__FILE__,__LINE__,Logger::Fatal,(x))
+	Logger::GetSingleton().Log(__FILE__,__LINE__,Logger::Fatal,(x).c_str())
 
 #endif

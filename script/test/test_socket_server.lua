@@ -9,7 +9,7 @@ fish.Start(function ()
 	socket.Listen("127.0.0.1",10000,function (source)
 		socket.Start(source)
 		while true do
-			local data = socket.Read(source)
+			local data = socket.Read(source,1024)
 			if data == false then
 				fish.Log("socket close")
 				return

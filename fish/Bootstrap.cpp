@@ -1,10 +1,9 @@
 #include "Bootstrap.h"
-
+#include "Logger.h"
 #include "FishApp.h"
 #include "ServerApp.h"
 
 #include <assert.h>
-#include <iostream>
 
 using namespace rapidjson;
 
@@ -21,6 +20,11 @@ void Bootstrap::Startup(const char* file)
 {
 	LoadConfig(file);
 
+	if (_config.HasMember("log"))
+		Logger::CreateLogger(_config["log"].GetString());
+	else
+		Logger::CreateLogger(NULL);
+	
 	FishApp* app = new FishApp(_config["boot"].GetString());
 
 	if (_config.HasMember("mongo"))
@@ -34,6 +38,8 @@ void Bootstrap::Startup(const char* file)
 	app->Run();
 
 	app->Fina();
+
+	delete Logger::GetSingletonPtr();
 }
 
 void Bootstrap::LoadConfig(const char* configFile)

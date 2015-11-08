@@ -7,43 +7,38 @@ Logger * Singleton<Logger>::singleton_ = 0;
 
 Logger::Loglevel Logger::_level = Fatal;
 
-Logger::Logger(void)
+Logger::Logger(const char* file)
 {
+	if (file != NULL)
+	{
+		_handle = fopen(file,"w");
+		assert(_handle != NULL);
+	}
+	else
+		_handle = stdout;
 }
-
 
 Logger::~Logger(void)
 {
+	fflush(_handle);
+	fclose(_handle);
 }
 
-// void Logger::Log(const char* file,int line,Loglevel level,std::string& content)
-// {
-// 	Thread::MutexGuard guard(_metux);
-
-// 	std::string log = fmt::format("@{}:{}: {}",file,line,content);
-// 	std::cout << log << std::endl;
-// }
-
-void Logger::Log(const char* file,int line,Loglevel level,std::string content)
+void Logger::Log(const char* file,int line,Loglevel level,const char* content)
 {
 	Thread::MutexGuard guard(_metux);
 
 	std::string log = fmt::format("@{}:{}: {}",file,line,content);
-	std::cout << log << std::endl;
-}
-
-void Logger::LuaLog(std::string& content)
-{
-	Thread::MutexGuard guard(_metux);
-	std::string log = fmt::format("@lua: {}",content);
-	std::cout << log << std::endl;
+	fwrite(log.c_str(), log.length() , 1, _handle);
+	fprintf(_handle,"\n");
 }
 
 void Logger::LuaLog(const char* content)
 {
 	Thread::MutexGuard guard(_metux);
 	std::string log = fmt::format("@lua: {}",content);
-	std::cout << log << std::endl;
+	fwrite(log.c_str(), log.length() , 1, _handle);
+	fprintf(_handle,"\n");
 }
 
 void Logger::SetLogLevel(Loglevel level)
@@ -56,7 +51,7 @@ Logger::Loglevel Logger::LogLevel()
 	return Logger::_level;
 }
 
-Logger* Logger::CreateLogger()
+Logger* Logger::CreateLogger(const char* file)
 {
-	return new Logger();
+	return new Logger(file);
 }
