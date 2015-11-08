@@ -7,7 +7,7 @@
 
 namespace Network 
 {
-	SelectPollerEx::SelectPollerEx(void):_setRead(),_setWrite(),_setError(),_tmpRead(),_tmpWrite(),_tmpError()
+	SelectPollerEx::SelectPollerEx(void):_fdsetPool("fd_set"),_readSet(),_writeSet(),_errorSet()
 	{
 #if defined( WIN32 )
 		WSAData wsdata;
@@ -21,55 +21,55 @@ namespace Network
 
 	bool SelectPollerEx::AddConnecter(int fd)
 	{
-		if (_setError.IsSet(fd))
+		if (_errorSet.find(fd) != _errorSet.end())
 			return false;
-		
-		_setError.Set(fd);
+
+		_errorSet.insert(fd);
 		return true;
 	}
 
 	bool SelectPollerEx::RemoveConnecter(int fd)
 	{
-		if (!_setError.IsSet(fd))
+		if (_errorSet.find(fd) == _errorSet.end())
 			return false;
 
-		_setError.Clear(fd);
+		_errorSet.erase(fd);
 		return true;
 	}
 
 	bool SelectPollerEx::DoRegisterRead(int fd,int id) 
 	{
-		if (_setRead.IsSet(fd))
+		if (_readSet.find(fd) != _readSet.end())
 			return false;
 
-		_setRead.Set(fd);
+		_readSet.insert(fd);
 		return true;
 	}
 
 	bool SelectPollerEx::DoRegisterWrite(int fd,int id) 
 	{
-		if (_setWrite.IsSet(fd))
+		if (_writeSet.find(fd) != _writeSet.end())
 			return false;
 
-		_setWrite.Set(fd);
+		_writeSet.insert(fd);
 		return true;
 	}
 
 	bool SelectPollerEx::DoDeRegisterRead(int fd,int id)
 	{
-		if (!_setRead.IsSet(fd))
+		if (_readSet.find(fd) == _readSet.end())
 			return false;
 
-		_setRead.Clear(fd);
+		_readSet.erase(fd);
 		return true;
 	}
 
 	bool SelectPollerEx::DoDeRegisterWrite(int fd,int id)
 	{
-		if (!_setWrite.IsSet(fd))
+		if (_writeSet.find(fd) == _writeSet.end())
 			return false;
 
-		_setWrite.Clear(fd);
+		_writeSet.erase(fd);
 		return true;
 	}
 
@@ -90,52 +90,111 @@ namespace Network
 	{
 		static int ti = 10;
 
-		if (_setRead.Empty() && _setWrite.Empty() && _setError.Empty())
+		if (_readSet.size() == 0 && _writeSet.size() == 0 && _errorSet.size() == 0)
 			Thread::Sleep(ti);
 		else
 		{
-			_tmpRead.Copy(_setRead);
-			_tmpWrite.Copy(_setWrite);
-			_tmpError.Copy(_setError);
+			std::vector<fd_set*> readSets;
+			std::vector<fd_set*> writeSets;
+			std::vector<fd_set*> errorSets;
 
-			struct timeval tv;
-			tv.tv_sec = 0;
-			tv.tv_usec = ti;
-			int nfds = select(0,(fd_set*)_tmpRead,(fd_set*)_tmpWrite,(fd_set*)_tmpError,&tv);
+			MakePiece(_readSet,readSets);
+			MakePiece(_writeSet,writeSets);
+			MakePiece(_errorSet,errorSets);
 
-			if (nfds < 0)
-			{
-				LOG_ERROR(fmt::format("SelectPollerEx::select error:{}",WSAGetLastError()));
-				return -1;
-			}
+			int readIndex = 0;
+			int readCount = readSets.size();
 
-			fd_set* set = ((fd_set*)_tmpRead);
-			for (unsigned i=0; i < set->fd_count; ++i)
+			int writeIndex = 0;
+			int writeCount = writeSets.size();
+
+			int errorIndex = 0;
+			int errorCount = errorSets.size();
+
+			for (;;)
 			{
-				int fd = set->fd_array[i];
-				--nfds;
-				this->HandleRead(_fdMap[fd],fd);
-			}
-			
-			set = ((fd_set*)_tmpWrite);
-			for (unsigned i=0; i < set->fd_count; ++i)
-			{
-				int fd = set->fd_array[i];
-				--nfds;
-				this->HandleWrite(_fdMap[fd],fd);
-			}
-			
-			set = ((fd_set*)_tmpError);
-			for (unsigned i=0; i < set->fd_count; ++i)
-			{
-				//only aync connect reach here
-				int fd = set->fd_array[i];
-				--nfds;
-				this->HandleError(_fdMap[fd],fd);
+				fd_set* readset = readIndex < readCount ? readSets[readIndex++]:NULL;
+				fd_set* writeset = writeIndex < writeCount ? writeSets[writeIndex++]:NULL;
+				fd_set* errorset = errorIndex < errorCount ? errorSets[errorIndex++]:NULL;
+
+				if (readset == NULL && writeset == NULL && errorset == NULL)
+				{
+					Thread::Sleep(ti);
+					break;
+				}
+				else
+				{
+					struct timeval tv;
+					tv.tv_sec = 0;
+					tv.tv_usec = 0;
+					int nfds = select(0,readset,writeset,errorset,&tv);
+
+					if (nfds < 0)
+					{
+						LOG_ERROR(fmt::format("SelectPollerEx::select error:{}",WSAGetLastError()));
+						return -1;
+					}
+
+					if (readset != NULL)
+					{
+						for (unsigned i=0; i < readset->fd_count; ++i)
+						{
+							int fd = readset->fd_array[i];
+							--nfds;
+							this->HandleRead(_fdMap[fd],fd);
+						}
+						_fdsetPool.Push(readset);
+					}
+					
+					if (writeset != NULL)
+					{
+						for (unsigned i=0; i < writeset->fd_count; ++i)
+						{
+							int fd = writeset->fd_array[i];
+							--nfds;
+							this->HandleWrite(_fdMap[fd],fd);
+						}
+						_fdsetPool.Push(writeset);
+					}
+					
+					if (errorset != NULL)
+					{
+						for (unsigned i=0; i < errorset->fd_count; ++i)
+						{
+							//only aync connect reach here
+							int fd = errorset->fd_array[i];
+							--nfds;
+							this->HandleError(_fdMap[fd],fd);
+						}
+						_fdsetPool.Push(errorset);
+					}
+				}
 			}
 		}
-
+		
 		_timerMgr.Update(TimeStamp());
 		return 0;
+	}
+
+	void SelectPollerEx::MakePiece(FdSet& set,std::vector<fd_set*>& result)
+	{
+		fd_set* tmpSets;
+		_fdsetPool.Pop(tmpSets);
+		assert(tmpSets != NULL);
+		result.push_back(tmpSets);
+		FD_ZERO(tmpSets);
+
+		for (FdSet::iterator iter = set.begin();iter != set.end();iter++)
+		{
+			if (tmpSets->fd_count >= FD_SETSIZE)
+			{
+				tmpSets = NULL;
+				_fdsetPool.Pop(tmpSets);
+				assert(tmpSets != NULL);
+				result.push_back(tmpSets);
+				FD_ZERO(tmpSets);
+			}
+			FD_SET(*iter,tmpSets);
+		}
 	}
 }

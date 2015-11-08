@@ -190,11 +190,11 @@ namespace Network
 		return _timerMgr;
 	}
 
-#define MY_FD_SET
+//#define SELECT_USE_STDSET
 	EventPoller* EventPoller::Create() 
 	{
 #if defined( WIN32 )
-#ifdef MY_FD_SET
+#ifndef SELECT_USE_STDSET
 		return new SelectPollerEx();
 #else
 		return new SelectPoller();

@@ -1,5 +1,5 @@
 {
-    "boot":"../script/test/test_socket.lua",
+    "boot":"../script/test/test_socket_server.lua",
     "host": "192.168.15.246",
     "port": 10000
 }

@@ -27,9 +27,6 @@
     <ClCompile Include="network\Network.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="network\SelectPoller.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="network\Session.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -114,6 +111,9 @@
     <ClCompile Include="aoi\AoiTower.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="network\SelectPoller.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
     <ClCompile Include="network\SelectPollerEx.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -147,9 +147,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="network\reader.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="network\SelectPoller.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="network\session.h">
@@ -258,6 +255,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="network\FdSet.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="network\SelectPoller.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="network\SelectPollerEx.h">

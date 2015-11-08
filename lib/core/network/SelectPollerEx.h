@@ -6,12 +6,15 @@
 #include "../util/ObjectPool.h"
 #include "Interface.h"
 #include "EventPoller.h"
-#include "FdSet.h"
+
+#include <set>
 
 namespace Network 
 {
 	class SelectPollerEx : public EventPoller
 	{
+	public:
+		typedef std::set<int> FdSet;
 	public:
 		SelectPollerEx();
 		~SelectPollerEx();
@@ -30,15 +33,14 @@ namespace Network
 
 		virtual int ProcessEvents();
 
+		virtual void MakePiece(FdSet& set,std::vector<fd_set*>& result);
+
 	protected:
 		FishMap<int,int> _fdMap;
-		FdSet _setRead;
-		FdSet _setWrite;
-		FdSet _setError;
-
-		FdSet _tmpRead;
-		FdSet _tmpWrite;
-		FdSet _tmpError;
+		ObjectPool<fd_set> _fdsetPool;
+		FdSet _readSet;
+		FdSet _writeSet;
+		FdSet _errorSet;
 	};
 
 }
