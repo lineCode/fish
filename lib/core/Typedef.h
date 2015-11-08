@@ -47,3 +47,5 @@ typedef uint64_t	uint64;
 #include <map>
 #define FishMap std::map 
 #endif
+
+//#define SELECT_USE_STDSET

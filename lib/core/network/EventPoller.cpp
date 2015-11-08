@@ -190,7 +190,6 @@ namespace Network
 		return _timerMgr;
 	}
 
-//#define SELECT_USE_STDSET
 	EventPoller* EventPoller::Create() 
 	{
 #if defined( WIN32 )
