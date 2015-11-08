@@ -1,8 +1,11 @@
 #include "EventPoller.h"
 #include "EpollPoller.h"
+#include "Network.h"
+
+#if defined(WIN32)
 #include "SelectPoller.h"
 #include "SelectPollerEx.h"
-#include "Network.h"
+#endif
 
 namespace Network
 {
