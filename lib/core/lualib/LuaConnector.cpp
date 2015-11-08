@@ -62,7 +62,14 @@ int LuaConnector::HandleOutput()
 	_poller->DeRegisterError(_id);
 	_poller->RemoveConnecter(_fd);
 	_poller->RetrieveId(_fd,_id);
-	this->_app->LuaManager()->DispatchSocketEvent(_fd,LuaFish::Connect,1);
+
+	if (Network::SocketHasError(_fd))
+	{
+		Network::SocketClose(_fd);
+		this->_app->LuaManager()->DispatchSocketEvent(_fd,LuaFish::Connect,0);
+	}
+	else
+		this->_app->LuaManager()->DispatchSocketEvent(_fd,LuaFish::Connect,1);
 	return 0;
 }
 

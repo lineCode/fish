@@ -41,6 +41,7 @@ namespace Network
 	int SocketSetKeepalive(int fd ,bool keepalive);
 	int SocketSetNodelay(int fd,bool nodelay);
 	int SocketSetNonblocking(int fd,bool nonblocking);
+	bool SocketHasError(int fd);
 }
 
 
