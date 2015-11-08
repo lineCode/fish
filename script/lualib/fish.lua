@@ -20,6 +20,8 @@ local _forkCo = {}
 
 local _mainCo = coroutine.running()
 
+local _mainTickFuncs = {}
+
 local _serverInfo = {}
 
 --fixme:delete when gc
@@ -245,9 +247,22 @@ local function dispatchMessage(proto,source,response,session,...)
 	runFork()
 end
 
+local function mainTick()
+	for _,func in pairs(_mainTickFuncs) do
+		local r,err = pcall(func)
+		if not r then
+			_M.Log(err)
+		end
+	end
+end
+
 function _M.Start(func)
 	_M.Fork(func)
 	runFork()
+end
+
+function _M.RunInMainTick(func)
+	table.insert(_mainTickFuncs,func)
 end
 
 function _M.Log(str)
@@ -335,5 +350,6 @@ end
 _M.Dispatcher("Server",dispatchServer)
 
 Core.CallBack(dispatchMessage)
+Core.MainTick(mainTick)
 
 return _M

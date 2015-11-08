@@ -13,5 +13,9 @@ fish.Start(function ()
 	fish.Timeout(1000,function ()
 		timeout()
 	end)
+
+	fish.RunInMainTick(function ()
+		fish.Log("main tick")
+	end)
 end)
 

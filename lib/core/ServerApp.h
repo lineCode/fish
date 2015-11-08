@@ -32,6 +32,8 @@ public:
 
 	virtual int						Run();
 
+	virtual int						MainTick();
+
 	virtual int						HandleTimeout();
 
 	virtual void					SessionEnter(int source,Network::Session* session);

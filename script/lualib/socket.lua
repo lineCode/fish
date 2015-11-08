@@ -41,6 +41,7 @@ function _ev.OnData(fd,data,size)
 	
 	s.total = SocketCore.SaveBuffer(s.core,data,size)
 	if s.total >= s.need then
+		assert(s.co ~= nil)
 		fish.Wakeup(s.co)
 	end
 end

@@ -20,6 +20,7 @@ LuaFish::LuaFish(void)
 	_L = luaL_newstate();
 	_sessionCounter = 0;
 	_callback = -1;
+	_mainTick = -1;
 }
 
 
@@ -62,6 +63,21 @@ int LuaFish::DoFile(const char* file)
 		fprintf(stderr,"%s\n",lua_tostring(_L,-1));
 		return -1;
 	}
+	return 0;
+}
+
+int LuaFish::MainTick()
+{
+	int otop = lua_gettop(_L);
+
+	lua_pushcfunction(_L, _Traceback);
+	lua_rawgeti(_L, LUA_REGISTRYINDEX, _mainTick);
+
+	int r = lua_pcall(_L,0,0,1);
+	if (r != LUA_OK)
+		Logger::GetSingleton().LuaLog(lua_tostring(_L,-1));
+
+	lua_settop(_L,otop);
 	return 0;
 }
 
@@ -248,9 +264,14 @@ int LuaFish::GenSession()
 	return ++_sessionCounter;
 }
 
-void LuaFish::CallBack(int index)
+void LuaFish::SetCallBack(int index)
 {
 	_callback = index;
+}
+
+void LuaFish::SetMainTick(int index)
+{
+	_mainTick = index;
 }
 
 void LuaFish::LuaPath(const char* npath)
@@ -286,6 +307,7 @@ int LuaFish::Register(lua_State* L)
 		{ "TimestampToSecond",LuaFish::_TimestampToSecond},
 		{ "GenSession" ,LuaFish::_GenSession },
 		{ "CallBack" ,LuaFish::_CallBack },
+		{ "MainTick" ,LuaFish::_MainTick },
 		{ "Stop" ,LuaFish::_Stop },
 		{ NULL, NULL },
 	};
@@ -412,7 +434,14 @@ int LuaFish::_GenSession(lua_State* L)
 int LuaFish::_CallBack(lua_State* L)
 {
 	ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
-	app->LuaManager()->CallBack(luaL_ref(L, LUA_REGISTRYINDEX));
+	app->LuaManager()->SetCallBack(luaL_ref(L, LUA_REGISTRYINDEX));
+	return 0;
+}
+
+int LuaFish::_MainTick(lua_State* L)
+{
+	ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
+	app->LuaManager()->SetMainTick(luaL_ref(L, LUA_REGISTRYINDEX));
 	return 0;
 }
 

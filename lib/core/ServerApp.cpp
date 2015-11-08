@@ -70,8 +70,14 @@ int ServerApp::Run()
 	while (_state == AppRun)
 	{
 		this->_poller->ProcessEvents();
+		this->MainTick();
 	}
 	return 0; 
+}
+
+int ServerApp::MainTick()
+{
+	return this->LuaManager()->MainTick();
 }
 
 int ServerApp::HandleTimeout()

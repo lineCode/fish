@@ -30,6 +30,8 @@ public:
 
 	int DoFile(const char* file);
 
+	int MainTick();
+
 	int DispatchClient(int source,int method,const char* data,int size);
 
 	int DispatchServerEvent(int source,bool start = true);
@@ -46,7 +48,9 @@ public:
 
 	int GenSession();
 
-	void CallBack(int index);
+	void SetCallBack(int index);
+
+	void SetMainTick(int index);
 
 	void LuaPath(const char* path);
 
@@ -60,10 +64,12 @@ public:
 	static int _TimestampToSecond(lua_State* L);
 	static int _GenSession(lua_State* L);
 	static int _CallBack(lua_State* L);
+	static int _MainTick(lua_State* L);
 	static int _Stop(lua_State* L);
 protected:
 	lua_State*	_L;
 	int			_callback;
+	int			_mainTick;
 	int			_sessionCounter;
 };
 
