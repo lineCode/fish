@@ -24,7 +24,7 @@ REGISTER_HANDLER(CMD_AUTH)
 
 	reader >> key[0] >> valBool >> key[1] >> valStr >> key[2] >> valInt0 >> key[3] >> valFloat >> key[4] >> valDouble >> key[5] >> valInt1;
 
-	//std::cout << fmt::format("{} {} {} {} {} {} {} {} {} {} {} {}",key[0],valBool,key[1],valStr,key[2],valInt0,key[3],valDouble,key[4],valDouble,key[5],valInt1) << std::endl;
+	std::cout << fmt::format("{} {} {} {} {} {} {} {} {} {} {} {}",key[0],valBool,key[1],valStr,key[2],valInt0,key[3],valDouble,key[4],valDouble,key[5],valInt1) << std::endl;
 
 	FishMongo* mongo = (FishMongo*)((ClientSession*)session)->GetApp()->Mongo();
 	mongo->LoadRole(1);

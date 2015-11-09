@@ -4,6 +4,7 @@ local mongo = require "lualib.mongo"
 local util = require "lualib.util"
 local stream = require "lualib.stream"
 local json = require "cjson"
+local zeropack = require "Zeropack"
 
 local function loadConfig()
 	local f = assert(io.open("config" , "rb"))
@@ -45,10 +46,8 @@ fish.Start(function ()
 	
 	local data = inst:Pack()
 
-	for i = 1,10000 do
-		socket.Send(fd,packMessage(1,data))
-		-- socket.Send(fd,packMessage(2,data))
-	end
+	socket.Send(fd,zeropack.Unpack(zeropack.Pack(packMessage(1,data))))
+	
 	socket.Close(fd)
 	fish.Log("close ")
 end)

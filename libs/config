@@ -1,5 +1,10 @@
 {
-    "boot":"../script/test/test_server.lua",
+    "boot":"../script/test/test_client.lua",
     "host": "192.168.15.246",
-    "port": 10000
+    "port": 10000,
+    "client":
+    {
+    	"ip":"127.0.0.1",
+    	"port":1992
+    }
 }

@@ -98,8 +98,6 @@ namespace LuaZeropack
 		};
 
 		luaL_newlibtable(L, l);
-
-		lua_getfield(L, LUA_REGISTRYINDEX, "Zeropack");
 	
 		lua_newuserdata(L, ENCODE_BUFFERSIZE);
 		lua_pushinteger(L, ENCODE_BUFFERSIZE);
