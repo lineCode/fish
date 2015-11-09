@@ -32,13 +32,7 @@ namespace Network
 		{
 			int n = Network::SocketWrite(_fd,(char*)_sendBuffer.Begin(),left);
 			if (n >= 0) 
-			{
-				if (n != 0)
-				{
-					if (n != left)
-						_sendBuffer.SetOffset(n);
-				}
-			}
+				_sendBuffer.SetOffset(n);
 			else
 				_state = Error;
 		}

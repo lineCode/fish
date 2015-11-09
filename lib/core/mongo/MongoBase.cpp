@@ -30,7 +30,7 @@ MongoBase::~MongoBase(void)
 
 int MongoBase::Init()
 {
-	this->_reader = new Network::TcpReader(this,4,1024);
+	this->_reader = new Network::TcpReader(this,4,1024*1024);
 	return 0;
 }
 

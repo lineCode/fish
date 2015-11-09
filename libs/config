@@ -1,5 +1,10 @@
 {
-    "boot":"../script/test/test_socket.lua",
+    "boot":"../script/test/test_mongo.lua",
     "host": "192.168.15.246",
-    "port": 10000
+    "port": 10000,
+    "mongo":
+    {
+    	"ip":"192.168.15.246",
+    	"port":10005
+    }
 }
