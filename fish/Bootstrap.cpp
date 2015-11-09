@@ -54,5 +54,7 @@ void Bootstrap::LoadConfig(const char* configFile)
 	rewind(file);
 	fread(json,1,len,file);
 
+	fclose(file);
+
 	assert(_config.ParseInsitu(json).HasParseError() == false);
 }

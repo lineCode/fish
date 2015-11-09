@@ -41,8 +41,11 @@ function _ev.OnData(fd,data,size)
 	
 	s.total = SocketCore.SaveBuffer(s.core,data,size)
 	if s.total >= s.need then
-		assert(s.co ~= nil)
-		fish.Wakeup(s.co)
+		if s.connected == true then
+			if s.co ~= nil then
+				fish.Wakeup(s.co)
+			end
+		end
 	end
 end
 
@@ -162,6 +165,7 @@ function _M.Close(fd)
 	assert(s ~= nil,fd)
 	if s.type == "socket" then
 		assert(s.connected == true)
+		s.connected = false
 		local r = SocketCore.Close(s.core)
 		if not r then
 			s.co = coroutine.running()

@@ -9,13 +9,14 @@ fish.Start(function ()
 	socket.Listen("127.0.0.1",10000,function (source)
 		socket.Start(source)
 		while true do
-			local data = socket.Read(source,1024)
+			local data = socket.Read(source)
 			if data == false then
 				fish.Log("socket close")
 				return
 			end
 
 			socket.Send(source,data)
+			fish.Sleep(100)
 			socket.Close(source)
 			fish.Log("socket close")
 			return

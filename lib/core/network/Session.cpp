@@ -2,7 +2,7 @@
 
 namespace Network
 {
-	Session::Session(Network::EventPoller* poller,int fd):_poller(poller),_fd(fd)
+	Session::Session(Network::EventPoller* poller,int fd):_poller(poller),_fd(fd),_sendBuffer()
 	{
 		_reader = NULL;
 		_state = Alive;
@@ -10,12 +10,6 @@ namespace Network
 
 	Session::~Session(void)
 	{
-		while(_sendQueue.empty() == false)
-		{
-			MemoryStream* ms = _sendQueue.front();
-			_sendQueue.pop();
-			delete ms;
-		}
 	}
 	
 	int Session::HandleInput()
@@ -32,57 +26,30 @@ namespace Network
 	{
 		if (_state == Error || _state == Invalid)
 			return -1;
-	
-		while (_sendQueue.empty() == false && _state != Error)
+		
+		int left = _sendBuffer.Left();
+		if (left != 0)
 		{
-			MemoryStream* ms = _sendQueue.front();
-
-			if (ms->length() != 0)
+			int n = Network::SocketWrite(_fd,(char*)_sendBuffer.Begin(),left);
+			if (n >= 0) 
 			{
-				int n = Network::SocketWrite(_fd,ms->begin(),ms->length());
-				if (n >= 0) 
+				if (n != 0)
 				{
-					if (n == 0)
-					{
-						//send buffer full
-						break;
-					}
-					else
-					{
-						if (n != (int)ms->length())
-						{
-							//send buffer full
-							ms->rpos(n);
-							break;
-						}
-						else
-						{
-							//send done,go to next buffer
-							_sendQueue.pop();
-							delete ms;
-						}
-					}
-				}
-				else
-				{
-					//send error
-					_state = Error;
-					break;
+					if (n != left)
+						_sendBuffer.SetOffset(n);
 				}
 			}
 			else
-			{
-				_sendQueue.pop();
-				delete ms;
-			}
+				_state = Error;
 		}
-
+	
 		if (_state == Error)
 			this->HandleError();
 		else
 		{
-			if (_sendQueue.empty())
+			if (_sendBuffer.Left() == 0)
 			{
+				_sendBuffer.Reset();
 				_poller->DeRegisterWrite(_id,_fd);
 				if (_state == Closed)
 					this->HandleError();
@@ -131,7 +98,7 @@ namespace Network
 			return -1;
 
 		if (_poller->isRegistered(_id,false))
-			_sendQueue.push(ms);
+			_sendBuffer.Append(ms->data(),ms->length());
 		else
 		{
 			int n = Network::SocketWrite(_fd,ms->data(),ms->length());
@@ -139,7 +106,7 @@ namespace Network
 			{
 				if (n == 0)
 				{
-					_sendQueue.push(ms);
+					_sendBuffer.Append(ms->data(),ms->length());
 					_poller->RegisterWrite(_id,_fd,this);
 				}
 				else
@@ -147,22 +114,20 @@ namespace Network
 					if (n != (int)ms->length())
 					{
 						ms->rpos(n);
-						_sendQueue.push(ms);
+						_sendBuffer.Append(ms->data(),ms->length());
 						_poller->RegisterWrite(_id,_fd,this);
 					}
-					else
-						delete ms;
 				}
 			}
 			else
 			{
-				delete ms;
 				_state = Error;
 				this->HandleError();
+				delete ms;
 				return -1;
 			}
 		}
-
+		delete ms;
 		return 0;
 	}
 
@@ -173,7 +138,7 @@ namespace Network
 
 		_state = Closed;
 
-		if (_sendQueue.empty())
+		if (_sendBuffer.Left() == 0)
 		{
 			this->HandleError();
 			return 0;

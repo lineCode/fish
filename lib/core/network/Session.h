@@ -22,7 +22,64 @@ namespace Network
 	{	
 	public:
 		enum SessionState {Alive,Closed,Error,Invalid};
-		typedef std::queue<MemoryStream*> SendQueue;
+
+		struct SendBuffer
+		{
+
+			SendBuffer(int size = 1024):_size(size),_roffset(0),_woffset(0)
+			{
+				_data = malloc(_size);
+			}
+
+			~SendBuffer()
+			{
+				free(_data);
+			}
+
+			void Append(void* data,int size)
+			{
+				Reserve(size);
+				memcpy((char*)_data+_woffset,data,size);
+				_woffset += size;
+			}
+
+			void* Begin()
+			{
+				return (void*)((char*)_data+_roffset);
+			}
+
+			void SetOffset(int off)
+			{
+				_roffset += off;
+			}
+
+			void Reset()
+			{
+				_woffset = _roffset = 0;
+			}
+
+			int Left()
+			{
+				return _woffset - _roffset;
+			}
+		private:
+			void Reserve(int size)
+			{
+				if (_woffset+size < _size)
+					return;
+				int nsize = _woffset + _size * 2;
+				if (nsize < size)
+					nsize = size;
+
+				_data = (char*)realloc(_data,nsize);
+				_size = nsize;
+			}
+
+			int _size;
+			int _roffset;
+			int _woffset;
+			void* _data;
+		};
 	public:
 		Session(Network::EventPoller* poller,int fd);
 		virtual ~Session();
@@ -62,7 +119,7 @@ namespace Network
 		int						_id;
 		int						_fd;
 		Reader*					_reader;
-		SendQueue				_sendQueue;
+		SendBuffer				_sendBuffer;
 		SessionState			_state;
 	};
 }

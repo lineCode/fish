@@ -41,7 +41,7 @@ int LuaSocket::Close()
 {
 	_state = Session::Closed;
 
-	if (_sendQueue.empty())
+	if (_sendBuffer.Left() == 0)
 		return this->Clean();
 
 	return -1;
