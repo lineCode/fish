@@ -228,8 +228,11 @@ int LuaSocket::_Send(lua_State* L)
 		needFree = true;
 	}
 	else
-		data = (char*)lua_tolstring(L,2,&size);
+		data = (char*)luaL_checklstring(L,2,&size);
 
+	if (size == 0)
+		luaL_error(L,"error send size == 0");
+	
 	int result = self->Send((char*)data,size);
 
 	if (needFree)
