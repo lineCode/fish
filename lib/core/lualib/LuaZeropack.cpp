@@ -78,10 +78,11 @@ namespace LuaZeropack
 			return luaL_error(L, "Invalid unpack stream");
 		if (r > osz) {
 			output = ExpandBuffer(L, osz, r);
+			r = Zerounpack(buffer, sz, output, &r);
+			if (r < 0)
+				return luaL_error(L, "Invalid unpack stream");
 		}
-		r = Zerounpack(buffer, sz, output, &r);
-		if (r < 0)
-			return luaL_error(L, "Invalid unpack stream");
+		
 		lua_pushlstring(L, (const char*)output, r);
 		return 1;
 	}
