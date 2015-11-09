@@ -5,6 +5,7 @@
 #include "lualib/LuaServer.h"
 #include "lualib/LuaTimer.h"
 #include "lualib/LuaMongo.h"
+#include "lualib/LuaZeropack.h"
 #include "util/format.h"
 #include "time/Timestamp.h"
 
@@ -50,6 +51,7 @@ int ServerApp::Init()
 	_LuaManager->Require("Server",LuaServer::Register);
 	_LuaManager->Require("Timer",LuaTimer::Register);
 	_LuaManager->Require("MongoCore",LuaMongo::Register);
+	_LuaManager->Require("Zeropack",LuaZeropack::Register);
 	_LuaManager->Require("MessageWriter",MessageHelper::MessageWriter::Register);
 	_LuaManager->Require("MessageReader",MessageHelper::MessageReader::Register);
 	return 0;
