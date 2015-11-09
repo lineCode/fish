@@ -1,7 +1,7 @@
 #ifndef SELECTPOLLER_H
 #define SELECTPOLLER_H
 
-#include "../platform.h"
+#include "../Platform.h"
 #include "../Typedef.h"
 #include "../util/ObjectPool.h"
 #include "Interface.h"

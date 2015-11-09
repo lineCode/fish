@@ -1,7 +1,7 @@
 #ifndef SELECTPOLLEREX_H
 #define SELECTPOLLEREX_H
 
-#include "../platform.h"
+#include "../Platform.h"
 #include "../Typedef.h"
 #include "../util/ObjectPool.h"
 #include "Interface.h"

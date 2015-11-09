@@ -2,7 +2,6 @@
 #include "../ServerApp.h"
 #include "../Logger.h"
 #include "../util/MemoryStream.h"
-#include "../util/BufferHelper.h"
 #include "../mongo/MongoCursor.h"
 #include "../time/Timestamp.h"
 
@@ -139,17 +138,24 @@ int LuaFish::DispatchServer(int source,const char* data,int size)
 	lua_pushinteger(_L,DISPATCH_TYPE_SESSION);
 	lua_pushinteger(_L,source);
 
-	BufferHelper helper((char*)data,size);
-	bool response;
-	short session = 0;
-	short method = 0;
-	helper >> response >> session >> method;
+	int offset = 0;
+	uint16 low,high;
+
+	bool response = (bool)data[offset++];
+
+	low = data[offset++];
+	high = data[offset++];
+	uint16 session = low | (high << 8);
+
+	low = data[offset++];
+	high = data[offset++];
+	uint16 method = low | (high << 8);
 
 	lua_pushboolean(_L,response);
 	lua_pushinteger(_L,session);
 	lua_pushinteger(_L,SESSION_TYPE_DATA);
 	lua_pushinteger(_L,method);
-	lua_pushlstring(_L,helper.begin(),helper.length());
+	lua_pushlstring(_L,data + offset,size - offset);
 	
 	free((void*)data);
 

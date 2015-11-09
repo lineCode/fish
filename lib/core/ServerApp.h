@@ -6,7 +6,6 @@
 #include "util/MemoryStream.h"
 #include "util/MessageWriter.h"
 #include "util/MessageReader.h"
-#include "util/BufferHelper.h"
 #include "util/ObjectPool.h"
 #include "network/Session.h"
 #include "lualib/LuaFish.h"

@@ -1,6 +1,6 @@
 #ifndef FDSET_H
 #define FDSET_H
-#include "../platform.h"
+#include "../Platform.h"
 #include <stdlib.h>
 
 class FdSet
