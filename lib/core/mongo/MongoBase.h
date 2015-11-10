@@ -9,26 +9,19 @@
 #include "../Typedef.h"
 #include "bson.h"
 
-extern "C"
-{
-#include "lua.h"
-#include "lualib.h"
-#include "lauxlib.h"
-};
-
 #define DEFAULT_CAP 128
 typedef void * document;
 
 struct MongoBuffer
 {
-	int		_size;
+	int		_offset;
 	int		_cap;
 	char*	_ptr;
 	char	_buffer[DEFAULT_CAP];
 
 	MongoBuffer()
 	{
-		_size = 0;
+		_offset = 0;
 		_cap = DEFAULT_CAP;
 		_ptr = _buffer;
 	}
@@ -41,7 +34,7 @@ struct MongoBuffer
 
 	int size()
 	{
-		return _size;
+		return _offset;
 	}
 
 	char* ptr()
@@ -50,47 +43,38 @@ struct MongoBuffer
 	}
 
 	template<typename T>
-	void append(T value)
+	MongoBuffer& append(T value)
 	{
-		append((const uint8 *)&value, sizeof(value));
+		return append((const char *)&value, sizeof(value));
 	}
 
-	void append(const char* c,size_t cnt) 
+	MongoBuffer& append(const char* c,size_t cnt) 
 	{
-		append((const uint8*)c,cnt);
-		append((uint8)0);
-	}
+		if (cnt != 0)
+		{
+			reserve(cnt+1);
+			memcpy(&_ptr[_offset],c,cnt);
+			_offset += cnt;
 
-	void append(const std::string& str)
-	{
-		append(str.c_str(),str.size());
-		append((uint8)0);
-	}
-
-	void append(const uint8* val,size_t cnt) 
-	{
-		if (cnt == 0)
-			return;
-
-		reserve(cnt);
-		memcpy(&_ptr[_size],val,cnt);
-		_size += cnt;
+			_ptr[_offset++] = 0;
+		}
+		return *this;
 	}
 
 	void reserve(int size)
 	{
-		if (_size + size <= _cap)
+		if (_offset + size <= _cap)
 			return;
 		do 
 		{
 			_cap *= 2;
 		} 
-		while (_cap <= _size + size);
+		while (_cap <= _offset + size);
 
 		if (_ptr == _buffer) 
 		{
 			_ptr = (char*)malloc(_cap);
-			memcpy(_ptr, _buffer, _size);
+			memcpy(_ptr, _buffer, _offset);
 		} 
 		else
 			_ptr = (char*)realloc(_ptr, _cap);
@@ -98,9 +82,9 @@ struct MongoBuffer
 
 	int reserveLength()
 	{
-		int sz = _size;
+		int sz = _offset;
 		reserve(4);
-		_size +=4;
+		_offset +=4;
 		return sz;
 	}
 
@@ -112,7 +96,6 @@ struct MongoBuffer
 		_ptr[off++] = (uv >> 16)&0xff;
 		_ptr[off++] = (uv >> 24)&0xff;
 	}
-
 };
 
 class MongoBase : public Network::Session

@@ -64,13 +64,8 @@ int MongoBase::doQuery(const char* name,int size,const char* query,int querySize
 	MongoBuffer buff;
 
 	int32 len = buff.reserveLength();
-	buff.append(session);
-	buff.append((int32)0);
-	buff.append((int32)OP_QUERY);
-	buff.append((int32)flag);
-	buff.append(name,size);
-	buff.append((int32)skip);
-	buff.append((int32)number);
+
+	buff.append(session).append((int32)0).append((int32)OP_QUERY).append((int32)flag).append(name,size).append((int32)skip).append((int32)number);
 
 	int total = buff.size() + querySize + selectorSize;
 
@@ -102,14 +97,9 @@ int MongoBase::doMore(const char* name,int size,int number,const char*cursor,int
 	MongoBuffer buff;
 
 	int32 len = buff.reserveLength();
-	buff.append(session);
-	buff.append((int32)0);
-	buff.append((int32)OP_GET_MORE);
-	buff.append((int32)0);
-	buff.append(name,size);
-	buff.append((int32)number);
-	buff.append(cursor,8);
 
+	buff.append(session).append((int32)0).append((int32)OP_GET_MORE).append((int32)0).append(name,size).append((int32)number).append(cursor,8);
+	
 	buff.writeLength(buff.size(),len);
 
 	char * data = (char*)malloc(buff.size());
@@ -125,12 +115,8 @@ int MongoBase::doUpdate(const char* name,int size,int flag,const char* selector,
 	MongoBuffer buff;
 
 	int32 len = buff.reserveLength();
-	buff.append((int32)0);
-	buff.append((int32)0);
-	buff.append((int32)OP_UPDATE);
-	buff.append((int32)0);
-	buff.append(name,size);
-	buff.append((int32)flag);
+
+	buff.append((int32)0).append((int32)0).append((int32)OP_UPDATE).append((int32)0).append(name,size).append((int32)flag);
 
 	int total = buff.size() + selectorSize + updatorSize;
 
@@ -156,11 +142,8 @@ int MongoBase::doInsert(const char* name,int size,int flag,const char* doc,int d
 	MongoBuffer buff;
 
 	int32 len = buff.reserveLength();
-	buff.append((int32)0);
-	buff.append((int32)0);
-	buff.append((int32)OP_INSERT);
-	buff.append((int32)flag);
-	buff.append(name,size);
+
+	buff.append((int32)0).append((int32)0).append((int32)OP_INSERT).append((int32)flag).append(name,size);
 
 	int total = buff.size() + docSize;
 
