@@ -51,10 +51,6 @@ public:
 
 	Network::Session*				Mongo();
 
-	ObjectPool<MemoryStream>&		StreamPool();
-
-	ObjectPool<MessageHelper::MessageWriter>& WriterPool();
-
 protected:
 	AppState			   _state;
 	Network::EventPoller * _poller;
@@ -62,8 +58,6 @@ protected:
 	Network::Session*	   _mongo;
 	SessionMap			   _sessionMap;
 	uint64				   _now;
-	ObjectPool<MemoryStream> _streamPool;
-	ObjectPool<MessageHelper::MessageWriter> _writerPool;
 };
 
 #endif

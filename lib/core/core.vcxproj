@@ -104,6 +104,7 @@
     <ClCompile Include="time\TimerManager.cpp" />
     <ClCompile Include="time\Timestamp.cpp" />
     <ClCompile Include="util\format.cc" />
+    <ClCompile Include="util\MemAlloc.cpp" />
     <ClCompile Include="util\MemoryStream.cpp" />
     <ClCompile Include="util\MessageReader.cpp" />
     <ClCompile Include="util\MessageWriter.cpp" />
@@ -152,6 +153,7 @@
     <ClInclude Include="Typedef.h" />
     <ClInclude Include="util\format.h" />
     <ClInclude Include="util\List.h" />
+    <ClInclude Include="util\MemAlloc.h" />
     <ClInclude Include="util\MemoryStream.h" />
     <ClInclude Include="util\MessageReader.h" />
     <ClInclude Include="util\MessageWriter.h" />

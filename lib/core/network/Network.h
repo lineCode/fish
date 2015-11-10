@@ -5,7 +5,7 @@
 #include <assert.h>
 #include <stdio.h>
 
-#if defined( WIN32 )
+#if defined( __WIN32__ ) || defined( WIN32 ) || defined( _WIN32 )
 
 #include <WS2tcpip.h>
 #else

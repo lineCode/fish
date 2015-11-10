@@ -1,10 +1,11 @@
 #ifndef LUAFISH_H
 #define LUAFISH_H
-
+#include "../util/MemAlloc.h"
 extern "C"
 {
 #include "lua.h"
 #include "lualib.h"
+#include "lauxlib.h"
 };
 class ServerApp;
 
@@ -66,11 +67,13 @@ public:
 	static int _CallBack(lua_State* L);
 	static int _MainTick(lua_State* L);
 	static int _Stop(lua_State* L);
+	static int _MemInfo(lua_State* L);
 protected:
 	lua_State*	_L;
 	int			_callback;
 	int			_mainTick;
 	int			_sessionCounter;
+	MemAlloc	_allocator;
 };
 
 #endif

@@ -12,9 +12,7 @@
 
 #include "Logger.h"
 
-ServerApp::ServerApp():
-	_streamPool(std::string("MemoryStream")),
-	_writerPool(std::string("MessageWriter"))
+ServerApp::ServerApp()
 {
 	_poller = Network::EventPoller::Create();
 	_poller->RegisterTimer(this,100);
@@ -126,16 +124,6 @@ void ServerApp::Mongo(Network::Session* session)
 Network::Session* ServerApp::Mongo()
 {
 	return _mongo;
-}
-
-ObjectPool<MemoryStream>& ServerApp::StreamPool()
-{
-	return _streamPool;
-}
-
-ObjectPool<MessageHelper::MessageWriter>& ServerApp::WriterPool()
-{
-	return _writerPool;
 }
 
 

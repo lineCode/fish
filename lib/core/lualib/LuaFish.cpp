@@ -5,6 +5,7 @@
 #include "../mongo/MongoCursor.h"
 #include "../time/Timestamp.h"
 
+
 #define DISPATCH_TYPE_CLIENT	0
 #define DISPATCH_TYPE_SESSION	1
 #define DISPATCH_TYPE_SOCKET	2
@@ -16,7 +17,7 @@
 
 LuaFish::LuaFish(void)
 {
-	_L = luaL_newstate();
+	_L = lua_newstate(MemAlloc::Alloc,(void*)&_allocator);
 	_sessionCounter = 0;
 	_callback = -1;
 	_mainTick = -1;
@@ -315,6 +316,7 @@ int LuaFish::Register(lua_State* L)
 		{ "CallBack" ,LuaFish::_CallBack },
 		{ "MainTick" ,LuaFish::_MainTick },
 		{ "Stop" ,LuaFish::_Stop },
+		{ "MemInfo" ,LuaFish::_MemInfo },
 		{ NULL, NULL },
 	};
 
@@ -454,4 +456,19 @@ int LuaFish::_Stop(lua_State* L)
 	ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
 	app->Stop();
 	return 0;
+}
+
+int LuaFish::_MemInfo(lua_State* L)
+{
+	ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
+
+	int smallTotal;
+	int bigTotal;
+	int memUse;
+	app->LuaManager()->_allocator.Info(&smallTotal,&bigTotal,&memUse);
+
+	lua_pushinteger(L,smallTotal);
+	lua_pushinteger(L,bigTotal);
+	lua_pushinteger(L,memUse);
+	return 3;
 }

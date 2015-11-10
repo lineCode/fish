@@ -53,7 +53,7 @@ int MongoBase::doRunCommand(const char* name,int size,const char* cmd,int cmdSiz
 int MongoBase::RunCommand(CallBackFunc cb,bson::BSONObj& query)
 {
 	bson::BSONObj selector;
-	
+
 	return this->Query(cb,std::string("admin.$cmd"),query,selector);
 }
 
@@ -99,7 +99,7 @@ int MongoBase::doMore(const char* name,int size,int number,const char*cursor,int
 	int32 len = buff.reserveLength();
 
 	buff.append(session).append((int32)0).append((int32)OP_GET_MORE).append((int32)0).append(name,size).append((int32)number).append(cursor,8);
-	
+
 	buff.writeLength(buff.size(),len);
 
 	char * data = (char*)malloc(buff.size());

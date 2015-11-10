@@ -10,13 +10,6 @@
 #include <string.h>
 #include "../Typedef.h"
 
-extern "C"
-{
-#include "lua.h"
-#include "lualib.h"
-#include "lauxlib.h"
-};
-
 namespace EndianConvert 
 {
 	template<size_t T>
@@ -127,17 +120,6 @@ public:
 	void		copyAll(char*& ptr,int & size);
 	void		copyWithSize(char* ptr,int size);
 	
-	
-	//for lua
-	static int Register(lua_State* L);
-	static int New(lua_State* L);
-	static int Delete(lua_State* L);
-	static int Write(lua_State* L);
-	static int ReadBool(lua_State* L);
-	static int ReadInt(lua_State* L);
-	static int ReadNumber(lua_State* L);
-	static int ReadString(lua_State* L);
-
 public:
 	template<typename T>
 	void append(T value)

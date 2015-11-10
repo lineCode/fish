@@ -146,7 +146,7 @@ public:
 	MongoBase(Network::EventPoller * poller,int fd);
 
 	~MongoBase(void);
-	
+
 	virtual int Init();
 
 	virtual int Fina();
@@ -168,7 +168,7 @@ public:
 	int doRunCommand(const char* name,int nameSize,const char* cmd,int cmdSize);
 
 	int doQuery(const char* name,int size,const char* query,int querySize,const char* selector,int selectorSize,int flag = 0,int skip = 0,int number = 100);
-	
+
 	int doMore(const char* name,int size,int number,const char*cursor,int session = 0);
 
 	int doUpdate(const char* name,int size,int flag,const char* selector,int selectorSize,const char* updator,int updatorSize);
