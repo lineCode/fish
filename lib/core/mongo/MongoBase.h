@@ -45,7 +45,12 @@ struct MongoBuffer
 	template<typename T>
 	MongoBuffer& append(T value)
 	{
-		return append((const char *)&value, sizeof(value));
+		int cnt = sizeof(value);
+		reserve(cnt+1);
+		memcpy(&_ptr[_offset],(void*)&value,cnt);
+		_offset += cnt;
+
+		return *this;
 	}
 
 	MongoBuffer& append(const char* c,size_t cnt) 

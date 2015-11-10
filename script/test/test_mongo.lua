@@ -20,6 +20,6 @@ fish.Start(function ()
 	for _,info in pairs(result) do
 		print(info.id,info.name)
 	end
-	-- fish.Stop()
+	fish.Stop()
 end)
 
