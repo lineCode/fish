@@ -5,13 +5,6 @@
 #include <string>
 #include <vector>
 
-extern "C"
-{
-#include "lua.h"
-#include "lualib.h"
-#include "lauxlib.h"
-};
-
 namespace MessageHelper
 {
 	class MessageWriter
@@ -39,11 +32,7 @@ namespace MessageHelper
 		char* Data();
 		void Reset();
 		int Length();
-	
-		static int Register(lua_State* L);
-		static int _Write(lua_State* L);
 
-	protected:
 		void reserve(int cnt);
 		void append(uint8* type,uint8* val,int size);
 		void append(char* str,int size);

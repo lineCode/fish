@@ -39,7 +39,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>..\..\libs\</OutDir>
-    <IncludePath>E:\boost_1_58_0;..\3rd\pbc;..\3rd;..\3rd\lpeg;..\3rd\lua\src;..\3rd\bsoncpp\src;..\3rd\bsoncpp;$(IncludePath)</IncludePath>
+    <IncludePath>F:\boost_1_58_0;..\3rd\pbc;..\3rd;..\3rd\lpeg;..\3rd\lua\src;..\3rd\bsoncpp\src;..\3rd\bsoncpp;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -88,6 +88,7 @@
     <ClCompile Include="lualib\LuaSocket.cpp" />
     <ClCompile Include="lualib\LuaTimer.cpp" />
     <ClCompile Include="lualib\LuaZeropack.cpp" />
+    <ClCompile Include="lualib\LuaMessageHelper.cpp" />
     <ClCompile Include="mongo\MongoBase.cpp" />
     <ClCompile Include="mongo\MongoCursor.cpp" />
     <ClCompile Include="mongo\MongoSession.cpp" />
@@ -124,6 +125,7 @@
     <ClInclude Include="lualib\LuaSocket.h" />
     <ClInclude Include="lualib\LuaTimer.h" />
     <ClInclude Include="lualib\LuaZeropack.h" />
+    <ClInclude Include="lualib\LuaMessageHelper.h" />
     <ClInclude Include="mongo\MongoBase.h" />
     <ClInclude Include="mongo\MongoCursor.h" />
     <ClInclude Include="mongo\MongoSession.h" />

@@ -1,5 +1,5 @@
-local writerCore = require "MessageWriter"
-local readerCore = require "MessageReader"
+local helper = require "MessageHelper"
+
 
 local TYPE_BOOL = 1
 local TYPE_UINT8 = 2
@@ -17,8 +17,8 @@ local TYPE_STRING = 12
 local tinsert = table.insert
 local tunpack = table.unpack
 local setmetatable = setmetatable
-local coreWrite = writerCore.Write
-local coreRead = readerCore.Read
+local coreWrite = helper.Write
+local coreRead = helper.Read
 
 local _M = {}
 

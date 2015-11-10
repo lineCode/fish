@@ -40,7 +40,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\libs\</OutDir>
-    <IncludePath>E:\boost_1_58_0;..\lib\core;..\lib\3rd;..\lib\3rd\bsoncpp\src;..\lib\3rd\bsoncpp;..\lib\3rd\lua\src;$(IncludePath)</IncludePath>
+    <IncludePath>F:\boost_1_58_0;..\lib\core;..\lib\3rd;..\lib\3rd\bsoncpp\src;..\lib\3rd\bsoncpp;..\lib\3rd\lua\src;$(IncludePath)</IncludePath>
     <LibraryPath>..\libs;$(LibraryPath)</LibraryPath>
     <EmbedManifest>false</EmbedManifest>
   </PropertyGroup>

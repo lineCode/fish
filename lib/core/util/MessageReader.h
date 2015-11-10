@@ -4,14 +4,6 @@
 #include <string>
 #include <assert.h>
 
-
-extern "C"
-{
-#include "lua.h"
-#include "lualib.h"
-#include "lauxlib.h"
-};
-
 namespace MessageHelper
 {
 	class MessageReader
@@ -35,13 +27,13 @@ namespace MessageHelper
 		MessageReader& operator>>(std::string& value);
 
 		void SetBuffer(char* buffer,int size);
+
 		int Pos();
+
 		int Left();
+
 		int Length();
 
-		static int Register(lua_State* L);
-		static int _Read(lua_State* L);
-	private:
 		template<typename T>
 		T read() 
 		{
@@ -58,7 +50,6 @@ namespace MessageHelper
 			return val;
 		}
 
-	private:
 		char* _data;
 		int _pos;
 		int _size;

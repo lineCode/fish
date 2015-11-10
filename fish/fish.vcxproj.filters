@@ -30,12 +30,6 @@
     <ClInclude Include="FishMongo.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="robot\LuaPathFinder.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="robot\LuaRobot.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="robot\list.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -60,12 +54,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="FishMongo.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="robot\LuaPathFinder.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="robot\LuaRobot.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
