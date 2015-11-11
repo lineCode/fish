@@ -16,10 +16,15 @@ fish.Start(function ()
 	-- local result = mongo.FindOne("fish.role",{id = 1})
 	-- util.dump_table(result)
 	
-	local result = mongo.FindAll("fish.role")
-	for _,info in pairs(result) do
-		print(info.id,info.name)
-	end
-	fish.Stop()
+	-- local result = mongo.FindAll("fish.role")
+	-- for _,info in pairs(result) do
+	-- 	print(info.id,info.name)
+	-- end
+
+	local update = {}
+	update["$set"] = {id = 1,openTime = 1123}
+	local result = mongo.FindAndModify("u3d","camp_leader",{id = 5},update,{id = 1,openTime = 1})
+	util.dump_table(result)
+	-- fish.Stop()
 end)
 

@@ -27,7 +27,7 @@ local function dispatch(source,_,session,docs)
 	fish.Wakeup(reply.co)
 end
 
-function _M.RunCommand(func,name,cmd,cmdv,...)
+function _M.RunCommand(name,cmd,cmdv,...)
 	local bsonCmd
 	if not cmdv then
 		bsonCmd = bson.encode_order(cmd,1)
@@ -36,7 +36,7 @@ function _M.RunCommand(func,name,cmd,cmdv,...)
 	end
 
 	local session = Mongo.RunCommand(name..".$cmd",bsonCmd)
-	replyFuncs[session] = func
+	_replyCo[session] = {co = coroutine.running(),result = nil}
 	
 	fish.Wait()
 
@@ -80,6 +80,16 @@ end
 function _M.Update(name,selector,updator,upsert,multi)
 	local flags	= (upsert and 1	or 0) +	(multi and 2 or	0)
 	Mongo.Update(name,flags,bson.encode(selector),bson.encode(updator))
+end
+
+function _M.FindAndModify(db,collection,query,update,fields,upsert,sort,remove,new)
+	fields = fields or {}
+	upsert = upsert or true
+	sort = sort or {}
+	remove = remove or false
+	new = new or true
+
+	return _M.RunCommand(db,"findAndModify",collection,"query",bson.encode(query),"update",bson.encode(update),"fields",bson.encode(fields),"upsert",true)
 end
 
 function _M.Clear()
