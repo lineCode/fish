@@ -79,6 +79,66 @@ namespace Network
 
 		return 0;
 	}
+	
+	int Session::Close()
+	{
+		if (!IsAlive())
+			return -1;
+
+		_state = Closed;
+
+		if (_sendBuffer.Left() == 0)
+		{
+			this->HandleError();
+			return 0;
+		}
+		return -1;
+	}
+
+	int Session::WriteBuffer()
+	{
+		SendBuffer* buffer = NULL;
+		while ((buffer = _sendlist.Front()) != NULL)
+		{
+			int n = Network::SocketWrite(_fd,(const char*)buffer->Begin(),buffer->Left());
+			if (n >= 0) 
+			{
+				if (n = buffer->Left())
+					_sendlist.RemoveFront();
+				else
+				{
+					buffer->SetOffset(n);
+					return 1;
+				}
+			}
+			else
+				return -1;
+		}
+		return 0;
+	}
+
+	int Session::StoreBuffer(char* data,int size)
+	{
+		_sendlist.Append(data,size);
+		return 0;
+	}
+
+	int Session::Flush()
+	{
+		if (!IsAlive())
+			return -1;
+
+		if (_poller->isRegistered(_id,false) == false)
+		{
+			if (this->WriteBuffer() < 0)
+			{
+				_state = Error;
+				this->HandleError();
+				return -1;
+			}
+		}
+		return 0;
+	}
 
 	int Session::Send(char* data,int size)
 	{
@@ -123,21 +183,6 @@ namespace Network
 		}
 		delete ms;
 		return 0;
-	}
-
-	int Session::Close()
-	{
-		if (!IsAlive())
-			return -1;
-
-		_state = Closed;
-
-		if (_sendBuffer.Left() == 0)
-		{
-			this->HandleError();
-			return 0;
-		}
-		return -1;
 	}
 
 	void Session::SetId(int id)
