@@ -18,9 +18,9 @@ fish.Start(function ()
 
 	fish.RunInMainTick(doSend)
 
-	local fd = assert(socket.Connect("127.0.0.1",10000))
+	local fd = assert(socket.Connect("192.168.15.246",1990))
 	socket.Start(fd)
-	for i = 1,10000000 do
+	for i = 1,1000000 do
 		
 		local buffer = _sendBuffer[fd]
 		if buffer == nil then

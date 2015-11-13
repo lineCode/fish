@@ -41,7 +41,7 @@ int LuaSocket::Close()
 {
 	_state = Session::Closed;
 
-	if (_sendBuffer.Left() == 0)
+	if (_sendlist.Empty())
 		return this->Clean();
 
 	return -1;
@@ -233,8 +233,9 @@ int LuaSocket::_Send(lua_State* L)
 	if (size == 0)
 		luaL_error(L,"error send size == 0");
 	
+	printf("try send\n");
 	int result = self->Send((char*)data,size);
-
+	printf("send done\n");
 	if (needFree)
 		free((void*)data);
 	

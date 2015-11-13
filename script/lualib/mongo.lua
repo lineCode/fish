@@ -74,6 +74,9 @@ function _M.FindAll(name,query,selector)
 end
 
 function _M.Insert(name,documents)
+	if documents._id == nil then
+		documents._id = bson.objectid()
+	end
 	Mongo.Insert(name,0,bson.encode(documents))
 end
 

@@ -2,7 +2,7 @@
 
 namespace Network
 {
-	Session::Session(Network::EventPoller* poller,int fd):_poller(poller),_fd(fd),_sendBuffer()
+	Session::Session(Network::EventPoller* poller,int fd):_poller(poller),_fd(fd)
 	{
 		_reader = NULL;
 		_state = Alive;
@@ -27,27 +27,17 @@ namespace Network
 		if (_state == Error || _state == Invalid)
 			return -1;
 		
-		int left = _sendBuffer.Left();
-		if (left != 0)
+		int result = this->DoSend();
+		if (result == 0)
 		{
-			int n = Network::SocketWrite(_fd,(char*)_sendBuffer.Begin(),left);
-			if (n >= 0) 
-				_sendBuffer.SetOffset(n);
-			else
-				_state = Error;
+			_poller->DeRegisterWrite(_id,_fd);
+			if (_state == Closed)
+				this->HandleError();
 		}
-	
-		if (_state == Error)
-			this->HandleError();
-		else
+		else if (result < 0)
 		{
-			if (_sendBuffer.Left() == 0)
-			{
-				_sendBuffer.Reset();
-				_poller->DeRegisterWrite(_id,_fd);
-				if (_state == Closed)
-					this->HandleError();
-			}
+			_state = Error;
+			this->HandleError();
 		}
 
 		return 0;
@@ -87,7 +77,7 @@ namespace Network
 
 		_state = Closed;
 
-		if (_sendBuffer.Left() == 0)
+		if (_sendlist.Empty())
 		{
 			this->HandleError();
 			return 0;
@@ -95,15 +85,15 @@ namespace Network
 		return -1;
 	}
 
-	int Session::WriteBuffer()
+	int Session::DoSend()
 	{
 		SendBuffer* buffer = NULL;
 		while ((buffer = _sendlist.Front()) != NULL)
 		{
-			int n = Network::SocketWrite(_fd,(const char*)buffer->Begin(),buffer->Left());
+			int n = Network::SocketWrite(_fd,(const char*)buffer->Begin(),buffer->Readable());
 			if (n >= 0) 
 			{
-				if (n = buffer->Left())
+				if (n = buffer->Readable())
 					_sendlist.RemoveFront();
 				else
 				{
@@ -117,72 +107,42 @@ namespace Network
 		return 0;
 	}
 
-	int Session::StoreBuffer(char* data,int size)
-	{
-		_sendlist.Append(data,size);
-		return 0;
-	}
-
-	int Session::Flush()
+	int Session::TrySend()
 	{
 		if (!IsAlive())
 			return -1;
 
 		if (_poller->isRegistered(_id,false) == false)
 		{
-			if (this->WriteBuffer() < 0)
+			int result = this->DoSend();
+			if (result < 0)
 			{
 				_state = Error;
 				this->HandleError();
 				return -1;
 			}
+			else if (result == 1)
+				_poller->RegisterWrite(_id,_fd,this);
 		}
 		return 0;
 	}
 
+	int count = 0;
 	int Session::Send(char* data,int size)
 	{
-		MemoryStream* ms = new MemoryStream(data,size);
-		return this->Send(ms);
+		if (!IsAlive())
+			return -1;
+		_sendlist.Append(data,size);
+		count++;
+		printf("count:%d,size:%d\n",count,size);
+		return this->TrySend();
 	}
 
 	int Session::Send(MemoryStream* ms)
 	{
-		if (!IsAlive())
-			return -1;
-
-		if (_poller->isRegistered(_id,false))
-			_sendBuffer.Append(ms->data(),ms->length());
-		else
-		{
-			int n = Network::SocketWrite(_fd,ms->data(),ms->length());
-			if (n >= 0) 
-			{
-				if (n == 0)
-				{
-					_sendBuffer.Append(ms->data(),ms->length());
-					_poller->RegisterWrite(_id,_fd,this);
-				}
-				else
-				{
-					if (n != (int)ms->length())
-					{
-						ms->rpos(n);
-						_sendBuffer.Append(ms->data(),ms->length());
-						_poller->RegisterWrite(_id,_fd,this);
-					}
-				}
-			}
-			else
-			{
-				_state = Error;
-				this->HandleError();
-				delete ms;
-				return -1;
-			}
-		}
+		int result = this->Send(ms->data(),ms->length());
 		delete ms;
-		return 0;
+		return result;
 	}
 
 	void Session::SetId(int id)

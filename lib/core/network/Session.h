@@ -58,19 +58,23 @@ namespace Network
 				_next = NULL;
 			}
 
-			int Left()
+			int Readable()
 			{
 				return _woffset - _roffset;
 			}
 
+			int Writable()
+			{
+				return _size - _woffset;
+			}
+
 			void Reserve(int size)
 			{
-				if (_woffset+size < _size)
+				if (_woffset+size <= _size)
 					return;
 				int nsize = _woffset + _size * 2;
 				if (nsize < size)
 					nsize = size;
-
 				_data = (char*)realloc(_data,nsize);
 				_size = nsize;
 			}
@@ -95,6 +99,11 @@ namespace Network
 				_head = _tail = _freelist = NULL;
 			}
 
+			bool Empty()
+			{
+				return _head == NULL;
+			}
+
 			SendBuffer* AllocBuffer()
 			{
 				if (_freelist == NULL)
@@ -104,7 +113,7 @@ namespace Network
 				}
 				SendBuffer* cur = _freelist;
 				_freelist = cur->_next;
-
+				cur->Reset();
 				return cur;
 			}
 
@@ -115,8 +124,11 @@ namespace Network
 
 			void RemoveFront()
 			{
+				assert(_head != NULL);
 				SendBuffer* cur = _head;
 				_head = _head->_next;
+				if (_head == NULL)
+					_tail = NULL;
 				FreeBuffer(cur);
 			}
 
@@ -135,7 +147,7 @@ namespace Network
 					_head = _tail = AllocBuffer();
 				}
 again:
-				int left = _tail->Left();
+				int left = _tail->Writable();
 				if (left >= size)
 				{
 					_tail->Append(((char*)data) + offset,size);
@@ -148,7 +160,6 @@ again:
 					size -= left;
 
 					SendBuffer* buffer = AllocBuffer();
-					buffer->Reset();
 					_tail->_next = buffer;
 					_tail = buffer;
 					goto again;
@@ -175,12 +186,6 @@ again:
 
 		virtual int Close();
 
-		virtual int WriteBuffer();
-
-		virtual int StoreBuffer(char* data,int size);
-
-		virtual int Flush();
-
 		virtual int Send(char* data,int size);
 
 		virtual int Send(MemoryStream* ms);
@@ -197,14 +202,18 @@ again:
 
 		virtual bool IsAlive();
 
+	private:
+		virtual int DoSend();
+
+		virtual int TrySend();
+
 	protected:
 		Network::EventPoller *	_poller;
 		int						_id;
 		int						_fd;
 		Reader*					_reader;
-		SendBuffer				_sendBuffer;
-		SessionState			_state;
 		SendList				_sendlist;
+		SessionState			_state;
 	};
 }
 
