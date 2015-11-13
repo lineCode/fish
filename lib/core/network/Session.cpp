@@ -2,7 +2,7 @@
 
 namespace Network
 {
-	Session::Session(Network::EventPoller* poller,int fd):_poller(poller),_fd(fd)
+	Session::Session(Network::EventPoller* poller,int fd,int buffersize):_poller(poller),_fd(fd),_sendlist(buffersize)
 	{
 		_reader = NULL;
 		_state = Alive;
@@ -93,7 +93,7 @@ namespace Network
 			int n = Network::SocketWrite(_fd,(const char*)buffer->Begin(),buffer->Readable());
 			if (n >= 0) 
 			{
-				if (n = buffer->Readable())
+				if (n == buffer->Readable())
 					_sendlist.RemoveFront();
 				else
 				{
@@ -127,14 +127,11 @@ namespace Network
 		return 0;
 	}
 
-	int count = 0;
 	int Session::Send(char* data,int size)
 	{
 		if (!IsAlive())
 			return -1;
 		_sendlist.Append(data,size);
-		count++;
-		printf("count:%d,size:%d\n",count,size);
 		return this->TrySend();
 	}
 

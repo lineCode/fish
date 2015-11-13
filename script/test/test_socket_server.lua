@@ -16,7 +16,6 @@ fish.Start(function ()
 			end
 
 			socket.Send(source,data)
-			fish.Sleep(100)
 			socket.Close(source)
 			fish.Log("socket close")
 			return

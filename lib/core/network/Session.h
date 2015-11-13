@@ -99,6 +99,22 @@ namespace Network
 				_head = _tail = _freelist = NULL;
 			}
 
+			~SendList()
+			{
+				SendBuffer* cur = NULL;
+				while ((cur == _head) != NULL)
+				{
+					_head = cur->_next;
+					delete cur;
+				}
+				cur = NULL;
+				while ((cur == _freelist) != NULL)
+				{
+					_freelist = cur->_next;
+					delete cur;
+				}
+			}
+
 			bool Empty()
 			{
 				return _head == NULL;
@@ -167,7 +183,7 @@ again:
 			}
 		};
 	public:
-		Session(Network::EventPoller* poller,int fd);
+		Session(Network::EventPoller* poller,int fd,int buffersize = 64 * 1024);
 		virtual ~Session();
 
 		virtual int Init() = 0;

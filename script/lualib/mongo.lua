@@ -77,7 +77,7 @@ function _M.Insert(name,documents)
 	if documents._id == nil then
 		documents._id = bson.objectid()
 	end
-	Mongo.Insert(name,0,bson.encode(documents))
+	Mongo.Insert(name,1,bson.encode(documents))
 end
 
 function _M.Update(name,selector,updator,upsert,multi)
