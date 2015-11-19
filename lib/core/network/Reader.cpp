@@ -4,36 +4,57 @@
 
 namespace Network
 {
-	Reader::Reader(Session* session,int buffersize)
+	Reader::Reader(Session* session,int size)
 	{
 		_session = session;
-		_buffsize = buffersize;
+		_size = size;
 		_total = 0;
+		_head = _tail = _freelist;
 	}
 
 	Reader::~Reader()
 	{
-		while (_freelist.Empty() == false)
+		ReaderBuffer* tmp = NULL;
+		while ((tmp = _head) != NULL)
 		{
-			ReaderBuffer* buffer;
-			_freelist.PopHead(buffer);
-			delete buffer;
+			_head = _head->_next;
+			delete tmp;
 		}
-
-		while(_waitlist.Empty() == false)
+		while ((tmp = _freelist) != NULL)
 		{
-			ReaderBuffer* buffer;
-			_waitlist.PopHead(buffer);
-			delete buffer;
+			_freelist = _freelist->_next;
+			delete tmp;
 		}
 	}
 
 	int Reader::Read(int fd)
 	{
 		ReaderBuffer* buffer = NULL;
-		this->PopBuffer(buffer);
+		if (_tail ==  NULL)
+		{
+			assert(_head == NULL);
+			_head = _tail = new ReaderBuffer(_size);
+			_head->_next = _tail;
+			buffer = _tail;
+		}
+		else
+		{
+			if (_tail->_size - _tail->_wpos == 0)
+			{
+				if (_freelist == NULL)
+					_freelist = new ReaderBuffer(_size);
+				buffer = _freelist;
+				_freelist = _freelist->_next;
+				_tail->_next = buffer;
+				_tail = buffer;
+				buffer->_next = NULL;
+			}
+			else
+				buffer = _tail;	
+		}
+		
 
-		int len = Network::SocketRead(fd,buffer->WriteBegin(),buffer->Left());
+		int len = Network::SocketRead(fd,buffer->_data + buffer->_wpos,buffer->_size - buffer->_wpos);
 		if (len > 0)
 		{
 			buffer->_wpos += len;
@@ -45,68 +66,41 @@ namespace Network
 	void Reader::ReadData(char* data,int size)
 	{
 		assert(size <= _total);
-		int left = size;
 		int offset = 0;
-		while (left > 0)
+		while (offset < size)
 		{
-			assert(_waitlist.Empty() == false);
-			ReaderBuffer* buffer = _waitlist.Front();
+			ReaderBuffer* buffer = _head;
 
-			if (buffer->Length() >= left)
+			if (buffer->_wpos - buffer->_rpos >= size)
 			{
-				memcpy(data + offset,buffer->ReadBegin(),left);
-				buffer->_rpos += left;
-				offset += left;
-				_total -= left;
-				left -= left;
+				memcpy(data + offset,buffer->_data + buffer->_rpos,size);
+				buffer->_rpos += size;
+				offset += size;
+				_total -= size;
 
-				if (buffer->Length() == 0)
+				if (buffer->_wpos - buffer->_rpos == 0)
 				{
-					_waitlist.RemoveFront();
-					this->PushBuffer(buffer);
+					ReaderBuffer* tmp = _head;
+					_head = _head->_next;
+					tmp->_next = _freelist;
+					_freelist = tmp;
+					tmp->_rpos = tmp->_wpos = 0;
 				}
 			}
 			else
 			{
-				int readable = buffer->Length();
-				memcpy(data + offset,buffer->ReadBegin(),readable);
+				int readable = buffer->_wpos - buffer->_rpos;
+				memcpy(data + offset,buffer->_data + buffer->_rpos,readable);
 				buffer->_rpos += readable;
 				offset += readable;
 				_total -= readable;
-				left -= readable;
 
-				if (buffer->Length() == 0)
-				{
-					_waitlist.RemoveFront();
-					this->PushBuffer(buffer);
-				}
+				ReaderBuffer* tmp = _head;
+				_head = _head->_next;
+				tmp->_next = _freelist;
+				_freelist = tmp;
+				tmp->_rpos = tmp->_wpos = 0;
 			}
 		}
-	}
-
-	void Reader::PopBuffer(ReaderBuffer*& buffer)
-	{
-		buffer = NULL;
-		if (_waitlist.Empty() == false)
-		{
-			buffer = _waitlist.Back();
-			if (buffer->Left() > 0)
-				return;
-		}
-
-		if (_freelist.Empty())
-			buffer = new ReaderBuffer(_buffsize);
-		else
-			_freelist.PopHead(buffer);
-		
-		_waitlist.PushTail(buffer);
-
-		return;
-	}
-
-	void Reader::PushBuffer(ReaderBuffer* buffer)
-	{
-		buffer->_rpos = buffer->_wpos = 0;
-		_freelist.PushTail(buffer);
 	}
 }

@@ -14,12 +14,13 @@ namespace Network
 	public:
 		struct ReaderBuffer
 		{
-			int _rpos;
-			int _wpos;
-			int _size;
-			char *_data;
+			int	_rpos;
+			int	_wpos;
+			int	_size;
+			char* _data;
+			ReaderBuffer* _next;
 
-			ReaderBuffer(int size):_rpos(0),_wpos(0),_size(size)
+			ReaderBuffer(int size):_rpos(0),_wpos(0),_size(size),_next(NULL)
 			{
 				_data = (char*) malloc(size);
 			}
@@ -28,48 +29,25 @@ namespace Network
 			{
 				free((void*)_data);
 			}
-
-			char* ReadBegin()
-			{
-				return _data + _rpos;
-			}
-
-			char* WriteBegin()
-			{
-				return _data + _wpos;
-			}
-
-			int Length()
-			{
-				return _wpos - _rpos > 0 ? _wpos - _rpos:0;
-			}
-
-			int Left()
-			{
-				return _size - _wpos;
-			}
 		};
-		typedef List<ReaderBuffer>	WaitList;
-		typedef List<ReaderBuffer>	FreeList;
+
 	public:
-		Reader(Session* session,int buffersize = 64);
+		Reader(Session* session,int size = 64);
 
 		virtual ~Reader();
 
 		virtual int  Read(int fd);
 		virtual void ReadData(char* data,int size);
 
-	private:
-		virtual void PopBuffer(ReaderBuffer*& ms);
-
-		virtual void PushBuffer(ReaderBuffer* ms);
-
 	protected:
 		Session*	_session;
 		int			_total;
-		int			_buffsize;
-		WaitList	_waitlist;
-		FreeList	_freelist;
+
+	private:
+		int	_size;
+		ReaderBuffer* _head;
+		ReaderBuffer* _tail;
+		ReaderBuffer* _freelist;
 	};
 }
 

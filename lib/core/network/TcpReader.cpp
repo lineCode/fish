@@ -11,7 +11,6 @@ namespace Network
 		_state = Header;
 	}
 
-
 	TcpReader::~TcpReader(void)
 	{
 	}

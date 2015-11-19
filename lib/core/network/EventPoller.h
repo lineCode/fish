@@ -48,6 +48,8 @@ namespace Network
 		virtual bool isRegistered(int id, bool isForRead);
 		virtual bool isRegisteredError(int id);
 
+		virtual int Process();
+
 		virtual int ProcessEvents() = 0;
 
 		virtual int  GenId(int fd);

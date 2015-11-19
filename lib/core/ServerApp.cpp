@@ -69,7 +69,7 @@ int ServerApp::Run()
 {
 	while (_state == AppRun)
 	{
-		this->_poller->ProcessEvents();
+		this->_poller->Process();
 		this->MainTick();
 	}
 	return 0; 

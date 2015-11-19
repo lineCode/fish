@@ -4,7 +4,6 @@
 
 #if defined(WIN32)
 #include "SelectPoller.h"
-#include "SelectPollerEx.h"
 #endif
 
 namespace Network
@@ -94,6 +93,11 @@ namespace Network
 	bool EventPoller::isRegisteredError(int id)
 	{
 		return _errorHandles[id] != NULL;
+	}
+
+	int EventPoller::Process()
+	{
+		return this->ProcessEvents();
 	}
 
 	bool EventPoller::HandleRead(int id,int fd) 
@@ -196,11 +200,7 @@ namespace Network
 	EventPoller* EventPoller::Create() 
 	{
 #if defined( WIN32 )
-#ifndef SELECT_USE_STDSET
-		return new SelectPollerEx();
-#else
 		return new SelectPoller();
-#endif
 #else
 		return new EpollPoller();
 #endif

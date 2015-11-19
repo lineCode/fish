@@ -95,7 +95,6 @@
     <ClCompile Include="network\EventPoller.cpp" />
     <ClCompile Include="network\Network.cpp" />
     <ClCompile Include="network\Reader.cpp" />
-    <ClCompile Include="network\SelectPollerEx.cpp" />
     <ClCompile Include="network\Session.cpp" />
     <ClCompile Include="network\TcpReader.cpp" />
     <ClCompile Include="network\SelectPoller.cpp" />
@@ -137,7 +136,6 @@
     <ClInclude Include="network\interface.h" />
     <ClInclude Include="network\network.h" />
     <ClInclude Include="network\reader.h" />
-    <ClInclude Include="network\SelectPollerEx.h" />
     <ClInclude Include="network\session.h" />
     <ClInclude Include="network\tcpreader.h" />
     <ClInclude Include="platform.h" />
