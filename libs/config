@@ -1,3 +1,8 @@
 {
-    "boot": "../script/test/test_socket.lua"
+    "boot": "../script/test/test_mongo.lua",
+    "mongo" :
+    {
+    	"ip":"192.168.15.162",
+    	"port":10105
+    }
 }

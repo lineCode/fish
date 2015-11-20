@@ -33,11 +33,14 @@ namespace Network
 
 	public:
 		Reader(Session* session,int size = 64);
-
 		virtual ~Reader();
 
 		virtual int  Read(int fd);
 		virtual void ReadData(char* data,int size);
+
+	private:
+		ReaderBuffer* AllocBuffer();
+		void FreeHead();
 
 	protected:
 		Session*	_session;

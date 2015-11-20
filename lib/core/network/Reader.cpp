@@ -9,7 +9,7 @@ namespace Network
 		_session = session;
 		_size = size;
 		_total = 0;
-		_head = _tail = _freelist;
+		_head = _tail = _freelist = NULL;
 	}
 
 	Reader::~Reader()
@@ -33,18 +33,14 @@ namespace Network
 		if (_tail ==  NULL)
 		{
 			assert(_head == NULL);
-			_head = _tail = new ReaderBuffer(_size);
-			_head->_next = _tail;
-			buffer = _tail;
+			buffer = AllocBuffer();
+			_head = _tail = buffer;
 		}
 		else
 		{
 			if (_tail->_size - _tail->_wpos == 0)
 			{
-				if (_freelist == NULL)
-					_freelist = new ReaderBuffer(_size);
-				buffer = _freelist;
-				_freelist = _freelist->_next;
+				buffer = AllocBuffer();
 				_tail->_next = buffer;
 				_tail = buffer;
 				buffer->_next = NULL;
@@ -79,13 +75,7 @@ namespace Network
 				_total -= size;
 
 				if (buffer->_wpos - buffer->_rpos == 0)
-				{
-					ReaderBuffer* tmp = _head;
-					_head = _head->_next;
-					tmp->_next = _freelist;
-					_freelist = tmp;
-					tmp->_rpos = tmp->_wpos = 0;
-				}
+					FreeHead();
 			}
 			else
 			{
@@ -95,12 +85,32 @@ namespace Network
 				offset += readable;
 				_total -= readable;
 
-				ReaderBuffer* tmp = _head;
-				_head = _head->_next;
-				tmp->_next = _freelist;
-				_freelist = tmp;
-				tmp->_rpos = tmp->_wpos = 0;
+				FreeHead();
 			}
 		}
 	}
+
+	Reader::ReaderBuffer* Reader::AllocBuffer()
+	{
+		ReaderBuffer* buffer = NULL;
+		if (_freelist == NULL)
+			_freelist = new ReaderBuffer(_size);
+		buffer = _freelist;
+		_freelist = _freelist->_next;
+		return buffer;
+	}
+
+	void Reader::FreeHead()
+	{
+		ReaderBuffer* tmp = _head;
+		tmp->_next = _freelist;
+		_freelist = tmp;
+		tmp->_rpos = tmp->_wpos = 0;
+
+		_head = _head->_next;
+		
+		if (_head == NULL)
+			_tail = NULL;
+	}
+
 }
