@@ -1,8 +1,6 @@
 #ifndef TCPREADER_H
 #define TCPREADER_H
 #include "Reader.h"
-#include "../util/MemoryStream.h"
-
 
 namespace Network
 {

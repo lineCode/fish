@@ -2,6 +2,7 @@ local fish = require "lualib.fish"
 local socket = require "lualib.socket"
 local mongo = require "lualib.mongo"
 local util = require "lualib.util"
+local parser = require "HttpParser"
 
 fish.Start(function ()
 	fish.Log("test socket server")
@@ -14,10 +15,7 @@ fish.Start(function ()
 				fish.Log("socket close")
 				return
 			end
-
-			socket.Send(source,data)
-			socket.Close(source)
-			fish.Log("socket close")
+			util.dump_table(parser.ParserRequest(data))
 			return
 		end
 	end)

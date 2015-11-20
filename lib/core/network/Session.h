@@ -102,13 +102,13 @@ namespace Network
 			~SendList()
 			{
 				SendBuffer* cur = NULL;
-				while ((cur == _head) != NULL)
+				while ((cur = _head) != NULL)
 				{
 					_head = cur->_next;
 					delete cur;
 				}
 				cur = NULL;
-				while ((cur == _freelist) != NULL)
+				while ((cur = _freelist) != NULL)
 				{
 					_freelist = cur->_next;
 					delete cur;
