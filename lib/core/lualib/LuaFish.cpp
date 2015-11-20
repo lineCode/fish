@@ -73,7 +73,7 @@ int LuaFish::MainTick()
 	lua_pushcfunction(_L, _Traceback);
 	lua_rawgeti(_L, LUA_REGISTRYINDEX, _mainTick);
 
-	int r = lua_pcall(_L,0,0,1);
+	int r = lua_pcall(_L,0,0,otop+1);
 	if (r != LUA_OK)
 		Logger::GetSingleton().LuaLog(lua_tostring(_L,-1));
 
@@ -101,7 +101,7 @@ int LuaFish::DispatchClient(int source,int method,const char* data,int size)
 		argc = 6;
 	}
 	
-	int r = lua_pcall(_L,argc,0,1);
+	int r = lua_pcall(_L,argc,0,otop+1);
 	if (r != LUA_OK)
 		Logger::GetSingleton().LuaLog(lua_tostring(_L,-1));
 
@@ -122,7 +122,7 @@ int LuaFish::DispatchServerEvent(int source,bool start /* = true */)
 	lua_pushinteger(_L,SESSION_TYPE_EVENT);
 	lua_pushboolean(_L,start);
 
-	int r = lua_pcall(_L,6,0,1);
+	int r = lua_pcall(_L,6,0,otop+1);
 	if (r != LUA_OK)
 		Logger::GetSingleton().LuaLog(lua_tostring(_L,-1));
 	
@@ -160,7 +160,7 @@ int LuaFish::DispatchServer(int source,const char* data,int size)
 	
 	free((void*)data);
 
-	int r = lua_pcall(_L,7,0,1);
+	int r = lua_pcall(_L,7,0,otop+1);
 	if (r != LUA_OK)
 		Logger::GetSingleton().LuaLog(lua_tostring(_L,-1));
 	lua_settop(_L,otop);
@@ -186,7 +186,7 @@ int LuaFish::DispatchSocketEvent(int source,SocketEvent ev,int reserve /* = 0 */
 		lua_pushinteger(_L,reserve);
 	}
 
-	int r = lua_pcall(_L,nargs,0,1);
+	int r = lua_pcall(_L,nargs,0,otop+1);
 	if (r != LUA_OK)
 		Logger::GetSingleton().LuaLog(lua_tostring(_L,-1));
 
@@ -209,7 +209,7 @@ int LuaFish::DispatchSocket(int source,const char* data,int size)
 	lua_pushlightuserdata(_L,(void*)data);
 	lua_pushinteger(_L,size);
 
-	int r = lua_pcall(_L,7,0,1);
+	int r = lua_pcall(_L,7,0,otop+1);
 	if (r != LUA_OK)
 		Logger::GetSingleton().LuaLog(lua_tostring(_L,-1));
 	lua_settop(_L,otop);
@@ -241,7 +241,7 @@ int LuaFish::DispatchMongo(int source,int session,const char* data,int size)
 		lua_rawseti(_L,-2,index++);
 	}
 	
-	int r = lua_pcall(_L,6,0,1);
+	int r = lua_pcall(_L,6,0,otop+1);
 	if (r != LUA_OK)
 		Logger::GetSingleton().LuaLog(lua_tostring(_L,-1));
 	lua_settop(_L,otop);
@@ -259,7 +259,7 @@ int LuaFish::DispatchTimer(int session)
 	lua_pushboolean(_L,true);
 	lua_pushinteger(_L,session);
 
-	int r = lua_pcall(_L,4,0,1);
+	int r = lua_pcall(_L,4,0,otop+1);
 	if (r != LUA_OK)
 		Logger::GetSingleton().LuaLog(lua_tostring(_L,-1));
 	lua_settop(_L,otop);
