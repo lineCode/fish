@@ -15,7 +15,9 @@ fish.Start(function ()
 				fish.Log("socket close")
 				return
 			end
-			util.dump_table(parser.ParserRequest(data))
+			local form,more,left = parser.ParserRequest(data)
+			util.dump_table(form)
+			print(more,left)
 			return
 		end
 	end)
