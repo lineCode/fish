@@ -16,8 +16,6 @@ namespace Network
 
 		virtual int		Read(int fd);
 
-		virtual int		ReadHeader();
-
 	protected:
 		int		_header;
 		int		_left;

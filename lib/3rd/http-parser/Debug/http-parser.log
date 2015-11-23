@@ -1,21 +1,26 @@
-﻿生成启动时间为 2015/11/20 14:05:48。
-     1>项目“H:\fish\lib\3rd\http-parser\http-parser.vcxproj”在节点 2 上(build 个目标)。
+﻿生成启动时间为 2015/11/21 1:04:03。
+     1>项目“E:\fish\lib\3rd\http-parser\http-parser.vcxproj”在节点 2 上(build 个目标)。
      1>InitializeBuildStatus:
          正在创建“Debug\http-parser.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
        ClCompile:
-         所有输出均为最新。
+         d:\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt contrib\parsertrace.cpp contrib\url_parser.cpp http_parser.cpp
+         http_parser.cpp
+         url_parser.cpp
+         parsertrace.cpp
+     1>e:\fish\lib\3rd\http-parser\contrib\parsertrace.cpp(111): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 d:\microsoft visual studio 10.0\vc\include\stdio.h(234) : 参见“fopen”的声明
+         正在生成代码...
        Lib:
-         所有输出均为最新。
-         H:\VS2010\VC\bin\Lib.exe /OUT:"..\..\..\libs\http-parser.lib" /NOLOGO Debug\parsertrace.obj
+         d:\Microsoft Visual Studio 10.0\VC\bin\Lib.exe /OUT:"..\..\..\libs\http-parser.lib" /NOLOGO Debug\parsertrace.obj
          Debug\url_parser.obj
          Debug\http_parser.obj
      1>parsertrace.obj : warning LNK4006: _main 已在 url_parser.obj 中定义；已忽略第二个定义
-         http-parser.vcxproj -> H:\fish\lib\3rd\http-parser\..\..\..\libs\http-parser.lib
+         http-parser.vcxproj -> E:\fish\lib\3rd\http-parser\..\..\..\libs\http-parser.lib
        FinalizeBuildStatus:
          正在删除文件“Debug\http-parser.unsuccessfulbuild”。
          正在对“Debug\http-parser.lastbuildstate”执行 Touch 任务。
-     1>已完成生成项目“H:\fish\lib\3rd\http-parser\http-parser.vcxproj”(build 个目标)的操作。
+     1>已完成生成项目“E:\fish\lib\3rd\http-parser\http-parser.vcxproj”(build 个目标)的操作。
 
 生成成功。
 
-已用时间 00:00:00.19
+已用时间 00:00:02.83
