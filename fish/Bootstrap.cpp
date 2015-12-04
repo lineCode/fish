@@ -24,7 +24,7 @@ void Bootstrap::Startup(const char* file)
 	const char* path = NULL;
 	if (_config.HasMember("log"))
 		path = _config["log"].GetString();
-	Logger::CreateLogger(path);
+	Logger* logger = new Logger(path);
 	
 	ObjectPoolMgr* objPoolMgr = new ObjectPoolMgr();
 
@@ -46,7 +46,7 @@ void Bootstrap::Startup(const char* file)
 
 	delete objPoolMgr;
 
-	Logger::ReleaseLogger();
+	delete logger;
 }
 
 void Bootstrap::LoadConfig(const char* configFile)

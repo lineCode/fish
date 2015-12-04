@@ -50,13 +50,3 @@ Logger::Loglevel Logger::LogLevel()
 {
 	return Logger::_level;
 }
-
-Logger* Logger::CreateLogger(const char* file)
-{
-	return new Logger(file);
-}
-
-void Logger::ReleaseLogger()
-{
-	delete Logger::GetSingletonPtr();
-}
