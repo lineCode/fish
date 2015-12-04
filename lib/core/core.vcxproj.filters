@@ -123,6 +123,9 @@
     <ClCompile Include="lualib\LuaHttpParser.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="ObjectPoolMgr.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="platform.h">
@@ -273,6 +276,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="lualib\LuaHttpParser.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectPoolMgr.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

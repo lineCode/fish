@@ -128,6 +128,10 @@ void* MemAlloc::Alloc(void* ud,void* ptr,size_t osize,size_t nsize)
 			self->_bigtotal += nsize;
 			return malloc(nsize);
 		}
+
+		if (nsize == 0)
+			return NULL;
+		
 		int index = MemAlloc::SizeIndex(nsize);
 		return self->AllocSmall(index);
 	}

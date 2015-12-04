@@ -42,6 +42,7 @@ void FishApp::ListenClient(const char* host,int port)
 
 int FishApp::Fina()
 {
+	ServerApp::Fina();
 	return 0;
 }
 

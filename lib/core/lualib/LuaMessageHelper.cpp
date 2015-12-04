@@ -1,12 +1,13 @@
 #include "LuaMessageHelper.h"
-#include "../util/MessageReader.h"
-#include "../util/MessageWriter.h"
+#include "../ObjectPoolMgr.h"
 
 namespace LuaMessageHelper
 {
 	int _Read(lua_State* L)
 	{
-		MessageHelper::MessageReader* reader = (MessageHelper::MessageReader*)lua_touserdata(L, lua_upvalueindex(1));
+		MessageHelper::MessageReader* reader = NULL;
+		ObjectPoolMgr::GetSingleton().MesasgeReaderPool().Pop(reader);
+
 		char* data;
 		size_t size;
 		bool needFree = false;
@@ -111,12 +112,16 @@ namespace LuaMessageHelper
 		if (needFree)
 			free((void*)data);
 
+		ObjectPoolMgr::GetSingleton().MesasgeReaderPool().Push(reader);
+
 		return 1;
 	}
 
 	int _Write(lua_State* L)
 	{
-		MessageHelper::MessageWriter* writer = (MessageHelper::MessageWriter*)lua_touserdata(L, lua_upvalueindex(2));
+		MessageHelper::MessageWriter* writer = NULL;
+		ObjectPoolMgr::GetSingleton().MessageWriterPool().Pop(writer);
+
 		writer->Reset();
 
 		int len = lua_rawlen(L,-1);
@@ -195,6 +200,8 @@ namespace LuaMessageHelper
 
 		lua_pushlstring(L,writer->Data(),writer->Length());
 
+		ObjectPoolMgr::GetSingleton().MessageWriterPool().Push(writer);
+
 		return 1;
 	}
 
@@ -211,13 +218,7 @@ namespace LuaMessageHelper
 
 		luaL_newlibtable(L, l);
 
-		MessageHelper::MessageReader* reader = new MessageHelper::MessageReader();
-		MessageHelper::MessageWriter* writer = new MessageHelper::MessageWriter();
-
-		lua_pushlightuserdata(L,reader);
-		lua_pushlightuserdata(L,writer);
-
-		luaL_setfuncs(L,l,2);
+		luaL_setfuncs(L,l,0);
 		return 1;
 	}
 }

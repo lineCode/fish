@@ -1,5 +1,6 @@
 #include "Bootstrap.h"
 #include "Logger.h"
+#include "ObjectPoolMgr.h"
 #include "FishApp.h"
 #include "ServerApp.h"
 
@@ -20,11 +21,13 @@ void Bootstrap::Startup(const char* file)
 {
 	LoadConfig(file);
 
+	const char* path = NULL;
 	if (_config.HasMember("log"))
-		Logger::CreateLogger(_config["log"].GetString());
-	else
-		Logger::CreateLogger(NULL);
+		path = _config["log"].GetString();
+	Logger::CreateLogger(path);
 	
+	ObjectPoolMgr* objPoolMgr = new ObjectPoolMgr();
+
 	FishApp* app = new FishApp(_config["boot"].GetString());
 
 	if (_config.HasMember("mongo"))
@@ -39,22 +42,24 @@ void Bootstrap::Startup(const char* file)
 
 	app->Fina();
 
-	delete Logger::GetSingletonPtr();
+	delete app;
+
+	delete objPoolMgr;
+
+	Logger::ReleaseLogger();
 }
 
 void Bootstrap::LoadConfig(const char* configFile)
 {
 	FILE* file = fopen(configFile,"r");
 	assert(file != NULL);
-
 	fseek(file,0,SEEK_END);
 	int len = ftell(file);
 	char* json = (char*)malloc(len);
 	memset(json,0,len);
 	rewind(file);
 	fread(json,1,len,file);
-
 	fclose(file);
-
 	assert(_config.ParseInsitu(json).HasParseError() == false);
+	//free(json);
 }

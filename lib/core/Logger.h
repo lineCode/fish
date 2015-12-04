@@ -33,6 +33,8 @@ public:
 	static Loglevel LogLevel();
 
 	static Logger* CreateLogger(const char* file);
+
+	static void ReleaseLogger();
 private:
 	Thread::Mutex _metux;
 

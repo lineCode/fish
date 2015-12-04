@@ -97,20 +97,11 @@ namespace Network
 		SocketSetKeepalive(_fd,true);
 		SocketSetNonblocking(_fd,true);
 
-		_poller->RetrieveId(_fd,_id);
-
-		int id = _poller->GenId(_fd);
-		if (id != 0)
-		{
-			_session = MakeSession(_fd);
-			_session->SetId(id);
-			_poller->RegisterRead(id,_fd,_session);
-			_poller->RegisterError(id,_session);
-
-			_session->Init();
-		}
-		else
-			SocketClose(_fd);
+		_session = MakeSession(_fd);
+		_session->SetId(_id);
+		_session->Init();
+		_poller->RegisterRead(_id,_fd,_session);
+		_poller->RegisterError(_id,_session);
 
 		return 0;
 	}

@@ -30,7 +30,12 @@ public:
 
 		~ObjectPool(void)
 		{
-
+			while(_objects.Empty() == false)
+			{
+				T* obj;
+				_objects.PopHead(obj);
+				delete obj;
+            }
 		}
 
 		void Pop(T*& obj)

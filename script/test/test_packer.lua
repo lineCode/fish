@@ -27,7 +27,7 @@ fish.Start(function ()
 	util.dump_table(stream.Unpack(data))
 
 	
-
+	fish.Stop()
 	-- local tbl = {single = true,name = "mrq",age = 26,test1 = 123.456,test2=456.789,test3=64}
 	-- for i =1 ,1024*1024 do
 	-- 	cjson.encode(tbl)

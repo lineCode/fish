@@ -99,6 +99,7 @@
     <ClCompile Include="network\Session.cpp" />
     <ClCompile Include="network\TcpReader.cpp" />
     <ClCompile Include="network\SelectPoller.cpp" />
+    <ClCompile Include="ObjectPoolMgr.cpp" />
     <ClCompile Include="ServerApp.cpp" />
     <ClCompile Include="thread\Thread.cpp" />
     <ClCompile Include="time\TimerManager.cpp" />
@@ -140,6 +141,7 @@
     <ClInclude Include="network\reader.h" />
     <ClInclude Include="network\session.h" />
     <ClInclude Include="network\tcpreader.h" />
+    <ClInclude Include="ObjectPoolMgr.h" />
     <ClInclude Include="platform.h" />
     <ClInclude Include="network\SelectPoller.h" />
     <ClInclude Include="ServerAcceptor.h" />

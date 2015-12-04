@@ -31,8 +31,8 @@ local _timerPool = setmetatable({},{__gc = function (tbl)
 		end
 	end})
 local _timerMgr = setmetatable({},{__gc = function (tbl)
-		for _,timer in pairs(tbl) do
-			Timer.Delete(timer)
+		for _,info in pairs(tbl) do
+			Timer.Delete(info.timer)
 		end
 	end})
 

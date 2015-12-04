@@ -7,7 +7,6 @@
 #include "lualib/LuaMongo.h"
 #include "lualib/LuaZeropack.h"
 #include "lualib/LuaMessageHelper.h"
-#include "lualib/LuaHttpParser.h"
 #include "util/format.h"
 #include "time/Timestamp.h"
 
@@ -23,11 +22,10 @@ ServerApp::ServerApp()
 	_state = AppRun;
 }
 
-
 ServerApp::~ServerApp()
 {
-	delete _poller;
 	delete _LuaManager;
+	delete _poller;
 }
 
 int ServerApp::Init()
@@ -53,7 +51,6 @@ int ServerApp::Init()
 	_LuaManager->Require("MongoCore",LuaMongo::Register);
 	_LuaManager->Require("Zeropack",LuaZeropack::Register);
 	_LuaManager->Require("MessageHelper",LuaMessageHelper::Register);
-	_LuaManager->Require("HttpParser",LuaHttpParser::Register);
 	return 0;
 }
 

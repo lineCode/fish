@@ -55,3 +55,8 @@ Logger* Logger::CreateLogger(const char* file)
 {
 	return new Logger(file);
 }
+
+void Logger::ReleaseLogger()
+{
+	delete Logger::GetSingletonPtr();
+}
