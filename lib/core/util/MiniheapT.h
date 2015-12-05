@@ -35,6 +35,7 @@ public:
 	void Push(T* obj)
 	{
 		MiniHeapNodeT<T>* node = new MiniHeapNodeT<T>(obj);
+		node->index = 0;
 		minheap_push(_heap,node);
 	}
 
