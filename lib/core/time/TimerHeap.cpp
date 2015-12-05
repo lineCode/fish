@@ -3,7 +3,7 @@
 
 TimerHeap::TimerHeap():Super()
 {
-	_now = TimeStamp() * 1000 / StampPersecond();;
+	_now = TimeStamp() * 1000 / StampPersecond();
 }
 
 
@@ -15,13 +15,14 @@ int TimerHeap::Register(TimeoutHandler* handler,int ti)
 {
 	handler->_timeout = ti;
 	handler->_expire = _now + ti;
+
 	this->Push(handler);
 	return 0;
 }
 
 int TimerHeap::CanPop(TimeoutHandler* obj)
 {
-	if (obj->_expire >= _now)
+	if (obj->_expire <= _now)
 		return 1;
 	return 0;
 }
@@ -33,7 +34,7 @@ int TimerHeap::DoCompare(TimeoutHandler* left,TimeoutHandler* right)
 
 int TimerHeap::Update(uint64 now)
 {
-	_now = now;
+	_now = now * 1000 / StampPersecond();
 	TimeoutHandler* handler = NULL;
 	while (true)
 	{
