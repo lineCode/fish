@@ -4,7 +4,7 @@
 #include <map>
 #include <vector>
 #include <queue>
-#include "../time/TimerWheelMgr.h"
+#include "../time/TimerWheel.h"
 #include "../time/TimerHeap.h"
 #include "../time/TimerEngineT.h"
 class TimeoutHandler;

@@ -1,5 +1,5 @@
-#ifndef TIMERWHEELMGR_H
-#define TIMERWHEELMGR_H
+#ifndef TIMERWHEEL_H
+#define TIMERWHEEL_H
 #include <list>
 #include "TimerHandler.h"
 #include "../Typedef.h"

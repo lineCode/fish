@@ -132,7 +132,7 @@
     <ClCompile Include="time\TimerHeap.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="time\TimerWheelMgr.cpp">
+    <ClCompile Include="time\TimerWheel.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -299,10 +299,10 @@
     <ClInclude Include="time\TimerHeap.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="time\TimerWheelMgr.H">
+    <ClInclude Include="time\TimerEngineT.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="time\TimerEngineT.h">
+    <ClInclude Include="time\TimerWheel.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
