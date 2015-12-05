@@ -67,12 +67,13 @@ namespace Network
 		{
 			ReaderBuffer* buffer = _head;
 
-			if (buffer->_wpos - buffer->_rpos >= size)
+			int left = size - offset;
+			if (buffer->_wpos - buffer->_rpos >= left)
 			{
-				memcpy(data + offset,buffer->_data + buffer->_rpos,size);
-				buffer->_rpos += size;
-				offset += size;
-				_total -= size;
+				memcpy(data + offset,buffer->_data + buffer->_rpos,left);
+				buffer->_rpos += left;
+				offset += left;
+				_total -= left;
 
 				if (buffer->_wpos - buffer->_rpos == 0)
 					FreeHead();
@@ -103,12 +104,13 @@ namespace Network
 	void Reader::FreeHead()
 	{
 		ReaderBuffer* tmp = _head;
+
+		_head = _head->_next;
+
 		tmp->_next = _freelist;
 		_freelist = tmp;
 		tmp->_rpos = tmp->_wpos = 0;
 
-		_head = _head->_next;
-		
 		if (_head == NULL)
 			_tail = NULL;
 	}

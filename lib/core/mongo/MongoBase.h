@@ -9,6 +9,8 @@
 #include "../Typedef.h"
 #include "bson.h"
 
+#include "MongoQuery.h"
+
 #define DEFAULT_CAP 128
 typedef void * document;
 
@@ -155,9 +157,13 @@ public:
 
 	virtual int Dispatcher(int reponseId,char* data,int size);
 
-	int Reply(const char* ptr,int size);
+	virtual int Reply(const char* ptr,int size);
+
+	void QueryReply(MongoQuery* reply,const char* data,int size);
 
 	int RunCommand(CallBackFunc cb,bson::BSONObj& query);
+	
+	int Query(MongoQuery* reply,std::string name,bson::BSONObj& query,bson::BSONObj& selector,int flag = 0,int skip = 0,int number = 100);
 
 	int Query(CallBackFunc cb,std::string name,bson::BSONObj& query,bson::BSONObj& selector,int flag = 0,int skip = 0,int number = 100);
 

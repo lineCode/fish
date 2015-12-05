@@ -126,6 +126,9 @@
     <ClCompile Include="ObjectPoolMgr.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="mongo\MongoQuery.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="platform.h">
@@ -279,6 +282,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="ObjectPoolMgr.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="mongo\MongoQuery.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

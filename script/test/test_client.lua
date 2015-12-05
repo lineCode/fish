@@ -18,6 +18,7 @@ local function packMessage(cmd,message)
 	local high = math.modf(size/256)
 	local low = size - high * 256
 
+	print(size)
 	local cmdhigh = math.modf(cmd/256)
 	local cmdlow = cmd - cmdhigh * 256
 	return  string.char(high)..string.char(low)..string.char(cmdhigh)..string.char(cmdlow) .. message
@@ -46,7 +47,7 @@ fish.Start(function ()
 	
 	local data = inst:Pack()
 
-	socket.Send(fd,zeropack.Unpack(zeropack.Pack(packMessage(1,data))))
+	socket.Send(fd,packMessage(1,data))
 	
 	socket.Close(fd)
 	fish.Log("close ")
