@@ -90,6 +90,8 @@
     <ClCompile Include="lualib\LuaTimer.cpp" />
     <ClCompile Include="lualib\LuaZeropack.cpp" />
     <ClCompile Include="lualib\LuaMessageHelper.cpp" />
+    <ClCompile Include="time\TimerHeap.cpp" />
+    <ClCompile Include="util\MiniHeap.cpp" />
     <ClCompile Include="mongo\MongoQuery.cpp" />
     <ClCompile Include="mongo\MongoBase.cpp" />
     <ClCompile Include="mongo\MongoCursor.cpp" />
@@ -130,6 +132,9 @@
     <ClInclude Include="lualib\LuaTimer.h" />
     <ClInclude Include="lualib\LuaZeropack.h" />
     <ClInclude Include="lualib\LuaMessageHelper.h" />
+    <ClInclude Include="time\TimerHeap.h" />
+    <ClInclude Include="util\MiniHeap.h" />
+    <ClInclude Include="util\MiniheapT.h" />
     <ClInclude Include="mongo\MongoQuery.h" />
     <ClInclude Include="mongo\MongoBase.h" />
     <ClInclude Include="mongo\MongoCursor.h" />

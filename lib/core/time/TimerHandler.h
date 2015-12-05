@@ -5,6 +5,7 @@ class TimeoutHandler
 {
 	friend class TimerManager;
 	friend class TimerWheel;
+	friend class TimerHeap;
 public:
 	TimeoutHandler() {}
 

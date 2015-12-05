@@ -129,6 +129,12 @@
     <ClCompile Include="mongo\MongoQuery.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="util\MiniHeap.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="time\TimerHeap.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="platform.h">
@@ -285,6 +291,15 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="mongo\MongoQuery.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="util\MiniheapT.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="util\MiniHeap.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="time\TimerHeap.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
