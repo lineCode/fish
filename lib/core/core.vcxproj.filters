@@ -72,9 +72,6 @@
     <ClCompile Include="mongo\MongoSession.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="time\TimerManager.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="time\Timestamp.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -133,6 +130,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="time\TimerHeap.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="time\TimerWheelMgr.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -213,9 +213,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="time\TimerHandler.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="time\TimerManager.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="util\ObjectPool.h">
@@ -300,6 +297,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="time\TimerHeap.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="time\TimerWheelMgr.H">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="time\TimerEngineT.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

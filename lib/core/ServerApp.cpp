@@ -15,7 +15,7 @@
 ServerApp::ServerApp()
 {
 	_poller = Network::EventPoller::Create();
-	_poller->RegisterTimer(this,100);
+	_poller->Timer().Register(this,100);
 	_LuaManager = new LuaFish();
 	_mongo = NULL;
 	_now = ::Now();

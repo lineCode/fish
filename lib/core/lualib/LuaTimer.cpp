@@ -72,7 +72,7 @@ int LuaTimer::_Start(lua_State* L)
 
 	timer->_session = session;
 
-	app->Poller()->RegisterTimer(timer,ti);
+	app->Poller()->Timer().Register(timer,ti);
 
 	return 0;
 }

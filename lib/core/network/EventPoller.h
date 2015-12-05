@@ -4,7 +4,8 @@
 #include <map>
 #include <vector>
 #include <queue>
-#include "../time/TimerManager.h"
+#include "../time/TimerWheelMgr.h"
+#include "../time/TimerEngineT.h"
 class TimeoutHandler;
 
 namespace Network 
@@ -17,6 +18,7 @@ namespace Network
 	typedef std::vector<InputHandler*>		ReadHandles;
 	typedef std::vector<OutputHandler*>		WriteHandles;
 	typedef std::vector<ErrorHandler*>		ErrorHandles;
+	typedef TimerEngineT<TimerWheelMgr>		TimerEngine;
 
 	class EventPoller
 	{
@@ -54,10 +56,8 @@ namespace Network
 
 		virtual int  GenId(int fd);
 		virtual void RetrieveId(int fd,int id);
-
-		void RegisterTimer(TimeoutHandler* handler,int ti);
 		
-		TimerManager& TimerMgr();
+		TimerEngine& Timer();
 		
 		static EventPoller* Create();
 
@@ -68,7 +68,7 @@ namespace Network
 		ReadHandles			_readHandles;
 		WriteHandles		_writeHandles;
 		ErrorHandles		_errorHandles;
-		TimerManager		_timerMgr;
+		TimerEngine			_timerEngine;
 	};
 
 }

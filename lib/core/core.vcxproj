@@ -105,7 +105,7 @@
     <ClCompile Include="ObjectPoolMgr.cpp" />
     <ClCompile Include="ServerApp.cpp" />
     <ClCompile Include="thread\Thread.cpp" />
-    <ClCompile Include="time\TimerManager.cpp" />
+    <ClCompile Include="time\TimerWheelMgr.cpp" />
     <ClCompile Include="time\Timestamp.cpp" />
     <ClCompile Include="util\format.cc" />
     <ClCompile Include="util\MemAlloc.cpp" />
@@ -132,6 +132,7 @@
     <ClInclude Include="lualib\LuaTimer.h" />
     <ClInclude Include="lualib\LuaZeropack.h" />
     <ClInclude Include="lualib\LuaMessageHelper.h" />
+    <ClInclude Include="time\TimerEngineT.h" />
     <ClInclude Include="time\TimerHeap.h" />
     <ClInclude Include="util\MiniHeap.h" />
     <ClInclude Include="util\MiniheapT.h" />
@@ -157,7 +158,7 @@
     <ClInclude Include="thread\Mutex.h" />
     <ClInclude Include="thread\thread.h" />
     <ClInclude Include="time\TimerHandler.h" />
-    <ClInclude Include="time\TimerManager.h" />
+    <ClInclude Include="time\TimerWheelMgr.H" />
     <ClInclude Include="time\Timestamp.h" />
     <ClInclude Include="Typedef.h" />
     <ClInclude Include="util\format.h" />

@@ -22,7 +22,7 @@ class MiniheapT
 public:
 
 public:
-	MiniheapT(int size)
+	MiniheapT(int size = 64)
 	{
 		_heap = minheap_new(size,this,MiniheapT<T>::Compare);
 	}
@@ -45,7 +45,7 @@ public:
 		if (top == NULL)
 			return;
 		
-		if (this->CanPop(top))
+		if (this->CanPop(top->_data))
 		{
 			MiniHeapNodeT<T>* elt = (MiniHeapNodeT<T>*)minheap_pop(_heap);
 			obj = elt->_data;

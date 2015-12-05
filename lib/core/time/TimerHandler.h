@@ -3,7 +3,7 @@
 #include "../Typedef.h"
 class TimeoutHandler
 {
-	friend class TimerManager;
+	friend class TimerWheelMgr;
 	friend class TimerWheel;
 	friend class TimerHeap;
 public:

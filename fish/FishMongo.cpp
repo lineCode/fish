@@ -40,20 +40,6 @@ void FishMongo::LoadRole(int id)
 
 	bson::BSONObjBuilder query;
 
-	this->Query(boost::bind(&FishMongo::LoadRoleReply,this,id,_1,_2),"u3d.role",query.obj(),selector,0,0,10000);
-
-	bson::BSONObjBuilder query_;
-
-	this->Query(new LoadRoleQuery(id),"u3d.role",query_.obj(),selector,0,0,10000);
+	this->Query(new LoadRoleQuery(id),"u3d.role",query.obj(),selector,0,0,10000);
 }
 
-void FishMongo::LoadRoleReply(int id,const char* data,int size)
-{
-	MongoCursor cursor(data,size);
-	while (cursor.More())
-	{
-	char* next = cursor.Next();
-	bson::BSONObj bobj(next);
-	std::cout << bobj << std::endl;
-	}
-}

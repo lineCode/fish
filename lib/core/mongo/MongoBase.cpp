@@ -115,26 +115,19 @@ int MongoBase::Reply(const char* ptr,int size)
 void MongoBase::QueryReply(MongoQuery* reply,const char* data,int size)
 {
 	reply->Reply((char*)data,size);
+	delete reply;
 }
 
-int MongoBase::RunCommand(CallBackFunc cb,bson::BSONObj& query)
+int MongoBase::RunCommand(MongoQuery* reply,bson::BSONObj& query)
 {
 	bson::BSONObj selector;
-
-	return this->Query(cb,std::string("admin.$cmd"),query,selector);
+	return this->Query(reply,std::string("admin.$cmd"),query,selector);
 }
 
 int MongoBase::Query(MongoQuery* reply,std::string name,bson::BSONObj& query,bson::BSONObj& selector,int flag /* = 0 */,int skip /* = 0 */,int number /* = 100 */)
 {
 	int session = this->doQuery(name.c_str(),name.size(),query.objdata(),query.objsize(),selector.objdata(),selector.objsize(),flag,skip,number);
 	_queryCallBack[session] = boost::bind(&MongoBase::QueryReply,this,reply,_1,_2);
-	return session;
-}
-
-int MongoBase::Query(CallBackFunc cb,std::string name,bson::BSONObj& query,bson::BSONObj& selector,int flag /* = 0 */,int skip /* = 0 */,int number /* = 100 */)
-{
-	int session = this->doQuery(name.c_str(),name.size(),query.objdata(),query.objsize(),selector.objdata(),selector.objsize(),flag,skip,number);
-	_queryCallBack[session] = cb;
 	return session;
 }
 

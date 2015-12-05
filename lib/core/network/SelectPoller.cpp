@@ -135,7 +135,7 @@ namespace Network
 			}
 		}
 
-		_timerMgr.Update(TimeStamp());
+		_timerEngine.Update(TimeStamp());
 		return 0;
 	}
 }

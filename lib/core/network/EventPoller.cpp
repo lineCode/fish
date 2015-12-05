@@ -187,14 +187,9 @@ namespace Network
 		_idPool.push(id);
 	}
 
-	void EventPoller::RegisterTimer(TimeoutHandler* handler,int ti)
+	TimerEngine& EventPoller::Timer()
 	{
-		_timerMgr.Register(handler,ti);
-	}
-
-	TimerManager& EventPoller::TimerMgr()
-	{
-		return _timerMgr;
+		return _timerEngine;
 	}
 
 	EventPoller* EventPoller::Create() 

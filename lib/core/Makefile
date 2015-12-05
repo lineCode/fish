@@ -24,7 +24,7 @@ OBJ = EventPoller.o \
 	  MongoSession.o \
 	  MongoBase.o \
 	  Thread.o \
-	  TimerManager.o \
+	  TimerWheelMgr.o \
 	  Timestamp.o \
 	  BufferHelper.o \
 	  format.o \
@@ -41,7 +41,7 @@ SRC = ./network/EventPoller.cpp ./network/EpollPoller.cpp ./network/TcpReader.cp
 ./lualib/LuaAcceptor.cpp ./lualib/LuaConnector.cpp ./lualib/LuaMongo.cpp ./lualib/LuaReader.cpp ./lualib/LuaFish.cpp ./lualib/LuaServer.cpp ./lualib/LuaSocket.cpp ./lualib/LuaTimer.cpp \
 ./mongo/MongoBase.cpp ./mongo/MongoCursor.cpp ./mongo/MongoSession.cpp \
 ./thread/Thread.cpp \
-./time/TimerManager.cpp ./time/Timestamp.cpp \
+./time/TimerWheelMgr.cpp ./time/Timestamp.cpp \
 ./util/BufferHelper.cpp ./util/format.cc ./util/MemoryStream.cpp ./util/MessageReader.cpp ./util/MessageWriter.cpp ./util/ZeroPack.cpp \
 ./AppThread.cpp ./Logger.cpp ./ServerApp.cpp
 
