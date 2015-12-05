@@ -46,7 +46,11 @@ public:
 			return;
 		
 		if (this->CanPop(top))
+		{
 			MiniHeapNodeT<T>* elt = (MiniHeapNodeT<T>*)minheap_pop(_heap);
+			obj = elt->_data;
+			delete elt;
+		}
 	}
 
 	static int Compare(void* ud,element* left,element* right)
