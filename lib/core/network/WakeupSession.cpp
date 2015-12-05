@@ -54,7 +54,7 @@ namespace Network
 		int64 r = 0;
 		int len = SocketRead(_fd,(char*)&r,sizeof(int64));
 		if (len > 0)
-			_poller->TimerMgr().Update(TimeStamp());
+			_poller->Timer().Update(TimeStamp());
 		else if (len == 0)
 			fprintf(stderr,"timerfd sinal\n");
 		else if (len < 0)

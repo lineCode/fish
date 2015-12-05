@@ -5,6 +5,7 @@
 #include <vector>
 #include <queue>
 #include "../time/TimerWheelMgr.h"
+#include "../time/TimerHeap.h"
 #include "../time/TimerEngineT.h"
 class TimeoutHandler;
 
@@ -18,7 +19,7 @@ namespace Network
 	typedef std::vector<InputHandler*>		ReadHandles;
 	typedef std::vector<OutputHandler*>		WriteHandles;
 	typedef std::vector<ErrorHandler*>		ErrorHandles;
-	typedef TimerEngineT<TimerWheelMgr>		TimerEngine;
+	typedef TimerEngineT<TimerHeap>			TimerEngine;
 
 	class EventPoller
 	{
