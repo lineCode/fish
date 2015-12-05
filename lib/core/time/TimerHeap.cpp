@@ -6,7 +6,6 @@ TimerHeap::TimerHeap():Super()
 	_now = TimeStamp() * 1000 / StampPersecond();
 }
 
-
 TimerHeap::~TimerHeap(void)
 {
 }
