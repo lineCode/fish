@@ -285,6 +285,10 @@ function _M.Stop()
 	return Core.Stop()
 end
 
+function _M.MemInfo()
+	return Core.MemInfo()
+end
+
 local function dispatchServer(source,session,type,param,...)
 	local server = _serverInfo[source]
 	if type == 1 then

@@ -33,11 +33,7 @@ function _M.Start(host,port,cmdset)
 				local ok, list
 				if cmd then
 					ok, list = pcall(cmd, select(2,table.unpack(splits)))
-					if ok then
-						socket.Send(source,"ok")
-					else
-						socket.Send(source,list)
-					end
+					socket.Send(source,list)
 					socket.Send(source, "\r\n")
 				else
 					socket.Send(source, string.format("cmd:%s not found",splits[1]))
