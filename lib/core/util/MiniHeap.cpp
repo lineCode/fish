@@ -115,10 +115,10 @@ void minheap_push(struct minheap * mh,struct element * elt)
 	}
 
 	if (mh->size >= mh->cap - 1)
-	{
+	{ 
 		int nsize = mh->cap * 2;
 		struct element ** elts = (struct element **)malloc(nsize * sizeof(struct element*));
-		memcpy(elts,mh->elts,nsize * sizeof(struct element*));
+		memcpy(elts,mh->elts,mh->cap * sizeof(struct element*));
 		free(mh->elts);
 		mh->elts = elts;
 		mh->cap = nsize;
