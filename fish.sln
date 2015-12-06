@@ -31,6 +31,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bson", "lib\3rd\bson\bson.v
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "luaprofiler", "lib\3rd\luaprofiler\luaprofiler.vcxproj", "{7D9CD966-624B-454F-9DC7-58BF87D8FCE8}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_pool", "test_pool\test_pool.vcxproj", "{DECA51E1-418D-4789-894D-70C2663EE56F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -89,6 +91,10 @@ Global
 		{7D9CD966-624B-454F-9DC7-58BF87D8FCE8}.Debug|Win32.Build.0 = Debug|Win32
 		{7D9CD966-624B-454F-9DC7-58BF87D8FCE8}.Release|Win32.ActiveCfg = Release|Win32
 		{7D9CD966-624B-454F-9DC7-58BF87D8FCE8}.Release|Win32.Build.0 = Release|Win32
+		{DECA51E1-418D-4789-894D-70C2663EE56F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DECA51E1-418D-4789-894D-70C2663EE56F}.Debug|Win32.Build.0 = Debug|Win32
+		{DECA51E1-418D-4789-894D-70C2663EE56F}.Release|Win32.ActiveCfg = Release|Win32
+		{DECA51E1-418D-4789-894D-70C2663EE56F}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

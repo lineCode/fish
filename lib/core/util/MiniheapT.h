@@ -27,7 +27,7 @@ public:
 		_heap = minheap_new(size,this,MiniheapT<T>::Compare);
 	}
 
-	~MiniheapT()
+	virtual ~MiniheapT()
 	{
 		minheap_delete(_heap);
 	}

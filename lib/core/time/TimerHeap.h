@@ -11,7 +11,7 @@ public:
 public:
 	TimerHeap();
 
-	~TimerHeap();
+	virtual ~TimerHeap();
 
 	virtual int Register(TimeoutHandler* handler,int expire);
 

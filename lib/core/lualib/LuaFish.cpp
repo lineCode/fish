@@ -17,7 +17,8 @@
 
 LuaFish::LuaFish(void)
 {
-	_L = lua_newstate(MemAlloc::Alloc,(void*)&_allocator);
+	//_L = lua_newstate(MemAlloc::Alloc,(void*)&_allocator);
+	_L = luaL_newstate();
 	_sessionCounter = 0;
 	_callback = -1;
 	_mainTick = -1;
@@ -208,6 +209,7 @@ int LuaFish::DispatchSocket(int source,const char* data,int size)
 	//free by LuaSession
 	lua_pushlightuserdata(_L,(void*)data);
 	lua_pushinteger(_L,size);
+
 
 	int r = lua_pcall(_L,7,0,otop+1);
 	if (r != LUA_OK)
