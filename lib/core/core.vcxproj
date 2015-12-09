@@ -91,6 +91,8 @@
     <ClCompile Include="lualib\LuaZeropack.cpp" />
     <ClCompile Include="lualib\LuaMessageHelper.cpp" />
     <ClCompile Include="time\TimerHeap.cpp" />
+    <ClCompile Include="util\Allocator.cpp" />
+    <ClCompile Include="util\LuaAllocator.cpp" />
     <ClCompile Include="util\MiniHeap.cpp" />
     <ClCompile Include="mongo\MongoQuery.cpp" />
     <ClCompile Include="mongo\MongoBase.cpp" />
@@ -108,7 +110,6 @@
     <ClCompile Include="time\TimerWheel.cpp" />
     <ClCompile Include="time\Timestamp.cpp" />
     <ClCompile Include="util\format.cc" />
-    <ClCompile Include="util\MemAlloc.cpp" />
     <ClCompile Include="util\MemoryStream.cpp" />
     <ClCompile Include="util\MessageReader.cpp" />
     <ClCompile Include="util\MessageWriter.cpp" />
@@ -134,6 +135,8 @@
     <ClInclude Include="lualib\LuaMessageHelper.h" />
     <ClInclude Include="time\TimerEngineT.h" />
     <ClInclude Include="time\TimerHeap.h" />
+    <ClInclude Include="util\Allocator.h" />
+    <ClInclude Include="util\LuaAllocator.h" />
     <ClInclude Include="util\MiniHeap.h" />
     <ClInclude Include="util\MiniheapT.h" />
     <ClInclude Include="mongo\MongoQuery.h" />
@@ -163,7 +166,6 @@
     <ClInclude Include="Typedef.h" />
     <ClInclude Include="util\format.h" />
     <ClInclude Include="util\List.h" />
-    <ClInclude Include="util\MemAlloc.h" />
     <ClInclude Include="util\MemoryStream.h" />
     <ClInclude Include="util\MessageReader.h" />
     <ClInclude Include="util\MessageWriter.h" />

@@ -17,8 +17,8 @@
 
 LuaFish::LuaFish(void)
 {
-	//_L = lua_newstate(MemAlloc::Alloc,(void*)&_allocator);
-	_L = luaL_newstate();
+	_L = lua_newstate(LuaAllocator::Alloc,(void*)&_allocator);
+	//_L = luaL_newstate();
 	_sessionCounter = 0;
 	_callback = -1;
 	_mainTick = -1;
@@ -467,7 +467,7 @@ int LuaFish::_MemInfo(lua_State* L)
 	int smallTotal;
 	int bigTotal;
 	int memUse;
-	app->LuaManager()->_allocator.Info(&smallTotal,&bigTotal,&memUse);
+	app->LuaManager()->_allocator.Dump(&smallTotal,&bigTotal,&memUse);
 
 	lua_pushinteger(L,smallTotal);
 	lua_pushinteger(L,bigTotal);
