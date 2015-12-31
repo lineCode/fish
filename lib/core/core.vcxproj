@@ -39,7 +39,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>..\..\libs\</OutDir>
-    <IncludePath>E:\boost_1_58_0;..\3rd\http-parser;..\3rd\pbc;..\3rd;..\3rd\lpeg;..\3rd\lua\src;..\3rd\bsoncpp\src;..\3rd\bsoncpp;$(IncludePath)</IncludePath>
+    <IncludePath>F:\boost_1_58_0;..\3rd\http-parser;..\3rd\pbc;..\3rd;..\3rd\lpeg;..\3rd\lua\src;..\3rd\bsoncpp\src;..\3rd\bsoncpp;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -90,6 +90,7 @@
     <ClCompile Include="lualib\LuaTimer.cpp" />
     <ClCompile Include="lualib\LuaZeropack.cpp" />
     <ClCompile Include="lualib\LuaMessageHelper.cpp" />
+    <ClCompile Include="lualib\LuaProf.cpp" />
     <ClCompile Include="time\TimerHeap.cpp" />
     <ClCompile Include="util\Allocator.cpp" />
     <ClCompile Include="util\LuaAllocator.cpp" />
@@ -133,6 +134,7 @@
     <ClInclude Include="lualib\LuaTimer.h" />
     <ClInclude Include="lualib\LuaZeropack.h" />
     <ClInclude Include="lualib\LuaMessageHelper.h" />
+    <ClInclude Include="lualib\LuaProf.h" />
     <ClInclude Include="time\TimerEngineT.h" />
     <ClInclude Include="time\TimerHeap.h" />
     <ClInclude Include="util\Allocator.h" />

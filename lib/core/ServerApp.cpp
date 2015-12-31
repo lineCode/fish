@@ -7,6 +7,7 @@
 #include "lualib/LuaMongo.h"
 #include "lualib/LuaZeropack.h"
 #include "lualib/LuaMessageHelper.h"
+#include "lualib/LuaProf.h"
 #include "util/format.h"
 #include "time/Timestamp.h"
 
@@ -51,6 +52,7 @@ int ServerApp::Init()
 	_LuaManager->Require("MongoCore",LuaMongo::Register);
 	_LuaManager->Require("Zeropack",LuaZeropack::Register);
 	_LuaManager->Require("MessageHelper",LuaMessageHelper::Register);
+	_LuaManager->Require("LuaProf",LuaProf::luaopen_prof);
 	return 0;
 }
 
