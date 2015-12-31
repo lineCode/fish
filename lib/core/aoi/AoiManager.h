@@ -13,9 +13,10 @@ public:
 	int RemoveObject(AoiObject* obj);
 
 	int AddWatcher(AoiObject* obj,int range);
-	int RemoveWatcher(AoiObject* obj,int range);
+	int RemoveWatcher(AoiObject* obj);
 
-	int Update(AoiObject* obj);
+	int UpdateObject(AoiObject* obj,float x,float y);
+	int UpdateWatcher(AoiObject* obj,float x,float y);
 
 	void GetRange(int x,int y,int range,Pos& start,Pos& end);
 
