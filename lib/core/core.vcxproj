@@ -147,7 +147,7 @@
     <ClInclude Include="mongo\MongoSession.h" />
     <ClInclude Include="network\Acceptor.h" />
     <ClInclude Include="network\Connector.h" />
-    <ClInclude Include="network\eventpoller.h" />
+    <ClInclude Include="network\EventPoller.h" />
     <ClInclude Include="network\FdSet.h" />
     <ClInclude Include="network\interface.h" />
     <ClInclude Include="network\network.h" />

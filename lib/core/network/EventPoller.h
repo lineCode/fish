@@ -27,22 +27,21 @@ namespace Network
 		EventPoller(int size = 1024 * 10);
 		~EventPoller(void);
 
-		virtual bool DoRegisterRead(int fd,int id) = 0;
-		virtual bool DoRegisterWrite(int fd,int id) = 0;
+		virtual bool DoRegisterRead(int fd,int id);
+		virtual bool DoRegisterWrite(int fd,int id);
+		virtual bool DoRegisterError(int fd,int id);
 
-		virtual bool DoDeRegisterRead(int fd,int id) = 0;
-		virtual bool DoDeRegisterWrite(int fd,int id) = 0;
-
-		virtual bool AddConnecter(int fd);
-		virtual bool RemoveConnecter(int fd);
+		virtual bool DoDeRegisterRead(int fd,int id);
+		virtual bool DoDeRegisterWrite(int fd,int id);
+		virtual bool DoDeRegisterError(int fd,int id);
 
 		bool RegisterRead(int id,int fd,InputHandler* handler);
 		bool RegisterWrite(int id,int fd,OutputHandler* handler);
-		bool RegisterError(int id,ErrorHandler* handler);
+		bool RegisterError(int id,int fd,ErrorHandler* handler);
 
 		bool DeRegisterRead(int id,int fd);
 		bool DeRegisterWrite(int id,int fd);
-		bool DeRegisterError(int id);
+		bool DeRegisterError(int id,int fd);
 
 		virtual bool HandleRead(int id,int fd);
 		virtual bool HandleWrite(int id,int fd);

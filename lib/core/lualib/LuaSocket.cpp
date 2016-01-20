@@ -128,7 +128,7 @@ int LuaSocket::_New(lua_State* L)
 	self->SetReader(new LuaReader(self,buffersize));
 	
 	app->Poller()->RegisterRead(id,fd,self);
-	app->Poller()->RegisterError(id,self);
+	app->Poller()->RegisterError(id,fd,self);
 
 	self->Init();
 

@@ -16,14 +16,13 @@ namespace Network
 		SelectPoller();
 		~SelectPoller();
 
-		virtual bool AddConnecter(int fd);
-		virtual bool RemoveConnecter(int fd);
-
 		virtual bool DoRegisterRead(int fd,int id);
 		virtual bool DoRegisterWrite(int fd,int id);
+		virtual bool DoRegisterError(int fd,int id);
 
 		virtual bool DoDeRegisterRead(int fd,int id);
 		virtual bool DoDeRegisterWrite(int fd,int id);
+		virtual bool DoDeRegisterError(int fd,int id);
 
 		virtual int GenId(int fd);
 		virtual void RetrieveId(int fd,int id);

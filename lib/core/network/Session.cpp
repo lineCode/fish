@@ -59,7 +59,7 @@ namespace Network
 			_poller->DeRegisterWrite(_id,_fd);
 
 		if (_poller->isRegisteredError(_id))
-			_poller->DeRegisterError(_id);
+			_poller->DeRegisterError(_id,_fd);
 
 		SocketClose(_fd);
 

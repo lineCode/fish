@@ -72,7 +72,7 @@ int LuaServer::_New(lua_State* L)
 	self->SetReader(new Network::TcpReader(self,2,buffsize));
 
 	app->Poller()->RegisterRead(id,fd,self);
-	app->Poller()->RegisterError(id,self);
+	app->Poller()->RegisterError(id,fd,self);
 
 	self->Init();
 

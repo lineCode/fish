@@ -62,7 +62,7 @@ namespace Network
 		}
 		_id = id;
 		this->_poller->RegisterRead(id,fd,this);
-		this->_poller->RegisterError(id,this);
+		this->_poller->RegisterError(id,fd,this);
 
 		return _fd;
 	}
@@ -84,7 +84,7 @@ namespace Network
 			SESSION* session = this->MakeSession(rfd);
 			session->SetId(id);
 			_poller->RegisterRead(id,rfd,session);
-			_poller->RegisterError(id,session);
+			_poller->RegisterError(id,rfd,session);
 			session->Init();
 		}
 		else

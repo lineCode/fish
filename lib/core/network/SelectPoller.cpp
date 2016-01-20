@@ -19,24 +19,6 @@ namespace Network
 	{
 	}
 
-	bool SelectPoller::AddConnecter(int fd)
-	{
-		if (_setError.IsSet(fd))
-			return false;
-		
-		_setError.Set(fd);
-		return true;
-	}
-
-	bool SelectPoller::RemoveConnecter(int fd)
-	{
-		if (!_setError.IsSet(fd))
-			return false;
-
-		_setError.Clear(fd);
-		return true;
-	}
-
 	bool SelectPoller::DoRegisterRead(int fd,int id) 
 	{
 		if (_setRead.IsSet(fd))
@@ -55,6 +37,15 @@ namespace Network
 		return true;
 	}
 
+	bool SelectPoller::DoRegisterError(int fd,int id)
+	{
+		if (_setError.IsSet(fd))
+			return false;
+
+		_setError.Set(fd);
+		return true;
+	}
+
 	bool SelectPoller::DoDeRegisterRead(int fd,int id)
 	{
 		if (!_setRead.IsSet(fd))
@@ -70,6 +61,15 @@ namespace Network
 			return false;
 
 		_setWrite.Clear(fd);
+		return true;
+	}
+
+	bool SelectPoller::DoDeRegisterError(int fd,int id)
+	{
+		if (!_setError.IsSet(fd))
+			return false;
+
+		_setError.Clear(fd);
 		return true;
 	}
 

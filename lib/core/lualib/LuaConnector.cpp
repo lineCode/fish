@@ -47,9 +47,8 @@ int LuaConnector::Connect(const char * host,int port,bool& done)
 	}
 	else
 	{
-		_poller->RegisterError(_id,this);
+		_poller->RegisterError(_id,_fd,this);
 		_poller->RegisterWrite(_id,_fd,this);
-		assert(_poller->AddConnecter(_fd) == true);
 	}
 
 	done = false;
@@ -59,8 +58,7 @@ int LuaConnector::Connect(const char * host,int port,bool& done)
 int LuaConnector::HandleOutput()
 {
 	_poller->DeRegisterWrite(_id,_fd);
-	_poller->DeRegisterError(_id);
-	_poller->RemoveConnecter(_fd);
+	_poller->DeRegisterError(_id,_fd);
 	_poller->RetrieveId(_fd,_id);
 
 	if (Network::SocketHasError(_fd))
@@ -76,8 +74,7 @@ int LuaConnector::HandleOutput()
 int LuaConnector::HandleError()
 {
 	_poller->DeRegisterWrite(_id,_fd);
-	_poller->DeRegisterError(_id);
-	_poller->RemoveConnecter(_fd);
+	_poller->DeRegisterError(_id,_fd);
 	_poller->RetrieveId(_fd,_id);
 	Network::SocketClose(_fd);
 	this->_app->LuaManager()->DispatchSocketEvent(_fd,LuaFish::Connect,0);

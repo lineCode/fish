@@ -25,12 +25,32 @@ namespace Network
 	{
 	}
 
-	bool EventPoller::AddConnecter(int fd)
+	bool EventPoller::DoRegisterRead(int fd,int id)
 	{
 		return true;
 	}
 
-	bool EventPoller::RemoveConnecter(int fd)
+	bool EventPoller::DoRegisterWrite(int fd,int id)
+	{
+		return true;
+	}
+
+	bool EventPoller::DoRegisterError(int fd,int id)
+	{
+		return true;
+	}
+
+	bool EventPoller::DoDeRegisterRead(int fd,int id)
+	{
+		return true;
+	}
+
+	bool EventPoller::DoDeRegisterWrite(int fd,int id)
+	{
+		return true;
+	}
+
+	bool EventPoller::DoDeRegisterError(int fd,int id)
 	{
 		return true;
 	}
@@ -57,8 +77,11 @@ namespace Network
 		return true;
 	}
 
-	bool EventPoller::RegisterError(int id,ErrorHandler* handler) 
+	bool EventPoller::RegisterError(int id,int fd,ErrorHandler* handler) 
 	{
+		if (!this->DoRegisterError(fd,id))
+			return false;
+
 		assert(_errorHandles[id] == NULL);
 		_errorHandles[id] = handler;
 		return true;
@@ -78,11 +101,11 @@ namespace Network
 		return DoDeRegisterWrite(fd,id);
 	}
 
-	bool EventPoller::DeRegisterError(int id)
+	bool EventPoller::DeRegisterError(int id,int fd)
 	{
 		assert(_errorHandles[id] != NULL);
 		_errorHandles[id] = NULL;
-		return true;
+		return DoDeRegisterError(fd,id);
 	}
 
 	bool EventPoller::isRegistered(int id, bool isForRead)

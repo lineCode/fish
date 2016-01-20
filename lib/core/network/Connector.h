@@ -80,7 +80,7 @@ namespace Network
 	int Connector<SESSION>::HandleError()
 	{
 		_poller->DeRegisterWrite(_id,_fd);
-		_poller->DeRegisterError(_id);
+		_poller->DeRegisterError(_id,_fd);
 		_poller->RetrieveId(_fd,_id);
 		return 0;
 	}
@@ -92,7 +92,7 @@ namespace Network
 			_poller->DeRegisterWrite(_id,_fd);
 
 		if (_poller->isRegisteredError(_id))
-			_poller->DeRegisterError(_id);
+			_poller->DeRegisterError(_id,_fd);
 
 		SocketSetKeepalive(_fd,true);
 		SocketSetNonblocking(_fd,true);
@@ -101,7 +101,7 @@ namespace Network
 		_session->SetId(_id);
 		_session->Init();
 		_poller->RegisterRead(_id,_fd,_session);
-		_poller->RegisterError(_id,_session);
+		_poller->RegisterError(_id,_fd,_session);
 
 		return 0;
 	}
