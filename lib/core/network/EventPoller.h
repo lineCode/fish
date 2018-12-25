@@ -15,9 +15,7 @@ namespace Network
 		EventPoller();
 		~EventPoller(void);
 
-		virtual int RegisterTimer(Timer* timer, int interval)
-
-		virtual int Process();
+		virtual void Process();
 
 		ev::default_loop& GetEvLoop();
 		

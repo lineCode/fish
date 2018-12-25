@@ -1,4 +1,5 @@
 ﻿#include "Connector.h"
+#include "Network.h"
 namespace Network
 {
 

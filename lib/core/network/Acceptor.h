@@ -1,6 +1,6 @@
 ﻿#ifndef ACCEPTOR_H
 #define ACCEPTOR_H
-#include "Interface.h"
+
 #include "EventPoller.h"
 #include "ev++.h"
 #include <functional>

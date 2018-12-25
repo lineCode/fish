@@ -1,8 +1,7 @@
-#ifndef LUAACCEPTOR_H
+﻿#ifndef LUAACCEPTOR_H
 #define LUAACCEPTOR_H
 
 #include "LuaSocket.h"
-#include "../network/Interface.h"
 #include "../network/EventPoller.h"
 
 extern "C"

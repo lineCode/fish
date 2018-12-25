@@ -1,7 +1,7 @@
-#ifndef LUASOCKET_H
+﻿#ifndef LUASOCKET_H
 #define LUASOCKET_H
 
-#include "../network/Session.h"
+#include "../network/Channel.h"
 #include "../util/List.h"
 extern "C"
 {
@@ -10,7 +10,7 @@ extern "C"
 };
 
 
-class LuaSocket : public Network::Session
+class LuaSocket : public Network::Channel
 {
 public:
 	typedef List<MemoryStream> StreamList;

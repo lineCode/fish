@@ -4,7 +4,7 @@
 #include <map>
 #include <queue>
 
-#include "Interface.h"
+
 #include "EventPoller.h"
 #include "TcpReader.h"
 #include "../ServerApp.h"

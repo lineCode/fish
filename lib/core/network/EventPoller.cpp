@@ -1,11 +1,7 @@
 ﻿#include "EventPoller.h"
-#include "EpollPoller.h"
 #include "Network.h"
 
 #include "ev++.h"
-#if defined(WIN32)
-#include "SelectPoller.h"
-#endif
 
 namespace Network
 {
@@ -18,7 +14,7 @@ namespace Network
 	{
 	}
 
-	int EventPoller::Process()
+	void EventPoller::Process()
 	{
 		return loop_.run();
 	}

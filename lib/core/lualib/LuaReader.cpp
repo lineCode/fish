@@ -1,6 +1,6 @@
-#include "LuaReader.h"
+﻿#include "LuaReader.h"
 #include "../network/Network.h"
-#include "../network/Session.h"
+#include "../network/Channel.h"
 
 LuaReader::LuaReader(Network::Session* session,int size):Network::Reader(session,size)
 {

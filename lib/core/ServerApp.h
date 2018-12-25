@@ -7,7 +7,7 @@
 #include "util/MessageWriter.h"
 #include "util/MessageReader.h"
 #include "util/ObjectPool.h"
-#include "network/Session.h"
+#include "network/Channel.h"
 #include "lualib/LuaFish.h"
 #include "time/TimerHandler.h"
 #include "Typedef.h"
@@ -17,7 +17,7 @@ class MongoSession;
 class ServerApp : public TimeoutHandler
 {
 public:
-	typedef FishMap<int,Network::Session*>	SessionMap;
+	typedef FishMap<int,Network::Channel*>	SessionMap;
 	enum AppState{AppRun,AppStop};
 public:
 	ServerApp(void);

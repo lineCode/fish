@@ -135,6 +135,9 @@
     <ClCompile Include="network\Channel.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="network\Connector.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="platform.h">
@@ -156,9 +159,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="network\eventpoller.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="network\interface.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="network\network.h">
@@ -294,6 +294,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="network\channel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="time\Timer.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,10 +1,10 @@
-#include "TcpReader.h"
+﻿#include "TcpReader.h"
 #include "Network.h"
-#include "Session.h"
+#include "Channel.h"
 
 namespace Network
 {
-	TcpReader::TcpReader(Session* session,int header,int buffsize):Reader(session,buffsize)
+	TcpReader::TcpReader(Channel* channel,int header,int buffsize):Reader(session,buffsize)
 	{
 		_header = header;
 		_left = 0;

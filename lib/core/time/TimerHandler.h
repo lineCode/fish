@@ -1,4 +1,4 @@
-#ifndef TIMERHANDLER_H
+﻿#ifndef TIMERHANDLER_H
 #define TIMERHANDLER_H
 #include "../Typedef.h"
 class TimeoutHandler

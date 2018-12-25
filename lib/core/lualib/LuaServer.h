@@ -1,7 +1,7 @@
-#ifndef LUASERVER_H
+﻿#ifndef LUASERVER_H
 #define LUASERVER_H
 
-#include "../network/Session.h"
+#include "../network/Channel.h"
 
 extern "C"
 {
@@ -10,7 +10,7 @@ extern "C"
 };
 
 
-class LuaServer : public Network::Session
+class LuaServer : public Network::Channel
 {
 public:
 	LuaServer(ServerApp* app,Network::EventPoller * poller,int fd);

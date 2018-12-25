@@ -1,7 +1,6 @@
 ﻿#ifndef CONNECTOR_H
 #define CONNECTOR_H
 
-#include "Interface.h"
 #include "EventPoller.h"
 #include <functional>
 #include "ev++.h"
