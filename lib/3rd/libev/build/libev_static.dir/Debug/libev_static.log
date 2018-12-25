@@ -1,8 +1,8 @@
-﻿生成启动时间为 2018/12/25 16:19:04。
+﻿生成启动时间为 2018/12/25 16:38:11。
      1>项目“E:\github\fish\lib\3rd\libev\build\libev_static.vcxproj”在节点 2 上(Build 个目标)。
      1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(357,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
      1>ClCompile:
-         D:\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IE:\github\fish\lib\3rd\libev /Zi /nologo /W4 /WX- /Od /Ob0 /Oy- /D WIN32 /D STRICT /D WIN32_LEAN_AND_MEAN /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"libev_static.dir\Debug\\" /Fd"libev_static.dir\Debug\vc120.pdb" /Gd /TC /wd4251 /wd4275 /wd4702 /analyze- /errorReport:prompt  -J E:\github\fish\lib\3rd\libev\ev.c
+         D:\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IE:\github\fish\lib\3rd\libev /Zi /nologo /W4 /WX- /Od /Ob0 /Oy- /D WIN32 /D STRICT /D WIN32_LEAN_AND_MEAN /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"libev_static.dir\Debug\\" /Fd"libev_static.dir\Debug\vc120.pdb" /Gd /TC /wd4251 /wd4275 /wd4702 /analyze- /errorReport:prompt  -J E:\github\fish\lib\3rd\libev\ev.c E:\github\fish\lib\3rd\libev\event.c
          ev.c
      1>E:\github\fish\lib\3rd\libev\ev.c(205): warning C4005: “WIN32_LEAN_AND_MEAN”: 宏重定义
                  命令行参数: 参见前面的“WIN32_LEAN_AND_MEAN”定义
@@ -130,6 +130,22 @@
      1>E:\github\fish\lib\3rd\libev\ev.c(4966): warning C4127: 条件表达式是常量
      1>E:\github\fish\lib\3rd\libev\ev.c(4970): warning C4127: 条件表达式是常量
      1>E:\github\fish\lib\3rd\libev\ev.c(4973): warning C4127: 条件表达式是常量
+         event.c
+     1>e:\github\fish\lib\3rd\libev\event.h(138): warning C4115: “timeval”: 括号中的已命名类型定义
+     1>E:\github\fish\lib\3rd\libev\event.c(115): warning C4100: “base”: 未引用的形参
+     1>E:\github\fish\lib\3rd\libev\event.c(179): warning C4100: “loop”: 未引用的形参
+     1>E:\github\fish\lib\3rd\libev\event.c(190): warning C4100: “loop”: 未引用的形参
+     1>E:\github\fish\lib\3rd\libev\event.c(201): warning C4100: “loop”: 未引用的形参
+     1>E:\github\fish\lib\3rd\libev\event.c(213): warning C4127: 条件表达式是常量
+     1>E:\github\fish\lib\3rd\libev\event.c(215): warning C4127: 条件表达式是常量
+     1>E:\github\fish\lib\3rd\libev\event.c(217): warning C4127: 条件表达式是常量
+     1>E:\github\fish\lib\3rd\libev\event.c(242): warning C4127: 条件表达式是常量
+     1>E:\github\fish\lib\3rd\libev\event.c(252): warning C4127: 条件表达式是常量
+     1>E:\github\fish\lib\3rd\libev\event.c(293): warning C4100: “ncalls”: 未引用的形参
+     1>E:\github\fish\lib\3rd\libev\event.c(373): warning C4100: “revents”: 未引用的形参
+     1>E:\github\fish\lib\3rd\libev\event.c(423): warning C4100: “npri”: 未引用的形参
+     1>E:\github\fish\lib\3rd\libev\event.c(423): warning C4100: “base”: 未引用的形参
+         正在生成代码...
      1>e:\github\fish\lib\3rd\libev\ev.c(2145): warning C4706: 条件表达式内的赋值
        Lib:
          D:\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"E:\github\fish\libs\libev_static.lib" /NOLOGO  /machine:X86 libev_static.dir\Debug\ev.obj
@@ -139,4 +155,4 @@
 
 生成成功。
 
-已用时间 00:00:00.53
+已用时间 00:00:00.71

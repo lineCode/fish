@@ -33,8 +33,8 @@ void Bootstrap::Startup(const char* file)
 	if (_config.HasMember("mongo"))
 		app->ConnectMongo(_config["mongo"]["ip"].GetString(),_config["mongo"]["port"].GetInt());
 
-	if (_config.HasMember("client"))
-		app->ListenClient(std::string("127.0.0.1"), 1989);
+
+	app->ListenClient(std::string("127.0.0.1"), 1989);
 	
 	app->Init();
 
