@@ -37,8 +37,6 @@
  * either the BSD or the GPL.
  */
 
-#pragma warning (disable:4290)
-
 #ifndef EVPP_H__
 #define EVPP_H__
 

@@ -1,8 +1,5 @@
 #include "LuaAllocator.h"
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <assert.h>
+
 
 static int where[] = {
   0,0,0,0,0,0,0,0,0,//8

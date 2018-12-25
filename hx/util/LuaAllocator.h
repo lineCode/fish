@@ -1,7 +1,10 @@
 #ifndef MEMALLOC_H
 #define MEMALLOC_H
 #include "Allocator.h"
-
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <assert.h>
 
 class LuaAllocator
 {

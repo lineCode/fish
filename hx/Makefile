@@ -1,57 +1,47 @@
 CC = g++
 AR = ar
-CFLAG = -g -O2 -fPIC -Wall
+CFLAG = -g -O2 -fPIC -Wall -fno-strict-aliasing
 
-INCLUDE = -I. -I../3rd -I../3rd/bsoncpp -I../3rd/bsoncpp/src
-TARGET = ./libcore.a
+INCLUDE = -I. -I../3rd -I../3rd/libev -I../3rd/lua/src -I../3rd/oolua/include -I../3rd/rapidjson
+TARGET = ./libhx.a
 
-OBJ = EventPoller.o \
-	  EpollPoller.o \
-	  TcpReader.o \
-	  Network.o \
-	  Reader.o \
-	  Session.o \
-	  WakeupSession.o \
-	  LuaAcceptor.o \
-	  LuaConnector.o \
-	  LuaMongo.o \
-	  LuaReader.o \
-	  LuaFish.o \
-	  LuaServer.o \
-	  LuaSocket.o \
-	  LuaTimer.o \
-	  MongoCursor.o \
-	  MongoSession.o \
-	  MongoBase.o \
-	  Thread.o \
-	  TimerWheelMgr.o \
-	  Timestamp.o \
-	  BufferHelper.o \
-	  format.o \
-	  MemoryStream.o \
-	  MessageReader.o \
-	  MessageWriter.o \
-	  ZeroPack.o \
-	  AppThread.o \
-	  Logger.o \
-	  ServerApp.o \
+OBJ = ./network/EventPoller.o \
+	  ./network/TcpReader.o \
+	  ./network/Network.o \
+	  ./network/Reader.o \
+	  ./network/Channel.o \
+	  ./thread/Thread.o \
+	  ./time/Timestamp.o \
+	  ./util/format.o \
+	  ./util/MemoryStream.o \
+	  ./util/MessageReader.o \
+	  ./util/MessageWriter.o \
+	  ./util/ZeroPack.o \
+	  ./AppThread.o \
+	  ./Logger.o \
+	  ./ServerApp.o \
 
 
-SRC = ./network/EventPoller.cpp ./network/EpollPoller.cpp ./network/TcpReader.cpp ./network/Network.cpp ./network/Reader.cpp ./network/Session.cpp ./network/WakeupSession.cpp \
-./lualib/LuaAcceptor.cpp ./lualib/LuaConnector.cpp ./lualib/LuaMongo.cpp ./lualib/LuaReader.cpp ./lualib/LuaFish.cpp ./lualib/LuaServer.cpp ./lualib/LuaSocket.cpp ./lualib/LuaTimer.cpp \
-./mongo/MongoBase.cpp ./mongo/MongoCursor.cpp ./mongo/MongoSession.cpp \
-./thread/Thread.cpp \
-./time/TimerWheelMgr.cpp ./time/Timestamp.cpp \
-./util/BufferHelper.cpp ./util/format.cc ./util/MemoryStream.cpp ./util/MessageReader.cpp ./util/MessageWriter.cpp ./util/ZeroPack.cpp \
+SRC = ./network/EventPoller.cpp ./network/TcpReader.cpp ./network/Network.cpp ./network/Reader.cpp ./network/Channel.cpp \
+./lualib/LuaFish.cpp ./thread/Thread.cpp ./time/Timestamp.cpp \
+./util/format.cc ./util/MemoryStream.cpp ./util/MessageReader.cpp ./util/MessageWriter.cpp ./util/ZeroPack.cpp \
 ./AppThread.cpp ./Logger.cpp ./ServerApp.cpp
 
 all:$(TARGET)
 
-$(OBJ):$(SRC)
-	$(CC) $(CFLAG) $(INCLUDE) -c $(SRC)
+# $(OBJ):$(SRC)
+# 	$(CC) $(CFLAG) $(INCLUDE) -c $(SRC)
+# 	
+%.o: %.cpp
+	$(CC) $(CFLAG) $(INCLUDE) -c $< -o $@
 
 $(TARGET):$(OBJ)
 	$(AR) cq $@ $^
 
 clean:
-	rm -f *.o $(TARGET)
+	rm -f lualib/*.o
+	rm -f network/*.o
+	rm -f time/*.o
+	rm -f util/*.o
+	rm -f *.o 
+	rm -f $(TARGET)
