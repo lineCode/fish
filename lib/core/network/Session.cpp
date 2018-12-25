@@ -2,99 +2,119 @@
 
 namespace Network
 {
-	Session::Session(Network::EventPoller* poller,int fd,int buffersize):_poller(poller),_fd(fd),_sendlist(buffersize)
+	Session::Session(Network::EventPoller* poller,int fd,int buffersize):poller_(poller),fd_(fd),sendlist_(buffersize)
 	{
-		_reader = NULL;
-		_state = Alive;
+		reader_ = NULL;
+		state_ = Alive;
+
+		rio_.set(poller_->GetEvLoop());
+		rio_.set<Session, &Session::HandleInput>(this);
+
+		wio_.set(poller_->GetEvLoop());
+		wio_.set<Session, &Session::HandleOutput>(this);
 	}
 
 	Session::~Session(void)
 	{
 	}
 	
-	int Session::HandleInput()
+	void Session::EnableRead() 
 	{
-		if (_reader->Read(_fd) < 0)
+		if (!rio_.is_active())
+			rio_.start(fd_, EV_READ);
+	}
+
+	void Session::DisableRead() 
+	{
+		if (rio_.is_active())
+			rio_.stop(fd_, EV_READ);
+	}
+
+	void Session::EnableWrite() 
+	{
+		if (!rio_.is_active())
+			rio_.start(fd_, EV_WRITE);
+	}
+
+	void Session::DisableWrite()
+	{
+		if (wio_.is_active())
+			wio_.stop(fd_, EV_WRITE);
+	}
+
+	void Session::HandleInput(ev::io &rio, int revents)
+	{
+		if (_reader->Read(fd_) < 0)
 		{
-			_state = Error;
+			state_ = Error;
 			this->HandleError();
 		}
 		return 0;
 	}
 
-	int Session::HandleOutput()
+	void Session::HandleOutput(ev::io &wio, int wevents)
 	{
-		if (_state == Error || _state == Invalid)
+		if (state_ == Error || state_ == Invalid)
 			return -1;
 		
 		int result = this->DoSend();
 		if (result == 0)
 		{
-			_poller->DeRegisterWrite(_id,_fd);
-			if (_state == Closed)
+			DisableWrite();
+			if (state_ == Closed)
 				this->HandleError();
 		}
 		else if (result < 0)
 		{
-			_state = Error;
+			state_ = Error;
 			this->HandleError();
 		}
 
 		return 0;
 	}
 
-	int Session::HandleError()
+	void Session::HandleError()
 	{	
-		this->Clean();
-		this->Fina();
-		return 0;
+		DisableRead();
+		DisableWrite();
+
+		Clean();
+		Fina();
 	}
 
-	int Session::Clean()
+	void Session::Clean()
 	{
-		if (_poller->isRegistered(_id,true))
-			_poller->DeRegisterRead(_id,_fd);
+		DisableRead();
+		DisableWrite();
 
-		if (_poller->isRegistered(_id,false))
-			_poller->DeRegisterWrite(_id,_fd);
-
-		if (_poller->isRegisteredError(_id))
-			_poller->DeRegisterError(_id,_fd);
-
-		SocketClose(_fd);
-
-		_poller->RetrieveId(_fd,_id);
+		SocketClose(fd_);
 		
-		_state = Invalid;
+		state_ = Invalid;
 
 		return 0;
 	}
 	
-	int Session::Close()
+	void Session::Close()
 	{
 		if (!IsAlive())
-			return -1;
+			return ;
 
-		_state = Closed;
+		state_ = Closed;
 
-		if (_sendlist.Empty())
-		{
+		if (sendlist_.Empty())
 			this->HandleError();
-			return 0;
-		}
-		return -1;
 	}
 
 	int Session::DoSend()
 	{
 		SendBuffer* buffer = NULL;
-		while ((buffer = _sendlist.Front()) != NULL)
+		while ((buffer = sendlist_.Front()) != NULL)
 		{
 			int n = Network::SocketWrite(_fd,(const char*)buffer->Begin(),buffer->Readable());
 			if (n >= 0) 
 			{
 				if (n == buffer->Readable())
-					_sendlist.RemoveFront();
+					sendlist_.RemoveFront();
 				else
 				{
 					buffer->SetOffset(n);
@@ -112,17 +132,17 @@ namespace Network
 		if (!IsAlive())
 			return -1;
 
-		if (_poller->isRegistered(_id,false) == false)
+		if (!wio_.is_active())
 		{
 			int result = this->DoSend();
 			if (result < 0)
 			{
-				_state = Error;
+				state_ = Error;
 				this->HandleError();
 				return -1;
 			}
 			else if (result == 1)
-				_poller->RegisterWrite(_id,_fd,this);
+				EnableWrite();
 		}
 		return 0;
 	}
@@ -131,7 +151,8 @@ namespace Network
 	{
 		if (!IsAlive())
 			return -1;
-		_sendlist.Append(data,size);
+
+		sendlist_.Append(data,size);
 		return this->TrySend();
 	}
 
@@ -140,16 +161,6 @@ namespace Network
 		int result = this->Send(ms->data(),ms->length());
 		delete ms;
 		return result;
-	}
-
-	void Session::SetId(int id)
-	{
-		_id = id;
-	}
-
-	int Session::GetId()
-	{
-		return _id;
 	}
 
 	void Session::SetFd(int fd)
@@ -169,7 +180,7 @@ namespace Network
 
 	bool Session::IsAlive()
 	{
-		return _state == Alive;
+		return state_ == Alive;
 	}
 
 }

@@ -16,9 +16,7 @@ class ServerApp;
 
 namespace Network
 {
-	class Session:public Network::InputHandler,
-		public Network::ErrorHandler,
-		public Network::OutputHandler
+	class Session
 	{	
 	public:
 		enum SessionState {Alive,Closed,Error,Invalid};
@@ -190,25 +188,29 @@ again:
 
 		virtual int Fina() = 0;
 
+		virtual void EnableRead();
+
+		virtual void DisableRead();
+
+		virtual void EnableWrite();
+
+		virtual void DisableWrite();
+
 		virtual int Forward(const char * ptr,int size) = 0;
 
-		virtual int HandleInput();
+		virtual void HandleInput(ev::io &rio, int revents);
 
-		virtual int HandleOutput();
+		virtual void HandleOutput(ev::io &wio, int wevents);
 
-		virtual int HandleError();
+		virtual void HandleError();
 
-		virtual int Clean();
+		virtual void Clean();
 
-		virtual int Close();
+		virtual void Close();
 
 		virtual int Send(char* data,int size);
 
 		virtual int Send(MemoryStream* ms);
-
-		virtual void SetId(int id);
-
-		virtual int  GetId();
 
 		virtual void SetFd(int fd);
 
@@ -224,12 +226,13 @@ again:
 		virtual int TrySend();
 
 	protected:
-		Network::EventPoller *	_poller;
-		int						_id;
-		int						_fd;
-		Reader*					_reader;
-		SendList				_sendlist;
-		SessionState			_state;
+		Network::EventPoller *	poller_;
+		int fd_;
+		Reader* reader_;
+		SendList sendlist_;
+		SessionState state_;
+		ev::io rio_;
+		ev::io wio_;
 	};
 }
 
