@@ -33,6 +33,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "luaprofiler", "lib\3rd\luap
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libev_static", "lib\3rd\libev\build\libev_static.vcxproj", "{9996EE69-3B33-3E8C-804D-856F9216DAF6}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "oolua", "lib\3rd\oolua\oolua.vcxproj", "{AEEA9244-83D2-4430-8973-6D91D89AAFAA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -144,6 +146,14 @@ Global
 		{9996EE69-3B33-3E8C-804D-856F9216DAF6}.Release|Win32.Build.0 = Release|Win32
 		{9996EE69-3B33-3E8C-804D-856F9216DAF6}.RelWithDebInfo|Win32.ActiveCfg = RelWithDebInfo|Win32
 		{9996EE69-3B33-3E8C-804D-856F9216DAF6}.RelWithDebInfo|Win32.Build.0 = RelWithDebInfo|Win32
+		{AEEA9244-83D2-4430-8973-6D91D89AAFAA}.Debug|Win32.ActiveCfg = Debug|Win32
+		{AEEA9244-83D2-4430-8973-6D91D89AAFAA}.Debug|Win32.Build.0 = Debug|Win32
+		{AEEA9244-83D2-4430-8973-6D91D89AAFAA}.MinSizeRel|Win32.ActiveCfg = Release|Win32
+		{AEEA9244-83D2-4430-8973-6D91D89AAFAA}.MinSizeRel|Win32.Build.0 = Release|Win32
+		{AEEA9244-83D2-4430-8973-6D91D89AAFAA}.Release|Win32.ActiveCfg = Release|Win32
+		{AEEA9244-83D2-4430-8973-6D91D89AAFAA}.Release|Win32.Build.0 = Release|Win32
+		{AEEA9244-83D2-4430-8973-6D91D89AAFAA}.RelWithDebInfo|Win32.ActiveCfg = Release|Win32
+		{AEEA9244-83D2-4430-8973-6D91D89AAFAA}.RelWithDebInfo|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -162,5 +172,6 @@ Global
 		{1A828E3E-A4DE-4F1F-9A9A-DE2AC04822A2} = {98F09C55-423C-4AEC-BC80-75EA772F6691}
 		{7D9CD966-624B-454F-9DC7-58BF87D8FCE8} = {98F09C55-423C-4AEC-BC80-75EA772F6691}
 		{9996EE69-3B33-3E8C-804D-856F9216DAF6} = {98F09C55-423C-4AEC-BC80-75EA772F6691}
+		{AEEA9244-83D2-4430-8973-6D91D89AAFAA} = {98F09C55-423C-4AEC-BC80-75EA772F6691}
 	EndGlobalSection
 EndGlobal

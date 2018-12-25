@@ -1,0 +1,12 @@
+﻿生成启动时间为 2018/12/25 10:11:07。
+     1>项目“E:\github\fish\lib\3rd\libev\build\libev_static.vcxproj”在节点 2 上(Build 个目标)。
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(357,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
+     1>Lib:
+         D:\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"E:\github\fish\libs\libev_static.lib" /NOLOGO  /machine:X86 libev_static.dir\Debug\ev.obj
+         libev_static.dir\Debug\event.obj
+         libev_static.vcxproj -> E:\github\fish\libs\libev_static.lib
+     1>已完成生成项目“E:\github\fish\lib\3rd\libev\build\libev_static.vcxproj”(Build 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:00.28

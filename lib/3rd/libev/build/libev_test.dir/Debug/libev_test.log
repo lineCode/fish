@@ -1,0 +1,25 @@
+﻿生成启动时间为 2018/12/25 10:06:32。
+     1>项目“E:\github\fish\lib\3rd\libev\build\libev_test.vcxproj”在节点 3 上(Build 个目标)。
+     1>CustomBuild:
+         Building Custom Rule E:/github/fish/lib/3rd/libev/CMakeLists.txt
+         CMake does not need to re-run because E:/github/fish/lib/3rd/libev/build/CMakeFiles/generate.stamp is up-to-date.
+       ClCompile:
+         D:\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IE:\github\fish\lib\3rd\libev /Zi /nologo /W4 /WX- /Od /Ob0 /Oy- /D WIN32 /D STRICT /D WIN32_LEAN_AND_MEAN /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"libev_test.dir\Debug\\" /Fd"libev_test.dir\Debug\vc120.pdb" /Gd /TP /wd4251 /wd4275 /wd4702 /analyze- /errorReport:prompt  -J E:\github\fish\lib\3rd\libev\libev_test.cpp
+         libev_test.cpp
+     1>D:\Microsoft Visual Studio 12.0\VC\include\xlocale(337): warning C4530: 使用了 C++ 异常处理程序，但未启用展开语义。请指定 /EHsc
+     1>e:\github\fish\lib\3rd\libev\ev.h(572): warning C4505: “ev_is_default_loop”: 未引用的本地函数已移除
+     1>e:\github\fish\lib\3rd\libev\ev.h(835): warning C4505: “ev_loop”: 未引用的本地函数已移除
+     1>e:\github\fish\lib\3rd\libev\ev.h(836): warning C4505: “ev_unloop”: 未引用的本地函数已移除
+     1>e:\github\fish\lib\3rd\libev\ev.h(837): warning C4505: “ev_default_destroy”: 未引用的本地函数已移除
+     1>e:\github\fish\lib\3rd\libev\ev.h(838): warning C4505: “ev_default_fork”: 未引用的本地函数已移除
+     1>e:\github\fish\lib\3rd\libev\ev.h(840): warning C4505: “ev_loop_count”: 未引用的本地函数已移除
+     1>e:\github\fish\lib\3rd\libev\ev.h(841): warning C4505: “ev_loop_depth”: 未引用的本地函数已移除
+     1>e:\github\fish\lib\3rd\libev\ev.h(842): warning C4505: “ev_loop_verify”: 未引用的本地函数已移除
+       Link:
+         D:\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\github\fish\lib\3rd\libev\build\Debug\libev_test.exe" /INCREMENTAL /NOLOGO Debug\libev_static.lib ws2_32.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:/github/fish/lib/3rd/libev/build/Debug/libev_test.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:/github/fish/lib/3rd/libev/build/Debug/libev_test.lib" /MACHINE:X86 /SAFESEH  /machine:X86 libev_test.dir\Debug\libev_test.obj
+     1>LINK : fatal error LNK1104: 无法打开文件“Debug\libev_static.lib”
+     1>已完成生成项目“E:\github\fish\lib\3rd\libev\build\libev_test.vcxproj”(Build 个目标)的操作 - 失败。
+
+生成失败。
+
+已用时间 00:00:00.72

@@ -1,12 +1,14 @@
-#ifndef LUAFISH_H
+﻿#ifndef LUAFISH_H
 #define LUAFISH_H
 #include "../util/LuaAllocator.h"
+#include "oolua.h"
 extern "C"
 {
 #include "lua.h"
 #include "lualib.h"
 #include "lauxlib.h"
 };
+
 class ServerApp;
 
 class LuaFish
@@ -30,8 +32,6 @@ public:
 	int Init(ServerApp* app);
 
 	int DoFile(const char* file);
-
-	int MainTick();
 
 	int DispatchClient(int source,int method,const char* data,int size);
 
@@ -69,7 +69,7 @@ public:
 	static int _Stop(lua_State* L);
 	static int _MemInfo(lua_State* L);
 protected:
-	lua_State*	 _L;
+	OOLUA::Script* script_;
 	int			 _callback;
 	int			 _mainTick;
 	int			 _sessionCounter;

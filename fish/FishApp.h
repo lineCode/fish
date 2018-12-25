@@ -28,7 +28,7 @@ public:
 
 	virtual int Run();
 
-	virtual int HandleTimeout();
+	virtual void HandleTimeout();
 
 private:
 	std::string _file;
