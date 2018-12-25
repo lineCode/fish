@@ -4,14 +4,15 @@
 #include "Interface.h"
 #include "EventPoller.h"
 #include <functional>
+#include "ev++.h"
 
 namespace Network
 {
 	class Connector
 	{
 	public:
-		typedef std::function<void(int)> OnConnecOk;
-		typedef std::function<void(int)> OnConnectError;
+		typedef std::function<void(int)> OnConnectSuccess;
+		typedef std::function<void()> OnConnectFail;
 
 	public:
 		Connector(EventPoller* poller);
@@ -19,105 +20,21 @@ namespace Network
 
 		virtual int Connect(const char * host,int port);
 
-		virtual int HandleOutput();
+		virtual void ConnectCallback(ev::io &w, int revents);
 
-		virtual int HandleError();
+		void SetSuccessCallback(OnConnectSuccess callback);
 
-		virtual int ConnectDone();
-
+		void SetFailCallback(OnConnectFail callback);
 
 	protected:
-		EventPoller*	_poller;
-		std::string		_host;
-		int				_port;
-		int				_fd;
-		int				_id;
+		EventPoller* poller_;
+		std::string host_;
+		int port_;
+		int fd_;
+		OnConnectSuccess successCallback_;
+		OnConnectFail failCallback_;
+		ev::io io;
 	};
-
-	template<class SESSION>
-	Connector<SESSION>::Connector(EventPoller* poller):_poller(poller)
-	{
-	}
-
-	template<class SESSION>
-	Connector<SESSION>::~Connector(void)
-	{
-	}
-
-	template<class SESSION>
-	int Connector<SESSION>::Connect(const char * host,int port)
-	{
-		_host.assign(host);
-		_port = port;
-
-		bool connected = false;
-		if ((_fd = SocketConnect(host,port,true,connected)) < 0)
-			return -1;
-
-		_id = _poller->GenId(_fd);
-		if (_id == 0)
-		{
-			SocketClose(_fd);
-			return -1;
-		}
-		
-		if (connected)
-		{
-			ConnectDone();
-			return _fd;
-		}
-		return -1;
-	}
-
-	template<class SESSION>
-	int Connector<SESSION>::HandleOutput()
-	{
-		_poller->DeRegisterWrite(_id,_fd);
-		ConnectDone();
-		return 0;
-	}
-
-	template<class SESSION>
-	int Connector<SESSION>::HandleError()
-	{
-		_poller->DeRegisterWrite(_id,_fd);
-		_poller->DeRegisterError(_id,_fd);
-		_poller->RetrieveId(_fd,_id);
-		return 0;
-	}
-
-	template<class SESSION>
-	int Connector<SESSION>::ConnectDone()
-	{
-		if (_poller->isRegistered(_id,false))
-			_poller->DeRegisterWrite(_id,_fd);
-
-		if (_poller->isRegisteredError(_id))
-			_poller->DeRegisterError(_id,_fd);
-
-		SocketSetKeepalive(_fd,true);
-		SocketSetNonblocking(_fd,true);
-
-		_session = MakeSession(_fd);
-		_session->SetId(_id);
-		_session->Init();
-		_poller->RegisterRead(_id,_fd,_session);
-		_poller->RegisterError(_id,_fd,_session);
-
-		return 0;
-	}
-
-	template<class SESSION>
-	SESSION* Connector<SESSION>::MakeSession(int fd)
-	{
-		return new SESSION(_poller,_fd);
-	}
-
-	template<class SESSION>
-	SESSION* Connector<SESSION>::GetSession()
-	{
-		return _session;
-	}
 }
 
 #endif
