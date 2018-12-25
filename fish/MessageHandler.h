@@ -1,24 +1,24 @@
-
+﻿
 #ifndef MESSAGEHANDLER_H
 #define MESSAGEHANDLER_H
 #include "Logger.h"
 #include "util/format.h"
-#include "network/Session.h"
+#include "network/Channel.h"
 #include "util/MessageReader.h"
 
 #define CMD_AUTH (1)
 #define CMD_MAX (1024)
 
-typedef void (*HandlerFunc)(Network::Session* session,MessageHelper::MessageReader& reader);
+typedef void(*HandlerFunc)( Network::Channel* channel, MessageHelper::MessageReader& reader );
 
 static HandlerFunc HandlerTable[CMD_MAX];
 
-static void DefaultHandler(Network::Session* session,MessageHelper::MessageReader& reader)
+static void DefaultHandler(Network::Channel* channel, MessageHelper::MessageReader& reader)
 {
 	LOG_ERROR(fmt::format("error message handler"));
 }
 
-int DispatchHandler(int cmd,Network::Session* session,MessageHelper::MessageReader& reader);
+int DispatchHandler(int cmd, Network::Channel* channel, MessageHelper::MessageReader& reader);
 
 struct InitializeHandlers
 {
@@ -40,7 +40,7 @@ struct RegisterHandler
 };
 
 #define REGISTER_HANDLER(CMD) \
-	static void handler##CMD(Network::Session* session,MessageHelper::MessageReader& reader); \
+	static void handler##CMD(Network::Channel* channel, MessageHelper::MessageReader& reader); \
 	static RegisterHandler register##CMD(CMD,handler##CMD); \
-	static void handler##CMD(Network::Session* session,MessageHelper::MessageReader& reader)
+	static void handler##CMD(Network::Channel* channel, MessageHelper::MessageReader& reader)
 #endif

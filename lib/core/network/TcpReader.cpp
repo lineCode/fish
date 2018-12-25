@@ -4,11 +4,11 @@
 
 namespace Network
 {
-	TcpReader::TcpReader(Channel* channel,int header,int buffsize):Reader(session,buffsize)
+	TcpReader::TcpReader(Channel* channel, int header, int buffsize) :Reader(channel, buffsize)
 	{
-		_header = header;
-		_left = 0;
-		_state = Header;
+		header_ = header;
+		left_ = 0;
+		state_ = Header;
 	}
 
 	TcpReader::~TcpReader(void)
@@ -20,23 +20,23 @@ namespace Network
 		int len = Reader::Read(fd);
 		if (len > 0)
 		{
-			while (_total > 0)
+			while (total_ > 0)
 			{
-				switch(_state)
+				switch(state_)
 				{
 				case Header:
 					{
-						if (_total >= _header)
+						if (total_ >= header_)
 						{
 							uint8 len[4];
-							this->ReadData((char*)len,_header);
-							if (_header == 2)
-								_left = len[1] | len[0] << 8;
+							this->ReadData((char*)len,header_);
+							if (header_ == 2)
+								left_ = len[1] | len[0] << 8;
 							else
-								_left = len[0] | len[1] << 8 | len[2] << 16 | len[3] << 24;
-							assert(_left > _header);
-							_left -= _header;
-							_state = Body;
+								left_ = len[0] | len[1] << 8 | len[2] << 16 | len[3] << 24;
+							assert(left_ > header_);
+							left_ -= header_;
+							state_ = Body;
 							break;
 						}
 						else
@@ -44,13 +44,13 @@ namespace Network
 					}
 				case Body:
 					{
-						if (_total >= _left)
+						if (total_ >= left_)
 						{
-							char* data = (char*)malloc(_left);
-							this->ReadData(data,_left);
-							this->_session->Forward(data,_left);
-							_left = 0;
-							_state = Header;
+							char* data = (char*)malloc(left_);
+							this->ReadData(data,left_);
+							this->channel_->Forward(data,left_);
+							left_ = 0;
+							state_ = Header;
 							break;
 						}
 						else

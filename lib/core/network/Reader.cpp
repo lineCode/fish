@@ -1,28 +1,28 @@
-#include "Reader.h"
+﻿#include "Reader.h"
 #include "Network.h"
 #include "../util/MemoryStream.h"
 
 namespace Network
 {
-	Reader::Reader(Session* session,int size)
+	Reader::Reader(Channel* channel,int size)
 	{
-		_session = session;
-		_size = size;
-		_total = 0;
-		_head = _tail = _freelist = NULL;
+		channel_ = channel;
+		size_ = size;
+		total_ = 0;
+		head_ = tail_ = freelist_ = NULL;
 	}
 
 	Reader::~Reader()
 	{
 		ReaderBuffer* tmp = NULL;
-		while ((tmp = _head) != NULL)
+		while ((tmp = head_) != NULL)
 		{
-			_head = _head->_next;
+			head_ = head_->next_;
 			delete tmp;
 		}
-		while ((tmp = _freelist) != NULL)
+		while ((tmp = freelist_) != NULL)
 		{
-			_freelist = _freelist->_next;
+			freelist_ = freelist_->next_;
 			delete tmp;
 		}
 	}
@@ -30,61 +30,61 @@ namespace Network
 	int Reader::Read(int fd)
 	{
 		ReaderBuffer* buffer = NULL;
-		if (_tail ==  NULL)
+		if (tail_ ==  NULL)
 		{
-			assert(_head == NULL);
+			assert(head_ == NULL);
 			buffer = AllocBuffer();
-			_head = _tail = buffer;
+			head_ = tail_ = buffer;
 		}
 		else
 		{
-			if (_tail->_size - _tail->_wpos == 0)
+			if (tail_->size_ - tail_->wpos_ == 0)
 			{
 				buffer = AllocBuffer();
-				_tail->_next = buffer;
-				_tail = buffer;
-				buffer->_next = NULL;
+				tail_->next_ = buffer;
+				tail_ = buffer;
+				buffer->next_ = NULL;
 			}
 			else
-				buffer = _tail;	
+				buffer = tail_;	
 		}
 		
 
-		int len = Network::SocketRead(fd,buffer->_data + buffer->_wpos,buffer->_size - buffer->_wpos);
+		int len = Network::SocketRead(fd,buffer->data_ + buffer->wpos_,buffer->size_ - buffer->wpos_);
 		if (len > 0)
 		{
-			buffer->_wpos += len;
-			_total += len;
+			buffer->wpos_ += len;
+			total_ += len;
 		}
 		return len;
 	}
 
 	void Reader::ReadData(char* data,int size)
 	{
-		assert(size <= _total);
+		assert(size <= total_);
 		int offset = 0;
 		while (offset < size)
 		{
-			ReaderBuffer* buffer = _head;
+			ReaderBuffer* buffer = head_;
 
 			int left = size - offset;
-			if (buffer->_wpos - buffer->_rpos >= left)
+			if (buffer->wpos_ - buffer->rpos_ >= left)
 			{
-				memcpy(data + offset,buffer->_data + buffer->_rpos,left);
-				buffer->_rpos += left;
+				memcpy(data + offset,buffer->data_ + buffer->rpos_,left);
+				buffer->rpos_ += left;
 				offset += left;
-				_total -= left;
+				total_ -= left;
 
-				if (buffer->_wpos - buffer->_rpos == 0)
+				if (buffer->wpos_ - buffer->rpos_ == 0)
 					FreeHead();
 			}
 			else
 			{
-				int readable = buffer->_wpos - buffer->_rpos;
-				memcpy(data + offset,buffer->_data + buffer->_rpos,readable);
-				buffer->_rpos += readable;
+				int readable = buffer->wpos_ - buffer->rpos_;
+				memcpy(data + offset,buffer->data_ + buffer->rpos_,readable);
+				buffer->rpos_ += readable;
 				offset += readable;
-				_total -= readable;
+				total_ -= readable;
 
 				FreeHead();
 			}
@@ -94,25 +94,25 @@ namespace Network
 	Reader::ReaderBuffer* Reader::AllocBuffer()
 	{
 		ReaderBuffer* buffer = NULL;
-		if (_freelist == NULL)
-			_freelist = new ReaderBuffer(_size);
-		buffer = _freelist;
-		_freelist = _freelist->_next;
+		if (freelist_ == NULL)
+			freelist_ = new ReaderBuffer(size_);
+		buffer = freelist_;
+		freelist_ = freelist_->next_;
 		return buffer;
 	}
 
 	void Reader::FreeHead()
 	{
-		ReaderBuffer* tmp = _head;
+		ReaderBuffer* tmp = head_;
 
-		_head = _head->_next;
+		head_ = head_->next_;
 
-		tmp->_next = _freelist;
-		_freelist = tmp;
-		tmp->_rpos = tmp->_wpos = 0;
+		tmp->next_ = freelist_;
+		freelist_ = tmp;
+		tmp->rpos_ = tmp->wpos_ = 0;
 
-		if (_head == NULL)
-			_tail = NULL;
+		if (head_ == NULL)
+			tail_ = NULL;
 	}
 
 }

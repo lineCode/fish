@@ -1,5 +1,5 @@
 ﻿#include "Channel.h"
-
+#include "Network.h"
 namespace Network
 {
 	Channel::Channel(Network::EventPoller* poller, int fd, int size) :poller_(poller), fd_(fd), sendlist_(size)

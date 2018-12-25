@@ -86,136 +86,136 @@ int LuaFish::CallFunc(std::string& module, std::string& method)
 int LuaFish::DispatchClient(int source,int method,const char* data,int size)
 {
 	//data free by caller
-	int otop = lua_gettop(_L);
+	//int otop = lua_gettop(_L);
 
-	lua_pushcfunction(_L, _Traceback);
-	lua_rawgeti(_L, LUA_REGISTRYINDEX, _callback);
-	lua_pushinteger(_L,DISPATCH_TYPE_CLIENT);
-	lua_pushinteger(_L,source);
-	lua_pushboolean(_L,0);
-	lua_pushinteger(_L,0);
-	lua_pushinteger(_L,method);
+	//lua_pushcfunction(_L, _Traceback);
+	//lua_rawgeti(_L, LUA_REGISTRYINDEX, _callback);
+	//lua_pushinteger(_L,DISPATCH_TYPE_CLIENT);
+	//lua_pushinteger(_L,source);
+	//lua_pushboolean(_L,0);
+	//lua_pushinteger(_L,0);
+	//lua_pushinteger(_L,method);
 
-	int argc = 5;
-	if (data != NULL)
-	{
-		lua_pushlstring(_L,data,size);
-		argc = 6;
-	}
-	
-	int r = lua_pcall(_L,argc,0,otop+1);
-	if (r != LUA_OK)
-		Logger::GetSingleton().LuaLog(lua_tostring(_L,-1));
+	//int argc = 5;
+	//if (data != NULL)
+	//{
+	//	lua_pushlstring(_L,data,size);
+	//	argc = 6;
+	//}
+	//
+	//int r = lua_pcall(_L,argc,0,otop+1);
+	//if (r != LUA_OK)
+	//	Logger::GetSingleton().LuaLog(lua_tostring(_L,-1));
 
-	lua_settop(_L,otop);
+	//lua_settop(_L,otop);
 	return 0;
 }
 
 int LuaFish::DispatchServerEvent(int source,bool start /* = true */)
 {
-	int otop = lua_gettop(_L);
+	//int otop = lua_gettop(_L);
 
-	lua_pushcfunction(_L, _Traceback);
-	lua_rawgeti(_L, LUA_REGISTRYINDEX, _callback);
-	lua_pushinteger(_L,DISPATCH_TYPE_SESSION);
-	lua_pushinteger(_L,source);
-	lua_pushboolean(_L,0);
-	lua_pushinteger(_L,0);
-	lua_pushinteger(_L,SESSION_TYPE_EVENT);
-	lua_pushboolean(_L,start);
+	//lua_pushcfunction(_L, _Traceback);
+	//lua_rawgeti(_L, LUA_REGISTRYINDEX, _callback);
+	//lua_pushinteger(_L,DISPATCH_TYPE_SESSION);
+	//lua_pushinteger(_L,source);
+	//lua_pushboolean(_L,0);
+	//lua_pushinteger(_L,0);
+	//lua_pushinteger(_L,SESSION_TYPE_EVENT);
+	//lua_pushboolean(_L,start);
 
-	int r = lua_pcall(_L,6,0,otop+1);
-	if (r != LUA_OK)
-		Logger::GetSingleton().LuaLog(lua_tostring(_L,-1));
-	
-	lua_settop(_L,otop);
+	//int r = lua_pcall(_L,6,0,otop+1);
+	//if (r != LUA_OK)
+	//	Logger::GetSingleton().LuaLog(lua_tostring(_L,-1));
+	//
+	//lua_settop(_L,otop);
 	return 0;
 }
 
 int LuaFish::DispatchServer(int source,const char* data,int size)
 {
-	int otop = lua_gettop(_L);
+	//int otop = lua_gettop(_L);
 
-	lua_pushcfunction(_L, _Traceback);
-	lua_rawgeti(_L, LUA_REGISTRYINDEX, _callback);
-	lua_pushinteger(_L,DISPATCH_TYPE_SESSION);
-	lua_pushinteger(_L,source);
+	//lua_pushcfunction(_L, _Traceback);
+	//lua_rawgeti(_L, LUA_REGISTRYINDEX, _callback);
+	//lua_pushinteger(_L,DISPATCH_TYPE_SESSION);
+	//lua_pushinteger(_L,source);
 
-	int offset = 0;
-	uint16 low,high;
+	//int offset = 0;
+	//uint16 low,high;
 
-	bool response = (bool)data[offset++];
+	//bool response = (bool)data[offset++];
 
-	low = data[offset++];
-	high = data[offset++];
-	uint16 session = low | (high << 8);
+	//low = data[offset++];
+	//high = data[offset++];
+	//uint16 session = low | (high << 8);
 
-	low = data[offset++];
-	high = data[offset++];
-	uint16 method = low | (high << 8);
+	//low = data[offset++];
+	//high = data[offset++];
+	//uint16 method = low | (high << 8);
 
-	lua_pushboolean(_L,response);
-	lua_pushinteger(_L,session);
-	lua_pushinteger(_L,SESSION_TYPE_DATA);
-	lua_pushinteger(_L,method);
-	lua_pushlstring(_L,data + offset,size - offset);
-	
-	free((void*)data);
+	//lua_pushboolean(_L,response);
+	//lua_pushinteger(_L,session);
+	//lua_pushinteger(_L,SESSION_TYPE_DATA);
+	//lua_pushinteger(_L,method);
+	//lua_pushlstring(_L,data + offset,size - offset);
+	//
+	//free((void*)data);
 
-	int r = lua_pcall(_L,7,0,otop+1);
-	if (r != LUA_OK)
-		Logger::GetSingleton().LuaLog(lua_tostring(_L,-1));
-	lua_settop(_L,otop);
+	//int r = lua_pcall(_L,7,0,otop+1);
+	//if (r != LUA_OK)
+	//	Logger::GetSingleton().LuaLog(lua_tostring(_L,-1));
+	//lua_settop(_L,otop);
 	return 0;
 }
 
 int LuaFish::DispatchSocketEvent(int source,SocketEvent ev,int reserve /* = 0 */)
 {
-	int otop = lua_gettop(_L);
+	//int otop = lua_gettop(_L);
 
-	lua_pushcfunction(_L, _Traceback);
-	lua_rawgeti(_L, LUA_REGISTRYINDEX, _callback);
-	lua_pushinteger(_L,DISPATCH_TYPE_SOCKET);
-	lua_pushinteger(_L,source);
-	lua_pushboolean(_L,0);
-	lua_pushinteger(_L,0);
-	lua_pushinteger(_L,(int)ev);
-	
-	int nargs = 5;
-	if (ev == Accept || ev == Connect)
-	{
-		nargs = 6;
-		lua_pushinteger(_L,reserve);
-	}
+	//lua_pushcfunction(_L, _Traceback);
+	//lua_rawgeti(_L, LUA_REGISTRYINDEX, _callback);
+	//lua_pushinteger(_L,DISPATCH_TYPE_SOCKET);
+	//lua_pushinteger(_L,source);
+	//lua_pushboolean(_L,0);
+	//lua_pushinteger(_L,0);
+	//lua_pushinteger(_L,(int)ev);
+	//
+	//int nargs = 5;
+	//if (ev == Accept || ev == Connect)
+	//{
+	//	nargs = 6;
+	//	lua_pushinteger(_L,reserve);
+	//}
 
-	int r = lua_pcall(_L,nargs,0,otop+1);
-	if (r != LUA_OK)
-		Logger::GetSingleton().LuaLog(lua_tostring(_L,-1));
+	//int r = lua_pcall(_L,nargs,0,otop+1);
+	//if (r != LUA_OK)
+	//	Logger::GetSingleton().LuaLog(lua_tostring(_L,-1));
 
-	lua_settop(_L,otop);
+	//lua_settop(_L,otop);
 	return 0;
 }
 
 int LuaFish::DispatchSocket(int source,const char* data,int size)
 {
-	int otop = lua_gettop(_L);
+	//int otop = lua_gettop(_L);
 
-	lua_pushcfunction(_L, _Traceback);
-	lua_rawgeti(_L, LUA_REGISTRYINDEX, _callback);
-	lua_pushinteger(_L,DISPATCH_TYPE_SOCKET);
-	lua_pushinteger(_L,source);
-	lua_pushboolean(_L,0);
-	lua_pushinteger(_L,0);
-	lua_pushinteger(_L,(int)Data);
-	//free by LuaSession
-	lua_pushlightuserdata(_L,(void*)data);
-	lua_pushinteger(_L,size);
+	//lua_pushcfunction(_L, _Traceback);
+	//lua_rawgeti(_L, LUA_REGISTRYINDEX, _callback);
+	//lua_pushinteger(_L,DISPATCH_TYPE_SOCKET);
+	//lua_pushinteger(_L,source);
+	//lua_pushboolean(_L,0);
+	//lua_pushinteger(_L,0);
+	//lua_pushinteger(_L,(int)Data);
+	////free by LuaSession
+	//lua_pushlightuserdata(_L,(void*)data);
+	//lua_pushinteger(_L,size);
 
 
-	int r = lua_pcall(_L,7,0,otop+1);
-	if (r != LUA_OK)
-		Logger::GetSingleton().LuaLog(lua_tostring(_L,-1));
-	lua_settop(_L,otop);
+	//int r = lua_pcall(_L,7,0,otop+1);
+	//if (r != LUA_OK)
+	//	Logger::GetSingleton().LuaLog(lua_tostring(_L,-1));
+	//lua_settop(_L,otop);
 	return 0;
 }
 
@@ -253,19 +253,19 @@ int LuaFish::DispatchMongo(int source,int session,const char* data,int size)
 
 int LuaFish::DispatchTimer(int session)
 {
-	int otop = lua_gettop(_L);
+	//int otop = lua_gettop(_L);
 
-	lua_pushcfunction(_L, _Traceback);
-	lua_rawgeti(_L, LUA_REGISTRYINDEX, _callback);
-	lua_pushinteger(_L,DISPATCH_TYPE_TIMER);
-	lua_pushinteger(_L,0);
-	lua_pushboolean(_L,true);
-	lua_pushinteger(_L,session);
+	//lua_pushcfunction(_L, _Traceback);
+	//lua_rawgeti(_L, LUA_REGISTRYINDEX, _callback);
+	//lua_pushinteger(_L,DISPATCH_TYPE_TIMER);
+	//lua_pushinteger(_L,0);
+	//lua_pushboolean(_L,true);
+	//lua_pushinteger(_L,session);
 
-	int r = lua_pcall(_L,4,0,otop+1);
-	if (r != LUA_OK)
-		Logger::GetSingleton().LuaLog(lua_tostring(_L,-1));
-	lua_settop(_L,otop);
+	//int r = lua_pcall(_L,4,0,otop+1);
+	//if (r != LUA_OK)
+	//	Logger::GetSingleton().LuaLog(lua_tostring(_L,-1));
+	//lua_settop(_L,otop);
 	return 0;
 }
 
@@ -347,60 +347,60 @@ int LuaFish::_Traceback(lua_State *L)
 
 int LuaFish::_Send(lua_State* L)
 {
-	ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
+	//ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
 
-	int addr = lua_tointeger(L,1);
+	//int addr = lua_tointeger(L,1);
 
-	Network::Session* session = app->FindSession(addr);
-	if (session == NULL)
-		luaL_error(L,"error session:%d not found",addr);
+	//Network::Session* session = app->FindSession(addr);
+	//if (session == NULL)
+	//	luaL_error(L,"error session:%d not found",addr);
 
-	bool reponse = (bool)lua_toboolean(L,2);
-	uint16 sess = lua_tointeger(L,3);
-	uint16 method = lua_tointeger(L,4);
+	//bool reponse = (bool)lua_toboolean(L,2);
+	//uint16 sess = lua_tointeger(L,3);
+	//uint16 method = lua_tointeger(L,4);
 
-	void *buffer = NULL;
-	size_t size = 0;
-	bool needFree = false;
-	if (lua_isuserdata(L,5)) 
-	{
-		buffer = lua_touserdata(L,5);
-		size = luaL_checkinteger(L,6);
-		needFree = true;
-	} 
-	else 
-		buffer =  (void*)lua_tolstring(L, 5, &size);
+	//void *buffer = NULL;
+	//size_t size = 0;
+	//bool needFree = false;
+	//if (lua_isuserdata(L,5)) 
+	//{
+	//	buffer = lua_touserdata(L,5);
+	//	size = luaL_checkinteger(L,6);
+	//	needFree = true;
+	//} 
+	//else 
+	//	buffer =  (void*)lua_tolstring(L, 5, &size);
 
-	uint16 total = sizeof(uint16) * 3 + sizeof(bool) + size;
-	MemoryStream* ms = new MemoryStream(total);
+	//uint16 total = sizeof(uint16) * 3 + sizeof(bool) + size;
+	//MemoryStream* ms = new MemoryStream(total);
 
-	EndianConvert::Apply<uint16>(&total);
+	//EndianConvert::Apply<uint16>(&total);
 
-	(*ms) << total <<  reponse << sess << method;
-	ms->append((const uint8*)buffer,size);
+	//(*ms) << total <<  reponse << sess << method;
+	//ms->append((const uint8*)buffer,size);
 
-	if (needFree)
-		free(buffer);
+	//if (needFree)
+	//	free(buffer);
 
-	int result = session->Send(ms);
+	//int result = session->Send(ms);
 
-	lua_pushboolean(L,result == 0);
+	//lua_pushboolean(L,result == 0);
 	return 1;
 }
 
 int LuaFish::_SendClient(lua_State* L)
 {
-	ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
+	//ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
 
-	int addr = lua_tointeger(L,1);
+	//int addr = lua_tointeger(L,1);
 
-	Network::Session* session = app->FindSession(addr);
-	if (session == NULL)
-		luaL_error(L,"error session:%d not found",addr);
+	//Network::Session* session = app->FindSession(addr);
+	//if (session == NULL)
+	//	luaL_error(L,"error session:%d not found",addr);
 
-	uint16 method = (uint16)lua_tointeger(L,2);
-	size_t messageSize;
-	const char* message = lua_tolstring(L,3,&messageSize);
+	//uint16 method = (uint16)lua_tointeger(L,2);
+	//size_t messageSize;
+	//const char* message = lua_tolstring(L,3,&messageSize);
 
 
 	return 0;
@@ -436,21 +436,21 @@ int LuaFish::_TimestampToSecond(lua_State* L)
 int LuaFish::_GenSession(lua_State* L)
 {
 	ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
-	lua_pushinteger(L,app->LuaManager()->GenSession());
+	lua_pushinteger(L,app->Lua()->GenSession());
 	return 1;
 }
 
 int LuaFish::_CallBack(lua_State* L)
 {
 	ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
-	app->LuaManager()->SetCallBack(luaL_ref(L, LUA_REGISTRYINDEX));
+	app->Lua()->SetCallBack(luaL_ref(L, LUA_REGISTRYINDEX));
 	return 0;
 }
 
 int LuaFish::_MainTick(lua_State* L)
 {
 	ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
-	app->LuaManager()->SetMainTick(luaL_ref(L, LUA_REGISTRYINDEX));
+	app->Lua()->SetMainTick(luaL_ref(L, LUA_REGISTRYINDEX));
 	return 0;
 }
 
@@ -468,7 +468,7 @@ int LuaFish::_MemInfo(lua_State* L)
 	int smallTotal;
 	int bigTotal;
 	int memUse;
-	app->LuaManager()->_allocator.Dump(&smallTotal,&bigTotal,&memUse);
+	app->Lua()->_allocator.Dump(&smallTotal,&bigTotal,&memUse);
 
 	lua_pushinteger(L,smallTotal);
 	lua_pushinteger(L,bigTotal);

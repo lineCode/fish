@@ -1,4 +1,4 @@
-/*
+﻿/*
  * libev simple C++ wrapper classes
  *
  * Copyright (c) 2007,2008,2010 Marc Alexander Lehmann <libev@schmorp.de>
@@ -36,6 +36,8 @@
  * provisions above, a recipient may use your version of this file under
  * either the BSD or the GPL.
  */
+
+#pragma warning (disable:4290)
 
 #ifndef EVPP_H__
 #define EVPP_H__

@@ -12,7 +12,7 @@ public:
 
 	virtual ~Timer() {}
 
-	void StartTimer(Network::EventPoller* poller, int after, int repeat)
+	void StartTimer(Network::EventPoller* poller, float after, float repeat)
 	{
 		io_.set(poller->GetEvLoop());
 		io_.set(after, repeat);

@@ -1,4 +1,4 @@
-#ifndef READER_H
+﻿#ifndef READER_H
 #define READER_H
 
 #include "../util/List.h"
@@ -7,32 +7,32 @@ class MemoryStream;
 
 namespace Network
 {
-	class Session;
+	class Channel;
 	
 	class Reader
 	{
 	public:
 		struct ReaderBuffer
 		{
-			int	_rpos;
-			int	_wpos;
-			int	_size;
-			char* _data;
-			ReaderBuffer* _next;
+			int	rpos_;
+			int	wpos_;
+			int	size_;
+			char* data_;
+			ReaderBuffer* next_;
 
-			ReaderBuffer(int size):_rpos(0),_wpos(0),_size(size),_next(NULL)
+			ReaderBuffer(int size):rpos_(0),wpos_(0),size_(size),next_(NULL)
 			{
-				_data = (char*) malloc(size);
+				data_ = (char*) malloc(size);
 			}
 
 			~ReaderBuffer()
 			{
-				free((void*)_data);
+				free((void*)data_);
 			}
 		};
 
 	public:
-		Reader(Session* session,int size = 64);
+		Reader(Channel* channel, int size = 64);
 		virtual ~Reader();
 
 		virtual int  Read(int fd);
@@ -43,14 +43,14 @@ namespace Network
 		void FreeHead();
 
 	protected:
-		Session*	_session;
-		int			_total;
+		Channel* channel_;
+		int	total_;
 
 	private:
-		int	_size;
-		ReaderBuffer* _head;
-		ReaderBuffer* _tail;
-		ReaderBuffer* _freelist;
+		int	size_;
+		ReaderBuffer* head_;
+		ReaderBuffer* tail_;
+		ReaderBuffer* freelist_;
 	};
 }
 

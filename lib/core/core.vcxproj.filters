@@ -27,9 +27,6 @@
     <ClCompile Include="network\Network.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="network\Session.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="network\TcpReader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -40,21 +37,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Logger.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="lualib\LuaAcceptor.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="lualib\LuaConnector.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="lualib\LuaMongo.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="lualib\LuaReader.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="lualib\LuaTimer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="util\format.cc">
@@ -81,12 +63,6 @@
     <ClCompile Include="lualib\LuaFish.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="lualib\LuaSocket.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="lualib\LuaServer.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="aoi\AoiObject.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -96,16 +72,7 @@
     <ClCompile Include="aoi\AoiTower.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="network\SelectPoller.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="lualib\LuaZeropack.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="lualib\LuaMessageHelper.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="lualib\LuaHttpParser.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="ObjectPoolMgr.cpp">
@@ -124,9 +91,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="util\LuaAllocator.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="lualib\LuaProf.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="network\Accepter.cpp">
@@ -176,21 +140,6 @@
     <ClInclude Include="Logger.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="lualib\LuaAcceptor.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="lualib\LuaConnector.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="lualib\LuaMongo.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="lualib\LuaReader.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="lualib\LuaTimer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="util\format.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -227,19 +176,7 @@
     <ClInclude Include="lualib\LuaFish.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="lualib\LuaSocket.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="lualib\LuaServer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="util\PoolObject.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ServerAcceptor.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ServerConnector.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="aoi\AoiObject.h">
@@ -254,16 +191,7 @@
     <ClInclude Include="aoi\AoiTower.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="network\SelectPoller.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="lualib\LuaZeropack.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="lualib\LuaMessageHelper.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="lualib\LuaHttpParser.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="ObjectPoolMgr.h">
@@ -290,13 +218,13 @@
     <ClInclude Include="util\LuaAllocator.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="lualib\LuaProf.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="network\channel.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="time\Timer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="network\SelectPoller.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

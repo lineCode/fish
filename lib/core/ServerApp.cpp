@@ -1,13 +1,4 @@
 ﻿#include "ServerApp.h"
-#include "lualib/LuaAcceptor.h"
-#include "lualib/LuaConnector.h"
-#include "lualib/LuaSocket.h"
-#include "lualib/LuaServer.h"
-#include "lualib/LuaTimer.h"
-#include "lualib/LuaMongo.h"
-#include "lualib/LuaZeropack.h"
-#include "lualib/LuaMessageHelper.h"
-#include "lualib/LuaProf.h"
 #include "util/format.h"
 #include "time/Timestamp.h"
 
@@ -44,15 +35,6 @@ int ServerApp::Init()
 #endif
 	
 	lua_->Require("Core", LuaFish::Register);
-	lua_->Require("Acceptor", LuaAcceptor::Register);
-	lua_->Require("Connector", LuaConnector::Register);
-	lua_->Require("SocketCore", LuaSocket::Register);
-	lua_->Require("Server", LuaServer::Register);
-	lua_->Require("Timer", LuaTimer::Register);
-	lua_->Require("MongoCore", LuaMongo::Register);
-	lua_->Require("Zeropack", LuaZeropack::Register);
-	lua_->Require("MessageHelper", LuaMessageHelper::Register);
-	lua_->Require("LuaProf", LuaProf::luaopen_prof);
 
 	OOLUA::Script& script = lua_->GetScript();
 	script.call("serverInit");

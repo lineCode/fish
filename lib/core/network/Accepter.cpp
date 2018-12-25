@@ -1,5 +1,5 @@
 ﻿#include "Acceptor.h"
-
+#include "Network.h"
 namespace Network
 {
 	Acceptor::Acceptor(EventPoller* poller) :poller_(poller)
@@ -9,6 +9,11 @@ namespace Network
 
 	Acceptor::~Acceptor()
 	{
+	}
+
+	void Acceptor::SetCallback(OnConnection callback)
+	{
+		callback_ = callback;
 	}
 
 	int Acceptor::Listen(const char * host, int port)

@@ -2,10 +2,9 @@
 #include "Logger.h"
 #include "util/format.h"
 
-FishApp::FishApp(std::string file):
-	_file(file),
-	_clientAcceptor(this,_poller)
+FishApp::FishApp(std::string file) : file_(file)
 {
+	clientAcceptor_ = new Network::Acceptor(poller_);
 }
 
 FishApp::~FishApp(void)
@@ -14,10 +13,13 @@ FishApp::~FishApp(void)
 
 int FishApp::Init()
 {
-	LOG_ERROR(fmt::format("FishApp start:{}",_file));
+	LOG_ERROR(fmt::format("FishApp start:{}", file_));
 	ServerApp::Init();
 
-	_LuaManager->DoFile(_file.c_str());
+	Network::Acceptor::OnConnection callback = std::bind(&FishApp::OnClientAccept, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
+	clientAcceptor_->SetCallback(callback);
+
+	lua_->DoFile(file_);
 
 	return 0;
 }
@@ -27,9 +29,14 @@ void FishApp::ConnectMongo(const char* host,int port)
 
 }
 
-void FishApp::ListenClient(const char* host,int port)
+void FishApp::ListenClient(std::string& ip,int port)
 {
-	_clientAcceptor.Listen(host,port);
+	clientAcceptor_->Listen(ip.c_str(), port);
+}
+
+void FishApp::OnClientAccept(Network::Acceptor* acceptor, int fd, const char* ip, int port)
+{
+
 }
 
 int FishApp::Fina()
@@ -44,8 +51,7 @@ int FishApp::Run()
 	return 0;
 }
 
-int FishApp::HandleTimeout()
+void FishApp::HandleTimeout()
 {
 	ServerApp::HandleTimeout();
-	return 0;
 }

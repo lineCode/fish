@@ -1,4 +1,4 @@
-#include "Bootstrap.h"
+﻿#include "Bootstrap.h"
 #include "Logger.h"
 #include "ObjectPoolMgr.h"
 #include "FishApp.h"
@@ -34,7 +34,7 @@ void Bootstrap::Startup(const char* file)
 		app->ConnectMongo(_config["mongo"]["ip"].GetString(),_config["mongo"]["port"].GetInt());
 
 	if (_config.HasMember("client"))
-		app->ListenClient(_config["client"]["ip"].GetString(),_config["client"]["port"].GetInt());
+		app->ListenClient(std::string("127.0.0.1"), 1989);
 	
 	app->Init();
 

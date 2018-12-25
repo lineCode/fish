@@ -6,10 +6,9 @@
 #include <map>
 #include <string>
 
-#include "ServerConnector.h"
-#include "ServerAcceptor.h"
+#include "network/Acceptor.h"
 
-#include "ClientSession.h"
+
 
 class FishApp:public ServerApp
 {
@@ -22,7 +21,9 @@ public:
 
 	virtual void ConnectMongo(const char* host,int port);
 
-	virtual void ListenClient(const char* host,int port);
+	virtual void ListenClient(std::string& ip,int port);
+
+	virtual void OnClientAccept(Network::Acceptor* acceptor, int fd, const char* ip, int port);
 
 	virtual int Fina();
 
@@ -31,9 +32,9 @@ public:
 	virtual void HandleTimeout();
 
 private:
-	std::string _file;
+	std::string file_;
 
-	ServerAcceptor _clientAcceptor;
+	Network::Acceptor* clientAcceptor_;
 };
 
 #endif

@@ -18,7 +18,7 @@ namespace Network
 
 		virtual ~Acceptor();
 
-		void SetCallback(OnConnection Callback);
+		void SetCallback(OnConnection callback);
 
 		virtual int	Listen(const char * host,int port);
 
