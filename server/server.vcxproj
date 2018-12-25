@@ -61,7 +61,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>hx.lib;lua.lib;oolua.lib;libev_static.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>hx.lib;lua.lib;oolua.lib;libev.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

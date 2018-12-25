@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <CustomBuild Include="E:\github\fish\lib\3rd\libev\build\CMakeFiles\12d9512a5f97fd3acfafa02c65757eda\generate.stamp.rule">
+    <CustomBuild Include="E:\github\fish\3rd\libev\build\CMakeFiles\8a2d91c31e560199bea9193934eb35cf\generate.stamp.rule">
       <Filter>CMake Rules</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="CMake Rules">
-      <UniqueIdentifier>{1AB2019E-7357-3AC4-B6C1-FE80F249AD74}</UniqueIdentifier>
+      <UniqueIdentifier>{B6D7B01E-5755-35C4-B42F-469635E39D72}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

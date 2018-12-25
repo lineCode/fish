@@ -1,158 +1,160 @@
-﻿生成启动时间为 2018/12/25 16:38:11。
-     1>项目“E:\github\fish\lib\3rd\libev\build\libev_static.vcxproj”在节点 2 上(Build 个目标)。
-     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(357,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
-     1>ClCompile:
-         D:\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IE:\github\fish\lib\3rd\libev /Zi /nologo /W4 /WX- /Od /Ob0 /Oy- /D WIN32 /D STRICT /D WIN32_LEAN_AND_MEAN /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"libev_static.dir\Debug\\" /Fd"libev_static.dir\Debug\vc120.pdb" /Gd /TC /wd4251 /wd4275 /wd4702 /analyze- /errorReport:prompt  -J E:\github\fish\lib\3rd\libev\ev.c E:\github\fish\lib\3rd\libev\event.c
+﻿生成启动时间为 2018/12/25 19:43:02。
+     1>项目“E:\github\fish\3rd\libev\build\libev_static.vcxproj”在节点 2 上(Rebuild 个目标)。
+     1>CustomBuild:
+         Building Custom Rule E:/github/fish/3rd/libev/CMakeLists.txt
+         CMake does not need to re-run because E:/github/fish/3rd/libev/build/CMakeFiles/generate.stamp is up-to-date.
+       ClCompile:
+         D:\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IE:\github\fish\3rd\libev /Zi /nologo /W4 /WX- /Od /Ob0 /Oy- /D WIN32 /D STRICT /D WIN32_LEAN_AND_MEAN /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"libev_static.dir\Debug\\" /Fd"libev_static.dir\Debug\vc120.pdb" /Gd /TC /wd4251 /wd4275 /wd4702 /analyze- /errorReport:prompt  -J E:\github\fish\3rd\libev\ev.c E:\github\fish\3rd\libev\event.c
          ev.c
-     1>E:\github\fish\lib\3rd\libev\ev.c(205): warning C4005: “WIN32_LEAN_AND_MEAN”: 宏重定义
+     1>E:\github\fish\3rd\libev\ev.c(205): warning C4005: “WIN32_LEAN_AND_MEAN”: 宏重定义
                  命令行参数: 参见前面的“WIN32_LEAN_AND_MEAN”定义
-     1>E:\github\fish\lib\3rd\libev\ev.c(969): warning C4244: “函数”: 从“uint64_t”转换到“uint32_t”，可能丢失数据
-     1>E:\github\fish\lib\3rd\libev\ev.c(1017): warning C4244: “函数”: 从“uint64_t”转换到“uint32_t”，可能丢失数据
-     1>E:\github\fish\lib\3rd\libev\ev.c(1031): warning C4244: “return”: 从“unsigned int”转换到“uint8_t”，可能丢失数据
-     1>E:\github\fish\lib\3rd\libev\ev.c(1063): warning C4244: “函数”: 从“uint64_t”转换到“uint32_t”，可能丢失数据
-     1>E:\github\fish\lib\3rd\libev\ev.c(1252): warning C4244: “return”: 从“unsigned int”转换到“uint16_t”，可能丢失数据
-     1>E:\github\fish\lib\3rd\libev\ev.c(1257): warning C4244: “return”: 从“unsigned int”转换到“uint16_t”，可能丢失数据
-     1>E:\github\fish\lib\3rd\libev\ev.c(1264): warning C4244: “return”: 从“unsigned int”转换到“uint16_t”，可能丢失数据
-     1>E:\github\fish\lib\3rd\libev\ev.c(1270): warning C4244: “return”: 从“unsigned int”转换到“uint16_t”，可能丢失数据
-     1>E:\github\fish\lib\3rd\libev\ev.c(1284): warning C4244: “return”: 从“unsigned int”转换到“uint16_t”，可能丢失数据
-     1>E:\github\fish\lib\3rd\libev\ev.c(1290): warning C4244: “return”: 从“unsigned int”转换到“uint16_t”，可能丢失数据
-     1>e:\github\fish\lib\3rd\libev\ev_win32.c(67): warning C4245: “初始化”: 从“int”转换到“SOCKET”，有符号/无符号不匹配
-     1>E:\github\fish\lib\3rd\libev\ev.c(1981): warning C4100: “revents”: 未引用的形参
-     1>E:\github\fish\lib\3rd\libev\ev.c(1981): warning C4100: “w”: 未引用的形参
-     1>E:\github\fish\lib\3rd\libev\ev.c(1981): warning C4100: “loop”: 未引用的形参
-     1>E:\github\fish\lib\3rd\libev\ev.c(1996): warning C4189: “ocur_”: 局部变量已初始化但不引用
-     1>E:\github\fish\lib\3rd\libev\ev.c(2007): warning C4189: “ocur_”: 局部变量已初始化但不引用
-     1>E:\github\fish\lib\3rd\libev\ev.c(2134): warning C4189: “ocur_”: 局部变量已初始化但不引用
-     1>E:\github\fish\lib\3rd\libev\ev.c(2414): warning C4996: 'dup2': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _dup2. See online help for details.
+     1>E:\github\fish\3rd\libev\ev.c(969): warning C4244: “函数”: 从“uint64_t”转换到“uint32_t”，可能丢失数据
+     1>E:\github\fish\3rd\libev\ev.c(1017): warning C4244: “函数”: 从“uint64_t”转换到“uint32_t”，可能丢失数据
+     1>E:\github\fish\3rd\libev\ev.c(1031): warning C4244: “return”: 从“unsigned int”转换到“uint8_t”，可能丢失数据
+     1>E:\github\fish\3rd\libev\ev.c(1063): warning C4244: “函数”: 从“uint64_t”转换到“uint32_t”，可能丢失数据
+     1>E:\github\fish\3rd\libev\ev.c(1252): warning C4244: “return”: 从“unsigned int”转换到“uint16_t”，可能丢失数据
+     1>E:\github\fish\3rd\libev\ev.c(1257): warning C4244: “return”: 从“unsigned int”转换到“uint16_t”，可能丢失数据
+     1>E:\github\fish\3rd\libev\ev.c(1264): warning C4244: “return”: 从“unsigned int”转换到“uint16_t”，可能丢失数据
+     1>E:\github\fish\3rd\libev\ev.c(1270): warning C4244: “return”: 从“unsigned int”转换到“uint16_t”，可能丢失数据
+     1>E:\github\fish\3rd\libev\ev.c(1284): warning C4244: “return”: 从“unsigned int”转换到“uint16_t”，可能丢失数据
+     1>E:\github\fish\3rd\libev\ev.c(1290): warning C4244: “return”: 从“unsigned int”转换到“uint16_t”，可能丢失数据
+     1>e:\github\fish\3rd\libev\ev_win32.c(67): warning C4245: “初始化”: 从“int”转换到“SOCKET”，有符号/无符号不匹配
+     1>E:\github\fish\3rd\libev\ev.c(1981): warning C4100: “revents”: 未引用的形参
+     1>E:\github\fish\3rd\libev\ev.c(1981): warning C4100: “w”: 未引用的形参
+     1>E:\github\fish\3rd\libev\ev.c(1981): warning C4100: “loop”: 未引用的形参
+     1>E:\github\fish\3rd\libev\ev.c(1996): warning C4189: “ocur_”: 局部变量已初始化但不引用
+     1>E:\github\fish\3rd\libev\ev.c(2007): warning C4189: “ocur_”: 局部变量已初始化但不引用
+     1>E:\github\fish\3rd\libev\ev.c(2134): warning C4189: “ocur_”: 局部变量已初始化但不引用
+     1>E:\github\fish\3rd\libev\ev.c(2414): warning C4996: 'dup2': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _dup2. See online help for details.
                  D:\Microsoft Visual Studio 12.0\VC\include\io.h(329) : 参见“dup2”的声明
-     1>E:\github\fish\lib\3rd\libev\ev.c(2415): warning C4996: 'close': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _close. See online help for details.
+     1>E:\github\fish\3rd\libev\ev.c(2415): warning C4996: 'close': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _close. See online help for details.
                  D:\Microsoft Visual Studio 12.0\VC\include\io.h(326) : 参见“close”的声明
-     1>E:\github\fish\lib\3rd\libev\ev.c(2420): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(2462): warning C4133: “=”: 从“WSABUF *”到“CHAR *”的类型不兼容
-     1>E:\github\fish\lib\3rd\libev\ev.c(2477): warning C4100: “iow”: 未引用的形参
-     1>e:\github\fish\lib\3rd\libev\ev_select.c(147): warning C4127: 条件表达式是常量
-     1>e:\github\fish\lib\3rd\libev\ev_select.c(200): warning C4244: “初始化”: 从“ev_tstamp”转换到“unsigned long”，可能丢失数据
-     1>e:\github\fish\lib\3rd\libev\ev_select.c(275): warning C4100: “flags”: 未引用的形参
-     1>E:\github\fish\lib\3rd\libev\ev.c(2725): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(2726): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(2727): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(2728): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(2729): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(2861): warning C4996: 'getenv': This function or variable may be unsafe. Consider using _dupenv_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>E:\github\fish\3rd\libev\ev.c(2420): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(2462): warning C4133: “=”: 从“WSABUF *”到“CHAR *”的类型不兼容
+     1>E:\github\fish\3rd\libev\ev.c(2477): warning C4100: “iow”: 未引用的形参
+     1>e:\github\fish\3rd\libev\ev_select.c(147): warning C4127: 条件表达式是常量
+     1>e:\github\fish\3rd\libev\ev_select.c(200): warning C4244: “初始化”: 从“ev_tstamp”转换到“unsigned long”，可能丢失数据
+     1>e:\github\fish\3rd\libev\ev_select.c(275): warning C4100: “flags”: 未引用的形参
+     1>E:\github\fish\3rd\libev\ev.c(2725): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(2726): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(2727): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(2728): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(2729): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(2861): warning C4996: 'getenv': This function or variable may be unsafe. Consider using _dupenv_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  D:\Microsoft Visual Studio 12.0\VC\include\stdlib.h(462) : 参见“getenv”的声明
-     1>E:\github\fish\lib\3rd\libev\ev.c(2862): warning C4996: 'getenv': This function or variable may be unsafe. Consider using _dupenv_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>E:\github\fish\3rd\libev\ev.c(2862): warning C4996: 'getenv': This function or variable may be unsafe. Consider using _dupenv_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  D:\Microsoft Visual Studio 12.0\VC\include\stdlib.h(462) : 参见“getenv”的声明
-     1>E:\github\fish\lib\3rd\libev\ev.c(2913): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(2916): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(2956): warning C4996: 'close': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _close. See online help for details.
+     1>E:\github\fish\3rd\libev\ev.c(2913): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(2916): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(2956): warning C4996: 'close': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _close. See online help for details.
                  D:\Microsoft Visual Studio 12.0\VC\include\io.h(326) : 参见“close”的声明
-     1>E:\github\fish\lib\3rd\libev\ev.c(2957): warning C4996: 'close': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _close. See online help for details.
+     1>E:\github\fish\3rd\libev\ev.c(2957): warning C4996: 'close': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _close. See online help for details.
                  D:\Microsoft Visual Studio 12.0\VC\include\io.h(326) : 参见“close”的声明
-     1>E:\github\fish\lib\3rd\libev\ev.c(2971): warning C4996: 'close': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _close. See online help for details.
+     1>E:\github\fish\3rd\libev\ev.c(2971): warning C4996: 'close': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _close. See online help for details.
                  D:\Microsoft Visual Studio 12.0\VC\include\io.h(326) : 参见“close”的声明
-     1>E:\github\fish\lib\3rd\libev\ev.c(3062): warning C4996: 'close': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _close. See online help for details.
+     1>E:\github\fish\3rd\libev\ev.c(3062): warning C4996: 'close': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _close. See online help for details.
                  D:\Microsoft Visual Studio 12.0\VC\include\io.h(326) : 参见“close”的声明
-     1>E:\github\fish\lib\3rd\libev\ev.c(3289): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(3323): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(3348): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(3387): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(3416): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(3803): warning C4100: “loop”: 未引用的形参
-     1>E:\github\fish\lib\3rd\libev\ev.c(3839): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(3851): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(3863): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(3870): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(3883): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(3892): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(3887): warning C4189: “ocur_”: 局部变量已初始化但不引用
-     1>E:\github\fish\lib\3rd\libev\ev.c(3904): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(3924): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(3930): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(3951): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(3977): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(3986): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(3981): warning C4189: “ocur_”: 局部变量已初始化但不引用
-     1>E:\github\fish\lib\3rd\libev\ev.c(3998): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(4016): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(4050): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(4113): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(4123): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(4150): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(4446): warning C4100: “loop”: 未引用的形参
-     1>E:\github\fish\lib\3rd\libev\ev.c(4455): warning C4100: “revents”: 未引用的形参
-     1>E:\github\fish\lib\3rd\libev\ev.c(4505): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(4522): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(4532): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(4546): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(4559): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(4571): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(4567): warning C4189: “ocur_”: 局部变量已初始化但不引用
-     1>E:\github\fish\lib\3rd\libev\ev.c(4581): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(4593): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(4604): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(4610): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(4607): warning C4189: “ocur_”: 局部变量已初始化但不引用
-     1>E:\github\fish\lib\3rd\libev\ev.c(4620): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(4631): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(4642): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(4648): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(4645): warning C4189: “ocur_”: 局部变量已初始化但不引用
-     1>E:\github\fish\lib\3rd\libev\ev.c(4658): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(4669): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(4675): warning C4100: “loop”: 未引用的形参
-     1>E:\github\fish\lib\3rd\libev\ev.c(4681): warning C4100: “revents”: 未引用的形参
-     1>E:\github\fish\lib\3rd\libev\ev.c(4692): warning C4100: “revents”: 未引用的形参
-     1>E:\github\fish\lib\3rd\libev\ev.c(4692): warning C4100: “loop”: 未引用的形参
-     1>E:\github\fish\lib\3rd\libev\ev.c(4708): warning C4100: “revents”: 未引用的形参
-     1>E:\github\fish\lib\3rd\libev\ev.c(4741): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(4744): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(4749): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(4753): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(4760): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(4770): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(4778): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(4789): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(4795): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(4792): warning C4189: “ocur_”: 局部变量已初始化但不引用
-     1>E:\github\fish\lib\3rd\libev\ev.c(4805): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(4816): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(4827): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(4835): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(4830): warning C4189: “ocur_”: 局部变量已初始化但不引用
-     1>E:\github\fish\lib\3rd\libev\ev.c(4845): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(4857): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(4872): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(4878): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(4875): warning C4189: “ocur_”: 局部变量已初始化但不引用
-     1>E:\github\fish\lib\3rd\libev\ev.c(4888): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(4899): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(4963): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(4966): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(4970): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\ev.c(4973): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(3289): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(3323): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(3348): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(3387): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(3416): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(3803): warning C4100: “loop”: 未引用的形参
+     1>E:\github\fish\3rd\libev\ev.c(3839): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(3851): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(3863): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(3870): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(3883): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(3892): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(3887): warning C4189: “ocur_”: 局部变量已初始化但不引用
+     1>E:\github\fish\3rd\libev\ev.c(3904): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(3924): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(3930): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(3951): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(3977): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(3986): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(3981): warning C4189: “ocur_”: 局部变量已初始化但不引用
+     1>E:\github\fish\3rd\libev\ev.c(3998): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(4016): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(4050): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(4113): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(4123): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(4150): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(4446): warning C4100: “loop”: 未引用的形参
+     1>E:\github\fish\3rd\libev\ev.c(4455): warning C4100: “revents”: 未引用的形参
+     1>E:\github\fish\3rd\libev\ev.c(4505): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(4522): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(4532): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(4546): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(4559): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(4571): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(4567): warning C4189: “ocur_”: 局部变量已初始化但不引用
+     1>E:\github\fish\3rd\libev\ev.c(4581): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(4593): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(4604): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(4610): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(4607): warning C4189: “ocur_”: 局部变量已初始化但不引用
+     1>E:\github\fish\3rd\libev\ev.c(4620): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(4631): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(4642): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(4648): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(4645): warning C4189: “ocur_”: 局部变量已初始化但不引用
+     1>E:\github\fish\3rd\libev\ev.c(4658): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(4669): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(4675): warning C4100: “loop”: 未引用的形参
+     1>E:\github\fish\3rd\libev\ev.c(4681): warning C4100: “revents”: 未引用的形参
+     1>E:\github\fish\3rd\libev\ev.c(4692): warning C4100: “revents”: 未引用的形参
+     1>E:\github\fish\3rd\libev\ev.c(4692): warning C4100: “loop”: 未引用的形参
+     1>E:\github\fish\3rd\libev\ev.c(4708): warning C4100: “revents”: 未引用的形参
+     1>E:\github\fish\3rd\libev\ev.c(4741): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(4744): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(4749): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(4753): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(4760): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(4770): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(4778): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(4789): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(4795): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(4792): warning C4189: “ocur_”: 局部变量已初始化但不引用
+     1>E:\github\fish\3rd\libev\ev.c(4805): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(4816): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(4827): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(4835): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(4830): warning C4189: “ocur_”: 局部变量已初始化但不引用
+     1>E:\github\fish\3rd\libev\ev.c(4845): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(4857): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(4872): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(4878): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(4875): warning C4189: “ocur_”: 局部变量已初始化但不引用
+     1>E:\github\fish\3rd\libev\ev.c(4888): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(4899): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(4963): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(4966): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(4970): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\ev.c(4973): warning C4127: 条件表达式是常量
          event.c
-     1>e:\github\fish\lib\3rd\libev\event.h(138): warning C4115: “timeval”: 括号中的已命名类型定义
-     1>E:\github\fish\lib\3rd\libev\event.c(115): warning C4100: “base”: 未引用的形参
-     1>E:\github\fish\lib\3rd\libev\event.c(179): warning C4100: “loop”: 未引用的形参
-     1>E:\github\fish\lib\3rd\libev\event.c(190): warning C4100: “loop”: 未引用的形参
-     1>E:\github\fish\lib\3rd\libev\event.c(201): warning C4100: “loop”: 未引用的形参
-     1>E:\github\fish\lib\3rd\libev\event.c(213): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\event.c(215): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\event.c(217): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\event.c(242): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\event.c(252): warning C4127: 条件表达式是常量
-     1>E:\github\fish\lib\3rd\libev\event.c(293): warning C4100: “ncalls”: 未引用的形参
-     1>E:\github\fish\lib\3rd\libev\event.c(373): warning C4100: “revents”: 未引用的形参
-     1>E:\github\fish\lib\3rd\libev\event.c(423): warning C4100: “npri”: 未引用的形参
-     1>E:\github\fish\lib\3rd\libev\event.c(423): warning C4100: “base”: 未引用的形参
+     1>e:\github\fish\3rd\libev\event.h(138): warning C4115: “timeval”: 括号中的已命名类型定义
+     1>E:\github\fish\3rd\libev\event.c(115): warning C4100: “base”: 未引用的形参
+     1>E:\github\fish\3rd\libev\event.c(179): warning C4100: “loop”: 未引用的形参
+     1>E:\github\fish\3rd\libev\event.c(190): warning C4100: “loop”: 未引用的形参
+     1>E:\github\fish\3rd\libev\event.c(201): warning C4100: “loop”: 未引用的形参
+     1>E:\github\fish\3rd\libev\event.c(213): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\event.c(215): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\event.c(217): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\event.c(242): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\event.c(252): warning C4127: 条件表达式是常量
+     1>E:\github\fish\3rd\libev\event.c(293): warning C4100: “ncalls”: 未引用的形参
+     1>E:\github\fish\3rd\libev\event.c(373): warning C4100: “revents”: 未引用的形参
+     1>E:\github\fish\3rd\libev\event.c(423): warning C4100: “npri”: 未引用的形参
+     1>E:\github\fish\3rd\libev\event.c(423): warning C4100: “base”: 未引用的形参
          正在生成代码...
-     1>e:\github\fish\lib\3rd\libev\ev.c(2145): warning C4706: 条件表达式内的赋值
+     1>e:\github\fish\3rd\libev\ev.c(2145): warning C4706: 条件表达式内的赋值
        Lib:
-         D:\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"E:\github\fish\libs\libev_static.lib" /NOLOGO  /machine:X86 libev_static.dir\Debug\ev.obj
+         D:\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"E:\github\fish\3rd\libev\build\Debug\libev_static.lib" /NOLOGO  /machine:X86 libev_static.dir\Debug\ev.obj
          libev_static.dir\Debug\event.obj
-         libev_static.vcxproj -> E:\github\fish\libs\libev_static.lib
-     1>已完成生成项目“E:\github\fish\lib\3rd\libev\build\libev_static.vcxproj”(Build 个目标)的操作。
+         libev_static.vcxproj -> E:\github\fish\3rd\libev\build\Debug\libev_static.lib
+     1>已完成生成项目“E:\github\fish\3rd\libev\build\libev_static.vcxproj”(Rebuild 个目标)的操作。
 
 生成成功。
 
-已用时间 00:00:00.71
+已用时间 00:00:00.90
