@@ -29,34 +29,31 @@ namespace Network
 
 	int Reader::Read(int fd)
 	{
-		ReaderBuffer* buffer = NULL;
-		if (tail_ ==  NULL)
+		int total = 0;
+		for(;;) 
 		{
-			assert(head_ == NULL);
-			buffer = AllocBuffer();
-			head_ = tail_ = buffer;
-		}
-		else
-		{
-			if (tail_->size_ - tail_->wpos_ == 0)
+			ReaderBuffer* buffer = NextBuffer();
+			int left = buffer->size_ - buffer->wpos_;
+			int len = Network::SocketRead(fd,buffer->data_ + buffer->wpos_,left);
+			if (len > 0)
 			{
-				buffer = AllocBuffer();
-				tail_->next_ = buffer;
-				tail_ = buffer;
-				buffer->next_ = NULL;
+				buffer->wpos_ += len;
+				total_ += len;
+				total += len;
+				if (len < left) {
+					break;
+				}
 			}
-			else
-				buffer = tail_;	
+			else if (len == 0) 
+			{
+				break;
+			}
+			else 
+			{
+				return -1;
+			}
 		}
-		
-
-		int len = Network::SocketRead(fd,buffer->data_ + buffer->wpos_,buffer->size_ - buffer->wpos_);
-		if (len > 0)
-		{
-			buffer->wpos_ += len;
-			total_ += len;
-		}
-		return len;
+		return total;
 	}
 
 	void Reader::ReadData(char* data,int size)
@@ -89,6 +86,30 @@ namespace Network
 				FreeHead();
 			}
 		}
+	}
+
+	Reader::ReaderBuffer* Reader::NextBuffer() 
+	{
+		ReaderBuffer* buffer = NULL;
+		if (tail_ ==  NULL)
+		{
+			assert(head_ == NULL);
+			buffer = AllocBuffer();
+			head_ = tail_ = buffer;
+		}
+		else
+		{
+			if (tail_->size_ - tail_->wpos_ == 0)
+			{
+				buffer = AllocBuffer();
+				tail_->next_ = buffer;
+				tail_ = buffer;
+				buffer->next_ = NULL;
+			}
+			else
+				buffer = tail_;	
+		}
+		return buffer;
 	}
 
 	Reader::ReaderBuffer* Reader::AllocBuffer()

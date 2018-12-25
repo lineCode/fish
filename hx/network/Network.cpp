@@ -204,11 +204,11 @@ _failed:
 			}
 #endif
 		}
-
-		if (n == 0)
+		else 
+		{
 			return ReadError;
-
-		return n > 0 ? n:0;
+		}
+		return n > 0 ? n : 0;
 	}
 
 	int SocketWrite(int fd,const char* data,int size) 

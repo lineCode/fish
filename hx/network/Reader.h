@@ -39,6 +39,7 @@ namespace Network
 		virtual void ReadData(char* data,int size);
 
 	private:
+		ReaderBuffer* NextBuffer();
 		ReaderBuffer* AllocBuffer();
 		void FreeHead();
 
