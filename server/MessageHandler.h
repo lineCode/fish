@@ -39,8 +39,8 @@ struct RegisterHandler
 	}
 };
 
-#define REGISTER_HANDLER(CMD) \
-	static void handler##CMD(Network::Channel* channel, MessageHelper::MessageReader& reader); \
-	static RegisterHandler register##CMD(CMD,handler##CMD); \
-	static void handler##CMD(Network::Channel* channel, MessageHelper::MessageReader& reader)
+#define REGISTER_HANDLER(cmd,channel,reader) \
+	static void handler##cmd(Network::Channel* channel, MessageHelper::MessageReader& reader); \
+	static RegisterHandler register##cmd(cmd,handler##cmd); \
+	static void handler##cmd(Network::Channel* channel, MessageHelper::MessageReader& reader)
 #endif
