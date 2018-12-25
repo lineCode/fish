@@ -1,13 +1,13 @@
-#ifndef SERVERACCEPTOR_H
+﻿#ifndef SERVERACCEPTOR_H
 #define SERVERACCEPTOR_H
 #include "network/Acceptor.h"
 #include "network/EventPoller.h"
 
-template<class SESSION>
-class ServerAcceptor : public Network::Acceptor<SESSION>
+
+class ServerAcceptor : public Network::Acceptor
 {
 public:
-	typedef Network::Acceptor<SESSION> Super;
+	typedef Network::Acceptor Super;
 public:
 	ServerAcceptor(ServerApp* app,Network::EventPoller* poller):_app(app),Super(poller)
 	{
@@ -17,12 +17,6 @@ public:
 	{
 	}
 
-	virtual SESSION* MakeSession(int fd)
-	{
-		SESSION* session = new SESSION(this->_poller,fd);
-		session->SetApp(_app);
-		return session;
-	}
 
 private:
 	ServerApp* _app;

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -20,12 +20,14 @@
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -39,7 +41,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>..\..\libs\</OutDir>
-    <IncludePath>F:\boost_1_58_0;..\3rd\http-parser;..\3rd\pbc;..\3rd;..\3rd\lpeg;..\3rd\lua\src;..\3rd\bsoncpp\src;..\3rd\bsoncpp;$(IncludePath)</IncludePath>
+    <IncludePath>E:\github\fish\lib\3rd\libev;..\3rd\http-parser;..\3rd\pbc;..\3rd;..\3rd\lpeg;..\3rd\lua\src;..\3rd\bsoncpp\src;..\3rd\bsoncpp;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -47,7 +49,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;USE_BOOST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_XKEYCHECK_H;USE_BOOST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -91,14 +93,11 @@
     <ClCompile Include="lualib\LuaZeropack.cpp" />
     <ClCompile Include="lualib\LuaMessageHelper.cpp" />
     <ClCompile Include="lualib\LuaProf.cpp" />
+    <ClCompile Include="network\Accepter.cpp" />
     <ClCompile Include="time\TimerHeap.cpp" />
     <ClCompile Include="util\Allocator.cpp" />
     <ClCompile Include="util\LuaAllocator.cpp" />
     <ClCompile Include="util\MiniHeap.cpp" />
-    <ClCompile Include="mongo\MongoQuery.cpp" />
-    <ClCompile Include="mongo\MongoBase.cpp" />
-    <ClCompile Include="mongo\MongoCursor.cpp" />
-    <ClCompile Include="mongo\MongoSession.cpp" />
     <ClCompile Include="network\EventPoller.cpp" />
     <ClCompile Include="network\Network.cpp" />
     <ClCompile Include="network\Reader.cpp" />
@@ -141,10 +140,6 @@
     <ClInclude Include="util\LuaAllocator.h" />
     <ClInclude Include="util\MiniHeap.h" />
     <ClInclude Include="util\MiniheapT.h" />
-    <ClInclude Include="mongo\MongoQuery.h" />
-    <ClInclude Include="mongo\MongoBase.h" />
-    <ClInclude Include="mongo\MongoCursor.h" />
-    <ClInclude Include="mongo\MongoSession.h" />
     <ClInclude Include="network\Acceptor.h" />
     <ClInclude Include="network\Connector.h" />
     <ClInclude Include="network\EventPoller.h" />

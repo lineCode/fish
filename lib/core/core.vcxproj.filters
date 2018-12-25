@@ -63,15 +63,6 @@
     <ClCompile Include="util\MemoryStream.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="mongo\MongoBase.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="mongo\MongoCursor.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="mongo\MongoSession.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="time\Timestamp.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -120,9 +111,6 @@
     <ClCompile Include="ObjectPoolMgr.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="mongo\MongoQuery.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="util\MiniHeap.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -139,6 +127,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="lualib\LuaProf.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="network\Accepter.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -207,15 +198,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="util\Singleton.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="mongo\MongoSession.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="mongo\MongoBase.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="mongo\MongoCursor.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="time\TimerHandler.h">
@@ -288,9 +270,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="ObjectPoolMgr.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="mongo\MongoQuery.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="util\MiniheapT.h">

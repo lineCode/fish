@@ -1,7 +1,7 @@
-#ifndef SERVERAPP_H
+﻿#ifndef SERVERAPP_H
 #define SERVERAPP_H
 
-#include "boost/function.hpp"
+//#include "boost/function.hpp"
 #include "network/EventPoller.h"
 #include "util/MemoryStream.h"
 #include "util/MessageWriter.h"

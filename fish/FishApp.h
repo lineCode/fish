@@ -1,4 +1,4 @@
-#ifndef FISHAPP_H
+﻿#ifndef FISHAPP_H
 #define FISHAPP_H
 
 #include "ServerApp.h"
@@ -8,7 +8,7 @@
 
 #include "ServerConnector.h"
 #include "ServerAcceptor.h"
-#include "FishMongo.h"
+
 #include "ClientSession.h"
 
 class FishApp:public ServerApp
@@ -32,8 +32,8 @@ public:
 
 private:
 	std::string _file;
-	ServerConnector<FishMongo> _mongoConnector;
-	ServerAcceptor<ClientSession> _clientAcceptor;
+
+	ServerAcceptor _clientAcceptor;
 };
 
 #endif

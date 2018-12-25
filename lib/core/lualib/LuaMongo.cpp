@@ -1,14 +1,13 @@
-#include "LuaMongo.h"
+﻿#include "LuaMongo.h"
 #include "../ServerApp.h"
-#include "../mongo/MongoBase.h"
-#include "../mongo/MongoCursor.h"
+
 #include <stdlib.h>
 
 namespace LuaMongo
 {
 	int _RunCommand(lua_State *L)
 	{
-		ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
+	/*	ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
 		MongoBase* mongo = (MongoBase*)app->Mongo();
 		if (mongo == NULL)
 			luaL_error(L,"mongo not init!");
@@ -22,13 +21,13 @@ namespace LuaMongo
 
 		int session = mongo->doRunCommand(name,nsize,cmd,MongoCursor::BsonSize(cmd));
 
-		lua_pushinteger(L,session);
+		lua_pushinteger(L,session);*/
 		return 1;
 	}
 
 	int _Query(lua_State *L)
 	{
-		ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
+	/*	ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
 		MongoBase* mongo = (MongoBase*)app->Mongo();
 		if (mongo == NULL)
 			luaL_error(L,"mongo not init!");
@@ -45,13 +44,13 @@ namespace LuaMongo
 
 		int session = mongo->doQuery(name,nsize,query,MongoCursor::BsonSize(query),selector,MongoCursor::BsonSize(selector),flag,skip,number);
 
-		lua_pushinteger(L,session);
+		lua_pushinteger(L,session);*/
 		return 1;
 	}
 
 	int _More(lua_State* L)
 	{
-		ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
+		/*ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
 		MongoBase* mongo = (MongoBase*)app->Mongo();
 		if (mongo == NULL)
 			luaL_error(L,"mongo not init!");
@@ -69,13 +68,13 @@ namespace LuaMongo
 		assert(cursorsize == 8);
 		int session = mongo->doMore(name,nsize,number,curosr);
 
-		lua_pushinteger(L,session);
+		lua_pushinteger(L,session);*/
 		return 1;
 	}
 
 	int _Update(lua_State *L)
 	{
-		ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
+	/*	ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
 		MongoBase* mongo = (MongoBase*)app->Mongo();
 		if (mongo == NULL)
 			luaL_error(L,"mongo not init!");
@@ -90,13 +89,13 @@ namespace LuaMongo
 		const char* updator = (const char*)lua_touserdata(L,4);
 
 		mongo->doUpdate(name,nsize,flag,selector,MongoCursor::BsonSize(selector),updator,MongoCursor::BsonSize(updator));
-
+*/
 		return 0;
 	}
 
 	int _Insert(lua_State *L)
 	{
-		ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
+		/*ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
 		MongoBase* mongo = (MongoBase*)app->Mongo();
 		if (mongo == NULL)
 			luaL_error(L,"mongo not init!");
@@ -109,7 +108,7 @@ namespace LuaMongo
 		int flag = lua_tointeger(L,2);
 		const char* document = (const char*)lua_touserdata(L,3);
 
-		mongo->doInsert(name,nsize,flag,document,MongoCursor::BsonSize(document));
+		mongo->doInsert(name,nsize,flag,document,MongoCursor::BsonSize(document));*/
 
 		return 0;
 	}

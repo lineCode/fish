@@ -1,4 +1,4 @@
-#ifndef TYPEDEF_H
+﻿#ifndef TYPEDEF_H
 #define TYPEDEF_H
 
 
@@ -68,12 +68,9 @@ typedef uint64_t	uint64;
 
 #endif
 
-#ifdef USE_BOOST
-#include <boost/unordered_map.hpp>
-#define FishMap boost::unordered_map 
-#else
+
+
 #include <map>
 #define FishMap std::map 
-#endif
 
 //#define SELECT_USE_STDSET

@@ -1,4 +1,4 @@
-#ifndef EVENTPOLLER_H
+﻿#ifndef EVENTPOLLER_H
 #define EVENTPOLLER_H
 
 #include <map>
@@ -7,6 +7,8 @@
 #include "../time/TimerWheel.h"
 #include "../time/TimerHeap.h"
 #include "../time/TimerEngineT.h"
+#include "ev++.h"
+
 class TimeoutHandler;
 
 namespace Network 
@@ -58,6 +60,8 @@ namespace Network
 		virtual void RetrieveId(int fd,int id);
 		
 		TimerEngine& Timer();
+
+		ev::default_loop& GetEvLoop();
 		
 		static EventPoller* Create();
 
@@ -69,6 +73,8 @@ namespace Network
 		WriteHandles		_writeHandles;
 		ErrorHandles		_errorHandles;
 		TimerEngine			_timerEngine;
+
+		ev::default_loop loop_;
 	};
 
 }

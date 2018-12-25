@@ -1,8 +1,8 @@
-#include "LuaFish.h"
+﻿#include "LuaFish.h"
 #include "../ServerApp.h"
 #include "../Logger.h"
 #include "../util/MemoryStream.h"
-#include "../mongo/MongoCursor.h"
+
 #include "../time/Timestamp.h"
 
 
@@ -220,33 +220,33 @@ int LuaFish::DispatchSocket(int source,const char* data,int size)
 
 int LuaFish::DispatchMongo(int source,int session,const char* data,int size)
 {
-	int otop = lua_gettop(_L);
+	//int otop = lua_gettop(_L);
 
-	//data free by caller
-	lua_pushcfunction(_L, _Traceback);
-	lua_rawgeti(_L, LUA_REGISTRYINDEX, _callback);
-	lua_pushinteger(_L,DISPATCH_TYPE_MONGO);
-	lua_pushinteger(_L,source);
-	lua_pushboolean(_L,0);
-	lua_pushinteger(_L,0);
-	lua_pushinteger(_L,session);
+	////data free by caller
+	//lua_pushcfunction(_L, _Traceback);
+	//lua_rawgeti(_L, LUA_REGISTRYINDEX, _callback);
+	//lua_pushinteger(_L,DISPATCH_TYPE_MONGO);
+	//lua_pushinteger(_L,source);
+	//lua_pushboolean(_L,0);
+	//lua_pushinteger(_L,0);
+	//lua_pushinteger(_L,session);
 
-	lua_newtable(_L);
+	//lua_newtable(_L);
 
-	MongoCursor cursor(data,size);
-	int index = 1;
-	while (cursor.More())
-	{
-		char* data = cursor.Next();
-		int size =  MongoCursor::BsonSize(data);
-		lua_pushlightuserdata(_L,data);
-		lua_rawseti(_L,-2,index++);
-	}
-	
-	int r = lua_pcall(_L,6,0,otop+1);
-	if (r != LUA_OK)
-		Logger::GetSingleton().LuaLog(lua_tostring(_L,-1));
-	lua_settop(_L,otop);
+	//MongoCursor cursor(data,size);
+	//int index = 1;
+	//while (cursor.More())
+	//{
+	//	char* data = cursor.Next();
+	//	int size =  MongoCursor::BsonSize(data);
+	//	lua_pushlightuserdata(_L,data);
+	//	lua_rawseti(_L,-2,index++);
+	//}
+	//
+	//int r = lua_pcall(_L,6,0,otop+1);
+	//if (r != LUA_OK)
+	//	Logger::GetSingleton().LuaLog(lua_tostring(_L,-1));
+	//lua_settop(_L,otop);
 	return 0;
 }
 

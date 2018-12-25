@@ -1,14 +1,15 @@
-#include "EventPoller.h"
+ï»¿#include "EventPoller.h"
 #include "EpollPoller.h"
 #include "Network.h"
 
+#include "ev++.h"
 #if defined(WIN32)
 #include "SelectPoller.h"
 #endif
 
 namespace Network
 {
-	EventPoller::EventPoller(int size)
+	EventPoller::EventPoller(int size) :loop_()
 	{
 		_maxSize = size;
 
@@ -18,7 +19,7 @@ namespace Network
 		_idMap.resize(_maxSize);
 		_readHandles.resize(_maxSize);
 		_writeHandles.resize(_maxSize);
-		_errorHandles.resize(_maxSize);
+		_errorHandles.resize(_maxSize);;
 	}
 
 	EventPoller::~EventPoller(void)
@@ -128,7 +129,7 @@ namespace Network
 		int ofd = _idMap[id];
 		if (ofd != fd)
 		{
-			//±ÜÃâid»ØÈÆ
+			//é¿å…idå›ç»•
 			fprintf(stderr,"HandleRead error,id:%d not math[%d:%d]\n",id,fd,ofd);
 			return false;
 		}
@@ -137,7 +138,7 @@ namespace Network
 
 		if (handler == NULL)
 		{
-			//±ÜÃâÔÚ»Øµ÷´ËidÇ°¶ÔÓ¦µÄhandlerÒÑ¾­Ïú»Ù
+			//é¿å…åœ¨å›è°ƒæ­¤idå‰å¯¹åº”çš„handlerå·²ç»é”€æ¯
 			fprintf(stderr,"HandleRead error,id:%d not found\n",id);
 			return false;
 		}
@@ -151,7 +152,7 @@ namespace Network
 		int ofd = _idMap[id];
 		if (ofd != fd)
 		{
-			//±ÜÃâid»ØÈÆ
+			//é¿å…idå›ç»•
 			fprintf(stderr,"HandleWrite error,id:%d not math[%d:%d]\n",id,fd,ofd);
 			return false;
 		}
@@ -160,7 +161,7 @@ namespace Network
 
 		if (handler == NULL)
 		{
-			//±ÜÃâÔÚ»Øµ÷´ËidÇ°¶ÔÓ¦µÄhandlerÒÑ¾­Ïú»Ù
+			//é¿å…åœ¨å›è°ƒæ­¤idå‰å¯¹åº”çš„handlerå·²ç»é”€æ¯
 			fprintf(stderr,"HandleWrite error,id:%d not found\n",id);
 			return false;
 		}
@@ -174,7 +175,7 @@ namespace Network
 		int ofd = _idMap[id];
 		if (ofd != fd)
 		{
-			//±ÜÃâid»ØÈÆ
+			//é¿å…idå›ç»•
 			fprintf(stderr,"HandleError error,id:%d not math[%d:%d]\n",id,fd,ofd);
 			return false;
 		}
@@ -183,7 +184,7 @@ namespace Network
 
 		if (handler == NULL)
 		{
-			//±ÜÃâÔÚ»Øµ÷´ËidÇ°¶ÔÓ¦µÄhandlerÒÑ¾­Ïú»Ù
+			//é¿å…åœ¨å›è°ƒæ­¤idå‰å¯¹åº”çš„handlerå·²ç»é”€æ¯
 			fprintf(stderr,"HandleError error,id:%d not found\n",id);
 			return false;
 		}
@@ -213,6 +214,11 @@ namespace Network
 	TimerEngine& EventPoller::Timer()
 	{
 		return _timerEngine;
+	}
+
+	ev::default_loop& EventPoller::GetEvLoop()
+	{
+		return loop_;
 	}
 
 	EventPoller* EventPoller::Create() 
