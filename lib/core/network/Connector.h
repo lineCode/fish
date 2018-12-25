@@ -1,14 +1,18 @@
-#ifndef CONNECTOR_H
+﻿#ifndef CONNECTOR_H
 #define CONNECTOR_H
 
 #include "Interface.h"
 #include "EventPoller.h"
+#include <functional>
 
 namespace Network
 {
-	template<class SESSION>
-	class Connector : public OutputHandler,public ErrorHandler
+	class Connector
 	{
+	public:
+		typedef std::function<void(int)> OnConnecOk;
+		typedef std::function<void(int)> OnConnectError;
+
 	public:
 		Connector(EventPoller* poller);
 		~Connector(void);
@@ -21,12 +25,9 @@ namespace Network
 
 		virtual int ConnectDone();
 
-		virtual SESSION* MakeSession(int fd);
 
-		virtual SESSION* GetSession();
 	protected:
 		EventPoller*	_poller;
-		SESSION*		_session;
 		std::string		_host;
 		int				_port;
 		int				_fd;

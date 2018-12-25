@@ -132,6 +132,9 @@
     <ClCompile Include="network\Accepter.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="network\Channel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="platform.h">
@@ -162,9 +165,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="network\reader.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="network\session.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="thread\Mutex.h">
@@ -254,9 +254,6 @@
     <ClInclude Include="aoi\AoiTower.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="network\FdSet.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="network\SelectPoller.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -294,6 +291,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="lualib\LuaProf.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="network\channel.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,5 +1,5 @@
-#ifndef SESSION_H
-#define SESSION_H
+﻿#ifndef CHANNEL_H
+#define CHANNEL_H
 #include <vector>
 #include <map>
 #include <queue>
@@ -16,10 +16,10 @@ class ServerApp;
 
 namespace Network
 {
-	class Session
+	class Channel
 	{	
 	public:
-		enum SessionState {Alive,Closed,Error,Invalid};
+		enum eChannelState {Alive,Closed,Error,Invalid};
 
 		struct SendBuffer
 		{
@@ -181,12 +181,16 @@ again:
 			}
 		};
 	public:
-		Session(Network::EventPoller* poller,int fd,int buffersize = 64 * 1024);
-		virtual ~Session();
+		Channel(Network::EventPoller* poller,int fd,int size = 64 * 1024);
+		virtual ~Channel();
 
 		virtual int Init() = 0;
 
 		virtual int Fina() = 0;
+
+		virtual void Clean();
+
+		virtual void Close();
 
 		virtual void EnableRead();
 
@@ -204,17 +208,9 @@ again:
 
 		virtual void HandleError();
 
-		virtual void Clean();
-
-		virtual void Close();
-
 		virtual int Send(char* data,int size);
 
 		virtual int Send(MemoryStream* ms);
-
-		virtual void SetFd(int fd);
-
-		virtual int	 GetFd();
 
 		virtual void SetReader(Reader * reader);
 
@@ -230,7 +226,7 @@ again:
 		int fd_;
 		Reader* reader_;
 		SendList sendlist_;
-		SessionState state_;
+		eChannelState state_;
 		ev::io rio_;
 		ev::io wio_;
 	};

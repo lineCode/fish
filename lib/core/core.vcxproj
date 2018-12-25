@@ -94,6 +94,7 @@
     <ClCompile Include="lualib\LuaMessageHelper.cpp" />
     <ClCompile Include="lualib\LuaProf.cpp" />
     <ClCompile Include="network\Accepter.cpp" />
+    <ClCompile Include="network\Channel.cpp" />
     <ClCompile Include="time\TimerHeap.cpp" />
     <ClCompile Include="util\Allocator.cpp" />
     <ClCompile Include="util\LuaAllocator.cpp" />
@@ -143,11 +144,10 @@
     <ClInclude Include="network\Acceptor.h" />
     <ClInclude Include="network\Connector.h" />
     <ClInclude Include="network\EventPoller.h" />
-    <ClInclude Include="network\FdSet.h" />
     <ClInclude Include="network\interface.h" />
     <ClInclude Include="network\network.h" />
     <ClInclude Include="network\reader.h" />
-    <ClInclude Include="network\session.h" />
+    <ClInclude Include="network\channel.h" />
     <ClInclude Include="network\tcpreader.h" />
     <ClInclude Include="ObjectPoolMgr.h" />
     <ClInclude Include="platform.h" />

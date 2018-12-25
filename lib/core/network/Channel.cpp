@@ -1,61 +1,60 @@
-#include "Session.h"
+﻿#include "Channel.h"
 
 namespace Network
 {
-	Session::Session(Network::EventPoller* poller,int fd,int buffersize):poller_(poller),fd_(fd),sendlist_(buffersize)
+	Channel::Channel(Network::EventPoller* poller, int fd, int size) :poller_(poller), fd_(fd), sendlist_(size)
 	{
 		reader_ = NULL;
 		state_ = Alive;
 
 		rio_.set(poller_->GetEvLoop());
-		rio_.set<Session, &Session::HandleInput>(this);
+		rio_.set<Channel, &Channel::HandleInput>(this);
 
 		wio_.set(poller_->GetEvLoop());
-		wio_.set<Session, &Session::HandleOutput>(this);
+		wio_.set<Channel, &Channel::HandleOutput>(this);
 	}
 
-	Session::~Session(void)
+	Channel::~Channel(void)
 	{
 	}
 	
-	void Session::EnableRead() 
+	void Channel::EnableRead()
 	{
 		if (!rio_.is_active())
 			rio_.start(fd_, EV_READ);
 	}
 
-	void Session::DisableRead() 
+	void Channel::DisableRead()
 	{
 		if (rio_.is_active())
-			rio_.stop(fd_, EV_READ);
+			rio_.stop();
 	}
 
-	void Session::EnableWrite() 
+	void Channel::EnableWrite()
 	{
 		if (!rio_.is_active())
 			rio_.start(fd_, EV_WRITE);
 	}
 
-	void Session::DisableWrite()
+	void Channel::DisableWrite()
 	{
 		if (wio_.is_active())
-			wio_.stop(fd_, EV_WRITE);
+			wio_.stop();
 	}
 
-	void Session::HandleInput(ev::io &rio, int revents)
+	void Channel::HandleInput(ev::io &rio, int revents)
 	{
-		if (_reader->Read(fd_) < 0)
+		if (reader_->Read(fd_) < 0)
 		{
 			state_ = Error;
 			this->HandleError();
 		}
-		return 0;
 	}
 
-	void Session::HandleOutput(ev::io &wio, int wevents)
+	void Channel::HandleOutput(ev::io &wio, int wevents)
 	{
 		if (state_ == Error || state_ == Invalid)
-			return -1;
+			return;
 		
 		int result = this->DoSend();
 		if (result == 0)
@@ -69,11 +68,9 @@ namespace Network
 			state_ = Error;
 			this->HandleError();
 		}
-
-		return 0;
 	}
 
-	void Session::HandleError()
+	void Channel::HandleError()
 	{	
 		DisableRead();
 		DisableWrite();
@@ -82,7 +79,7 @@ namespace Network
 		Fina();
 	}
 
-	void Session::Clean()
+	void Channel::Clean()
 	{
 		DisableRead();
 		DisableWrite();
@@ -90,11 +87,9 @@ namespace Network
 		SocketClose(fd_);
 		
 		state_ = Invalid;
-
-		return 0;
 	}
 	
-	void Session::Close()
+	void Channel::Close()
 	{
 		if (!IsAlive())
 			return ;
@@ -105,12 +100,12 @@ namespace Network
 			this->HandleError();
 	}
 
-	int Session::DoSend()
+	int Channel::DoSend()
 	{
 		SendBuffer* buffer = NULL;
 		while ((buffer = sendlist_.Front()) != NULL)
 		{
-			int n = Network::SocketWrite(_fd,(const char*)buffer->Begin(),buffer->Readable());
+			int n = Network::SocketWrite(fd_,(const char*)buffer->Begin(),buffer->Readable());
 			if (n >= 0) 
 			{
 				if (n == buffer->Readable())
@@ -127,7 +122,7 @@ namespace Network
 		return 0;
 	}
 
-	int Session::TrySend()
+	int Channel::TrySend()
 	{
 		if (!IsAlive())
 			return -1;
@@ -147,7 +142,7 @@ namespace Network
 		return 0;
 	}
 
-	int Session::Send(char* data,int size)
+	int Channel::Send(char* data, int size)
 	{
 		if (!IsAlive())
 			return -1;
@@ -156,29 +151,19 @@ namespace Network
 		return this->TrySend();
 	}
 
-	int Session::Send(MemoryStream* ms)
+	int Channel::Send(MemoryStream* ms)
 	{
-		int result = this->Send(ms->data(),ms->length());
+		int result = Send(ms->data(),ms->length());
 		delete ms;
 		return result;
 	}
 
-	void Session::SetFd(int fd)
+	void Channel::SetReader(Reader * reader)
 	{
-		_fd = fd;
+		reader_ = reader;
 	}
 
-	int Session::GetFd()
-	{
-		return _fd;
-	}
-
-	void Session::SetReader(Reader * reader)
-	{
-		_reader = reader;
-	}
-
-	bool Session::IsAlive()
+	bool Channel::IsAlive()
 	{
 		return state_ == Alive;
 	}
