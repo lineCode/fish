@@ -51,3 +51,6 @@ clean :
 	rm -rf $(LIBS_DIR)/fish  $(FISH_INC)/*o
 	cd $(HX_INC) && make clean
 	rm -rf $(LIBS_DIR)/liblua.a $(LIBS_DIR)/liblua.so $(LUA_INC)/*.o
+	rm -rf $(LIBS_DIR)/liboolua.a && cd $(OOLUA_PATH) && make clean
+	rm -rf $(LIBS_DIR)/libev.a && cd $(LIBEV_INC) && make clean
+
