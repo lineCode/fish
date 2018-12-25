@@ -9,55 +9,39 @@
 #include "util/ObjectPool.h"
 #include "network/Channel.h"
 #include "lualib/LuaFish.h"
-#include "time/TimerHandler.h"
+#include "time/Timer.h"
 #include "Typedef.h"
 
 class MongoSession;
 
-class ServerApp : public TimeoutHandler
+class ServerApp : public Timer
 {
 public:
-	typedef FishMap<int,Network::Channel*>	SessionMap;
 	enum AppState{AppRun,AppStop};
 public:
 	ServerApp(void);
 	virtual ~ServerApp(void);
 
-	virtual int						Init();
+	virtual int Init();
 
-	virtual int						Fina();
+	virtual int Fina();
 
-	virtual void					Stop();
+	virtual int Stop();
 
-	virtual int						Run();
+	virtual int Run();
 
-	virtual int						MainTick();
+	virtual void HandleTimeout();
 
-	virtual int						HandleTimeout();
+	virtual LuaFish* Lua();
 
-	virtual void					SessionEnter(int source,Network::Session* session);
+	virtual Network::EventPoller* Poller();
 
-	virtual void					SessionLeave(int source);
-
-	virtual Network::Session*		FindSession(int source);
-
-	virtual LuaFish*				LuaManager();
-
-	virtual Network::EventPoller*	Poller();
-
-	virtual uint64					Now();
-
-	void							Mongo(Network::Session* mongo);
-
-	Network::Session*				Mongo();
-
+	virtual uint64 Now();
 protected:
-	AppState			   _state;
-	Network::EventPoller * _poller;
-	LuaFish*			   _LuaManager;
-	Network::Session*	   _mongo;
-	SessionMap			   _sessionMap;
-	uint64				   _now;
+	AppState  state_;
+	Network::EventPoller * poller_;
+	LuaFish* lua_;
+	uint64 now_;
 };
 
 #endif

@@ -8,35 +8,27 @@
 class Timer
 {
 public:
-	typedef std::function<void(void*)> OnTimeout;
-
-public:
-	Timer(OnTimeout callback, void* ud) :timeoutCallback_(callback), ud_(ud)
-	{
-	}
+	Timer() {}
 
 	virtual ~Timer() {}
 
-	void RegsiterTimer(Network::EventPoller* poller, int after, int repeat, void* ud)
+	void StartTimer(Network::EventPoller* poller, int after, int repeat)
 	{
-		ud_ = ud;
-
 		io_.set(poller->GetEvLoop());
 		io_.set(after, repeat);
-		io_.set<Timer, &Timer::HandleTimeout>(this);
+		io_.set<Timer, &Timer::OnTimeout>(this);
 		io_.start();
 	}
 
-public:
-	void HandleTimeout(ev::timer &watcher, int revents)
+	void OnTimeout(ev::timer &watcher, int revents)
 	{
-		timeoutCallback_(ud_);
+		HandleTimeout();
 	}
 
+	virtual void HandleTimeout() = 0;
+
 private:
-	void* ud_;
 	ev::timer io_;
-	OnTimeout timeoutCallback_;
 };
 
 #endif
