@@ -30,7 +30,12 @@ LuaFish::~LuaFish(void)
 
 lua_State* LuaFish::LuaState()
 {
-	return script_->state();
+	return script_.state();
+}
+
+OOLUA::Script& LuaFish::GetScript()
+{
+	return script_;
 }
 
 void LuaFish::Require(const char* module,int (*func)(lua_State*))
@@ -40,18 +45,43 @@ void LuaFish::Require(const char* module,int (*func)(lua_State*))
 
 int LuaFish::Init(ServerApp* app)
 {
-	luaL_openlibs(LuaState());
-
 	lua_pushlightuserdata(LuaState(), app);
 	lua_setfield(LuaState(), LUA_REGISTRYINDEX, "CoreCtx");
 	return 0;
 }
 
-int LuaFish::DoFile(const char* file)
+int LuaFish::LoadFile(std::string& file)
 {
-	return script_->run_file(file);
+	return script_.load_file(file);
 }
 
+int LuaFish::DoFile(std::string& file)
+{
+	return script_.run_file(file);
+}
+
+int LuaFish::CallFunc(std::string& module, std::string& method)
+{
+	lua_State* L = script_.state();
+
+	lua_getglobal(L, module.c_str());
+	if ( lua_isnil(L, -1) )
+	{
+		lua_pop(L, 1);
+		return -1;
+	}
+
+	lua_getfield(L, -1, method.c_str());
+	if ( lua_isnil(L, -1) )
+	{
+		lua_pop(L, 1);
+		return -1;
+	}
+
+	lua_pcall(L, 0, 0, 0);
+
+	return 0;
+}
 
 int LuaFish::DispatchClient(int source,int method,const char* data,int size)
 {
@@ -257,20 +287,20 @@ void LuaFish::SetMainTick(int index)
 void LuaFish::LuaPath(const char* npath)
 {
 	luaL_Buffer buffer;
-	luaL_buffinit(script_->state(), &buffer);
+	luaL_buffinit(script_.state(), &buffer);
 
-	lua_getglobal(script_->state(), "package");
-	lua_getfield(script_->state(), -1, "path");
+	lua_getglobal(script_.state(), "package");
+	lua_getfield(script_.state(), -1, "path");
 
 	size_t size = 0;
-	const char* opath = lua_tolstring(script_->state(), -1, &size);
+	const char* opath = lua_tolstring(script_.state(), -1, &size);
 	luaL_addlstring(&buffer,npath,strlen(npath));
 	luaL_addlstring(&buffer,opath,size);
 
-	lua_pop(script_->state(), 1);
+	lua_pop(script_.state(), 1);
 
-	lua_pushlstring(script_->state(), buffer.b, buffer.n);
-	lua_setfield(script_->state(), -2, "path");
+	lua_pushlstring(script_.state(), buffer.b, buffer.n);
+	lua_setfield(script_.state(), -2, "path");
 }
 
 int LuaFish::Register(lua_State* L)

@@ -53,11 +53,17 @@ int ServerApp::Init()
 	lua_->Require("Zeropack", LuaZeropack::Register);
 	lua_->Require("MessageHelper", LuaMessageHelper::Register);
 	lua_->Require("LuaProf", LuaProf::luaopen_prof);
+
+	OOLUA::Script& script = lua_->GetScript();
+	script.call("serverInit");
+
 	return 0;
 }
 
 int ServerApp::Fina()
 {
+	OOLUA::Script& script = lua_->GetScript();
+	script.call("serverFina");
 	return 0;
 }
 
@@ -79,6 +85,8 @@ int ServerApp::Run()
 void ServerApp::HandleTimeout()
 {
 	now_ = ::Now();
+	OOLUA::Script& script = lua_->GetScript();
+	script.call("serverUpdate", now_);
 }
 
 LuaFish* ServerApp::Lua()

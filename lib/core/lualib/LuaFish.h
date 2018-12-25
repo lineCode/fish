@@ -27,11 +27,17 @@ public:
 
 	lua_State* LuaState();
 
+	OOLUA::Script& GetScript();
+
 	void Require(const char* module,int (*func)(lua_State*));
 
 	int Init(ServerApp* app);
 
-	int DoFile(const char* file);
+	int LoadFile(std::string& file);
+
+	int DoFile(std::string& file);
+
+	int CallFunc(std::string& module, std::string& method);
 
 	int DispatchClient(int source,int method,const char* data,int size);
 
@@ -69,7 +75,7 @@ public:
 	static int _Stop(lua_State* L);
 	static int _MemInfo(lua_State* L);
 protected:
-	OOLUA::Script* script_;
+	OOLUA::Script script_;
 	int			 _callback;
 	int			 _mainTick;
 	int			 _sessionCounter;
