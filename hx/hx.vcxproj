@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{3D5773B7-7669-430C-8226-B0FF6578EF28}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>hx</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <TargetExt>.lib</TargetExt>
+    <IncludePath>..\3rd\libev;..\3rd\oolua\include;..\3rd\lua\src;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <OutDir>$(SolutionDir)\Bin\$(Configuration)</OutDir>
+    <IntDir>$(SolutionDir)\Build\$(Configuration)</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="AppThread.h" />
+    <ClInclude Include="Logger.h" />
+    <ClInclude Include="lualib\LuaFish.h" />
+    <ClInclude Include="lualib\LuaZeropack.h" />
+    <ClInclude Include="network\Acceptor.h" />
+    <ClInclude Include="network\Channel.h" />
+    <ClInclude Include="network\Connector.h" />
+    <ClInclude Include="network\EventPoller.h" />
+    <ClInclude Include="network\Network.h" />
+    <ClInclude Include="network\Reader.h" />
+    <ClInclude Include="network\TcpReader.h" />
+    <ClInclude Include="ObjectPoolMgr.h" />
+    <ClInclude Include="ServerApp.h" />
+    <ClInclude Include="thread\Mutex.h" />
+    <ClInclude Include="thread\Thread.h" />
+    <ClInclude Include="time\Timer.h" />
+    <ClInclude Include="time\Timestamp.h" />
+    <ClInclude Include="Typedef.h" />
+    <ClInclude Include="util\Allocator.h" />
+    <ClInclude Include="util\format.h" />
+    <ClInclude Include="util\List.h" />
+    <ClInclude Include="util\LuaAllocator.h" />
+    <ClInclude Include="util\MemoryStream.h" />
+    <ClInclude Include="util\MessageReader.h" />
+    <ClInclude Include="util\MessageWriter.h" />
+    <ClInclude Include="util\MiniHeap.h" />
+    <ClInclude Include="util\MiniheapT.h" />
+    <ClInclude Include="util\ObjectPool.h" />
+    <ClInclude Include="util\PoolObject.h" />
+    <ClInclude Include="util\Singleton.h" />
+    <ClInclude Include="util\ZeroPack.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AppThread.cpp" />
+    <ClCompile Include="Logger.cpp" />
+    <ClCompile Include="lualib\LuaFish.cpp" />
+    <ClCompile Include="lualib\LuaZeropack.cpp" />
+    <ClCompile Include="network\Accepter.cpp" />
+    <ClCompile Include="network\Channel.cpp" />
+    <ClCompile Include="network\Connector.cpp" />
+    <ClCompile Include="network\EventPoller.cpp" />
+    <ClCompile Include="network\Network.cpp" />
+    <ClCompile Include="network\Reader.cpp" />
+    <ClCompile Include="network\TcpReader.cpp" />
+    <ClCompile Include="ObjectPoolMgr.cpp" />
+    <ClCompile Include="ServerApp.cpp" />
+    <ClCompile Include="thread\Thread.cpp" />
+    <ClCompile Include="time\Timestamp.cpp" />
+    <ClCompile Include="util\Allocator.cpp" />
+    <ClCompile Include="util\format.cc" />
+    <ClCompile Include="util\LuaAllocator.cpp" />
+    <ClCompile Include="util\MemoryStream.cpp" />
+    <ClCompile Include="util\MessageReader.cpp" />
+    <ClCompile Include="util\MessageWriter.cpp" />
+    <ClCompile Include="util\MiniHeap.cpp" />
+    <ClCompile Include="util\ZeroPack.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
