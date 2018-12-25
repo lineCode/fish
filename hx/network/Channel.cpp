@@ -20,6 +20,9 @@ namespace Network
 	
 	void Channel::EnableRead()
 	{
+		if (reader_ == NULL)
+			return;
+		
 		if (!rio_.is_active())
 			rio_.start(fd_, EV_READ);
 	}
@@ -44,6 +47,8 @@ namespace Network
 
 	void Channel::HandleInput(ev::io &rio, int revents)
 	{
+		assert(reader_ != NULL);
+
 		if (reader_->Read(fd_) < 0)
 		{
 			state_ = Error;
