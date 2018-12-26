@@ -1,6 +1,6 @@
 #include "LuaTimer.h"
 
-LuaTimer::Timer() {
+LuaTimer::LuaTimer() {
 	callback_ = NULL;
 	userdata_ = NULL;
 }
