@@ -2,7 +2,7 @@
 
 void LuaTimer::HandleTimeout() {
 	if (callback_) {
-		callback_(userdata_);
+		callback_(this, userdata_);
 	} else {
 		CancelTimer();
 	}

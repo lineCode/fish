@@ -7,7 +7,6 @@
 
 
 LuaFish::LuaFish(void) :script_() {
-	timerStep_ = 0;
 }
 
 
@@ -102,7 +101,7 @@ void LuaFish::BindTimer(int timerId, LuaTimer* timer) {
 }
 
 void LuaFish::OnTimeout(LuaTimer* timer, void* userdata) {
-	int timerId = userdata;
+	int timerId = (int)(intptr_t)userdata;
 
 	lua_rawgeti(LuaState(), LUA_REGISTRYINDEX, timerId);
 
@@ -168,27 +167,29 @@ int LuaFish::TimestampToSecond(lua_State* L) {
 
 int LuaFish::StartTimer(lua_State* L) {
 	ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
-	luaL_checktype(L, 1, LUA_TFUNCTOIN);
+	luaL_checktype(L, 1, LUA_TFUNCTION);
 
 	lua_pushvalue(L, 1);
 	int timerId = luaL_ref(L, LUA_REGISTRYINDEX);
 
 	double after = luaL_checknumber(L, 2);
 	double repeat = luaL_checknumber(L, 3);
-	
+
+	LuaFish* fish = app->Lua();
+
 	LuaTimer* timer = new LuaTimer();
-	timer->SetCallback(std::bind(&LuaFish::OnTimeout, this, std::placeholders::_1))
-	timer->SetUserdata(timerId);
+	timer->SetCallback(std::bind(&LuaFish::OnTimeout, fish, std::placeholders::_1,std::placeholders::_2));
+	timer->SetUserdata((void*)timerId);
 	timer->StartTimer(app->Poller(), after, repeat);
 
-	app->Lua()->BindTimer(timerId, timer);
+	fish->BindTimer(timerId, timer);
 
 	lua_pushinteger(L, timerId);
 	return 1;
 }
 
 int LuaFish::CancelTimer(lua_State* L) {
-
+	return 0;
 }
 
 int LuaFish::Stop(lua_State* L) {
