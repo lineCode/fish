@@ -22,7 +22,7 @@ namespace Network
 		enum eChannelState {Alive,Closed,Error,Invalid};
 
 		struct SendBuffer {
-			SendBuffer():data_(0),size_(0),offset_(0),next_(NULL) {
+			SendBuffer():size_(0),offset_(0),data_(NULL),next_(NULL) {
 			}
 
 			~SendBuffer() {
@@ -120,7 +120,7 @@ namespace Network
 					assert(head_ == NULL);
 					head_ = tail_ = sb;
 				} else {
-					tail_->next = sb;
+					tail_->next_ = sb;
 					sb = tail_;
 				}
 			}
@@ -130,7 +130,7 @@ namespace Network
 		Channel(Network::EventPoller* poller,int fd);
 		virtual ~Channel();
 
-		virtual void Close(bool rightnow == false);
+		virtual void Close(bool rightnow = false);
 
 		virtual void EnableRead();
 
