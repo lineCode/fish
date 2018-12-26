@@ -6,13 +6,19 @@
 #include <functional>
 
 class LuaTimer : public Timer {
+	
 public:
 	typedef std::function<void(LuaTimer*, void*)> OnTimerout;
+
 public:
-	virtual void HandleTimeout();
+	LuaTimer();
+	virtual ~LuaTimer();
 
 	void SetCallback(OnTimerout callback);
 	void SetUserdata(void* userdata);
+
+	virtual void HandleTimeout();
+
 private:
 	OnTimerout callback_;
 	void* userdata_;

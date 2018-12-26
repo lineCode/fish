@@ -1,11 +1,12 @@
 #include "LuaTimer.h"
 
-void LuaTimer::HandleTimeout() {
-	if (callback_) {
-		callback_(this, userdata_);
-	} else {
-		CancelTimer();
-	}
+LuaTimer::Timer() {
+	callback_ = NULL;
+	userdata_ = NULL;
+}
+
+LuaTimer::~LuaTimer() {
+
 }
 
 void LuaTimer::SetCallback(OnTimerout callback) {
@@ -14,4 +15,12 @@ void LuaTimer::SetCallback(OnTimerout callback) {
 	
 void LuaTimer::SetUserdata(void* userdata) {
 	userdata_ = userdata;
+}
+
+void LuaTimer::HandleTimeout() {
+	if (callback_) {
+		callback_(this, userdata_);
+	} else {
+		CancelTimer();
+	}
 }
