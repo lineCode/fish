@@ -6,8 +6,8 @@ INCLUDE = -I. -I../3rd -I../3rd/libev -I../3rd/lua/src -I../3rd/oolua/include -I
 TARGET = ./libhx.a
 
 DIRS = $(shell find . -maxdepth 3 -type d)
-SRC = $(foreach dir,$(DIRS),$(wildcard $(dir)/*.cpp))
-OBJ = $(patsubst %.cpp, %.o, $(SRC))
+SRC = $(foreach dir,$(DIRS),$(wildcard $(dir)/*.cpp $(dir)/*.cc))
+OBJ = $(patsubst %.cc, %.o, $(patsubst %.cpp,%.o,$(SRC)))
 
 all:$(TARGET)
 

@@ -9,13 +9,13 @@ DIRS = $(shell find . -maxdepth 3 -type d)
 SRC = $(foreach dir,$(DIRS),$(wildcard $(dir)/*.cpp))
 OBJ = $(patsubst %.cpp, %.o, $(SRC))
 
-all:$(TARGET)
+all:$(TARGET) 
 
 %.o: %.cpp
 	$(CC) $(CFLAG) $(INCLUDE) -c $< -o $@
 
-$(TARGET):$(OBJ)
-	$(CC) -o $@ $^ -L../bin/debug -llua -lhx -loolua -lev -lm -ldl -lrt -lpthread 
+$(TARGET):$(OBJ) ../bin/debug/liblua.a ../bin/debug/libhx.a ../bin/debug/liboolua.a ../bin/debug/libev.a
+	$(CC) -o $@ $^ -L../bin/debug -llua -lm -ldl -lrt -lpthread 
 
 clean:
 	rm -f *.o $(TARGET)
