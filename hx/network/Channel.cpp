@@ -66,7 +66,7 @@ namespace Network
 		if (state_ == Error || state_ == Invalid)
 			return;
 		
-		int result = this->DoSend();
+		int result = this->DoWrite();
 		if (result == 0)
 		{
 			DisableWrite();
@@ -148,7 +148,7 @@ namespace Network
 
 		if (!wio_.is_active())
 		{
-			int result = this->DoSend();
+			int result = this->DoWrite();
 			if (result < 0)
 			{
 				state_ = Error;
