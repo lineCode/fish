@@ -8,9 +8,9 @@
 class Timer
 {
 public:
-	Timer() {}
+	Timer();
 
-	virtual ~Timer() {}
+	virtual ~Timer();
 
 	void StartTimer(Network::EventPoller* poller, float after, float repeat);
 

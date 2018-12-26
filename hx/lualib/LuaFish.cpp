@@ -109,7 +109,10 @@ void LuaFish::OnTimeout(LuaTimer* timer, void* userdata) {
 		LOG_ERROR(fmt::format("OnTimeout error:{}", lua_tostring(LuaState(), -1)));
 	}
 	if (!timer->IsActive()) {
-		timerMgr_.erase(timerId);
+		std::map<int, LuaTimer*>::iterator iter = timerMgr_.find(timerId);
+		LuaTimer* timer = iter->second;
+		timerMgr_.erase(iter);
+		delete timer;
 		luaL_unref(LuaState(), LUA_REGISTRYINDEX, timerId);
 	}
 }
