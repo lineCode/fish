@@ -2,7 +2,7 @@
 #include "Network.h"
 namespace Network
 {
-	Channel::Channel(Network::EventPoller* poller, int fd, int size) :poller_(poller), fd_(fd), sendlist_(size)
+	Channel::Channel(Network::EventPoller* poller, int fd) :poller_(poller), fd_(fd), sendlist_()
 	{
 		reader_ = NULL;
 		state_ = Alive;

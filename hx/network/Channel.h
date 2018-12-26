@@ -23,165 +23,166 @@ namespace Network
 
 		struct SendBuffer
 		{
-			SendBuffer(int size = 1024):_size(size),_roffset(0),_woffset(0),_next(NULL)
+			SendBuffer(int size = 1024):size_(size),roff_(0),woff_(0),next_(NULL)
 			{
-				_data = malloc(_size);
+				data_ = malloc(size_);
 			}
 
 			~SendBuffer()
 			{
-				free(_data);
+				free(data_);
 			}
 
 			void Append(void* data,int size)
 			{
 				Reserve(size);
-				memcpy((char*)_data+_woffset,data,size);
-				_woffset += size;
+				memcpy((char*)data_+woff_,data,size);
+				woff_ += size;
 			}
 
 			void* Begin()
 			{
-				return (void*)((char*)_data+_roffset);
+				return (void*)((char*)data_+roff_);
 			}
 
 			void SetOffset(int off)
 			{
-				_roffset += off;
+				roff_ += off;
 			}
 
 			void Reset()
 			{
-				_woffset = _roffset = 0;
-				_next = NULL;
+				woff_ = roff_ = 0;
+				next_ = NULL;
 			}
 
 			int Readable()
 			{
-				return _woffset - _roffset;
+				return woff_ - roff_;
 			}
 
 			int Writable()
 			{
-				return _size - _woffset;
+				return size_ - woff_;
 			}
 
 			void Reserve(int size)
 			{
-				if (_woffset+size <= _size)
+				if (woff_+size <= size_)
 					return;
-				int nsize = _woffset + _size * 2;
+				int nsize = woff_ + size_ * 2;
 				if (nsize < size)
 					nsize = size;
-				_data = (char*)realloc(_data,nsize);
-				_size = nsize;
+				data_ = (char*)realloc(data_,nsize);
+				size_ = nsize;
 			}
 
-			int			_size;
-			int			_roffset;
-			int			_woffset;
-			void*		_data;
-			SendBuffer* _next;
+			int			size_;
+			int			roff_;
+			int			woff_;
+			void*		data_;
+			SendBuffer* next_;
 		};
 
 		struct SendList
 		{
-			int _size;
-			SendBuffer* _head;
-			SendBuffer* _tail;
-			SendBuffer* _freelist;
+			int size_;
+			SendBuffer* head_;
+			SendBuffer* tail_;
+			SendBuffer* freelist_;
 
 			SendList(int size = 1024)
 			{
-				_size = size;
-				_head = _tail = _freelist = NULL;
+				size_ = size;
+				head_ = tail_ = freelist_ = NULL;
 			}
 
 			~SendList()
 			{
 				SendBuffer* cur = NULL;
-				while ((cur = _head) != NULL)
+				while ((cur = head_) != NULL)
 				{
-					_head = cur->_next;
+					head_ = cur->next_;
 					delete cur;
 				}
 				cur = NULL;
-				while ((cur = _freelist) != NULL)
+				while ((cur = freelist_) != NULL)
 				{
-					_freelist = cur->_next;
+					freelist_ = cur->next_;
 					delete cur;
 				}
 			}
 
 			bool Empty()
 			{
-				return _head == NULL;
+				return head_ == NULL;
 			}
 
 			SendBuffer* AllocBuffer()
 			{
-				if (_freelist == NULL)
+				if (freelist_ == NULL)
 				{
-					SendBuffer* buffer = new SendBuffer(_size);
-					_freelist = buffer;
+					SendBuffer* buffer = new SendBuffer(size_);
+					freelist_ = buffer;
 				}
-				SendBuffer* cur = _freelist;
-				_freelist = cur->_next;
+				SendBuffer* cur = freelist_;
+				freelist_ = cur->next_;
 				cur->Reset();
 				return cur;
 			}
 
 			SendBuffer* Front()
 			{
-				return _head;
+				return head_;
 			}
 
 			void RemoveFront()
 			{
-				assert(_head != NULL);
-				SendBuffer* cur = _head;
-				_head = _head->_next;
-				if (_head == NULL)
-					_tail = NULL;
+				assert(head_ != NULL);
+				SendBuffer* cur = head_;
+				head_ = head_->next_;
+				if (head_ == NULL)
+					tail_ = NULL;
 				FreeBuffer(cur);
 			}
 
 			void FreeBuffer(SendBuffer* buffer)
 			{
-				buffer->_next = _freelist;
-				_freelist = buffer;
+				buffer->next_ = freelist_;
+				freelist_ = buffer;
 			}
 
 			void Append(void* data,int size)
 			{
 				int offset = 0;
-				if (_tail == NULL)
+				if (tail_ == NULL)
 				{
-					assert(_head == NULL);
-					_head = _tail = AllocBuffer();
+					assert(head_ == NULL);
+					head_ = tail_ = AllocBuffer();
 				}
 again:
-				int left = _tail->Writable();
+				int left = tail_->Writable();
 				if (left >= size)
 				{
-					_tail->Append(((char*)data) + offset,size);
+					tail_->Append(((char*)data) + offset,size);
 					return;
 				}
 				else
 				{
-					_tail->Append(((char*)data) + offset,left);
+					tail_->Append(((char*)data) + offset,left);
 					offset += left;
 					size -= left;
 
 					SendBuffer* buffer = AllocBuffer();
-					_tail->_next = buffer;
-					_tail = buffer;
+					tail_->next_ = buffer;
+					tail_ = buffer;
 					goto again;
 				}
 			}
 		};
+
 	public:
-		Channel(Network::EventPoller* poller,int fd,int size = 64 * 1024);
+		Channel(Network::EventPoller* poller,int fd);
 		virtual ~Channel();
 
 		virtual void Close(bool rightnow == false);
@@ -209,7 +210,7 @@ again:
 		virtual bool IsAlive();
 
 		virtual int Forward(const char * ptr,int size) = 0;
-		
+
 	private:
 		virtual void Clean();
 
