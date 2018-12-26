@@ -104,8 +104,6 @@ namespace Network
 		SocketClose(fd_);
 		
 		state_ = Invalid;
-
-		Fina();
 	}
 	
 	void Channel::Close(bool rightnow)
@@ -121,7 +119,7 @@ namespace Network
 		}
 	}
 
-	int Channel::DoSend()
+	int Channel::DoWrite()
 	{
 		SendBuffer* buffer = NULL;
 		while ((buffer = sendlist_.Front()) != NULL)
@@ -143,7 +141,7 @@ namespace Network
 		return 0;
 	}
 
-	int Channel::TrySend()
+	int Channel::TryWrite()
 	{
 		if (!IsAlive())
 			return -1;
@@ -163,7 +161,7 @@ namespace Network
 		return 0;
 	}
 
-	int Channel::Send(char* data, int size)
+	int Channel::Write(char* data, int size)
 	{
 		if (!IsAlive())
 			return -1;
@@ -172,9 +170,9 @@ namespace Network
 		return this->TrySend();
 	}
 
-	int Channel::Send(MemoryStream* ms)
+	int Channel::Write(MemoryStream* ms)
 	{
-		int result = Send(ms->data(),ms->length());
+		int result = Write(ms->data(),ms->length());
 		delete ms;
 		return result;
 	}

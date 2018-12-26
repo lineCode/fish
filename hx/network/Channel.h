@@ -184,12 +184,6 @@ again:
 		Channel(Network::EventPoller* poller,int fd,int size = 64 * 1024);
 		virtual ~Channel();
 
-		virtual int Init() = 0;
-
-		virtual int Fina() = 0;
-
-		
-
 		virtual void Close(bool rightnow == false);
 
 		virtual void EnableRead();
@@ -200,32 +194,31 @@ again:
 
 		virtual void DisableWrite();
 
-		virtual int Forward(const char * ptr,int size) = 0;
-
 		virtual void HandleRead();
 
 		virtual void HandleWrite();
 
 		virtual void HandleError();
 
-		virtual int Send(char* data,int size);
+		virtual int Write(char* data,int size);
 
-		virtual int Send(MemoryStream* ms);
+		virtual int Write(MemoryStream* ms);
 
 		virtual void SetReader(Reader * reader);
 
 		virtual bool IsAlive();
 
+		virtual int Forward(const char * ptr,int size) = 0;
 	private:
 		virtual void Clean();
-		
+
 		virtual void OnRead(ev::io &rio, int revents);
 
 		virtual void OnWrite(ev::io &wio, int revents);
 
-		virtual int DoSend();
+		virtual int DoWrite();
 
-		virtual int TrySend();
+		virtual int TryWrite();
 
 	protected:
 		Network::EventPoller *	poller_;
