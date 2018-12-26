@@ -5,22 +5,22 @@
 
 namespace Network
 {
-	EventPoller::EventPoller() :loop_()
-	{
+	EventPoller::EventPoller() :loop_() {
 
 	}
 
-	EventPoller::~EventPoller(void)
-	{
+	EventPoller::~EventPoller(void) {
 	}
 
-	void EventPoller::Process()
-	{
-		return loop_.run();
+	void EventPoller::Process() {
+		loop_.run();
 	}
 
-	ev::default_loop& EventPoller::GetEvLoop()
-	{
+	void EventPoller::Break() {
+		loop_.break_loop();
+	}
+
+	ev::default_loop& EventPoller::GetEvLoop() {
 		return loop_;
 	}
 }

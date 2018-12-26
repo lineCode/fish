@@ -18,6 +18,8 @@ namespace Network
 
 		virtual void Process();
 
+		virtual void Break();
+
 		ev::default_loop& GetEvLoop();
 		
 	protected:

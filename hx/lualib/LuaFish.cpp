@@ -55,6 +55,12 @@ int LuaFish::LoadFile(std::string& file)
 	return script_.load_file(file);
 }
 
+int LuaFish::DoFile(const char* f)
+{
+	std::string file(f);
+	return DoFile(file);
+}
+
 int LuaFish::DoFile(std::string& file)
 {
 	return script_.run_file(file);

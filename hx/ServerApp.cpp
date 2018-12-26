@@ -36,6 +36,8 @@ int ServerApp::Init()
 	
 	lua_->Require("Core", LuaFish::Register);
 
+	lua_->DoFile("server.lua");
+	
 	OOLUA::Script& script = lua_->GetScript();
 	script.call("serverInit");
 
@@ -51,6 +53,7 @@ int ServerApp::Fina()
 
 int ServerApp::Stop()
 {
+	poller_->Break();
 	state_ = AppStop;
 	return 0;
 }

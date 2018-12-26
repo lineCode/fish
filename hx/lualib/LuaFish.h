@@ -35,6 +35,8 @@ public:
 
 	int LoadFile(std::string& file);
 
+	int DoFile(const char* file);
+
 	int DoFile(std::string& file);
 
 	int CallFunc(std::string& module, std::string& method);
