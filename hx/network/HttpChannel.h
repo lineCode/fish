@@ -24,6 +24,10 @@ public:
 
 	virtual void SetContent(const char* data, size_t size);
 
+	virtual void SetReplyHeader(std::string& field, std::string& value);
+	
+	virtual void Reply(int code, std::string& content);
+
 	static int OnParseBegin(struct http_parser* parser);
 	static int OnParseComplete(struct http_parser* parser);
 
@@ -49,7 +53,8 @@ private:
 	std::string url_;
 	std::string content_;
 	std::string status_;
-
 	bool completed_;
+
+	std::map<std::string,std::string> replyHeaders_;
 };
 };

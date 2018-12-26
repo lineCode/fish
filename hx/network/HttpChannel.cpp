@@ -41,6 +41,9 @@ void HttpChannel::HandleRead() {
 	reader_->ReadData(data, total);
 
 	http_parser_execute(&parser_,&ParserSetting,data,total);
+
+	free(data);
+
 	if (HTTP_PARSER_ERRNO(&parser_) != HPE_OK) {
 		std::cout << http_errno_name(HTTP_PARSER_ERRNO(&parser_)) << std::endl;
 		return;
@@ -80,6 +83,14 @@ void HttpChannel::SetHeader(std::string& field, std::string& value) {
 
 void HttpChannel::SetContent(const char* data, size_t size) {
 	content_.append(data, size);
+}
+
+void HttpChannel::SetReplyHeader(std::string& field, std::string& value) {
+
+}
+	
+void HttpChannel::Reply(int code, std::string& content) {
+	
 }
 
 int HttpChannel::OnParseBegin(struct http_parser* parser) {
