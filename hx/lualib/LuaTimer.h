@@ -16,7 +16,7 @@ public:
 private:
 	OnTimerout callback_;
 	void* userdata_;
-}
+};
 
 
 
