@@ -52,6 +52,7 @@ namespace Network
 		if (reader_->Read(fd_) < 0)
 		{
 			state_ = Error;
+			Clean();
 			this->HandleError();
 		}
 		else 
@@ -70,7 +71,7 @@ namespace Network
 		{
 			DisableWrite();
 			if (state_ == Closed) {
-				this->HandleError();
+				Clean();
 			} else {
 				this->HandleWrite();
 			}
@@ -78,6 +79,7 @@ namespace Network
 		else if (result < 0)
 		{
 			state_ = Error;
+			Clean();
 			this->HandleError();
 		}
 	}
@@ -92,11 +94,6 @@ namespace Network
 
 	void Channel::HandleError()
 	{	
-		DisableRead();
-		DisableWrite();
-
-		Clean();
-		Fina();
 	}
 
 	void Channel::Clean()
@@ -107,17 +104,21 @@ namespace Network
 		SocketClose(fd_);
 		
 		state_ = Invalid;
+
+		Fina();
 	}
 	
-	void Channel::Close()
+	void Channel::Close(bool rightnow)
 	{
 		if (!IsAlive())
 			return ;
 
 		state_ = Closed;
-
-		if (sendlist_.Empty())
-			this->HandleError();
+		if (!rightnow) {
+			EnableWrite();
+		} else {
+			Clean();
+		}
 	}
 
 	int Channel::DoSend()
