@@ -14,7 +14,7 @@ namespace Network
 	{
 	public:
 		EventPoller();
-		~EventPoller(void);
+		virtual ~EventPoller(void);
 
 		virtual void Process();
 

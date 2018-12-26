@@ -21,7 +21,7 @@ public:
 
 	virtual void ConnectMongo(const char* host,int port);
 
-	virtual void ListenClient(std::string& ip,int port);
+	virtual void ListenClient(std::string ip,int port);
 
 	virtual void OnClientAccept(Network::Acceptor* acceptor, int fd, const char* ip, int port);
 

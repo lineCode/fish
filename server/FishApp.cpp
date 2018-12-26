@@ -29,7 +29,7 @@ void FishApp::ConnectMongo(const char* host,int port)
 
 }
 
-void FishApp::ListenClient(std::string& ip,int port)
+void FishApp::ListenClient(std::string ip,int port)
 {
 	clientAcceptor_->Listen(ip.c_str(), port);
 }

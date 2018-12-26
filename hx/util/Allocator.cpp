@@ -13,8 +13,8 @@ Allocator::Allocator(int size,int nodeCount)
 	_totalNode = 0;
 	_usedNode = 0;
 
-	if (size <= 2 * sizeof(FreeNode*))
-		size = 2 * sizeof(FreeNode*);
+	if (size <= 2 * (int)sizeof(FreeNode*))
+		size = 2 * (int)sizeof(FreeNode*);
 	_objectSize = size;
 	_nodeSize = _objectSize + sizeof(PoolNode*);
 	_poolSize = sizeof(PoolNode) + _nodeSize * _nodeCount;

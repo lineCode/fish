@@ -30,10 +30,6 @@ void Bootstrap::Startup(const char* file)
 
 	FishApp* app = new FishApp(_config["boot"].GetString());
 
-	if (_config.HasMember("mongo"))
-		app->ConnectMongo(_config["mongo"]["ip"].GetString(),_config["mongo"]["port"].GetInt());
-
-
 	app->ListenClient(std::string("127.0.0.1"), 1989);
 	
 	app->Init();

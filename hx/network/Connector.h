@@ -4,14 +4,14 @@
 #include "EventPoller.h"
 #include <functional>
 #include "ev++.h"
-#include "Addr.h"
+#include "Address.h"
 
 namespace Network
 {
 	class Connector
 	{
 	public:
-		typedef std::function<void(int,int,const char*)> OnConnect;
+		typedef std::function<void(int,const char*,void*)> OnConnect;
 
 	public:
 		Connector(EventPoller* poller);

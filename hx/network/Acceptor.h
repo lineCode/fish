@@ -21,7 +21,7 @@ namespace Network
 
 		void SetCallback(OnConnection callback);
 
-		virtual int	Listen(const char * host,int port);
+		virtual int Listen(const char * host,int port);
 
 		virtual void HandleConnection(ev::io &w, int revents);
 

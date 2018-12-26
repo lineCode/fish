@@ -70,7 +70,6 @@ void* LuaAllocator::AllocSmall(int index)
 
 void LuaAllocator::FreeSmall(void* ptr,int index)
 {
-	int rsz = 1 << (index + 3);
 	Allocator* allocator = this->_freelist[index];
 	allocator->Delete(ptr);
 }

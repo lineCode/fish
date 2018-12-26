@@ -42,7 +42,7 @@ namespace Network
 	void Acceptor::HandleConnection(ev::io &w, int revents)
 	{
 		if ( callback_ == NULL ) {
-			_close(w.fd);
+			close(w.fd);
 			return;
 		}
 		callback_(this, w.fd, NULL, 0);

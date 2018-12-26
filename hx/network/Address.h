@@ -94,7 +94,7 @@ public:
         if(this->addrType == SOCK_ADDR_IPV4) {
             char ip[32] = {0};
             char ret[32] = {0};
-            auto port = ntohs(this->sockaddr.in.sin_port);
+            short port = ntohs(this->sockaddr.in.sin_port);
             if(NULL == ::inet_ntop(this->family,(const char*)&this->sockaddr.in.sin_addr,ip,sizeof(ip))){
                 return std::string("");
             } else {
@@ -104,8 +104,7 @@ public:
         }
         return std::string("");
     }
-
-}
+};
 }
 
 #endif

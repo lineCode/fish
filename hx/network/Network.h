@@ -25,6 +25,8 @@
 #include <string.h>
 #endif
 
+#include "Address.h"
+
 namespace Network
 {
 	enum SocketError
@@ -35,7 +37,7 @@ namespace Network
 	int SocketClose(int fd);
 	int SocketBind(const char* host,int port,int protocol);
 	int SocketListen(int fd,int backlog);
-	int SocketConnect(const char* host,int port,bool block,bool& connected);
+	int SocketConnect(Addr& addr,bool nonblock,bool& connected);
 	int SocketRead(int fd,char* data,int size);
 	int SocketWrite(int fd,const char* data,int size);
 	int SocketSetKeepalive(int fd ,bool keepalive);

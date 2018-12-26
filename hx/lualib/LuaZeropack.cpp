@@ -53,8 +53,8 @@ namespace LuaZeropack
 
 		size_t maxsz = (sz + 2047) / 2048 * 2 + sz;
 		void * output = lua_touserdata(L, lua_upvalueindex(1));
-		int bytes;
-		int osz = lua_tointeger(L, lua_upvalueindex(2));
+		size_t bytes;
+		size_t osz = lua_tointeger(L, lua_upvalueindex(2));
 		if (osz < maxsz)
 			output = ExpandBuffer(L, osz, maxsz);
 		

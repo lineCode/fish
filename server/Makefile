@@ -1,5 +1,6 @@
 CC = g++
-CFLAG = -g -fPIC -Wall
+CFLAG = -g -std=c++11 -fPIC -Wall -fno-strict-aliasing -Wno-unused-local-typedefs
+
 
 INCLUDE = -I. -I../3rd -I../hx -I../3rd/libev -I../3rd/lua/src -I../3rd/oolua/include -I../3rd/rapidjson
 TARGET = ./fish
@@ -14,7 +15,7 @@ all:$(TARGET)
 	$(CC) $(CFLAG) $(INCLUDE) -c $< -o $@
 
 $(TARGET):$(OBJ)
-	$(CC) -o $@ $^ -L../libs -llua -lcore -lm -ldl -lrt -lpthread -lboost_thread -lboost_chrono -lboost_date_time -lboost_system
+	$(CC) -o $@ $^ -L../bin/debug -llua -lhx -loolua -lev -lm -ldl -lrt -lpthread 
 
 clean:
 	rm -f *.o $(TARGET)

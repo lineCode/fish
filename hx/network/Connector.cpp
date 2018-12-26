@@ -24,18 +24,18 @@ namespace Network
 
 		if ( connected )
 		{
-			successCallback_(fd);
-			return 0;
+			callback_(fd, NULL, userdata_);	
 		}
 		else
 		{
 			io.start(fd, EV_WRITE);
 		}
+		return 0;
 	}
 
 	int Connector::Connect(const char * host, int port)
 	{
-		Addr addr = Addr:MakeIP4Addr(host, port);
+		Addr addr = Addr::MakeIP4Addr(host, port);
 		return Connect(addr);
 	}
 
@@ -53,11 +53,11 @@ namespace Network
 			else
 				strerr = strerror(errno);
 
-			callback_(userdata_, -1, strerr);
+			callback_(-1, strerr, userdata_);
 		}
 		else
 		{
-			callback_(userdata_, w.fd, NULL);
+			callback_(w.fd, NULL, userdata_);
 		}
 		
 	}
