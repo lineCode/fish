@@ -11,29 +11,28 @@ namespace Network
 	class Connector
 	{
 	public:
-		typedef std::function<void(int)> OnConnectSuccess;
-		typedef std::function<void()> OnConnectFail;
+		typedef std::function<void(int,int,const char*)> OnConnect;
 
 	public:
 		Connector(EventPoller* poller);
 		~Connector(void);
 
-		virtual Connect(const Addr& addr);
+		virtual int Connect(const Addr& addr);
 
 		virtual int Connect(const char * host,int port);
 
+		void SetCallback(OnConnect callback);
+
+		void SetUserdata(void* userdata);
+
+	private:
 		virtual void ConnectCallback(ev::io &w, int revents);
 
-		void SetSuccessCallback(OnConnectSuccess callback);
-
-		void SetFailCallback(OnConnectFail callback);
-
-	protected:
 		EventPoller* poller_;
-		Addr addr_;
-		OnConnectSuccess successCallback_;
-		OnConnectFail failCallback_;
 		ev::io io;
+		Addr addr_;
+		OnConnect callback_;
+		void* userdata_;
 	};
 }
 

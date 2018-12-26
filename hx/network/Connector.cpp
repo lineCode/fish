@@ -53,23 +53,23 @@ namespace Network
 			else
 				strerr = strerror(errno);
 
-			failCallback_();
+			callback_(userdata_, -1, strerr);
 		}
 		else
 		{
-			successCallback_(fd);
+			callback_(userdata_, w.fd, NULL);
 		}
 		
 	}
 
-	void Connector::SetSuccessCallback(OnConnectSuccess callback)
+	void Connector::SetCallback(OnConnect callback)
 	{
-		successCallback_ = callback;
+		callback_ = callback;
 	}
 
-	void Connector::SetFailCallback(OnConnectFail callback)
+	void Connector::SetUserdata(void* userdata)
 	{
-		failCallback_ = callback;
+		userdata_ = userdata;
 	}
 }
 
