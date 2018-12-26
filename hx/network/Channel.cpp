@@ -1,5 +1,7 @@
 ﻿#include "Channel.h"
 #include "Network.h"
+#include "Writer.h"
+
 namespace Network
 {
 	Channel::Channel(Network::EventPoller* poller, int fd) :poller_(poller), fd_(fd), sendlist_()
@@ -12,10 +14,16 @@ namespace Network
 
 		wio_.set(poller_->GetEvLoop());
 		wio_.set<Channel, &Channel::OnWrite>(this);
+
+		writer_ = new Writer();
 	}
 
 	Channel::~Channel(void)
 	{
+		if (reader_) {
+			delete reader_;
+		}
+		delete writer_;
 	}
 	
 	void Channel::EnableRead()
@@ -66,7 +74,7 @@ namespace Network
 		if (state_ == Error || state_ == Invalid)
 			return;
 		
-		int result = this->DoWrite();
+		int result = writer_->Write();
 		if (result == 0)
 		{
 			DisableWrite();
@@ -119,53 +127,26 @@ namespace Network
 		}
 	}
 
-	int Channel::DoWrite()
-	{
-		SendBuffer* sb = NULL;
-		while ((sb = sendlist_.Front()) != NULL)
-		{
-			int n = Network::SocketWrite(fd_,(const char*)sb->Begin(),sb->Writable());
-			if (n >= 0) {
-				if (n == sb->Writable()) {
-					sendlist_.RemoveFront();
-				} else {
-					sb->Skip(n);
-					return 1;
-				}
-			} else {
-				return -1;
-			}
-		}
-		return 0;
-	}
-
-	int Channel::TryWrite()
-	{
-		if (!IsAlive())
-			return -1;
-
-		if (!wio_.is_active())
-		{
-			int result = this->DoWrite();
-			if (result < 0)
-			{
-				state_ = Error;
-				this->HandleError();
-				return -1;
-			}
-			else if (result == 1)
-				EnableWrite();
-		}
-		return 0;
-	}
-
 	int Channel::Write(char* data, int size)
 	{
 		if (!IsAlive())
 			return -1;
 
-		sendlist_.Append(data,size);
-		return this->TryWrite();
+		writer_->Append(data, size);
+
+		if (!wio_.is_active()) {
+			int result = writer_->Write();
+			if (result < 0) {
+				state_ = Error;
+				this->HandleError();
+				return -1;
+			}
+			else if (result == 1) {
+				EnableWrite();
+			}
+		}
+
+		return 0;
 	}
 
 	int Channel::Write(MemoryStream* ms)
