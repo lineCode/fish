@@ -96,8 +96,20 @@ void LuaFish::Require(const char* module, int (*func)(lua_State*)) {
 	luaL_requiref(LuaState(), module, func,0);
 }
 
+LuaTimer* LuaFish::GetTimer(int timerId) {
+	std::map<int, LuaTimer*>::iterator iter = timerMgr_.find(timerId);
+	if (iter == timerMgr_.end()) {
+		return NULL;
+	}
+	return iter->second;
+}
+
 void LuaFish::BindTimer(int timerId, LuaTimer* timer) {
 	timerMgr_[timerId] = timer;
+}
+
+void LuaFish::DeleteTimer(int timerId) {
+	timerMgr_.erase(timerId);
 }
 
 void LuaFish::OnTimeout(LuaTimer* timer, void* userdata) {
@@ -192,6 +204,17 @@ int LuaFish::StartTimer(lua_State* L) {
 }
 
 int LuaFish::CancelTimer(lua_State* L) {
+	ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
+
+	int timerId = luaL_checkinteger(L, 1);
+
+	LuaTimer* timer = app->Lua()->GetTimer(timerId);
+	if (timer) {
+		app->Lua()->DeleteTimer(timerId);
+		timer->Cancel();
+		luaL_unref(L, LUA_REGISTRYINDEX, timer);
+	}
+
 	return 0;
 }
 

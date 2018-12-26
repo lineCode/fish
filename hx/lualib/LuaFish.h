@@ -46,7 +46,11 @@ public:
 
 	void Require(const char* module,int (*func)(lua_State*));
 
+	LuaTimer* GetTimer(int timerId);
+
 	void BindTimer(int timerId, LuaTimer* timer);
+
+	void DeleteTimer(int timerId);
 
 	void OnTimeout(LuaTimer* timer, void* userdata);
 
