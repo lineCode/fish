@@ -179,7 +179,7 @@ int LuaFish::StartTimer(lua_State* L) {
 
 	LuaTimer* timer = new LuaTimer();
 	timer->SetCallback(std::bind(&LuaFish::OnTimeout, fish, std::placeholders::_1,std::placeholders::_2));
-	timer->SetUserdata((void*)timerId);
+	timer->SetUserdata((void*)(long)timerId);
 	timer->StartTimer(app->Poller(), after, repeat);
 
 	fish->BindTimer(timerId, timer);
