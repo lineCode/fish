@@ -133,7 +133,10 @@ namespace Network
 #else
 		int n =(int)read(fd, data, size);
 #endif
-		if (n < 0) 
+		if (n == 0) {
+			return ReadError;
+		}
+		else if (n < 0) 
 		{
 #if defined( WIN32 )
 			int error =  WSAGetLastError();
@@ -159,10 +162,6 @@ namespace Network
 				break;
 			}
 #endif
-		}
-		else 
-		{
-			return ReadError;
 		}
 		return n > 0 ? n : 0;
 	}

@@ -1,5 +1,6 @@
 #include "HttpChannel.h"
 #include "util/format.h"
+#include <iostream>
 
 namespace Network {
 
@@ -14,7 +15,7 @@ static const http_parser_settings ParserSetting = {
 	HttpChannel::OnParseComplete,
 	HttpChannel::OnChunkHeader,
 	HttpChannel::OnChunkComplete,
-}
+};
 
 HttpChannel::HttpChannel(Network::EventPoller* poller,int fd):Channel(poller,fd) {
 	http_parser_init(&parser_, HTTP_REQUEST);
@@ -35,7 +36,7 @@ HttpChannel::~HttpChannel() {
 void HttpChannel::HandleRead() {
 	int total = reader_->GetLength();
 
-	char* data = malloc(total);
+	char* data = (char*)malloc(total);
 
 	reader_->ReadData(data, total);
 
@@ -88,6 +89,7 @@ int HttpChannel::OnParseBegin(struct http_parser* parser) {
 int HttpChannel::OnParseComplete(struct http_parser* parser) {
 	HttpChannel* channel = (HttpChannel*)parser->data;
 	channel->SetComplete();
+	return 0;
 }
 
 int HttpChannel::OnChunkHeader(struct http_parser* parser) {
@@ -119,20 +121,23 @@ int HttpChannel::OnHeaderField(struct http_parser* parser,const char* at,size_t 
 		channel->value_ = "";
 	}
 	channel->field_.append(at, len);
+	return 0;
 }
 
 int HttpChannel::OnHeaderValue(struct http_parser* parser,const char* at,size_t len) {
 	HttpChannel* channel = (HttpChannel*)parser->data;
 	channel->phase_ = true;
 	channel->value_.append(at, len);
+	return 0;
 }
 
 int HttpChannel::OnHeaderComplete(struct http_parser* parser) {
 	return 0;
 }
 
-int HttpChannel::OnContent(struct http_parser* parser,const char* at,size_t len);
+int HttpChannel::OnContent(struct http_parser* parser,const char* at,size_t len) {
 	HttpChannel* channel = (HttpChannel*)parser->data;
 	channel->SetContent(at, len);
 	return 0;
+}
 };

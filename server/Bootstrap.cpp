@@ -31,6 +31,8 @@ void Bootstrap::Startup(const char* file)
 	FishApp* app = new FishApp(_config["boot"].GetString());
 
 	app->ListenClient(std::string("0.0.0.0"), 1989);
+
+	app->ListenHttp(std::string("0.0.0.0"), 1994);
 	
 	app->Init();
 

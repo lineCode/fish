@@ -22,7 +22,9 @@ public:
 	virtual void ConnectMongo(const char* host,int port);
 
 	virtual void ListenClient(std::string ip,int port);
-
+	
+	virtual void ListenHttp(std::string ip,int port);
+	
 	virtual void OnClientAccept(int fd, Network::Addr& addr);
 
 	virtual void OnHttpAccept(int fd, Network::Addr& addr);

@@ -21,6 +21,10 @@ int FishApp::Init()
 	Network::Acceptor::OnConnection callback = std::bind(&FishApp::OnClientAccept, this, std::placeholders::_1, std::placeholders::_2);
 	clientAcceptor_->SetCallback(callback);
 
+	Network::Acceptor::OnConnection httpCallback = std::bind(&FishApp::OnHttpAccept, this, std::placeholders::_1, std::placeholders::_2);
+
+	httpAcceptor_->SetCallback(httpCallback);
+
 	lua_->DoFile(file_);
 
 	return 0;
@@ -36,6 +40,11 @@ void FishApp::ListenClient(std::string ip,int port)
 	clientAcceptor_->Listen(ip.c_str(), port);
 }
 
+void FishApp::ListenHttp(std::string ip,int port)
+{
+	httpAcceptor_->Listen(ip.c_str(), port);
+}
+
 void FishApp::OnClientAccept(int fd, Network::Addr& addr)
 {
 	std::cout << addr.ToStr() << std::endl;
@@ -45,7 +54,7 @@ void FishApp::OnHttpAccept(int fd, Network::Addr& addr)
 {
 	std::cout << addr.ToStr() << std::endl;
 
-	Network::HttpChannel* channel = new Network::HttpChannel(poll_,fd);
+	Network::HttpChannel* channel = new Network::HttpChannel(poller_,fd);
 	channel->EnableRead();
 }
 
