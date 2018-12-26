@@ -1,10 +1,12 @@
 ﻿#include "FishApp.h"
 #include "Logger.h"
 #include "util/format.h"
+#include "network/HttpChannel.h"
 
 FishApp::FishApp(std::string file) : file_(file)
 {
 	clientAcceptor_ = new Network::Acceptor(poller_);
+	httpAcceptor_ = new Network::Acceptor(poller_);
 }
 
 FishApp::~FishApp(void)
@@ -38,6 +40,15 @@ void FishApp::OnClientAccept(int fd, Network::Addr& addr)
 {
 	std::cout << addr.ToStr() << std::endl;
 }
+
+void FishApp::OnHttpAccept(int fd, Network::Addr& addr)
+{
+	std::cout << addr.ToStr() << std::endl;
+
+	Network::HttpChannel* channel = new Network::HttpChannel(poll_,fd);
+	channel->EnableRead();
+}
+
 
 int FishApp::Fina()
 {

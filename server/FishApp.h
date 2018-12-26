@@ -25,6 +25,8 @@ public:
 
 	virtual void OnClientAccept(int fd, Network::Addr& addr);
 
+	virtual void OnHttpAccept(int fd, Network::Addr& addr);
+
 	virtual int Fina();
 
 	virtual int Run();
@@ -35,6 +37,7 @@ private:
 	std::string file_;
 
 	Network::Acceptor* clientAcceptor_;
+	Network::Acceptor* httpAcceptor_;
 };
 
 #endif
