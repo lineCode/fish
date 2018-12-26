@@ -209,6 +209,7 @@ again:
 		virtual bool IsAlive();
 
 		virtual int Forward(const char * ptr,int size) = 0;
+		
 	private:
 		virtual void Clean();
 
