@@ -74,7 +74,7 @@ int LuaFish::CallFunc(const char* module, const char* method) {
 
 }
 int LuaFish::CallFunc(std::string& module, std::string& method) {
-	return CallFunc(module.c_str(), mehtod.c_str());
+	return CallFunc(module.c_str(), method.c_str());
 }
 
 void LuaFish::LuaPath(const char* path) {
@@ -105,7 +105,7 @@ int LuaFish::Register(lua_State* L)
 		{ "Now", LuaFish::Now },
 		{ "Timestamp", LuaFish::Timestamp},
 		{ "TimestampToSecond", LuaFish::TimestampToSecond},
-		{ "Timer", LuaFish::Timer},
+		{ "StartTimer", LuaFish::StartTimer},
 		{ "Stop", LuaFish::Stop },
 		{ NULL, NULL },
 	};
@@ -146,8 +146,9 @@ int LuaFish::TimestampToSecond(lua_State* L) {
 	return 1;
 }
 
-int LuaFish::Timer(lua_State* L) {
+int LuaFish::StartTimer(lua_State* L) {
 	ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
+	return 1;
 }
 
 int LuaFish::Stop(lua_State* L) {

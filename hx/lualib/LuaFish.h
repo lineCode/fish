@@ -45,11 +45,12 @@ public:
 
 	void Require(const char* module,int (*func)(lua_State*));
 
+	static int Register(lua_State* L);
 	static int Log(lua_State* L);
 	static int Now(lua_State* L);
 	static int Timestamp(lua_State* L);
 	static int TimestampToSecond(lua_State* L);
-	static int Timer(lua_State* L);
+	static int StartTimer(lua_State* L);
 	static int Stop(lua_State* L);
 protected:
 	OOLUA::Script script_;
