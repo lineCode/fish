@@ -211,8 +211,8 @@ int LuaFish::CancelTimer(lua_State* L) {
 	LuaTimer* timer = app->Lua()->GetTimer(timerId);
 	if (timer) {
 		app->Lua()->DeleteTimer(timerId);
-		timer->Cancel();
-		luaL_unref(L, LUA_REGISTRYINDEX, timer);
+		timer->CancelTimer();
+		luaL_unref(L, LUA_REGISTRYINDEX, timerId);
 	}
 
 	return 0;
