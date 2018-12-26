@@ -3,8 +3,10 @@ CFLAG = -g -fPIC -Wall
 
 INCLUDE = -I. -I../3rd -I../hx -I../3rd/libev -I../3rd/lua/src -I../3rd/oolua/include -I../3rd/rapidjson
 TARGET = ./fish
-OBJ = main.o FishApp.o Bootstrap.o ClientSession.o MessageHandler.o FishMongo.o
-SRC = main.cpp FishApp.cpp Bootstrap.cpp ClientSession.cpp MessageHandler.cpp FishMongo.cpp
+
+DIRS = $(shell find . -maxdepth 3 -type d)
+SRC = $(foreach dir,$(DIRS),$(wildcard $(dir)/*.cpp))
+OBJ = $(patsubst %.cpp, %.o, $(SRC))
 
 all:$(TARGET)
 
