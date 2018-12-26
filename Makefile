@@ -1,26 +1,28 @@
-LUA_STATICLIB := ./Bin/Debug/liblua.a
+BIN_PATH = ./bin/debug
+
+LUA_STATICLIB := $(BIN_PATH)/liblua.a
 LUA_LIB ?= liblua.a
 LUA_INC ?= ./3rd/lua/src
 
-OOLUA_STATICLIB := ./Bin/Debug/liboolua.a
+OOLUA_STATICLIB := $(BIN_PATH)/liboolua.a
 OOLUA_LIB ?= liboolua.a
 OOLUA_INC ?= ./3rd/oolua/include
 OOLUA_PATH ?= ./3rd/oolua
 OOLUA_LIB_PATH ?= ./3rd/oolua/bin/Debug
 
-LIBEV_STATICLIB := ./Bin/Debug/libev.a
+LIBEV_STATICLIB := $(BIN_PATH)/libev.a
 LIBEV_LIB ?= libev.a
 LIBEV_INC ?= ./3rd/libev
 
-HX_STATICLIB := ./Bin/Debug/libhx.a
+HX_STATICLIB := $(BIN_PATH)/libhx.a
 HX_LIB ?= libhx.a
 HX_INC ?= ./hx
 
-FISH := ./Bin/Debug/fish
+FISH := $(BIN_PATH)/fish
 FISH_INC ?= ./server
 
 
-LIBS_DIR := ./Bin/Debug
+LIBS_DIR := $(BIN_PATH)
 
 
 all: $(LUA_STATICLIB) $(OOLUA_STATICLIB) $(LIBEV_STATICLIB) $(HX_STATICLIB) $(FISH)
