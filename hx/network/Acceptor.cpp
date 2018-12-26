@@ -54,8 +54,9 @@ namespace Network
 
 	void Acceptor::HandleConnection(ev::io &w, int revents)
 	{
-		Addr adddr;
-		int fd = SocketAccept(fd_, &adddr);
+		Addr addr;
+		memset(&addr.sockaddr, 0, sizeof(addr.sockaddr)); 
+		int fd = SocketAccept(fd_, &addr);
 		if (fd < 0) {
 			return;
 		}
@@ -64,6 +65,6 @@ namespace Network
 			SocketClose(fd);
 			return;
 		}
-		callback_(w.fd, adddr);
+		callback_(fd, addr);
 	}
 }

@@ -20,6 +20,7 @@ namespace Network
 		if (fd < 0) {
 			return -1;
 		}
+		addr->SetAddrLen(len);
 		return fd;
 	}
 

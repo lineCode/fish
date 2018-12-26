@@ -26,7 +26,7 @@ public:
     } sockaddr;
 
 	int addrType;
-    int family;
+	int family;
 
     static Addr MakeIP4Addr(const char *ip,int port) {
     	Addr addr;
@@ -66,7 +66,22 @@ public:
     struct sockaddr* Address() const {
     	return (struct sockaddr*)&this->sockaddr;
     }
+	
+    void SetAddrLen(socklen_t len) {
+	if (len == sizeof(struct sockaddr_in)) {
+		family = AF_INET;
+		addrType = SOCK_ADDR_IPV4;
+	} else if (len == sizeof(struct sockaddr_in6)) {
+		family = AF_INET6;
+		addrType = SOCK_ADDR_IPV6;
 
+	} else if (len == sizeof(struct sockaddr_un)) {
+		family = AF_UNIX;
+		addrType = SOCK_ADDR_UNIX;
+	} else {
+		addrType = SOCK_ADDR_EMPTY;
+	}
+    }
     socklen_t AddrLen() const {
 		if(this->addrType == SOCK_ADDR_IPV4) {
     		return sizeof(this->sockaddr.in);
@@ -92,13 +107,13 @@ public:
 
     std::string ToStr() const {
         if(this->addrType == SOCK_ADDR_IPV4) {
-            char ip[32] = {0};
-            char ret[32] = {0};
+            char ip[INET6_ADDRSTRLEN] = {0};
+            char ret[INET6_ADDRSTRLEN] = {0};
             short port = ntohs(this->sockaddr.in.sin_port);
             if(NULL == ::inet_ntop(this->family,(const char*)&this->sockaddr.in.sin_addr,ip,sizeof(ip))){
                 return std::string("");
             } else {
-                snprintf(ret,32,"%s:%d",ip,port);
+                snprintf(ret,INET6_ADDRSTRLEN,"%s:%d",ip,port);
                 return std::string(ret);
             }
         }

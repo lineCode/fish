@@ -36,7 +36,7 @@ void FishApp::ListenClient(std::string ip,int port)
 
 void FishApp::OnClientAccept(int fd, Network::Addr& addr)
 {
-
+	std::cout << addr.ToStr() << std::endl;
 }
 
 int FishApp::Fina()
