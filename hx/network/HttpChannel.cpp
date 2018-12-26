@@ -75,7 +75,7 @@ std::string HttpChannel::GetMethod() {
 	if (!completed_) {
 		return std::string("");
 	}
-	return std::string(http_method_str(lparser->parser.method));
+	return std::string(http_method_str((http_method)parser_.method));
 }
 
 void HttpChannel::SetUrl(const char* data, size_t size) {

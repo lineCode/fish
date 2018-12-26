@@ -18,3 +18,8 @@ int AgentApp::Init()
 
 	return 0;
 }
+
+int AgentApp::Fina() 
+{
+	return ServerApp::Fina();
+}

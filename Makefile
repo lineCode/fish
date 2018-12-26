@@ -58,3 +58,4 @@ cleanall:
 
 clean:
 	rm -rf $(FISH) $(FISH_INC)/*o
+	rm -rf $(LIBS_DIR)/$(HX_LIB) && cd $(HX_INC) && make clean

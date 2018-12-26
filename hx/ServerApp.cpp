@@ -24,22 +24,16 @@ int ServerApp::Init()
 
 	lua_->Init(this);
 
-#if defined (WIN32)
-	lua_->LuaPath("..\\script\\?.lua;");
-	lua_->LuaPath("..\\lib\\3rd\\pbc\\binding\\lua\\?.lua;");
-	lua_->LuaPath("..\\lib\\3rd\\luaprofiler\\analyzer\\?.lua;");
-#else
-	lua_->LuaPath("../script/?.lua;");
-	lua_->LuaPath("../lib/3rd/pbc/binding/lua/?.lua;");
-	lua_->LuaPath("../lib/3rd/luaprofiler/analyzer/?.lua;");
-#endif
-	
+	lua_->LuaPath("../../script/?.lua;");
 	lua_->Require("Core", LuaFish::Register);
 
-	lua_->DoFile("server.lua");
+	lua_->DoFile("../../script/server.lua");
 	
 	OOLUA::Script& script = lua_->GetScript();
-	script.call("serverInit");
+	if (!script.call("serverInit")) {
+		LOG_ERROR(fmt::format("serverInit error:{}",OOLUA::get_last_error(script)));
+		return -1;
+	}
 
 	return 0;
 }
@@ -47,7 +41,12 @@ int ServerApp::Init()
 int ServerApp::Fina()
 {
 	OOLUA::Script& script = lua_->GetScript();
-	script.call("serverFina");
+	if (!script.call("serverFina")) {
+		LOG_ERROR(fmt::format("serverFina error:{}",OOLUA::get_last_error(script)));
+		return -1;
+	}
+
+
 	return 0;
 }
 
@@ -71,7 +70,10 @@ void ServerApp::HandleTimeout()
 {
 	now_ = ::Now();
 	OOLUA::Script& script = lua_->GetScript();
-	script.call("serverUpdate", now_);
+	if (!script.call("serverUpdate",now_)) {
+		LOG_ERROR(fmt::format("serverUpdate error:{}",OOLUA::get_last_error(script)));
+	}
+
 }
 
 LuaFish* ServerApp::Lua()

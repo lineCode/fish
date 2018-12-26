@@ -26,7 +26,7 @@ public:
 private:
 	std::string file_;
 	Network::Acceptor* clientAcceptor_;
-}
+};
 
 
 

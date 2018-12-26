@@ -63,7 +63,11 @@ int LuaFish::DoFile(const char* f)
 
 int LuaFish::DoFile(std::string& file)
 {
-	return script_.run_file(file);
+	if (!script_.run_file(file)) {
+		LOG_ERROR(fmt::format("do file:{} error:{}",file,OOLUA::get_last_error(script_)));
+		return -1;
+	}
+	return 0;
 }
 
 int LuaFish::CallFunc(std::string& module, std::string& method)
@@ -84,7 +88,10 @@ int LuaFish::CallFunc(std::string& module, std::string& method)
 		return -1;
 	}
 
-	lua_pcall(L, 0, 0, 0);
+	if (LUA_OK != lua_pcall(L, 0, 0, 0)) {
+		LOG_ERROR(fmt::format("call func:{}:{} error:{}",module,method,OOLUA::get_last_error(script_)));
+		return -1;
+	}
 
 	return 0;
 }
@@ -290,22 +297,19 @@ void LuaFish::SetMainTick(int index)
 	_mainTick = index;
 }
 
-void LuaFish::LuaPath(const char* npath)
+void LuaFish::LuaPath(const char* path)
 {
-	luaL_Buffer buffer;
-	luaL_buffinit(script_.state(), &buffer);
+	std::string fullPath(path);
 
 	lua_getglobal(script_.state(), "package");
 	lua_getfield(script_.state(), -1, "path");
 
-	size_t size = 0;
-	const char* opath = lua_tolstring(script_.state(), -1, &size);
-	luaL_addlstring(&buffer,npath,strlen(npath));
-	luaL_addlstring(&buffer,opath,size);
+	const char* prevPath = lua_tostring(script_.state(), -1);
+	fullPath.append(prevPath);
 
 	lua_pop(script_.state(), 1);
-
-	lua_pushlstring(script_.state(), buffer.b, buffer.n);
+	
+	lua_pushstring(script_.state(), fullPath.c_str());
 	lua_setfield(script_.state(), -2, "path");
 }
 
