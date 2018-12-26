@@ -46,10 +46,12 @@ void HttpChannel::HandleRead() {
 
 	if (HTTP_PARSER_ERRNO(&parser_) != HPE_OK) {
 		std::cout << http_errno_name(HTTP_PARSER_ERRNO(&parser_)) << std::endl;
+		Close(true);
 		return;
 	}
 
 	if (completed_) {
+		std::cout << fmt::format("method:{}", GetMethod()) << std::endl;
 		std::cout << fmt::format("url:{}", url_) << std::endl;
 		std::cout << fmt::format("status:{}", status_) << std::endl;
 		std::cout << fmt::format("content:{}", content_) << std::endl;
@@ -69,12 +71,27 @@ void HttpChannel::SetComplete() {
 	completed_ = true;
 }
 
+std::string HttpChannel::GetMethod() {
+	if (!completed_) {
+		return std::string("");
+	}
+	return std::string(http_method_str(lparser->parser.method));
+}
+
 void HttpChannel::SetUrl(const char* data, size_t size) {
 	url_.append(data, size);
 }
 
+std::string HttpChannel::GetUrl() {
+	return url_;
+}
+
 void HttpChannel::SetStatus(const char* data, size_t size) {
 	status_.append(data, size);
+}
+
+std::string HttpChannel::GetStatus() {
+	return status_;
 }
 
 void HttpChannel::SetHeader(std::string& field, std::string& value) {
@@ -85,12 +102,16 @@ void HttpChannel::SetContent(const char* data, size_t size) {
 	content_.append(data, size);
 }
 
+std::string HttpChannel::GetContent() {
+	return content_;
+}
+
 void HttpChannel::SetReplyHeader(std::string& field, std::string& value) {
 
 }
 	
 void HttpChannel::Reply(int code, std::string& content) {
-	
+
 }
 
 int HttpChannel::OnParseBegin(struct http_parser* parser) {

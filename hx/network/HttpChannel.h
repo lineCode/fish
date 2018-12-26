@@ -16,16 +16,24 @@ public:
 
 	virtual void SetComplete();
 
+	virtual std::string GetMethod();
+	
 	virtual void SetUrl(const char* data, size_t size);
 
+	virtual std::string GetUrl();
+
 	virtual void SetStatus(const char* data, size_t size);
+
+	virtual std::string GetStatus();
 	
 	virtual void SetHeader(std::string& field, std::string& value);
 
 	virtual void SetContent(const char* data, size_t size);
 
+	virtual std::string GetContent();
+
 	virtual void SetReplyHeader(std::string& field, std::string& value);
-	
+
 	virtual void Reply(int code, std::string& content);
 
 	static int OnParseBegin(struct http_parser* parser);
