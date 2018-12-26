@@ -26,7 +26,7 @@ ifeq ($(config),debug)
   DEFINES   += -DDEBUG -D_DEBUG -DPLATFORM_CHECKED -DUNIX_BUILD
   INCLUDES  += -Iinclude/lua -Iinclude -I../lua/src
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
-  CFLAGS    += $(CPPFLAGS) $(ARCH) -g -fPIC -Wall -W -Wall -ansi -pedantic -std=c++98
+  CFLAGS    += $(CPPFLAGS) $(ARCH) -g -fPIC -Wall -W -Wall -Wunused-local-typedefs -ansi -pedantic -std=c++98
   CXXFLAGS  += $(CFLAGS) 
   LDFLAGS   += 
   LIBS      += 

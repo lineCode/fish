@@ -6,7 +6,8 @@
 
 
 #include "EventPoller.h"
-#include "TcpReader.h"
+#include "Reader.h"
+#include "Writer.h"
 #include "../ServerApp.h"
 #include "../util/MemoryStream.h"
 

@@ -4,7 +4,7 @@
 
 namespace Network
 {
-	Channel::Channel(Network::EventPoller* poller, int fd) :poller_(poller), fd_(fd), sendlist_()
+	Channel::Channel(Network::EventPoller* poller, int fd) :poller_(poller), fd_(fd) 
 	{
 		reader_ = NULL;
 		state_ = Alive;
@@ -74,7 +74,7 @@ namespace Network
 		if (state_ == Error || state_ == Invalid)
 			return;
 		
-		int result = writer_->Write();
+		int result = writer_->Write(fd_);
 		if (result == 0)
 		{
 			DisableWrite();
@@ -135,7 +135,7 @@ namespace Network
 		writer_->Append(data, size);
 
 		if (!wio_.is_active()) {
-			int result = writer_->Write();
+			int result = writer_->Write(fd_);
 			if (result < 0) {
 				state_ = Error;
 				this->HandleError();

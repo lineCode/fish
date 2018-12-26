@@ -1,6 +1,8 @@
 #include "Writer.h"
 #include "Network.h"
 
+namespace Network {
+
 WriterBuffer::WriterBuffer():size_(0),offset_(0),data_(NULL),next_(NULL) {
 }
 
@@ -47,7 +49,7 @@ Writer::~Writer() {
 int Writer::Write(int fd) {
 	WriterBuffer* wb = NULL;
 	while ((wb = Front()) != NULL) {
-		int n = Network::SocketWrite(fd_,(const char*)wb->Begin(),wb->Writable());
+		int n = Network::SocketWrite(fd,(const char*)wb->Begin(),wb->Writable());
 		if (n >= 0) {
 			if (n == wb->Writable()) {
 				RemoveFront();
@@ -110,3 +112,4 @@ void Writer::Append(void* data,int size) {
 		wb = tail_;
 	}
 }
+};
