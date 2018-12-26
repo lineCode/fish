@@ -88,6 +88,10 @@ namespace Network
 		}
 	}
 
+	int Reader::GetLength() {
+		return total_;
+	}
+
 	Reader::ReaderBuffer* Reader::NextBuffer() 
 	{
 		ReaderBuffer* buffer = NULL;

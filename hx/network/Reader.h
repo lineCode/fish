@@ -38,6 +38,7 @@ namespace Network
 		virtual int  Read(int fd);
 		virtual void ReadData(char* data,int size);
 
+		virtual int GetLength();
 	private:
 		ReaderBuffer* NextBuffer();
 		ReaderBuffer* AllocBuffer();
