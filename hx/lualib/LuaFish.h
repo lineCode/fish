@@ -29,8 +29,6 @@ public:
 
 	OOLUA::Script& GetScript();
 
-	void Require(const char* module,int (*func)(lua_State*));
-
 	int Init(ServerApp* app);
 
 	int LoadFile(std::string& file);
@@ -39,49 +37,23 @@ public:
 
 	int DoFile(std::string& file);
 
+	int CallFunc(const char* module, const char* method);
+
 	int CallFunc(std::string& module, std::string& method);
-
-	int DispatchClient(int source,int method,const char* data,int size);
-
-	int DispatchServerEvent(int source,bool start = true);
-
-	int DispatchServer(int source,const char* data,int size);
-
-	int DispatchSocketEvent(int source,SocketEvent ev,int reserve = 0);
-
-	int DispatchSocket(int source,const char* data,int size);
-
-	int DispatchMongo(int source,int session,const char* data,int size);
-
-	int DispatchTimer(int session);
-
-	int GenSession();
-
-	void SetCallBack(int index);
-
-	void SetMainTick(int index);
 
 	void LuaPath(const char* path);
 
-	static int Register(lua_State* L);
-	static int _Traceback(lua_State* L);
-	static int _Send(lua_State* L);
-	static int _SendClient(lua_State* L);
-	static int _Log(lua_State* L);
-	static int _Now(lua_State* L);
-	static int _Timestamp(lua_State* L);
-	static int _TimestampToSecond(lua_State* L);
-	static int _GenSession(lua_State* L);
-	static int _CallBack(lua_State* L);
-	static int _MainTick(lua_State* L);
-	static int _Stop(lua_State* L);
-	static int _MemInfo(lua_State* L);
+	void Require(const char* module,int (*func)(lua_State*));
+
+	static int Log(lua_State* L);
+	static int Now(lua_State* L);
+	static int Timestamp(lua_State* L);
+	static int TimestampToSecond(lua_State* L);
+	static int Timer(lua_State* L);
+	static int Stop(lua_State* L);
 protected:
 	OOLUA::Script script_;
-	int			 _callback;
-	int			 _mainTick;
-	int			 _sessionCounter;
-	LuaAllocator _allocator;
+
 };
 
 #endif
