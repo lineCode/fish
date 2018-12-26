@@ -202,9 +202,9 @@ again:
 
 		virtual int Forward(const char * ptr,int size) = 0;
 
-		virtual void HandleInput(ev::io &rio, int revents);
+		virtual void HandleInput();
 
-		virtual void HandleOutput(ev::io &wio, int wevents);
+		virtual void HandleOutput();
 
 		virtual void HandleError();
 
@@ -217,6 +217,10 @@ again:
 		virtual bool IsAlive();
 
 	private:
+		virtual void OnRead(ev::io &rio, int revents);
+
+		virtual void OnWrite(ev::io &wio, int revents);
+
 		virtual int DoSend();
 
 		virtual int TrySend();

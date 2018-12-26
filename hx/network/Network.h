@@ -35,7 +35,8 @@ namespace Network
 		WriteError = -2
 	};
 	int SocketClose(int fd);
-	int SocketBind(const char* host,int port,int protocol);
+	int SocketAccept(int fd, Addr* addr);
+	int SocketBind(Addr& addr);
 	int SocketListen(int fd,int backlog);
 	int SocketConnect(Addr& addr,bool nonblock,bool& connected);
 	int SocketRead(int fd,char* data,int size);

@@ -45,7 +45,7 @@ namespace Network
 			wio_.stop();
 	}
 
-	void Channel::HandleInput(ev::io &rio, int revents)
+	void Channel::OnRead(ev::io &rio, int revents)
 	{
 		assert(reader_ != NULL);
 
@@ -54,9 +54,13 @@ namespace Network
 			state_ = Error;
 			this->HandleError();
 		}
+		else 
+		{
+			this->HandleRead();
+		}
 	}
 
-	void Channel::HandleOutput(ev::io &wio, int wevents)
+	void Channel::OnWrite(ev::io &wio, int wevents)
 	{
 		if (state_ == Error || state_ == Invalid)
 			return;
@@ -65,8 +69,11 @@ namespace Network
 		if (result == 0)
 		{
 			DisableWrite();
-			if (state_ == Closed)
+			if (state_ == Closed) {
 				this->HandleError();
+			} else {
+				this->HandleWrite();
+			}
 		}
 		else if (result < 0)
 		{
@@ -75,6 +82,13 @@ namespace Network
 		}
 	}
 
+	void Channel::HandleRead()
+	{
+	}
+
+	void Channel::HandleWrite()
+	{
+	}
 	void Channel::HandleError()
 	{	
 		DisableRead();

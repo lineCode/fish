@@ -3,6 +3,7 @@
 
 #include "EventPoller.h"
 #include "ev++.h"
+#include "Address.h"
 #include <iostream>
 #include <functional>
 
@@ -12,7 +13,7 @@ namespace Network
 	class Acceptor
 	{
 	public:
-		typedef std::function<void(Acceptor*, int, const char*,int)> OnConnection;
+		typedef std::function<void(int, Addr&)> OnConnection;
 
 	public:
 		Acceptor(EventPoller* poller);
@@ -21,18 +22,21 @@ namespace Network
 
 		void SetCallback(OnConnection callback);
 
+		void SetUserData(void* userdata);
+		
+		virtual int Listen(Addr& addr);
+
 		virtual int Listen(const char * host,int port);
 
+	private:
 		virtual void HandleConnection(ev::io &w, int revents);
 
-	protected:
 		EventPoller* poller_;
-		std::string host_;
-		int port_;
+		ev::io io_;
+		Addr addr_;
 		int fd_;
-		int id_;
-		ev::io io;
 		OnConnection callback_;
+		void* userdata_;
 	};
 }
 

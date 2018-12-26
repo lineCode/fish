@@ -13,54 +13,36 @@ namespace Network
 		return ret;
 	}
 
-	int SocketBind(const char* host,int port,int protocol) 
+	int SocketAccept(int lfd, Addr* addr) 
 	{
-		int fd;
-		int status;
-		int reuse = 1;
-		struct addrinfo aiHints;
-		struct addrinfo* aiList = NULL;
-
-		char portStr[16];
-		if (host == NULL)
-			host = "0.0.0.0";	// INADDR_ANY
-		
-		sprintf(portStr, "%d", port);
-
-		memset( &aiHints, 0, sizeof( aiHints ) );
-		aiHints.ai_family = AF_UNSPEC;
-		if (protocol == IPPROTO_TCP)
-			aiHints.ai_socktype = SOCK_STREAM;
-		else 
-		{
-			assert(protocol == IPPROTO_UDP);
-			aiHints.ai_socktype = SOCK_DGRAM;
-		}
-		aiHints.ai_protocol = protocol;
-
-		status = getaddrinfo( host, portStr, &aiHints, &aiList );
-		if ( status != 0 )
-			return -1;
-		
-		int family = aiList->ai_family;
-		fd = socket(family, aiList->ai_socktype, 0);
+		socklen_t len = 0;
+		int fd = accpet(lfd, addr->Address(), &len);
 		if (fd < 0) {
-			goto _failed_fd;
+			return -1;
 		}
-		if (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, (char *)&reuse, sizeof(int))==-1)
-			goto _failed;
-		
-		status = bind(fd, (struct sockaddr *)aiList->ai_addr, aiList->ai_addrlen);
-		if (status != 0)
-			goto _failed;
-
-		freeaddrinfo( aiList );
 		return fd;
-_failed:
-		SocketClose(fd);
-_failed_fd:
-		freeaddrinfo( aiList );
-		return -1;
+	}
+
+	int SocketBind(Addr& addr) 
+	{
+		int fd = socket(addr.Family(), SOCK_STREAM, IPPROTO_TCP);
+		if (fd < 0) {
+			return -1;
+		}
+
+		int reuse = 1;
+		if (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, (char *)&reuse, sizeof(int))==-1) {
+			SocketClose(fd);
+			return -1;
+		}
+		
+		int status = bind(fd, addr.Address(),addr.AddrLen());
+		if (status != 0) {
+			SocketClose(fd);
+			return -1;
+		}
+
+		return fd;
 	}
 
 	int SocketListen(int fd,int backlog) 

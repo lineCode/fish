@@ -4,7 +4,9 @@ namespace Network
 {
 	Acceptor::Acceptor(EventPoller* poller) :poller_(poller)
 	{
-
+		fd_ = -1;
+		callback_ = NULL;
+		userdata_ = NULL;
 	}
 
 	Acceptor::~Acceptor()
@@ -16,35 +18,52 @@ namespace Network
 		callback_ = callback;
 	}
 
-	int Acceptor::Listen(const char * host, int port)
+	void Acceptor::SetUserData(void* userdata)
 	{
-		host_.assign(host);
-		port_ = port;
+		userdata_ = userdata;
+	}
+
+	int Acceptor::Listen(Addr& addr)
+	{
+		addr_ = addr;
 
 		int fd = SocketBind(host_.c_str(), port_, IPPROTO_TCP);
 		if ( fd < 0 )
 			return -1;
 
-		if ( SocketListen(fd, 100) == -1 )
+		if ( SocketListen(fd, 64) == -1 )
 			return -1;
 
 		fd_ = fd;
 
-		io.set(poller_->GetEvLoop());
+		io_.set(poller_->GetEvLoop());
 
-		io.set<Acceptor, &Acceptor::HandleConnection>(this);
+		io_.set<Acceptor, &Acceptor::HandleConnection>(this);
 
-		io.start(fd_, EV_READ);
+		io_.start(fd_, EV_READ);
 
 		return fd_;
+
+	}
+
+	int Acceptor::Listen(const char * host, int port)
+	{
+		Addr addr = Addr::MakeIP4Addr(host,port);
+		return Listen(addr);
 	}
 
 	void Acceptor::HandleConnection(ev::io &w, int revents)
 	{
-		if ( callback_ == NULL ) {
-			close(w.fd);
+		Addr adddr;
+		int fd = SocketAccept(fd_, &adddr);
+		if (fd < 0) {
 			return;
 		}
-		callback_(this, w.fd, NULL, 0);
+
+		if ( callback_ == NULL ) {
+			SocketClose(fd);
+			return;
+		}
+		callback_(w.fd, adddr);
 	}
 }
