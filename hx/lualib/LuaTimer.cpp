@@ -9,7 +9,7 @@ void LuaTimer::HandleTimeout() {
 }
 
 void LuaTimer::SetCallback(OnTimerout callback) {
-	callback_ = callback_;
+	callback_ = callback;
 }
 	
 void LuaTimer::SetUserdata(void* userdata) {

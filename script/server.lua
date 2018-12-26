@@ -1,7 +1,10 @@
+local fish = require "fish"
 
 function serverInit()
 	print("server init")
-
+	fish.StartTimer(function ()
+		print("timeout")
+	end,1,1)
 end
 
 function serverFina()
@@ -9,5 +12,5 @@ function serverFina()
 end
 
 function serverUpdate(now)
-	print(now)
+	--print(now)
 end

@@ -24,9 +24,9 @@ int ServerApp::Init()
 
 	lua_->Init(this);
 
-	lua_->LuaPath("../../script/?.lua;");
-
 	lua_->Require("fish", LuaFish::Register);
+	
+	lua_->LuaPath("../../script/?.lua;");
 
 	lua_->DoFile("../../script/server.lua");
 	
