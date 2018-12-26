@@ -121,22 +121,20 @@ namespace Network
 
 	int Channel::DoWrite()
 	{
-		SendBuffer* buffer = NULL;
-		while ((buffer = sendlist_.Front()) != NULL)
+		SendBuffer* sb = NULL;
+		while ((sb = sendlist_.Front()) != NULL)
 		{
-			int n = Network::SocketWrite(fd_,(const char*)buffer->Begin(),buffer->Readable());
-			if (n >= 0) 
-			{
-				if (n == buffer->Readable())
+			int n = Network::SocketWrite(fd_,(const char*)sb->Begin(),sb->Writable());
+			if (n >= 0) {
+				if (n == sb->Writable()) {
 					sendlist_.RemoveFront();
-				else
-				{
-					buffer->SetOffset(n);
+				} else {
+					sb->Skip(n);
 					return 1;
 				}
-			}
-			else
+			} else {
 				return -1;
+			}
 		}
 		return 0;
 	}
@@ -167,7 +165,7 @@ namespace Network
 			return -1;
 
 		sendlist_.Append(data,size);
-		return this->TrySend();
+		return this->TryWrite();
 	}
 
 	int Channel::Write(MemoryStream* ms)

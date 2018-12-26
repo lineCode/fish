@@ -21,162 +21,107 @@ namespace Network
 	public:
 		enum eChannelState {Alive,Closed,Error,Invalid};
 
-		struct SendBuffer
-		{
-			SendBuffer(int size = 1024):size_(size),roff_(0),woff_(0),next_(NULL)
-			{
-				data_ = malloc(size_);
+		struct SendBuffer {
+			SendBuffer():data_(0),size_(0),offset_(0),next_(NULL) {
 			}
 
-			~SendBuffer()
-			{
-				free(data_);
+			~SendBuffer() {
 			}
 
-			void Append(void* data,int size)
-			{
-				Reserve(size);
-				memcpy((char*)data_+woff_,data,size);
-				woff_ += size;
+			void* Begin() {
+				return (void*)((char*)data_+offset_);
 			}
 
-			void* Begin()
+			void Skip(int offset)
 			{
-				return (void*)((char*)data_+roff_);
+				offset_ += offset;
 			}
 
-			void SetOffset(int off)
-			{
-				roff_ += off;
-			}
-
-			void Reset()
-			{
-				woff_ = roff_ = 0;
+			void Reset() {
+				data_ = NULL;
+				size_ = 0;
+				offset_ = 0;
 				next_ = NULL;
 			}
-
-			int Readable()
-			{
-				return woff_ - roff_;
+			int Writable() {
+				return size_ - offset_;
 			}
 
-			int Writable()
-			{
-				return size_ - woff_;
-			}
-
-			void Reserve(int size)
-			{
-				if (woff_+size <= size_)
-					return;
-				int nsize = woff_ + size_ * 2;
-				if (nsize < size)
-					nsize = size;
-				data_ = (char*)realloc(data_,nsize);
-				size_ = nsize;
-			}
-
-			int			size_;
-			int			roff_;
-			int			woff_;
-			void*		data_;
+			int size_;
+			int offset_;
+			void* data_;
 			SendBuffer* next_;
 		};
 
-		struct SendList
-		{
-			int size_;
+		struct SendList {
 			SendBuffer* head_;
 			SendBuffer* tail_;
 			SendBuffer* freelist_;
 
-			SendList(int size = 1024)
-			{
-				size_ = size;
+			SendList() {
 				head_ = tail_ = freelist_ = NULL;
 			}
 
-			~SendList()
-			{
-				SendBuffer* cur = NULL;
-				while ((cur = head_) != NULL)
-				{
-					head_ = cur->next_;
-					delete cur;
+			~SendList() {
+				SendBuffer* sb = NULL;
+				while ((sb = head_) != NULL) {
+					free(sb->data_);
+					head_ = sb->next_;
+					delete sb;
 				}
-				cur = NULL;
-				while ((cur = freelist_) != NULL)
-				{
-					freelist_ = cur->next_;
-					delete cur;
+				sb = NULL;
+				while ((sb = freelist_) != NULL) {
+					freelist_ = sb->next_;
+					delete sb;
 				}
 			}
 
-			bool Empty()
-			{
+			bool Empty() {
 				return head_ == NULL;
 			}
 
-			SendBuffer* AllocBuffer()
-			{
-				if (freelist_ == NULL)
-				{
-					SendBuffer* buffer = new SendBuffer(size_);
+			SendBuffer* AllocBuffer() {
+				if (freelist_ == NULL) {
+					SendBuffer* buffer = new SendBuffer();
 					freelist_ = buffer;
 				}
-				SendBuffer* cur = freelist_;
-				freelist_ = cur->next_;
-				cur->Reset();
-				return cur;
+				SendBuffer* buffer = freelist_;
+				freelist_ = buffer->next_;
+				return buffer;
 			}
 
-			SendBuffer* Front()
-			{
+			SendBuffer* Front() {
 				return head_;
 			}
 
-			void RemoveFront()
-			{
+			void RemoveFront() {
 				assert(head_ != NULL);
-				SendBuffer* cur = head_;
+				SendBuffer* sb = head_;
 				head_ = head_->next_;
-				if (head_ == NULL)
+				if (head_ == NULL) {
 					tail_ = NULL;
-				FreeBuffer(cur);
+				}
+				free(sb->data_);
+				FreeBuffer(sb);
 			}
 
-			void FreeBuffer(SendBuffer* buffer)
-			{
+			void FreeBuffer(SendBuffer* buffer) {
+				buffer->Reset();
 				buffer->next_ = freelist_;
 				freelist_ = buffer;
 			}
 
-			void Append(void* data,int size)
-			{
-				int offset = 0;
-				if (tail_ == NULL)
-				{
-					assert(head_ == NULL);
-					head_ = tail_ = AllocBuffer();
-				}
-again:
-				int left = tail_->Writable();
-				if (left >= size)
-				{
-					tail_->Append(((char*)data) + offset,size);
-					return;
-				}
-				else
-				{
-					tail_->Append(((char*)data) + offset,left);
-					offset += left;
-					size -= left;
+			void Append(void* data,int size) {
+				SendBuffer* sb = AllocBuffer();
+				sb->data_ = data;
+				sb->size_ = size;
 
-					SendBuffer* buffer = AllocBuffer();
-					tail_->next_ = buffer;
-					tail_ = buffer;
-					goto again;
+				if (tail_ == NULL) {
+					assert(head_ == NULL);
+					head_ = tail_ = sb;
+				} else {
+					tail_->next = sb;
+					sb = tail_;
 				}
 			}
 		};
