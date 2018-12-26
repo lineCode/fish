@@ -4,6 +4,7 @@
 #include "EventPoller.h"
 #include <functional>
 #include "ev++.h"
+#include "Addr.h"
 
 namespace Network
 {
@@ -17,6 +18,8 @@ namespace Network
 		Connector(EventPoller* poller);
 		~Connector(void);
 
+		virtual Connect(const Addr& addr);
+
 		virtual int Connect(const char * host,int port);
 
 		virtual void ConnectCallback(ev::io &w, int revents);
@@ -27,9 +30,7 @@ namespace Network
 
 	protected:
 		EventPoller* poller_;
-		std::string host_;
-		int port_;
-		int fd_;
+		Addr addr_;
 		OnConnectSuccess successCallback_;
 		OnConnectFail failCallback_;
 		ev::io io;

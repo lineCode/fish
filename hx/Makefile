@@ -22,5 +22,6 @@ clean:
 	rm -f network/*.o
 	rm -f time/*.o
 	rm -f util/*.o
+	rm -f thread/*.o
 	rm -f *.o 
 	rm -f $(TARGET)

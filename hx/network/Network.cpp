@@ -73,57 +73,34 @@ _failed_fd:
 		return 0;
 	}
 
-	int SocketConnect(const char* host,int port,bool block,bool& connected)
-	{
-		struct addrinfo ai_hints;
-		struct addrinfo *ai_list = NULL;
-		struct addrinfo *ai_ptr = NULL;
-
-		char portstr[16];
-		sprintf(portstr, "%d", port);
-		memset(&ai_hints, 0, sizeof( ai_hints ) );
-
-		ai_hints.ai_family = AF_UNSPEC;
-		ai_hints.ai_socktype = SOCK_STREAM;
-		ai_hints.ai_protocol = IPPROTO_TCP;
-
-		int fd = -1;
-
-		int status = getaddrinfo(host, portstr, &ai_hints, &ai_list );
-		if ( status != 0 ) 
-			goto _failed;
-
-		for (ai_ptr = ai_list; ai_ptr != NULL; ai_ptr = ai_ptr->ai_next ) 
-		{
-			fd = socket( ai_ptr->ai_family, ai_ptr->ai_socktype, ai_ptr->ai_protocol );
-			if ( fd < 0 )
-				continue;
-
-			if (!block) 
-			{
-				SocketSetKeepalive(fd,true);
-				SocketSetNonblocking(fd,true);
-			}
-			status = connect( fd, ai_ptr->ai_addr, ai_ptr->ai_addrlen);
+	int SocketConnect(Addr& addr, bool nonblock, bool& connected)
+	{ 
+		int fd = socket(addr.Family(), SOCK_STREAM, IPPROTO_TCP);
+		if (fd < 0) {
+			return -1;
+		}
+		if (nonblock) {
+			SocketSetKeepalive(fd,true);
+			SocketSetNonblocking(fd,true);
+		}
+		
+		int status = connect(fd, addr.Address(), addr.AddrLen());
 
 #if defined( WIN32 )
 
-			int err = WSAGetLastError();
-			if ( status != 0 && err != WSAEWOULDBLOCK)
-			{
+		int err = WSAGetLastError();
+		if ( status != 0 && err != WSAEWOULDBLOCK)
+		{
 #else
-			if ( status != 0 && errno != EINPROGRESS)
-			{
+		if ( status != 0 && errno != EINPROGRESS)
+		{
 #endif
-				SocketClose(fd);
-				fd = -1;
-				continue;
-			}
-			break;
+			SocketClose(fd);
+			return -1;
 		}
 
 		if (fd < 0)
-			goto _failed;
+			return -1;
 
 
 		if(status == 0)
@@ -136,10 +113,6 @@ _failed_fd:
 			connected = false;
 			return fd;
 		}
-
-_failed:
-		freeaddrinfo( ai_list );
-		return -1;
 	}
 
 	int SocketSetKeepalive(int fd ,bool keepalive) 

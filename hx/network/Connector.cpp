@@ -13,25 +13,30 @@ namespace Network
 	{
 	}
 
-	int Connector::Connect(const char * host, int port)
+	int Connector::Connect(const Addr& addr) 
 	{
-		host_.assign(host);
-		port_ = port;
+		addr_ = addr;
 
+		int fd;
 		bool connected = false;
-		if ( ( fd_ = SocketConnect(host, port, true, connected) ) < 0 )
+		if ( ( fd = SocketConnect(addr_, true, connected) ) < 0 )
 			return -1;
 
 		if ( connected )
 		{
-			successCallback_(fd_);
+			successCallback_(fd);
 			return 0;
 		}
 		else
 		{
-			io.start(fd_, EV_READ);
+			io.start(fd, EV_WRITE);
 		}
-		return 0;
+	}
+
+	int Connector::Connect(const char * host, int port)
+	{
+		Addr addr = Addr:MakeIP4Addr(host, port);
+		return Connect(addr);
 	}
 
 	void Connector::ConnectCallback(ev::io &w, int revents)
@@ -52,7 +57,7 @@ namespace Network
 		}
 		else
 		{
-			successCallback_(fd_);
+			successCallback_(fd);
 		}
 		
 	}
