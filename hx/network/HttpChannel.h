@@ -3,6 +3,7 @@
 namespace Network {
 
 class HttpChannel : public Channel {
+
 public:
 	HttpChannel(Network::EventPoller* poller,int fd);
 
@@ -13,5 +14,5 @@ public:
 	virtual void HandleWrite();
 
 	virtual void HandleError();
-}
+};
 };

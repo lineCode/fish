@@ -1,5 +1,7 @@
 #include "HttpChannel.h"
 
+namespace Network {
+
 HttpChannel::HttpChannel(Network::EventPoller* poller,int fd):Channel(poller,fd) {
 
 }
@@ -19,3 +21,5 @@ void HttpChannel::HandleWrite() {
 void HttpChannel::HandleError() {
 	
 }
+
+};
