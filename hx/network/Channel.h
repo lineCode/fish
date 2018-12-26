@@ -202,9 +202,9 @@ again:
 
 		virtual int Forward(const char * ptr,int size) = 0;
 
-		virtual void HandleInput();
+		virtual void HandleRead();
 
-		virtual void HandleOutput();
+		virtual void HandleWrite();
 
 		virtual void HandleError();
 

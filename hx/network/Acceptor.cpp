@@ -27,7 +27,7 @@ namespace Network
 	{
 		addr_ = addr;
 
-		int fd = SocketBind(host_.c_str(), port_, IPPROTO_TCP);
+		int fd = SocketBind(addr_);
 		if ( fd < 0 )
 			return -1;
 

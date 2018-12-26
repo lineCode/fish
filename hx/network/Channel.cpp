@@ -8,10 +8,10 @@ namespace Network
 		state_ = Alive;
 
 		rio_.set(poller_->GetEvLoop());
-		rio_.set<Channel, &Channel::HandleInput>(this);
+		rio_.set<Channel, &Channel::OnRead>(this);
 
 		wio_.set(poller_->GetEvLoop());
-		wio_.set<Channel, &Channel::HandleOutput>(this);
+		wio_.set<Channel, &Channel::OnWrite>(this);
 	}
 
 	Channel::~Channel(void)
@@ -89,6 +89,7 @@ namespace Network
 	void Channel::HandleWrite()
 	{
 	}
+
 	void Channel::HandleError()
 	{	
 		DisableRead();

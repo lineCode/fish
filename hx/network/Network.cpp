@@ -16,7 +16,7 @@ namespace Network
 	int SocketAccept(int lfd, Addr* addr) 
 	{
 		socklen_t len = 0;
-		int fd = accpet(lfd, addr->Address(), &len);
+		int fd = accept(lfd, addr->Address(), &len);
 		if (fd < 0) {
 			return -1;
 		}

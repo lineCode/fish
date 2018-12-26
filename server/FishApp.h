@@ -7,7 +7,7 @@
 #include <string>
 
 #include "network/Acceptor.h"
-
+#include "network/Address.h"
 
 
 class FishApp:public ServerApp
@@ -23,7 +23,7 @@ public:
 
 	virtual void ListenClient(std::string ip,int port);
 
-	virtual void OnClientAccept(Network::Acceptor* acceptor, int fd, const char* ip, int port);
+	virtual void OnClientAccept(int fd, Network::Addr& addr);
 
 	virtual int Fina();
 
