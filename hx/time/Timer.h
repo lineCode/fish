@@ -16,11 +16,13 @@ public:
 
 	void CancelTimer();
 
+	bool IsActive();
+
 	virtual void HandleTimeout() = 0;
 
 private:
 	void OnTimeout(ev::timer &watcher, int revents);
-	
+
 	ev::timer timer_;
 };
 

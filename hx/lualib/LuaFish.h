@@ -1,6 +1,7 @@
 ﻿#ifndef LUAFISH_H
 #define LUAFISH_H
 #include "../util/LuaAllocator.h"
+#include "LuaTimer.h"
 #include "oolua.h"
 extern "C"
 {
@@ -45,6 +46,10 @@ public:
 
 	void Require(const char* module,int (*func)(lua_State*));
 
+	void BindTimer(int timerId, LuaTimer* timer);
+
+	void OnTimeout(LuaTimer* timer, void* userdata);
+
 	static int Register(lua_State* L);
 
 	static int Log(lua_State* L);
@@ -56,11 +61,14 @@ public:
 	static int TimestampToSecond(lua_State* L);
 
 	static int StartTimer(lua_State* L);
-	
+
+	static int CancelTimer(lua_State* L);
+
 	static int Stop(lua_State* L);
 protected:
 	OOLUA::Script script_;
 
+	std::map<int, LuaTimer*> timerMgr_;
 };
 
 #endif

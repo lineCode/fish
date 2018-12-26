@@ -16,3 +16,7 @@ void Timer::CancelTimer() {
 void Timer::OnTimeout(ev::timer &watcher, int revents) {
 	HandleTimeout();
 }
+
+bool Timer::IsActive() {
+	return timer_.is_active();
+}

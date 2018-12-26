@@ -7,7 +7,7 @@
 
 class LuaTimer : public Timer {
 public:
-	typedef std::function<void(void*)> OnTimerout;
+	typedef std::function<void(LuaTimer*, void*)> OnTimerout;
 public:
 	virtual void HandleTimeout();
 
