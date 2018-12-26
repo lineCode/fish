@@ -68,7 +68,7 @@ int ServerApp::Run()
 
 void ServerApp::HandleTimeout()
 {
-	now_ = ::Now();
+	now_ = ::TimeStamp() / 1000;
 	OOLUA::Script& script = lua_->GetScript();
 	if (!script.call("serverUpdate",now_)) {
 		LOG_ERROR(fmt::format("serverUpdate error:{}",OOLUA::get_last_error(script)));
