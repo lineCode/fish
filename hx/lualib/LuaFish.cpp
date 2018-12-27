@@ -1,10 +1,10 @@
 ﻿#include "LuaFish.h"
-#include "../ServerApp.h"
-#include "../Logger.h"
+#include "ServerApp.h"
+#include "Logger.h"
 #include "network/Acceptor.h"
-#include "../util/MemoryStream.h"
-
-#include "../time/Timestamp.h"
+#include "network/Connector.h"
+#include "util/MemoryStream.h"
+#include "time/Timestamp.h"
 
 
 LuaFish::LuaFish(void) :script_() {
@@ -147,6 +147,27 @@ void LuaFish::OnAccept(int fd, Network::Addr& addr, void* userdata) {
 	}
 }
 
+void LuaFish::OnConnect(int fd, const char* reason, void* userdata) {
+	int callback = (int)(intptr_t)userdata;
+	close(fd);
+
+	lua_rawgeti(LuaState(), LUA_REGISTRYINDEX, callback);
+
+	int numArgs;
+	if (fd < 0) {
+		lua_pushboolean(LuaState(), 0);
+		lua_pushstring(LuaState(), reason);
+		numArgs = 2;
+	} else {
+		lua_pushinteger(LuaState(), fd);
+		numArgs = 1;
+	}
+
+	if (LUA_OK != lua_pcall(LuaState(), numArgs, 0, 0)) {
+		LOG_ERROR(fmt::format("OnConnect error:{}", lua_tostring(LuaState(), -1)));
+	}
+}
+
 int LuaFish::Register(lua_State* L)
 {
 	luaL_checkversion(L);
@@ -159,6 +180,7 @@ int LuaFish::Register(lua_State* L)
 		{ "StartTimer", LuaFish::StartTimer},
 		{ "CancelTimer", LuaFish::CancelTimer},
 		{ "Listen", LuaFish::AcceptorListen},
+		{ "Connect", LuaFish::ConnectorConnect},
 		{ "Stop", LuaFish::Stop },
 		{ NULL, NULL },
 	};
@@ -246,7 +268,7 @@ int LuaFish::AcceptorListen(lua_State* L) {
 
 	if (luaL_newmetatable(L, "metaAcceptor")) {
         const luaL_Reg meta[] = {
-            { "stop", LuaFish::AcceptorClose },
+            { "Stop", LuaFish::AcceptorClose },
 			{ NULL, NULL },
         };
         luaL_newlib(L, meta);
@@ -282,6 +304,58 @@ int LuaFish::AcceptorRelease(lua_State* L) {
 	luaL_unref(L, LUA_REGISTRYINDEX, callback);
 
 	acceptor->~Acceptor();
+
+	return 0;
+}
+
+int LuaFish::ConnectorConnect(lua_State* L) {
+	ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
+
+	const char* ip = luaL_checkstring(L, 1);
+	int port = luaL_checkinteger(L, 2);
+	luaL_checktype(L, 3, LUA_TFUNCTION);
+	int callback = luaL_ref(L, LUA_REGISTRYINDEX);
+
+	void* ud = lua_newuserdata(L, sizeof(Network::Connector));
+
+	if (luaL_newmetatable(L, "metaConnector")) {
+        const luaL_Reg meta[] = {
+            { "Stop", LuaFish::ConnectorClose },
+			{ NULL, NULL },
+        };
+        luaL_newlib(L, meta);
+        lua_setfield(L, -2, "__index");
+
+        lua_pushcfunction(L, LuaFish::ConnectorRelease);
+        lua_setfield(L, -2, "__gc");
+    }
+    lua_setmetatable(L, -2);
+
+    Network::Connector* connector = new(ud) Network::Connector(app->Poller());
+
+    connector->SetCallback(std::bind(&LuaFish::OnConnect, app->Lua(), std::placeholders::_1, std::placeholders::_2,std::placeholders::_3));
+	connector->SetUserdata((void*)(long)callback);
+
+	Network::Addr addr = Network::Addr::MakeIP4Addr(ip, port);
+
+	connector->Connect(addr);
+
+	return 1;
+}
+
+int LuaFish::ConnectorClose(lua_State* L) {
+	Network::Connector* connector = (Network::Connector*)lua_touserdata(L, 1);
+	lua_pushboolean(L, connector->Close() == 0);
+	return 1;
+}
+
+int LuaFish::ConnectorRelease(lua_State* L) {
+	Network::Connector* connector = (Network::Connector*)lua_touserdata(L, 1);
+
+	int callback = (int)(intptr_t)connector->GetUserdata();
+	luaL_unref(L, LUA_REGISTRYINDEX, callback);
+
+	connector->~Connector();
 
 	return 0;
 }

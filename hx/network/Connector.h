@@ -21,15 +21,19 @@ namespace Network
 
 		virtual int Connect(const char * host,int port);
 
+		virtual int Close();
+
 		void SetCallback(OnConnect callback);
 
 		void SetUserdata(void* userdata);
+
+		void* GetUserdata();
 
 	private:
 		virtual void ConnectCallback(ev::io &w, int revents);
 
 		EventPoller* poller_;
-		ev::io io;
+		ev::io io_;
 		Addr addr_;
 		OnConnect callback_;
 		void* userdata_;

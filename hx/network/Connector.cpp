@@ -3,18 +3,16 @@
 namespace Network
 {
 
-	Connector::Connector(EventPoller* poller) :poller_(poller)
-	{
+	Connector::Connector(EventPoller* poller) :poller_(poller) {
 		io.set(poller_->GetEvLoop());
 		io.set<Connector, &Connector::ConnectCallback>(this);
 	}
 
-	Connector::~Connector(void)
-	{
+	Connector::~Connector(void) {
+		Close();
 	}
 
-	int Connector::Connect(const Addr& addr) 
-	{
+	int Connector::Connect(const Addr& addr)  {
 		addr_ = addr;
 
 		int fd;
@@ -22,26 +20,30 @@ namespace Network
 		if ( ( fd = SocketConnect(addr_, true, connected) ) < 0 )
 			return -1;
 
-		if ( connected )
-		{
+		if ( connected ) {
 			callback_(fd, NULL, userdata_);	
-		}
-		else
-		{
-			io.start(fd, EV_WRITE);
+		} else {
+			io_.start(fd, EV_WRITE);
 		}
 		return 0;
 	}
 
-	int Connector::Connect(const char * host, int port)
-	{
+	int Connector::Connect(const char * host, int port) {
 		Addr addr = Addr::MakeIP4Addr(host, port);
 		return Connect(addr);
 	}
 
-	void Connector::ConnectCallback(ev::io &w, int revents)
-	{
-		io.stop();
+	int Connector::Close() {
+		if (io_.is_active()) {
+			SocketClose(io_.fd);
+			io_.stop();
+			return 0;
+		}
+		return -1;
+	}
+
+	void Connector::ConnectCallback(ev::io &w, int revents) {
+		io_.stop();
 
 		int error;
 		socklen_t len = sizeof( error );
@@ -54,22 +56,22 @@ namespace Network
 				strerr = strerror(errno);
 
 			callback_(-1, strerr, userdata_);
-		}
-		else
-		{
+		} else {
 			callback_(w.fd, NULL, userdata_);
 		}
 		
 	}
 
-	void Connector::SetCallback(OnConnect callback)
-	{
+	void Connector::SetCallback(OnConnect callback) {
 		callback_ = callback;
 	}
 
-	void Connector::SetUserdata(void* userdata)
-	{
+	void Connector::SetUserdata(void* userdata) {
 		userdata_ = userdata;
+	}
+
+	void* Connector::GetUserdata() {
+		return userdata_;
 	}
 }
 

@@ -49,6 +49,8 @@ public:
 
 	void OnAccept(int fd, Network::Addr& addr, void* userdata);
 
+	void OnConnect(int fd, Network::Addr& addr, void* userdata);
+
 	static int Register(lua_State* L);
 
 	static int Log(lua_State* L);
@@ -69,11 +71,18 @@ public:
 
 	static int AcceptorRelease(lua_State* L);
 
+	static int ConnectorConnect(lua_State* L);
+
+	static int ConnectorClose(lua_State* L);
+
+	static int ConnectorRelease(lua_State* L);
+
 	static int Stop(lua_State* L);
 protected:
 	OOLUA::Script script_;
 
 	std::map<int, LuaTimer*> timerMgr_;
+	std::map<int, Connector*> connectorMgr_;
 };
 
 #endif
