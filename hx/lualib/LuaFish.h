@@ -65,6 +65,8 @@ public:
 
 	static int TimerCancel(lua_State* L);
 
+	static int TimerRelease(lua_State* L);
+	
 	static int AcceptorListen(lua_State* L);
 
 	static int AcceptorClose(lua_State* L);

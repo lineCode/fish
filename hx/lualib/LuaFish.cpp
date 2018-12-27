@@ -7,8 +7,8 @@
 #include "time/Timestamp.h"
 #include "LuaServerChannel.h"
 
-enum LUA_EVENT{
-	eTIMEOUT,
+enum {
+	eEVENT_TIMEOUT,
 };
 
 LuaFish::LuaFish(void) :script_() {
@@ -107,8 +107,8 @@ uint64_t LuaFish::GenTimerId() {
 }
 
 void LuaFish::OnTimeout(uint64_t timerId) {
-	if (!script_.call("serverEvent",LUA_EVENT.eTIMEOUT,timerId)) {
-		LOG_ERROR(fmt::format("serverEvent error:event:{},{}",LUA_EVENT.eTIMEOUT,OOLUA::get_last_error(script_)));
+	if (!script_.call("serverEvent",eEVENT_TIMEOUT,timerId)) {
+		LOG_ERROR(fmt::format("serverEvent error:event:{},{}",eEVENT_TIMEOUT,OOLUA::get_last_error(script_)));
 	}
 }
 
