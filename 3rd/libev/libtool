@@ -2,7 +2,7 @@
 
 # libtool - Provide generalized library-building support services.
 # Generated automatically by config.status (libev) 4.22
-# Libtool was configured on host VM_0_10_centos:
+# Libtool was configured on host localhost.localdomain:
 # NOTE: Changes made to this file will be lost: look at ltmain.sh.
 #
 #   Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001, 2003, 2004, 2005,
@@ -272,7 +272,7 @@ finish_eval=""
 hardcode_into_libs=yes
 
 # Compile-time system search path for libraries.
-sys_lib_search_path_spec="/usr/lib/gcc/x86_64-redhat-linux/4.4.7 /usr/lib64 /lib64 "
+sys_lib_search_path_spec="/usr/local/lib/gcc/x86_64-unknown-linux-gnu/4.8.5 /usr/local/lib64 /lib64 /usr/lib64 "
 
 # Run-time system search path for libraries.
 sys_lib_dlsearch_path_spec="/lib /usr/lib /usr/lib64/mysql /usr/local/lib /usr/lib /usr/lib64 "

@@ -45,36 +45,32 @@ function serverInit()
 		}
 	}
 
-	local count = 1
+	local count = 1024 * 100
 	local str
-	util.time_diff("rapidjson",function ()
+	util.time_diff("rapidjson.encode",function ()
 		for i = 1,count do
 			str = json.encode(tbl)
-			print(str)
 		end
 	end)
 
-	util.time_diff("cjson",function ()
+	local tbl
+	util.time_diff("rapidjson.decode",function ()
+		for i = 1,count do
+			tbl = json.decode(str)
+		end
+	end)
+
+	util.time_diff("cjson.encode",function ()
 		for i = 1,count do
 			str = cjson.encode(tbl)
-			print(str)
 		end
 	end)
 
-	util.time_diff("rapidjson",function ()
-		for i = 1,count do
-			local tbl = json.decode(str)
-			util.dump(tbl)
-		end
-	end)
-
-	util.time_diff("cjson",function ()
+	util.time_diff("cjson.decode",function ()
 		for  i = 1,count do
-			local tbl = cjson.decode(str)
-			util.dump(tbl)
+			tbl = cjson.decode(str)
 		end
 	end)
-
 end
 
 function serverFina()

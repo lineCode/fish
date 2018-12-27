@@ -70,16 +70,6 @@ public:
 
 	static int ConnectorRelease(lua_State* L);
 
-	static int CreateBaseChannel(lua_State* L);
-
-	static int CreateServerChannel(lua_State* L);
-
-	static int ServerChannelClose(lua_State* L);
-
-	static int ServerChannelRelease(lua_State* L);
-
-	static int CreateHttpChannel(lua_State* L);
-
 	static int Stop(lua_State* L);
 protected:
 	OOLUA::Script script_;

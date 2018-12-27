@@ -5,7 +5,7 @@
 #include "network/Connector.h"
 #include "util/MemoryStream.h"
 #include "time/Timestamp.h"
-#include "LuaServerChannel.h"
+
 
 enum {
 	eCHANNEL_DATA = 1,
@@ -349,71 +349,6 @@ int LuaFish::ConnectorRelease(lua_State* L) {
 
 	return 0;
 }
-
-int LuaFish::CreateBaseChannel(lua_State* L) {
-	return 0;
-}
-
-int LuaFish::CreateServerChannel(lua_State* L) {
-	ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
-
-	int fd = luaL_checkinteger(L, 1);
-
-	luaL_checktype(L, 2, LUA_TFUNCTION);
-	luaL_checktype(L, 3, LUA_TFUNCTION);
-
-	int errorCallback = luaL_ref(L, LUA_REGISTRYINDEX);
-	int dataCallback = luaL_ref(L, LUA_REGISTRYINDEX);
-
-	void* ud = lua_newuserdata(L, sizeof(LuaServerChannel));
-
-	if (luaL_newmetatable(L, "metaServerChannel")) {
-        const luaL_Reg meta[] = {
-            { "Close", LuaFish::ServerChannelClose },
-			{ NULL, NULL },
-        };
-        luaL_newlib(L, meta);
-        lua_setfield(L, -2, "__index");
-
-        lua_pushcfunction(L, LuaFish::ServerChannelRelease);
-        lua_setfield(L, -2, "__gc");
-    }
-    lua_setmetatable(L, -2);
-
-    lua_pushvalue(L, -1);
-    int reference = luaL_ref(L, LUA_REGISTRYINDEX);
-
-    LuaServerChannel* channel = new(ud) LuaServerChannel(app->Poller(), fd, reference);
- 
-    channel->SetDataCallback(std::bind(&LuaFish::OnData, app->Lua(), std::placeholders::_1, std::placeholders::_2,std::placeholders::_3,std::placeholders::_4));
-    channel->SetDataReference(dataCallback);
-   
-    channel->SetErrorCallback(std::bind(&LuaFish::OnError, app->Lua(), std::placeholders::_1, std::placeholders::_2,std::placeholders::_3));
-    channel->SetErrorReference(errorCallback);
-
-    channel->EnableRead();
-
-	return 1;
-}
-
-int LuaFish::ServerChannelClose(lua_State* L) {
-	LuaServerChannel* channel = (LuaServerChannel*)lua_touserdata(L, 1);
-
-	bool rightnow = (bool)luaL_optinteger(L, 2, 0);
-	channel->Close(rightnow);
-
-	return 0;	
-}
-
-int LuaFish::ServerChannelRelease(lua_State* L) {
-	// LuaServerChannel* channel = (LuaServerChannel*)lua_touserdata(L, 1);
-	return 0;
-}
-
-int LuaFish::CreateHttpChannel(lua_State* L) {
-	return 0;
-}
-
 
 int LuaFish::Stop(lua_State* L) {
 	ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
