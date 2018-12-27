@@ -1,7 +1,7 @@
 CC = g++
 AR = ar
-CXXCFLAG = -g -std=c++11 -fPIC -Wall -fno-strict-aliasing -Wno-unused-local-typedefs
-CFLAG = -g -fPIC -Wall -fno-strict-aliasing -Wno-unused-local-typedefs
+CXXCFLAG = -g -o3 -std=c++11 -fPIC -Wall -fno-strict-aliasing -Wno-unused-local-typedefs
+CFLAG = -g -o3 -fPIC -Wall -fno-strict-aliasing -Wno-unused-local-typedefs
 
 INCLUDE = -I. -I../3rd -I../3rd/libev -I../3rd/lua/src -I../3rd/oolua/include -I../3rd/rapidjson -I../3rd/http-parser
 TARGET = libhx.a

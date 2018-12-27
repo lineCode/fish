@@ -56,9 +56,9 @@ function _M.dump(data, prefix, depth, output, record)
 end
 
 function _M.time_diff(desc,func)
-    local now = fish.Now()
+    local now = fish.Timestamp()
     func()
-    print(string.format("%s:%f",desc,fish.Now() - now))
+    print(string.format("%s:%f",desc,fish.Timestamp() - now))
 end
 
 return _M
