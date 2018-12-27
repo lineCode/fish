@@ -44,7 +44,7 @@ $(HX_STATICLIB) :
 	cd $(HX_INC) && $(MAKE)
 	mv $(HX_INC)/$(HX_LIB) $(LIBS_DIR)
  
-$(FISH) :
+$(FISH) : $(LUA_STATICLIB) $(OOLUA_STATICLIB) $(LIBEV_STATICLIB) $(HX_STATICLIB)
 	cd $(FISH_INC) && $(MAKE)
 	mv $(FISH_INC)/fish $(LIBS_DIR) 
  
@@ -56,6 +56,10 @@ cleanall:
 	rm -rf $(LIBS_DIR)/$(OOLUA_LIB) && cd $(OOLUA_PATH) && make clean
 	rm -rf $(LIBS_DIR)/$(LIBEV_LIB) && cd $(LIBEV_INC) && make clean
 
-clean:
+cleanhx:
 	rm -rf $(FISH) $(FISH_INC)/*o
 	rm -rf $(LIBS_DIR)/$(HX_LIB) && cd $(HX_INC) && make clean
+
+clean:
+	rm -rf $(FISH) $(FISH_INC)/*o
+	
