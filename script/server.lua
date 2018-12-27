@@ -1,5 +1,6 @@
 local fish = require "fish"
-
+local json = require "json"
+local util = require "util"
 function serverInit()
 	print("server init")
 	fish.StartTimer(function ()
@@ -17,6 +18,13 @@ function serverInit()
 	for k,v in pairs(tbl) do
 		print(k,v)
 	end
+
+	print(json.encode(tbl))
+
+	fish.Connect("127.0.0.1",1996,function (...)
+		print(...)
+	end)
+
 end
 
 function serverFina()
