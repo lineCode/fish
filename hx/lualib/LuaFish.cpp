@@ -129,18 +129,18 @@ void LuaFish::OnTimeout(LuaTimer* timer, void* userdata) {
 		LOG_ERROR(fmt::format("OnTimeout error:{}", lua_tostring(LuaState(), -1)));
 	}
 	if (!timer->IsActive()) {
-		assert(DeleteTimer() == 0);
+		assert(DeleteTimer(timerId) == 0);
 		luaL_unref(LuaState(), LUA_REGISTRYINDEX, timerId);
 	}
 }
 
-void LuaFish::OnAccept(int fd, Addr& addr, void* userdata) {
+void LuaFish::OnAccept(int fd, Network::Addr& addr, void* userdata) {
 	int callback = (int)(intptr_t)userdata;
 	close(fd);
 
 	lua_rawgeti(LuaState(), LUA_REGISTRYINDEX, callback);
 	lua_pushinteger(LuaState(), fd);
-	lua_pushstring(LuaState(), ToStr().c_str());
+	lua_pushstring(LuaState(), addr.ToStr().c_str());
 
 	if (LUA_OK != lua_pcall(LuaState(), 2, 0, 0)) {
 		LOG_ERROR(fmt::format("OnAccept error:{}", lua_tostring(LuaState(), -1)));
@@ -158,6 +158,7 @@ int LuaFish::Register(lua_State* L)
 		{ "TimestampToSecond", LuaFish::TimestampToSecond},
 		{ "StartTimer", LuaFish::StartTimer},
 		{ "CancelTimer", LuaFish::CancelTimer},
+		{ "Listen", LuaFish::AcceptorListen},
 		{ "Stop", LuaFish::Stop },
 		{ NULL, NULL },
 	};
@@ -258,7 +259,7 @@ int LuaFish::AcceptorListen(lua_State* L) {
 
 	Network::Acceptor* acceptor = new(ud) Network::Acceptor(app->Poller());
 
-	acceptor->SetCallback(std::bind(&LuaFish::OnAccept, app->Lua(), std::placeholders::_1, std::placeholders::_2))
+	acceptor->SetCallback(std::bind(&LuaFish::OnAccept, app->Lua(), std::placeholders::_1, std::placeholders::_2,std::placeholders::_3));
 	acceptor->SetUserdata((void*)(long)callback);
 
 	Network::Addr addr = Network::Addr::MakeIP4Addr(ip, port);

@@ -22,7 +22,7 @@ namespace Network
 
 		void SetCallback(OnConnection callback);
 
-		void SetUserData(void* userdata);
+		void SetUserdata(void* userdata);
 
 		void* GetUserdata();
 		

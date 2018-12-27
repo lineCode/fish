@@ -19,7 +19,7 @@ namespace Network
 		callback_ = callback;
 	}
 
-	void Acceptor::SetUserData(void* userdata)
+	void Acceptor::SetUserdata(void* userdata)
 	{
 		userdata_ = userdata;
 	}

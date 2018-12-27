@@ -1,7 +1,8 @@
 ﻿#ifndef LUAFISH_H
 #define LUAFISH_H
-#include "../util/LuaAllocator.h"
+#include "util/LuaAllocator.h"
 #include "LuaTimer.h"
+#include "network/Address.h"
 #include "oolua.h"
 extern "C"
 {
@@ -46,7 +47,7 @@ public:
 
 	void OnTimeout(LuaTimer* timer, void* userdata);
 
-	void OnAccept(int fd, Addr& addr, void* userdata);
+	void OnAccept(int fd, Network::Addr& addr, void* userdata);
 
 	static int Register(lua_State* L);
 
