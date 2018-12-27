@@ -88,7 +88,6 @@ protected:
 	OOLUA::Script script_;
 
 	std::map<int, LuaTimer*> timerMgr_;
-	std::map<int, Connector*> connectorMgr_;
 };
 
 #endif
