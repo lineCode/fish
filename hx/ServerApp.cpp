@@ -19,6 +19,7 @@ ServerApp::~ServerApp() {
 }
 
 extern "C" int luaopen_rapidjson(lua_State* L);
+extern "C" int luaopen_cjson(lua_State *l);
 
 int ServerApp::Init() {
 	timer_->SetCallback(std::bind(&ServerApp::HandleTimeout, this, std::placeholders::_1, std::placeholders::_2));
@@ -28,6 +29,7 @@ int ServerApp::Init() {
 
 	lua_->Require("fish", LuaFish::Register);
 	lua_->Require("json", luaopen_rapidjson);
+	lua_->Require("cjson", luaopen_cjson);
 	
 	lua_->LuaPath("../../script/?.lua;");
 

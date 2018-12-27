@@ -1,3 +1,4 @@
+local fish = require "fish"
 
 local _M = {}
 
@@ -52,6 +53,12 @@ function _M.dump(data, prefix, depth, output, record)
     if count == 0 then
         output(tab.." {}")
     end
+end
+
+function _M.time_diff(desc,func)
+    local now = fish.Now()
+    func()
+    print(string.format("%s:%f",desc,fish.Now() - now))
 end
 
 return _M

@@ -1,5 +1,6 @@
 local fish = require "fish"
 local json = require "json"
+local cjson = require "cjson"
 local util = require "util"
 function serverInit()
 	print("server init")
@@ -29,10 +30,45 @@ function serverInit()
 		print(k,v)
 	end
 
-	print(json.encode(tbl))
-
 	fish.Connect("127.0.0.1",1996,function (...)
 		print(...)
+	end)
+
+	local tbl = {
+		age = 11,
+		time = 1123.12,
+		fukc = "uyou",
+		hx = {
+			name = "hx",
+			age = 123,
+			fff = 1.2345
+		}
+	}
+
+	local count = 1024 * 10
+	local str
+	util.time_diff("rapidjson",function ()
+		for = 1,count do
+			str = json.encode(tbl)
+		end
+	end)
+
+	util.time_diff("cjson",function ()
+		for = 1,count do
+			str = cjson.encode(tbl)
+		end
+	end)
+
+	util.time_diff("rapidjson",function ()
+		for = 1,count do
+			json.decode(str)
+		end
+	end)
+
+	util.time_diff("cjson",function ()
+		for = 1,count do
+			cjson.decode(str)
+		end
 	end)
 
 end
