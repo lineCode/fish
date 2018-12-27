@@ -19,7 +19,11 @@ public:
 
 	virtual int Init();
 
-	virtual void ConnectMongo(const char* host,int port);
+	virtual int Fina();
+
+	virtual int Run();
+
+	virtual void OnUpate(Timer* timer, void* userdata);
 
 	virtual void ListenClient(std::string ip,int port);
 	
@@ -28,12 +32,6 @@ public:
 	virtual void OnClientAccept(int fd, Network::Addr& addr);
 
 	virtual void OnHttpAccept(int fd, Network::Addr& addr);
-
-	virtual int Fina();
-
-	virtual int Run();
-
-	virtual void HandleTimeout(Timer* timer, void* userdata);
 
 private:
 	std::string file_;

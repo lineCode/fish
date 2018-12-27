@@ -30,9 +30,21 @@ int FishApp::Init()
 	return 0;
 }
 
-void FishApp::ConnectMongo(const char* host,int port)
+int FishApp::Fina()
 {
+	ServerApp::Fina();
+	return 0;
+}
 
+int FishApp::Run()
+{
+	ServerApp::Run();
+	return 0;
+}
+
+void FishApp::OnUpate(Timer* timer, void* userdata)
+{
+	ServerApp::OnUpate(timer, userdata);
 }
 
 void FishApp::ListenClient(std::string ip,int port)
@@ -59,19 +71,3 @@ void FishApp::OnHttpAccept(int fd, Network::Addr& addr)
 }
 
 
-int FishApp::Fina()
-{
-	ServerApp::Fina();
-	return 0;
-}
-
-int FishApp::Run()
-{
-	ServerApp::Run();
-	return 0;
-}
-
-void FishApp::HandleTimeout(Timer* timer, void* userdata)
-{
-	ServerApp::HandleTimeout(timer, userdata);
-}

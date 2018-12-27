@@ -52,7 +52,7 @@ int LuaFish::DoFile(std::string& file) {
 	return 0;
 }
 
-void LuaFish::LuaPath(const char* path) {
+void LuaFish::SetPath(const char* path) {
 	lua_State* L = script_.state();
 	std::string fullpath(path);
 
@@ -289,12 +289,9 @@ int LuaFish::AcceptorClose(lua_State* L) {
 
 int LuaFish::AcceptorRelease(lua_State* L) {
 	Network::Acceptor* acceptor = (Network::Acceptor*)lua_touserdata(L, 1);
-
 	int callback = (int)(intptr_t)acceptor->GetUserdata();
 	luaL_unref(L, LUA_REGISTRYINDEX, callback);
-
 	acceptor->~Acceptor();
-
 	return 0;
 }
 

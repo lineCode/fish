@@ -32,13 +32,14 @@ public:
 
 	virtual int Run();
 
-	virtual void HandleTimeout(Timer* timer, void* userdata);
+	virtual void OnUpate(Timer* timer, void* userdata);
+
+	virtual uint64 Now();
 
 	virtual LuaFish* Lua();
 
 	virtual Network::EventPoller* Poller();
 
-	virtual uint64 Now();
 protected:
 	AppState  state_;
 	Network::EventPoller * poller_;

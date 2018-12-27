@@ -22,7 +22,7 @@ extern "C" int luaopen_rapidjson(lua_State* L);
 extern "C" int luaopen_cjson(lua_State *l);
 
 int ServerApp::Init() {
-	timer_->SetCallback(std::bind(&ServerApp::HandleTimeout, this, std::placeholders::_1, std::placeholders::_2));
+	timer_->SetCallback(std::bind(&ServerApp::OnUpate, this, std::placeholders::_1, std::placeholders::_2));
 	timer_->Start(poller_, 0.01, 0.01);
 
 	lua_->Init(this);
@@ -31,7 +31,7 @@ int ServerApp::Init() {
 	lua_->Require("json", luaopen_rapidjson);
 	lua_->Require("cjson", luaopen_cjson);
 	
-	lua_->LuaPath("../../script/?.lua;");
+	lua_->SetPath("../../script/?.lua;");
 
 	lua_->DoFile("../../script/server.lua");
 	
@@ -66,12 +66,16 @@ int ServerApp::Run() {
 	return 0; 
 }
 
-void ServerApp::HandleTimeout(Timer* timer, void* userdata) {
+void ServerApp::OnUpate(Timer* timer, void* userdata) {
 	now_ = ::TimeStamp() / 1000;
 	OOLUA::Script& script = lua_->GetScript();
 	if (!script.call("serverUpdate",now_)) {
 		LOG_ERROR(fmt::format("serverUpdate error:{}",OOLUA::get_last_error(script)));
 	}
+}
+
+uint64 ServerApp::Now() {
+	return now_;
 }
 
 LuaFish* ServerApp::Lua() {
@@ -82,8 +86,6 @@ Network::EventPoller* ServerApp::Poller() {
 	return poller_;
 }
 
-uint64 ServerApp::Now() {
-	return now_;
-}
+
 
 

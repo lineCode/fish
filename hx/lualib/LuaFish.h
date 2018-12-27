@@ -26,7 +26,7 @@ public:
 
 	int DoFile(std::string& file);
 
-	void LuaPath(const char* path);
+	void SetPath(const char* path);
 
 	void Require(const char* module,int (*func)(lua_State*));
 

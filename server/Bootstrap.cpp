@@ -1,6 +1,5 @@
 ﻿#include "Bootstrap.h"
 #include "Logger.h"
-#include "ObjectPoolMgr.h"
 #include "FishApp.h"
 #include "ServerApp.h"
 
@@ -25,8 +24,6 @@ void Bootstrap::Startup(const char* file)
 	if (_config.HasMember("log"))
 		path = _config["log"].GetString();
 	Logger* logger = new Logger(path);
-	
-	ObjectPoolMgr* objPoolMgr = new ObjectPoolMgr();
 
 	FishApp* app = new FishApp(_config["boot"].GetString());
 
@@ -41,8 +38,6 @@ void Bootstrap::Startup(const char* file)
 	app->Fina();
 
 	delete app;
-
-	delete objPoolMgr;
 
 	delete logger;
 }
