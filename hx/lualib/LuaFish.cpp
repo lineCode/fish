@@ -1,6 +1,7 @@
 ﻿#include "LuaFish.h"
 #include "../ServerApp.h"
 #include "../Logger.h"
+#include "network/Acceptor.h"
 #include "../util/MemoryStream.h"
 
 #include "../time/Timestamp.h"
@@ -133,6 +134,19 @@ void LuaFish::OnTimeout(LuaTimer* timer, void* userdata) {
 	}
 }
 
+void LuaFish::OnAccept(int fd, Addr& addr, void* userdata) {
+	int callback = (int)(intptr_t)userdata;
+	close(fd);
+
+	lua_rawgeti(LuaState(), LUA_REGISTRYINDEX, callback);
+	lua_pushinteger(LuaState(), fd);
+	lua_pushstring(LuaState(), ToStr().c_str());
+
+	if (LUA_OK != lua_pcall(LuaState(), 2, 0, 0)) {
+		LOG_ERROR(fmt::format("OnAccept error:{}", lua_tostring(LuaState(), -1)));
+	}
+}
+
 int LuaFish::Register(lua_State* L)
 {
 	luaL_checkversion(L);
@@ -215,6 +229,58 @@ int LuaFish::CancelTimer(lua_State* L) {
 	if (app->Lua()->DeleteTimer(timerId) == 0) {
 		luaL_unref(L, LUA_REGISTRYINDEX, timerId);
 	}
+
+	return 0;
+}
+
+int LuaFish::AcceptorListen(lua_State* L) {
+	ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
+
+	const char* ip = luaL_checkstring(L, 1);
+	int port = luaL_checkinteger(L, 2);
+	luaL_checktype(L, 3, LUA_TFUNCTION);
+	int callback = luaL_ref(L, LUA_REGISTRYINDEX);
+
+	void* ud = lua_newuserdata(L, sizeof(Network::Acceptor));
+
+	if (luaL_newmetatable(L, "metaAcceptor")) {
+        const luaL_Reg meta[] = {
+            { "stop", LuaFish::AcceptorClose },
+			{ NULL, NULL },
+        };
+        luaL_newlib(L, meta);
+        lua_setfield(L, -2, "__index");
+
+        lua_pushcfunction(L, LuaFish::AcceptorRelease);
+        lua_setfield(L, -2, "__gc");
+    }
+    lua_setmetatable(L, -2);
+
+	Network::Acceptor* acceptor = new(ud) Network::Acceptor(app->Poller());
+
+	acceptor->SetCallback(std::bind(&LuaFish::OnAccept, app->Lua(), std::placeholders::_1, std::placeholders::_2))
+	acceptor->SetUserdata((void*)(long)callback);
+
+	Network::Addr addr = Network::Addr::MakeIP4Addr(ip, port);
+
+	acceptor->Listen(addr);
+
+	return 1;
+}
+
+int LuaFish::AcceptorClose(lua_State* L) {
+	Network::Acceptor* acceptor = (Network::Acceptor*)lua_touserdata(L, 1);
+	lua_pushboolean(L, acceptor->Close() == 0);
+	return 1;
+}
+
+int LuaFish::AcceptorRelease(lua_State* L) {
+	Network::Acceptor* acceptor = (Network::Acceptor*)lua_touserdata(L, 1);
+
+	int callback = (int)(intptr_t)acceptor->GetUserdata();
+	luaL_unref(L, LUA_REGISTRYINDEX, callback);
+
+	acceptor->~Acceptor();
 
 	return 0;
 }

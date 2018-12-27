@@ -13,7 +13,7 @@ namespace Network
 	class Acceptor
 	{
 	public:
-		typedef std::function<void(int, Addr&)> OnConnection;
+		typedef std::function<void(int, Addr&,void*)> OnConnection;
 
 	public:
 		Acceptor(EventPoller* poller);
@@ -23,10 +23,14 @@ namespace Network
 		void SetCallback(OnConnection callback);
 
 		void SetUserData(void* userdata);
+
+		void* GetUserdata();
 		
 		virtual int Listen(Addr& addr);
 
 		virtual int Listen(const char * host,int port);
+
+		virtual int Close();
 
 	private:
 		virtual void HandleConnection(ev::io &w, int revents);

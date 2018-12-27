@@ -46,6 +46,8 @@ public:
 
 	void OnTimeout(LuaTimer* timer, void* userdata);
 
+	void OnAccept(int fd, Addr& addr, void* userdata);
+
 	static int Register(lua_State* L);
 
 	static int Log(lua_State* L);
@@ -59,6 +61,12 @@ public:
 	static int StartTimer(lua_State* L);
 
 	static int CancelTimer(lua_State* L);
+
+	static int AcceptorListen(lua_State* L);
+
+	static int AcceptorClose(lua_State* L);
+
+	static int AcceptorRelease(lua_State* L);
 
 	static int Stop(lua_State* L);
 protected:

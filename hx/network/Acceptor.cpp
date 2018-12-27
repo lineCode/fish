@@ -11,6 +11,7 @@ namespace Network
 
 	Acceptor::~Acceptor()
 	{
+		Close();
 	}
 
 	void Acceptor::SetCallback(OnConnection callback)
@@ -21,6 +22,10 @@ namespace Network
 	void Acceptor::SetUserData(void* userdata)
 	{
 		userdata_ = userdata;
+	}
+
+	void* Acceptor::GetUserdata() {
+		return userdata_;
 	}
 
 	int Acceptor::Listen(Addr& addr)
@@ -52,6 +57,14 @@ namespace Network
 		return Listen(addr);
 	}
 
+	int Acceptor::Close() {
+		if (io_.is_active()) {
+			io_.stop();
+			return 0;
+		}
+		return -1;
+	}
+
 	void Acceptor::HandleConnection(ev::io &w, int revents)
 	{
 		Addr addr;
@@ -65,6 +78,6 @@ namespace Network
 			SocketClose(fd);
 			return;
 		}
-		callback_(fd, addr);
+		callback_(fd, addr, userdata_);
 	}
 }
