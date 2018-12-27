@@ -427,11 +427,12 @@ int LuaFish::ServerChannelClose(lua_State* L) {
 	bool rightnow = (bool)luaL_optinteger(L, 2, 0);
 	channel->Close(rightnow);
 
-	
+	return 0;	
 }
 
 int LuaFish::ServerChannelRelease(lua_State* L) {
 	LuaServerChannel* channel = (LuaServerChannel*)lua_touserdata(L, 1);
+	return 0;
 }
 
 int LuaFish::CreateHttpChannel(lua_State* L) {

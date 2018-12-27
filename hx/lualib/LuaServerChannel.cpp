@@ -9,15 +9,15 @@ LuaServerChannel::~LuaServerChannel() {
 }
 
 void LuaServerChannel::HandleRead() {
-	dataCallback_(reference_, dataRefrence_, NULL, 0);
+	dataCallback_(reference_, dataReference_, NULL, 0);
 }
 
 void LuaServerChannel::HandleClose() {
-	errorCallback_(reference_, errorRefrence_, "closed");
+	errorCallback_(reference_, errorReference_, "closed");
 }
 
 void LuaServerChannel::HandleError() {
-	errorCallback_(reference_, errorRefrence_, "error");
+	errorCallback_(reference_, errorReference_, "error");
 }
 
 void LuaServerChannel::SetDataCallback(OnData callback) {
@@ -25,23 +25,23 @@ void LuaServerChannel::SetDataCallback(OnData callback) {
 }
 
 void LuaServerChannel::SetErrorCallback(OnError callback) {
-	errorCallback_ = callback
+	errorCallback_ = callback;
 }
 
 void LuaServerChannel::SetDataReference(int reference) {
-	dataRefrence_ = reference;
+	dataReference_ = reference;
 }
 	
 int LuaServerChannel::GetDataReference() {
-	return dataRefrence_;
+	return dataReference_;
 }
 
 void LuaServerChannel::SetErrorReference(int reference) {
-	errorCallback_ = reference;
+	errorReference_ = reference;
 }
 
 int LuaServerChannel::GetErrorReference() {
-	return errorCallback_;
+	return errorReference_;
 }
 
 int LuaServerChannel::GetReference() {

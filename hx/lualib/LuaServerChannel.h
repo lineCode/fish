@@ -3,7 +3,7 @@
 
 #include "network/Channel.h"
 
-class LuaServerChannel : public Channel {
+class LuaServerChannel : public Network::Channel {
 public:
 	typedef std::function<void(int, int, char*, size_t)> OnData;
 	typedef std::function<void(int, int, const char*)> OnError;
@@ -35,10 +35,10 @@ public:
 
 private:
 	OnData dataCallback_;
-	int dataRefrence_;
+	int dataReference_;
 	
 	OnError errorCallback_;
-	int errorRefrence_;
+	int errorReference_;
 	
 	int reference_;
 };
