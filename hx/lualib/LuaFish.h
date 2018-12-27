@@ -1,15 +1,12 @@
 ﻿#ifndef LUAFISH_H
 #define LUAFISH_H
-#include "util/LuaAllocator.h"
-#include "LuaTimer.h"
-#include "network/Address.h"
+
+#include "lua.hpp"
 #include "oolua.h"
-extern "C"
-{
-#include "lua.h"
-#include "lualib.h"
-#include "lauxlib.h"
-};
+
+#include "util/ObjectPool.h"
+#include "network/Address.h"
+#include "time/Timer.h"
 
 class ServerApp;
 
@@ -39,9 +36,11 @@ public:
 
 	void Require(const char* module,int (*func)(lua_State*));
 
-	uint64_t GenTimerId();
+	uint64_t AllocTimer(Timer*& timer);
 
-	void OnTimeout(uint64_t timerId);
+	int DeleteTimer(uint64_t timerId);
+
+	void OnTimeout(Timer* timer, uint64_t timerId, void* userdata);
 
 	void OnAccept(int fd, Network::Addr& addr, void* userdata);
 
@@ -64,8 +63,6 @@ public:
 	static int TimerStart(lua_State* L);
 
 	static int TimerCancel(lua_State* L);
-
-	static int TimerRelease(lua_State* L);
 	
 	static int AcceptorListen(lua_State* L);
 
@@ -92,8 +89,9 @@ public:
 	static int Stop(lua_State* L);
 protected:
 	OOLUA::Script script_;
-
-	uint64_t timerCount_;
+	ObjectPool<Timer> timerPool_;
+	std::map<uint64_t, Timer*> timerMgr_;
+	uint64_t timerStep_;
 };
 
 #endif

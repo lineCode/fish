@@ -33,7 +33,7 @@ public:
 
 	virtual int Run();
 
-	virtual void HandleTimeout();
+	virtual void HandleTimeout(Timer* timer, void* userdata);
 
 private:
 	std::string file_;

@@ -14,12 +14,14 @@
 
 class MongoSession;
 
-class ServerApp : public Timer
+class ServerApp
 {
 public:
 	enum AppState{AppRun,AppStop};
+
 public:
 	ServerApp(void);
+
 	virtual ~ServerApp(void);
 
 	virtual int Init();
@@ -30,7 +32,7 @@ public:
 
 	virtual int Run();
 
-	virtual void HandleTimeout();
+	virtual void HandleTimeout(Timer* timer, void* userdata);
 
 	virtual LuaFish* Lua();
 
@@ -40,6 +42,7 @@ public:
 protected:
 	AppState  state_;
 	Network::EventPoller * poller_;
+	Timer* timer_;
 	LuaFish* lua_;
 	uint64 now_;
 };

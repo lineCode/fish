@@ -11,8 +11,8 @@ enum {
 	eEVENT_TIMEOUT,
 };
 
-LuaFish::LuaFish(void) :script_() {
-	timerCount_ = 0;
+LuaFish::LuaFish(void) :script_(),timerPool_("timer") {
+	timerStep_ = 0;
 }
 
 
@@ -102,13 +102,44 @@ void LuaFish::Require(const char* module, int (*func)(lua_State*)) {
 	luaL_requiref(LuaState(), module, func,0);
 }
 
-uint64_t LuaFish::GenTimerId() {
-	return ++timerCount_;
+uint64_t LuaFish::AllocTimer(Timer*& timer) {
+	uint64_t timerId = timerStep_++;
+	timerPool_.Pop(timer);
+	timerMgr_[timerId] = timer;
+	return timerId;
 }
 
-void LuaFish::OnTimeout(uint64_t timerId) {
-	if (!script_.call("serverEvent",eEVENT_TIMEOUT,timerId)) {
-		LOG_ERROR(fmt::format("serverEvent error:event:{},{}",eEVENT_TIMEOUT,OOLUA::get_last_error(script_)));
+int LuaFish::DeleteTimer(uint64_t timerId) {
+	std::map<uint64_t, Timer*>::iterator iter = timerMgr_.find(timerId);
+	if (iter == timerMgr_.end()) {
+		return -1;
+	}
+
+	Timer* timer = iter->second;
+	timer->Cancel();
+	timerPool_.Push(timer);
+	timerMgr_.erase(iter);
+	return 0;
+}
+
+void LuaFish::OnTimeout(Timer* timer, uint64_t timerId, void* userdata) {
+	int reference = (int)(intptr_t)userdata;
+
+	lua_State* L = script_.state();
+
+	lua_rawgeti(L, LUA_REGISTRYINDEX, reference);
+
+	if (LUA_OK != lua_pcall(L, 0, 0, 0)) {
+		LOG_ERROR(fmt::format("OnTimeout error:{}", lua_tostring(L, -1)));
+	}
+
+	if (!timer->IsActive()) {
+		std::map<uint64_t, Timer*>::iterator iter = timerMgr_.find(timerId);
+		Timer* timer = iter->second;
+		timer->Cancel();
+		timerPool_.Push(timer);
+		timerMgr_.erase(iter);
+		luaL_unref(L, LUA_REGISTRYINDEX, reference);
 	}
 }
 
@@ -218,44 +249,27 @@ int LuaFish::TimerStart(lua_State* L) {
 	double after = luaL_checknumber(L, 1);
 	double repeat = luaL_checknumber(L, 2);
 
+	luaL_checktype(L, 3, LUA_TFUNCTION);
+	int reference = luaL_ref(L, LUA_REGISTRYINDEX);
+
 	LuaFish* fish = app->Lua();
 
-	void* ud = lua_newuserdata(L, sizeof(LuaTimer));
+	Timer* timer = NULL;
+	uint64_t timerId = fish->AllocTimer(timer);
 
-	if (luaL_newmetatable(L, "metaTimer")) {
-        const luaL_Reg meta[] = {
-            { "Cancel", LuaFish::TimerCancel },
-			{ NULL, NULL },
-        };
-        luaL_newlib(L, meta);
-        lua_setfield(L, -2, "__index");
-
-        lua_pushcfunction(L, LuaFish::TimerRelease);
-        lua_setfield(L, -2, "__gc");
-    }
-    lua_setmetatable(L, -2);
-
-    int timerId = app->Lua()->GenTimerId();
-    LuaTimer* timer = new(ud) LuaTimer();
-
-	timer->SetCallback(std::bind(&LuaFish::OnTimeout, fish, std::placeholders::_1));
-	timer->SetTimerId(timerId);
-	timer->StartTimer(app->Poller(), after, repeat);
+	timer->SetCallback(std::bind(&LuaFish::OnTimeout, fish, std::placeholders::_1, timerId, std::placeholders::_2));
+	timer->SetUserdata((void*)(long)reference);
+	timer->Start(app->Poller(), after, repeat);
 
 	lua_pushinteger(L, timerId);
 	return 1;
 }
 
 int LuaFish::TimerCancel(lua_State* L) {
-	LuaTimer* timer = (LuaTimer*)lua_touserdata(L, 1);
-	timer->CancelTimer();
-	return 0;
-}
-
-int LuaFish::TimerRelease(lua_State* L) {
-	LuaTimer* timer = (LuaTimer*)lua_touserdata(L, 1);
-	timer->~LuaTimer();
-	return 0;
+	ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
+	uint64_t timerId = luaL_checkinteger(L, 1);
+	lua_pushboolean(L, app->Lua()->DeleteTimer(timerId) == 0);
+	return 1;
 }
 
 int LuaFish::AcceptorListen(lua_State* L) {
@@ -418,7 +432,7 @@ int LuaFish::ServerChannelClose(lua_State* L) {
 }
 
 int LuaFish::ServerChannelRelease(lua_State* L) {
-	LuaServerChannel* channel = (LuaServerChannel*)lua_touserdata(L, 1);
+	// LuaServerChannel* channel = (LuaServerChannel*)lua_touserdata(L, 1);
 	return 0;
 }
 

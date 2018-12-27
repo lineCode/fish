@@ -4,24 +4,25 @@
 
 #include "Logger.h"
 
-ServerApp::ServerApp()
-{
+ServerApp::ServerApp() {
+	state_ = AppRun;
 	poller_ = new Network::EventPoller();
+	timer_ = new Timer();
 	lua_ = new LuaFish();
 	now_ = ::Now();
-	state_ = AppRun;
 }
 
-ServerApp::~ServerApp()
-{
-	delete lua_;
+ServerApp::~ServerApp() {
 	delete poller_;
+	delete timer_;
+	delete lua_;
 }
+
 extern "C" int luaopen_rapidjson(lua_State* L);
 
-int ServerApp::Init()
-{
-	StartTimer(poller_, 0.01, 0.01);
+int ServerApp::Init() {
+	timer_->SetCallback(std::bind(&ServerApp::HandleTimeout, this, std::placeholders::_1, std::placeholders::_2));
+	timer_->Start(poller_, 0.01, 0.01);
 
 	lua_->Init(this);
 
@@ -41,56 +42,45 @@ int ServerApp::Init()
 	return 0;
 }
 
-int ServerApp::Fina()
-{
+int ServerApp::Fina() {
 	OOLUA::Script& script = lua_->GetScript();
 	if (!script.call("serverFina")) {
 		LOG_ERROR(fmt::format("serverFina error:{}",OOLUA::get_last_error(script)));
 		return -1;
 	}
-
-
 	return 0;
 }
 
-int ServerApp::Stop()
-{
+int ServerApp::Stop() {
 	poller_->Break();
 	state_ = AppStop;
 	return 0;
 }
 
-int ServerApp::Run()
-{
-	while (state_ == AppRun)
-	{
+int ServerApp::Run() {
+	while (state_ == AppRun) {
 		poller_->Process();
 	}
 	return 0; 
 }
 
-void ServerApp::HandleTimeout()
-{
+void ServerApp::HandleTimeout(Timer* timer, void* userdata) {
 	now_ = ::TimeStamp() / 1000;
 	OOLUA::Script& script = lua_->GetScript();
 	if (!script.call("serverUpdate",now_)) {
 		LOG_ERROR(fmt::format("serverUpdate error:{}",OOLUA::get_last_error(script)));
 	}
-
 }
 
-LuaFish* ServerApp::Lua()
-{
+LuaFish* ServerApp::Lua() {
 	return lua_;
 }
 
-Network::EventPoller* ServerApp::Poller()
-{
+Network::EventPoller* ServerApp::Poller() {
 	return poller_;
 }
 
-uint64 ServerApp::Now()
-{
+uint64 ServerApp::Now() {
 	return now_;
 }
 

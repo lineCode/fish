@@ -71,7 +71,7 @@ int FishApp::Run()
 	return 0;
 }
 
-void FishApp::HandleTimeout()
+void FishApp::HandleTimeout(Timer* timer, void* userdata)
 {
-	ServerApp::HandleTimeout();
+	ServerApp::HandleTimeout(timer, userdata);
 }
