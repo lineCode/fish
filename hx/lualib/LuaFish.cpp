@@ -360,6 +360,19 @@ int LuaFish::ConnectorRelease(lua_State* L) {
 	return 0;
 }
 
+int LuaFish::CreateBaseChannel(lua_State* L) {
+	return 0;
+}
+
+int LuaFish::CreateServerChannel(lua_State* L) {
+	return 0;
+}
+
+int LuaFish::CreateHttpChannel(lua_State* L) {
+	return 0;
+}
+
+
 int LuaFish::Stop(lua_State* L) {
 	ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
 	app->Stop();
