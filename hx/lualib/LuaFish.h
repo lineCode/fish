@@ -51,6 +51,10 @@ public:
 
 	void OnConnect(int fd, const char* reason, void* userdata);
 
+	void OnData(int object, int callback, char* data, size_t size);
+
+	void OnError(int object, int callback, const char* reason);
+
 	static int Register(lua_State* L);
 
 	static int Log(lua_State* L);
@@ -80,6 +84,10 @@ public:
 	static int CreateBaseChannel(lua_State* L);
 
 	static int CreateServerChannel(lua_State* L);
+
+	static int ServerChannelClose(lua_State* L);
+
+	static int ServerChannelRelease(lua_State* L);
 
 	static int CreateHttpChannel(lua_State* L);
 

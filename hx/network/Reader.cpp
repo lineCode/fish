@@ -4,9 +4,8 @@
 
 namespace Network
 {
-	Reader::Reader(Channel* channel,int size)
+	Reader::Reader(int size)
 	{
-		channel_ = channel;
 		size_ = size;
 		total_ = 0;
 		head_ = tail_ = freelist_ = NULL;

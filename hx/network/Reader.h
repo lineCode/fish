@@ -32,7 +32,7 @@ namespace Network
 		};
 
 	public:
-		Reader(Channel* channel, int size = 64);
+		Reader(int size = 64);
 		virtual ~Reader();
 
 		virtual int  Read(int fd);
@@ -45,7 +45,6 @@ namespace Network
 		void FreeHead();
 
 	protected:
-		Channel* channel_;
 		int	total_;
 
 	private:

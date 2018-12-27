@@ -8,8 +8,8 @@
 #include "EventPoller.h"
 #include "Reader.h"
 #include "Writer.h"
-#include "../ServerApp.h"
-#include "../util/MemoryStream.h"
+#include "ServerApp.h"
+#include "util/MemoryStream.h"
 
 class ServerApp;
 
@@ -37,6 +37,8 @@ namespace Network
 		virtual void HandleRead();
 
 		virtual void HandleWrite();
+
+		virtual void HandleClose();
 
 		virtual void HandleError();
 
