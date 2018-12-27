@@ -39,13 +39,9 @@ public:
 
 	void Require(const char* module,int (*func)(lua_State*));
 
-	LuaTimer* GetTimer(int timerId);
+	uint64_t GenTimerId();
 
-	void BindTimer(int timerId, LuaTimer* timer);
-
-	int DeleteTimer(int timerId);
-
-	void OnTimeout(LuaTimer* timer, void* userdata);
+	void OnTimeout(uint64_t timerId);
 
 	void OnAccept(int fd, Network::Addr& addr, void* userdata);
 
@@ -65,9 +61,9 @@ public:
 
 	static int TimestampToSecond(lua_State* L);
 
-	static int StartTimer(lua_State* L);
+	static int TimerStart(lua_State* L);
 
-	static int CancelTimer(lua_State* L);
+	static int TimerCancel(lua_State* L);
 
 	static int AcceptorListen(lua_State* L);
 
@@ -95,7 +91,7 @@ public:
 protected:
 	OOLUA::Script script_;
 
-	std::map<int, LuaTimer*> timerMgr_;
+	uint64_t timerCount_;
 };
 
 #endif

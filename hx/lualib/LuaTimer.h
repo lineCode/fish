@@ -8,20 +8,20 @@
 class LuaTimer : public Timer {
 	
 public:
-	typedef std::function<void(LuaTimer*, void*)> OnTimerout;
+	typedef std::function<void(uint64_t)> OnTimerout;
 
 public:
 	LuaTimer();
 	virtual ~LuaTimer();
 
 	void SetCallback(OnTimerout callback);
-	void SetUserdata(void* userdata);
+	void SetTimerId(uint64_t timerId);
 
 	virtual void HandleTimeout();
 
 private:
 	OnTimerout callback_;
-	void* userdata_;
+	uint64_t timerId_;
 };
 
 

@@ -13,13 +13,13 @@ void LuaTimer::SetCallback(OnTimerout callback) {
 	callback_ = callback;
 }
 	
-void LuaTimer::SetUserdata(void* userdata) {
-	userdata_ = userdata;
+uint64_t LuaTimer::SetTimerId(uint64_t timerId) {
+	timerId_ = timerId;
 }
 
 void LuaTimer::HandleTimeout() {
 	if (callback_) {
-		callback_(this, userdata_);
+		callback_(timerId);
 	} else {
 		CancelTimer();
 	}

@@ -7,8 +7,12 @@
 #include "time/Timestamp.h"
 #include "LuaServerChannel.h"
 
+enum LUA_EVENT{
+	eTIMEOUT,
+};
 
 LuaFish::LuaFish(void) :script_() {
+	timerCount_ = 0;
 }
 
 
@@ -98,40 +102,13 @@ void LuaFish::Require(const char* module, int (*func)(lua_State*)) {
 	luaL_requiref(LuaState(), module, func,0);
 }
 
-LuaTimer* LuaFish::GetTimer(int timerId) {
-	std::map<int, LuaTimer*>::iterator iter = timerMgr_.find(timerId);
-	if (iter == timerMgr_.end()) {
-		return NULL;
-	}
-	return iter->second;
+uint64_t LuaFish::GenTimerId() {
+	return ++timerCount_;
 }
 
-void LuaFish::BindTimer(int timerId, LuaTimer* timer) {
-	timerMgr_[timerId] = timer;
-}
-
-int LuaFish::DeleteTimer(int timerId) {
-	std::map<int, LuaTimer*>::iterator iter = timerMgr_.find(timerId);
-	if (iter == timerMgr_.end()) {
-		return -1;
-	}
-	LuaTimer* timer = iter->second;
-	timerMgr_.erase(iter);
-	delete timer;
-	return 0;
-}
-
-void LuaFish::OnTimeout(LuaTimer* timer, void* userdata) {
-	int timerId = (int)(intptr_t)userdata;
-
-	lua_rawgeti(LuaState(), LUA_REGISTRYINDEX, timerId);
-
-	if (LUA_OK != lua_pcall(LuaState(), 0, 0, 0)) {
-		LOG_ERROR(fmt::format("OnTimeout error:{}", lua_tostring(LuaState(), -1)));
-	}
-	if (!timer->IsActive()) {
-		assert(DeleteTimer(timerId) == 0);
-		luaL_unref(LuaState(), LUA_REGISTRYINDEX, timerId);
+void LuaFish::OnTimeout(uint64_t timerId) {
+	if (!script_.call("serverEvent",LUA_EVENT.eTIMEOUT,timerId)) {
+		LOG_ERROR(fmt::format("serverEvent error:event:{},{}",LUA_EVENT.eTIMEOUT,OOLUA::get_last_error(script_)));
 	}
 }
 
@@ -192,8 +169,7 @@ int LuaFish::Register(lua_State* L)
 		{ "TimestampToSecond", LuaFish::TimestampToSecond},
 		{ "Pack", luaseri_pack},
 		{ "UnPack", luaseri_unpack},
-		{ "StartTimer", LuaFish::StartTimer},
-		{ "CancelTimer", LuaFish::CancelTimer},
+		{ "Timer", LuaFish::TimerStart},
 		{ "Listen", LuaFish::AcceptorListen},
 		{ "Connect", LuaFish::ConnectorConnect},
 		{ "Stop", LuaFish::Stop },
@@ -236,38 +212,49 @@ int LuaFish::TimestampToSecond(lua_State* L) {
 	return 1;
 }
 
-int LuaFish::StartTimer(lua_State* L) {
+int LuaFish::TimerStart(lua_State* L) {
 	ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
-	luaL_checktype(L, 1, LUA_TFUNCTION);
 
-	lua_pushvalue(L, 1);
-	int timerId = luaL_ref(L, LUA_REGISTRYINDEX);
-
-	double after = luaL_checknumber(L, 2);
-	double repeat = luaL_checknumber(L, 3);
+	double after = luaL_checknumber(L, 1);
+	double repeat = luaL_checknumber(L, 2);
 
 	LuaFish* fish = app->Lua();
 
-	LuaTimer* timer = new LuaTimer();
-	timer->SetCallback(std::bind(&LuaFish::OnTimeout, fish, std::placeholders::_1,std::placeholders::_2));
-	timer->SetUserdata((void*)(long)timerId);
-	timer->StartTimer(app->Poller(), after, repeat);
+	void* ud = lua_newuserdata(L, sizeof(LuaTimer));
 
-	fish->BindTimer(timerId, timer);
+	if (luaL_newmetatable(L, "metaTimer")) {
+        const luaL_Reg meta[] = {
+            { "Cancel", LuaFish::TimerCancel },
+			{ NULL, NULL },
+        };
+        luaL_newlib(L, meta);
+        lua_setfield(L, -2, "__index");
+
+        lua_pushcfunction(L, LuaFish::TimerRelease);
+        lua_setfield(L, -2, "__gc");
+    }
+    lua_setmetatable(L, -2);
+
+    int timerId = app->Lua()->GenTimerId();
+    LuaTimer* timer = new(ud) LuaTimer();
+
+	timer->SetCallback(std::bind(&LuaFish::OnTimeout, fish, std::placeholders::_1));
+	timer->SetTimerId(timerId);
+	timer->StartTimer(app->Poller(), after, repeat);
 
 	lua_pushinteger(L, timerId);
 	return 1;
 }
 
-int LuaFish::CancelTimer(lua_State* L) {
-	ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
+int LuaFish::TimerCancel(lua_State* L) {
+	LuaTimer* timer = (LuaTimer*)lua_touserdata(L, 1);
+	timer->CancelTimer();
+	return 0;
+}
 
-	int timerId = luaL_checkinteger(L, 1);
-
-	if (app->Lua()->DeleteTimer(timerId) == 0) {
-		luaL_unref(L, LUA_REGISTRYINDEX, timerId);
-	}
-
+int LuaFish::TimerRelease(lua_State* L) {
+	LuaTimer* timer = (LuaTimer*)lua_touserdata(L, 1);
+	timer->~LuaTimer();
 	return 0;
 }
 
