@@ -16,8 +16,6 @@ public:
 	LuaFish(void);
 	~LuaFish(void);
 
-	lua_State* LuaState();
-
 	OOLUA::Script& GetScript();
 
 	int Init(ServerApp* app);

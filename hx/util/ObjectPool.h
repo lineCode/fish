@@ -18,66 +18,50 @@ public:
 	typedef List<T> OBJECTS;
 
 public:
-	ObjectPool(std::string name):
-		_objects(),
-			_objectName(name),
-			_objectCount(0),
-			_objectAllocCount(0)
-		{
-			Thread::MutexGuard guard(_mutex);
+	ObjectPool(std::string name): objects_(), name_(name), count_(0), cap_(0) {
+		AssignObjs();
+	}
+
+	~ObjectPool(void) {
+		while(objects_.Empty() == false) {
+			T* obj;
+			objects_.PopHead(obj);
+			delete obj;
+        }
+	}
+
+	void Pop(T*& obj) {
+		for (;;) {
+			if (objects_._size > 0) {
+				objects_.PopHead(obj);
+				--count_;
+				return;
+			}
 			AssignObjs();
 		}
+	}
 
-		~ObjectPool(void)
-		{
-			while(_objects.Empty() == false)
-			{
-				T* obj;
-				_objects.PopHead(obj);
-				delete obj;
-            }
-		}
+	void Push(T* obj) {
+		objects_.PushTail(obj);
+		count_++;
+	}
 
-		void Pop(T*& obj)
-		{
-			Thread::MutexGuard guard(_mutex);
-			for (;;)
-			{
-				if (_objects._size > 0)
-				{
-					_objects.PopHead(obj);
-					--_objectCount;
-					return;
-				}
-				AssignObjs();
+	void AssignObjs(int size = OBJ_POOL_INIT_SIZE) {
+		for(int i=0; i<size; ++i) {
+			objects_.PushTail(new T);
+			++count_;
+			++cap_;
+			if (cap_ >= OBJ_POOL_WARNING_SIZE) {
+				LOG_ERROR(fmt::format("pool object:{} allocate too much:{}",name_,cap_));
 			}
 		}
-
-		void Push(T* obj)
-		{
-			Thread::MutexGuard guard(_mutex);
-			_objects.PushTail(obj);
-			_objectCount++;
-		}
-
-		void AssignObjs(int size = OBJ_POOL_INIT_SIZE)
-		{
-			for(int i=0; i<size; ++i)
-			{
-				_objects.PushTail(new T);
-				++_objectCount;
-				++_objectAllocCount;
-				if (_objectAllocCount >= OBJ_POOL_WARNING_SIZE)
-					LOG_ERROR(fmt::format("pool object:{} allocate too much:{}",_objectName,_objectAllocCount));
-			}
-		}
+	}
 
 private:
-	OBJECTS _objects;
-	std::string _objectName;
-	int _objectCount;
-	int _objectAllocCount;
-	Thread::Mutex _mutex;
+	OBJECTS objects_;
+	std::string name_;
+	int count_;
+	int cap_;
 };
 
 

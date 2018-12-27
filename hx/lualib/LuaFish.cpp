@@ -8,19 +8,16 @@
 #include "LuaServerChannel.h"
 
 enum {
-	eEVENT_TIMEOUT,
+	eCHANNEL_DATA = 1,
+	eCHANNEL_CLOSE,
+	eCHANNEL_ERROR
 };
 
 LuaFish::LuaFish(void) :script_(),timerPool_("timer") {
 	timerStep_ = 0;
 }
 
-
 LuaFish::~LuaFish(void) {
-}
-
-lua_State* LuaFish::LuaState() {
-	return script_.state();
 }
 
 OOLUA::Script& LuaFish::GetScript() {
@@ -28,8 +25,9 @@ OOLUA::Script& LuaFish::GetScript() {
 }
 
 int LuaFish::Init(ServerApp* app) {
-	lua_pushlightuserdata(LuaState(), app);
-	lua_setfield(LuaState(), LUA_REGISTRYINDEX, "app");
+	lua_State* L = script_.state();
+	lua_pushlightuserdata(L, app);
+	lua_setfield(L, LUA_REGISTRYINDEX, "app");
 	return 0;
 }
 
@@ -84,22 +82,23 @@ int LuaFish::CallFunc(std::string& module, std::string& method) {
 }
 
 void LuaFish::LuaPath(const char* path) {
+	lua_State* L = script_.state();
 	std::string fullpath(path);
 
-	lua_getglobal(script_.state(), "package");
-	lua_getfield(script_.state(), -1, "path");
+	lua_getglobal(L, "package");
+	lua_getfield(L, -1, "path");
 
-	const char* opath = lua_tostring(script_.state(), -1);
+	const char* opath = lua_tostring(L, -1);
 	fullpath.append(opath);
 
-	lua_pop(script_.state(), 1);
+	lua_pop(L, 1);
 	
-	lua_pushstring(script_.state(), fullpath.c_str());
-	lua_setfield(script_.state(), -2, "path");
+	lua_pushstring(L, fullpath.c_str());
+	lua_setfield(L, -2, "path");
 }
 
 void LuaFish::Require(const char* module, int (*func)(lua_State*)) {
-	luaL_requiref(LuaState(), module, func,0);
+	luaL_requiref(script_.state(), module, func,0);
 }
 
 uint64_t LuaFish::AllocTimer(Timer*& timer) {
@@ -144,36 +143,40 @@ void LuaFish::OnTimeout(Timer* timer, uint64_t timerId, void* userdata) {
 }
 
 void LuaFish::OnAccept(int fd, Network::Addr& addr, void* userdata) {
+	lua_State* L = script_.state();
+
 	int callback = (int)(intptr_t)userdata;
 	close(fd);
 
-	lua_rawgeti(LuaState(), LUA_REGISTRYINDEX, callback);
-	lua_pushinteger(LuaState(), fd);
-	lua_pushstring(LuaState(), addr.ToStr().c_str());
+	lua_rawgeti(L, LUA_REGISTRYINDEX, callback);
+	lua_pushinteger(L, fd);
+	lua_pushstring(L, addr.ToStr().c_str());
 
-	if (LUA_OK != lua_pcall(LuaState(), 2, 0, 0)) {
-		LOG_ERROR(fmt::format("OnAccept error:{}", lua_tostring(LuaState(), -1)));
+	if (LUA_OK != lua_pcall(L, 2, 0, 0)) {
+		LOG_ERROR(fmt::format("OnAccept error:{}", lua_tostring(L, -1)));
 	}
 }
 
 void LuaFish::OnConnect(int fd, const char* reason, void* userdata) {
+	lua_State* L = script_.state();
+
 	int callback = (int)(intptr_t)userdata;
 	close(fd);
 
-	lua_rawgeti(LuaState(), LUA_REGISTRYINDEX, callback);
+	lua_rawgeti(L, LUA_REGISTRYINDEX, callback);
 
 	int numArgs;
 	if (fd < 0) {
-		lua_pushboolean(LuaState(), 0);
-		lua_pushstring(LuaState(), reason);
+		lua_pushboolean(L, 0);
+		lua_pushstring(L, reason);
 		numArgs = 2;
 	} else {
-		lua_pushinteger(LuaState(), fd);
+		lua_pushinteger(L, fd);
 		numArgs = 1;
 	}
 
-	if (LUA_OK != lua_pcall(LuaState(), numArgs, 0, 0)) {
-		LOG_ERROR(fmt::format("OnConnect error:{}", lua_tostring(LuaState(), -1)));
+	if (LUA_OK != lua_pcall(L, numArgs, 0, 0)) {
+		LOG_ERROR(fmt::format("OnConnect error:{}", lua_tostring(L, -1)));
 	}
 }
 
