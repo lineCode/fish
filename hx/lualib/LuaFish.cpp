@@ -177,6 +177,8 @@ int LuaFish::Register(lua_State* L)
 		{ "Now", LuaFish::Now },
 		{ "Timestamp", LuaFish::Timestamp},
 		{ "TimestampToSecond", LuaFish::TimestampToSecond},
+		{ "Pack", luaseri_pack},
+		{ "UnPack", luaseri_unpack},
 		{ "StartTimer", LuaFish::StartTimer},
 		{ "CancelTimer", LuaFish::CancelTimer},
 		{ "Listen", LuaFish::AcceptorListen},
