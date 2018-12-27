@@ -29,6 +29,7 @@ $(TARGET):$(OBJ)
 
 clean:
 	rm -f lualib/*.o
+	rm -f lualib/json/*.o
 	rm -f network/*.o
 	rm -f time/*.o
 	rm -f util/*.o

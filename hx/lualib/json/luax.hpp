@@ -3,7 +3,7 @@
 
 #include <cmath>
 #include <lua.hpp>
-
+#include <limits>
 namespace luax {
 	inline void setfuncs(lua_State* L, const luaL_Reg* funcs) {
 #if LUA_VERSION_NUM >= 502 // LUA 5.2 or above

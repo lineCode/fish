@@ -13,18 +13,18 @@
 #  define RAPIDJSON_SSE2
 #endif
 
-#include "rapidjson/document.h"
-#include "rapidjson/encodedstream.h"
-#include "rapidjson/error/en.h"
-#include "rapidjson/error/error.h"
-#include "rapidjson/filereadstream.h"
-#include "rapidjson/filewritestream.h"
-#include "rapidjson/prettywriter.h"
-#include "rapidjson/rapidjson.h"
-#include "rapidjson/reader.h"
-#include "rapidjson/schema.h"
-#include "rapidjson/stringbuffer.h"
-#include "rapidjson/writer.h"
+#include "document.h"
+#include "encodedstream.h"
+#include "error/en.h"
+#include "error/error.h"
+#include "filereadstream.h"
+#include "filewritestream.h"
+#include "prettywriter.h"
+#include "rapidjson.h"
+#include "reader.h"
+#include "schema.h"
+#include "stringbuffer.h"
+#include "writer.h"
 
 
 #include "Userdata.hpp"
