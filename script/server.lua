@@ -3,9 +3,19 @@ local json = require "json"
 local util = require "util"
 function serverInit()
 	print("server init")
-	fish.StartTimer(function ()
+	local timerId = fish.Timer(1,1,function ()
 		print("timeout")
-	end,1,1)
+	end)
+
+	print("timerId",timerId)
+
+	local timerId = fish.Timer(1,0,function ()
+		print("timeout1")
+	end)
+
+	print("timerId",timerId)
+
+
 
 	fish.Listen("0.0.0.0",1995,function (fd, addr) 
 		print(fd,addr)
