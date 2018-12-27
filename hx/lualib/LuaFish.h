@@ -15,14 +15,6 @@ class ServerApp;
 class LuaFish
 {
 public:
-	enum SocketEvent
-	{
-		Data = 1,
-		Accept,
-		Connect,
-		Close
-	};
-public:
 	LuaFish(void);
 	~LuaFish(void);
 
@@ -50,7 +42,7 @@ public:
 
 	void BindTimer(int timerId, LuaTimer* timer);
 
-	void DeleteTimer(int timerId);
+	int DeleteTimer(int timerId);
 
 	void OnTimeout(LuaTimer* timer, void* userdata);
 

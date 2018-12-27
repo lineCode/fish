@@ -108,8 +108,15 @@ void LuaFish::BindTimer(int timerId, LuaTimer* timer) {
 	timerMgr_[timerId] = timer;
 }
 
-void LuaFish::DeleteTimer(int timerId) {
-	timerMgr_.erase(timerId);
+int LuaFish::DeleteTimer(int timerId) {
+	std::map<int, LuaTimer*>::iterator iter = timerMgr_.find(timerId);
+	if (iter == timerMgr_.end()) {
+		return -1;
+	}
+	LuaTimer* timer = iter->second;
+	timerMgr_.erase(iter);
+	delete timer;
+	return 0;
 }
 
 void LuaFish::OnTimeout(LuaTimer* timer, void* userdata) {
@@ -121,10 +128,7 @@ void LuaFish::OnTimeout(LuaTimer* timer, void* userdata) {
 		LOG_ERROR(fmt::format("OnTimeout error:{}", lua_tostring(LuaState(), -1)));
 	}
 	if (!timer->IsActive()) {
-		std::map<int, LuaTimer*>::iterator iter = timerMgr_.find(timerId);
-		LuaTimer* timer = iter->second;
-		timerMgr_.erase(iter);
-		delete timer;
+		assert(DeleteTimer() == 0);
 		luaL_unref(LuaState(), LUA_REGISTRYINDEX, timerId);
 	}
 }
@@ -208,11 +212,7 @@ int LuaFish::CancelTimer(lua_State* L) {
 
 	int timerId = luaL_checkinteger(L, 1);
 
-	LuaTimer* timer = app->Lua()->GetTimer(timerId);
-	if (timer) {
-		app->Lua()->DeleteTimer(timerId);
-		timer->CancelTimer();
-		delete timer;
+	if (app->Lua()->DeleteTimer(timerId) == 0) {
 		luaL_unref(L, LUA_REGISTRYINDEX, timerId);
 	}
 
