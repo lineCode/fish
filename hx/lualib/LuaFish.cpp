@@ -52,35 +52,6 @@ int LuaFish::DoFile(std::string& file) {
 	return 0;
 }
 
-int LuaFish::CallFunc(const char* module, const char* method) {
-	lua_State* L = script_.state();
-
-	lua_getglobal(L, module);
-	if ( lua_isnil(L, -1) ) {
-		lua_pop(L, 1);
-		LOG_ERROR(fmt::format("call func error:no such module:{}", module));
-		return -1;
-	}
-
-	lua_getfield(L, -1, method);
-	if ( lua_isnil(L, -1) ) {
-		lua_pop(L, 1);
-		LOG_ERROR(fmt::format("call func error:no such method:{} in module:{}", method, module));
-		return -1;
-	}
-
-	if (LUA_OK != lua_pcall(L, 0, 0, 0)) {
-		LOG_ERROR(fmt::format("call func:{}:{} error:{}", module, method, OOLUA::get_last_error(script_)));
-		return -1;
-	}
-
-	return 0;
-
-}
-int LuaFish::CallFunc(std::string& module, std::string& method) {
-	return CallFunc(module.c_str(), method.c_str());
-}
-
 void LuaFish::LuaPath(const char* path) {
 	lua_State* L = script_.state();
 	std::string fullpath(path);

@@ -26,10 +26,6 @@ public:
 
 	int DoFile(std::string& file);
 
-	int CallFunc(const char* module, const char* method);
-
-	int CallFunc(std::string& module, std::string& method);
-
 	void LuaPath(const char* path);
 
 	void Require(const char* module,int (*func)(lua_State*));
