@@ -4,7 +4,6 @@
 
 #define LUA_LIB
 
-#include "skynet_malloc.h"
 
 #include <lua.h>
 #include <lauxlib.h>
@@ -57,7 +56,7 @@ struct read_block {
 
 inline static struct block *
 blk_alloc(void) {
-	struct block *b = skynet_malloc(sizeof(struct block));
+	struct block *b = malloc(sizeof(struct block));
 	b->next = NULL;
 	return b;
 }
@@ -99,7 +98,7 @@ wb_free(struct write_block *wb) {
 	blk = blk->next;	// the first block is on stack
 	while (blk) {
 		struct block * next = blk->next;
-		skynet_free(blk);
+		free(blk);
 		blk = next;
 	}
 	wb->head = NULL;
@@ -213,6 +212,15 @@ wb_string(struct write_block *wb, const char *str, int len) {
 }
 
 static void pack_one(lua_State *L, struct write_block *b, int index, int depth);
+
+static int lua_isinteger(lua_State* L, int index) {
+	int32_t x = (int32_t)lua_tointeger(L, index);
+	lua_Number n = lua_tonumber(L, index);
+	if ((lua_Number)x == n) {
+		return 1;
+	}
+	return 0;
+}
 
 static int
 wb_table_array(lua_State *L, struct write_block * wb, int index, int depth) {
@@ -533,7 +541,7 @@ unpack_one(lua_State *L, struct read_block *rb) {
 
 static void
 seri(lua_State *L, struct block *b, int len) {
-	uint8_t * buffer = skynet_malloc(len);
+	uint8_t * buffer = malloc(len);
 	uint8_t * ptr = buffer;
 	int sz = len;
 	while(len>0) {

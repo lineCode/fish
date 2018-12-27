@@ -168,6 +168,9 @@ void LuaFish::OnConnect(int fd, const char* reason, void* userdata) {
 	}
 }
 
+extern "C" int luaseri_pack(lua_State*);
+extern "C" int luaseri_unpack(lua_State*);
+
 int LuaFish::Register(lua_State* L)
 {
 	luaL_checkversion(L);
