@@ -17,6 +17,7 @@ ServerApp::~ServerApp()
 	delete lua_;
 	delete poller_;
 }
+extern "C" int luaopen_rapidjson(lua_State* L);
 
 int ServerApp::Init()
 {
@@ -25,6 +26,7 @@ int ServerApp::Init()
 	lua_->Init(this);
 
 	lua_->Require("fish", LuaFish::Register);
+	lua_->Require("json", luaopen_rapidjson);
 	
 	lua_->LuaPath("../../script/?.lua;");
 
