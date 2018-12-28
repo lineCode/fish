@@ -1,12 +1,12 @@
 #ifndef LOGGER_H
 #define LOGGER_H
 
+#include <mutex>
 #include <string>
 #include "util/Singleton.h"
-#include "thread/Mutex.h"
 
-class Logger : public Singleton<Logger>
-{
+
+class Logger : public Singleton<Logger> {
 public:
 	enum Loglevel
 	{
@@ -22,21 +22,19 @@ public:
 	Logger(const char* file);
 	~Logger(void);
 
-	// void Log(const char* file,int line,Loglevel level,std::string& content);
-
 	void Log(const char* file,int line,Loglevel level,const char* content);
 
 	void LuaLog(const char* content);
 
-	static void		SetLogLevel(Loglevel level);
+	static void SetLogLevel(Loglevel level);
 	
 	static Loglevel LogLevel();
 private:
-	Thread::Mutex _metux;
+	std::mutex mutex_;
 
-	static Loglevel _level;
+	static Loglevel level_;
 	
-	FILE* _handle;
+	FILE* FILE_;
 };
 
 #define LOG_TRACE(x) if (Logger::LogLevel() >= Logger::Trace) \

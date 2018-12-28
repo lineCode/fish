@@ -5,48 +5,41 @@
 template <> 
 Logger * Singleton<Logger>::singleton_ = 0;
 
-Logger::Loglevel Logger::_level = Fatal;
+Logger::Loglevel Logger::level_ = Fatal;
 
-Logger::Logger(const char* file)
-{
-	if (file != NULL)
-	{
-		_handle = fopen(file,"w");
-		assert(_handle != NULL);
+Logger::Logger(const char* file) {
+	if (file != NULL) {
+		FILE_ = fopen(file,"w");
+		assert(FILE_ != NULL);
+	} else {
+		FILE_ = stdout;
 	}
-	else
-		_handle = stdout;
 }
 
-Logger::~Logger(void)
-{
-	fflush(_handle);
-	fclose(_handle);
+Logger::~Logger(void) {
+	fflush(FILE_);
+	fclose(FILE_);
 }
 
-void Logger::Log(const char* file,int line,Loglevel level,const char* content)
-{
-	Thread::MutexGuard guard(_metux);
+void Logger::Log(const char* file,int line,Loglevel level,const char* content) {
+	std::lock_guard<std::mutex> guard(mutex_);
 
 	std::string log = fmt::format("@{}:{}: {}",file,line,content);
-	fwrite(log.c_str(), log.length() , 1, _handle);
-	fprintf(_handle,"\n");
+	fwrite(log.c_str(), log.length() , 1, FILE_);
+	fprintf(FILE_,"\n");
 }
 
-void Logger::LuaLog(const char* content)
-{
-	Thread::MutexGuard guard(_metux);
+void Logger::LuaLog(const char* content) {
+	std::lock_guard<std::mutex> guard(mutex_);
 	std::string log = fmt::format("@lua: {}",content);
-	fwrite(log.c_str(), log.length() , 1, _handle);
-	fprintf(_handle,"\n");
+	fwrite(log.c_str(), log.length() , 1, FILE_);
+	fprintf(FILE_,"\n");
 }
 
-void Logger::SetLogLevel(Loglevel level)
-{
-	Logger::_level = level;
+void Logger::SetLogLevel(Loglevel level) {
+	Logger::level_ = level;
 }
 
-Logger::Loglevel Logger::LogLevel()
-{
-	return Logger::_level;
+Logger::Loglevel Logger::LogLevel() {
+	return Logger::level_;
 }
