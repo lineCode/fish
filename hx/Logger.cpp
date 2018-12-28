@@ -5,7 +5,7 @@
 template <> 
 Logger * Singleton<Logger>::singleton_ = 0;
 
-Logger::Loglevel Logger::level_ = Fatal;
+Logger::Loglevel Logger::level_ = Trace;
 
 Logger::Logger(const char* file) {
 	if (file != NULL) {
