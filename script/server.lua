@@ -2,7 +2,8 @@ local fish = require "fish"
 local json = require "json"
 local cjson = require "cjson"
 local util = require "util"
-function serverInit()
+
+function ServerInit()
 	print("server init")
 	local timerId = fish.Timer(0.01,0.01,function ()
 		--print("timeout",fish.Now())
@@ -73,10 +74,10 @@ function serverInit()
 	-- end)
 end
 
-function serverFina()
+function ServerFina()
 	print("server fina")
 end
 
-function serverUpdate(now)
+function ServerUpdate(now)
 	--print(now)
 end

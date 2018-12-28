@@ -36,7 +36,7 @@ int ServerApp::Init() {
 	lua_->DoFile("../../script/server.lua");
 	
 	OOLUA::Script& script = lua_->GetScript();
-	if (!script.call("serverInit")) {
+	if (!script.call("ServerInit")) {
 		LOG_ERROR(fmt::format("serverInit error:{}",OOLUA::get_last_error(script)));
 		return -1;
 	}
@@ -46,7 +46,7 @@ int ServerApp::Init() {
 
 int ServerApp::Fina() {
 	OOLUA::Script& script = lua_->GetScript();
-	if (!script.call("serverFina")) {
+	if (!script.call("ServerFina")) {
 		LOG_ERROR(fmt::format("serverFina error:{}",OOLUA::get_last_error(script)));
 		return -1;
 	}
@@ -68,7 +68,7 @@ int ServerApp::Run() {
 
 void ServerApp::OnUpate(Timer* timer, void* userdata) {
 	queue_->Prepare();
-	
+
 	Task* task = NULL;
 	while ((task = queue_->Pop()) != NULL)  {
 		task->Do();
@@ -77,7 +77,7 @@ void ServerApp::OnUpate(Timer* timer, void* userdata) {
 	now_ = ::TimeStamp() / 1000;
 	
 	OOLUA::Script& script = lua_->GetScript();
-	if (!script.call("serverUpdate",now_)) {
+	if (!script.call("ServerUpdate",now_)) {
 		LOG_ERROR(fmt::format("serverUpdate error:{}",OOLUA::get_last_error(script)));
 	}
 }
