@@ -1,5 +1,6 @@
 #include "HttpChannel.h"
 #include "util/format.h"
+#include "Logger.h"
 #include <iostream>
 
 namespace Network {
@@ -40,25 +41,21 @@ void HttpChannel::HandleRead() {
 
 	reader_->ReadData(data, total);
 
-	http_parser_execute(&parser_,&ParserSetting,data,total);
+	http_parser_execute(&parser_, &ParserSetting, data, total);
 
 	free(data);
 
 	if (HTTP_PARSER_ERRNO(&parser_) != HPE_OK) {
-		std::cout << http_errno_name(HTTP_PARSER_ERRNO(&parser_)) << std::endl;
+		LOG_ERROR(fmt::format("http parse error:{}", http_errno_name(HTTP_PARSER_ERRNO(&parser_))));
 		Close(true);
 		return;
 	}
 
 	if (completed_) {
-		std::cout << fmt::format("method:{}", GetMethod()) << std::endl;
-		std::cout << fmt::format("url:{}", url_) << std::endl;
-		std::cout << fmt::format("status:{}", status_) << std::endl;
-		std::cout << fmt::format("content:{}", content_) << std::endl;
-
-		std::map<std::string,std::string>::iterator iter;
-		for (iter = headers_.begin();iter != headers_.end();iter++) {
-			std::cout << fmt::format("{}:{}", iter->first, iter->second) << std::endl;
+		if (callback_) {
+			callback_(this, userdata_);
+		} else {
+			Close(true);
 		}
 	}
 }
@@ -69,6 +66,11 @@ void HttpChannel::HandleError() {
 
 void HttpChannel::SetComplete() {
 	completed_ = true;
+}
+
+void HttpChannel::SetCallback(OnComplete callback, void* userdata) {
+	callback_ = callback;
+	userdata_ = userdata;
 }
 
 std::string HttpChannel::GetMethod() {

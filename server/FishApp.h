@@ -8,6 +8,7 @@
 
 #include "network/Acceptor.h"
 #include "network/Address.h"
+#include "network/HttpChannel.h"
 
 
 class FishApp:public ServerApp
@@ -32,6 +33,8 @@ public:
 	virtual void OnClientAccept(int fd, Network::Addr& addr);
 
 	virtual void OnHttpAccept(int fd, Network::Addr& addr);
+
+	virtual void OnHttpComplete(Network::HttpChannel* channel, void* userdata);
 
 private:
 	std::string file_;

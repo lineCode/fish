@@ -64,10 +64,13 @@ void FishApp::OnClientAccept(int fd, Network::Addr& addr)
 
 void FishApp::OnHttpAccept(int fd, Network::Addr& addr)
 {
-	std::cout << addr.ToStr() << std::endl;
-
 	Network::HttpChannel* channel = new Network::HttpChannel(poller_,fd);
+	channel->SetCallback(std::bind(&FishApp::OnHttpComplete, this, std::placeholders::_1, std::placeholders::_2), NULL);
 	channel->EnableRead();
 }
 
-
+void FishApp::OnHttpComplete(Network::HttpChannel* channel, void* userdata) {
+	std::cout << "method:" << channel->GetMethod() << std::endl;
+	std::cout << "url:" << channel->GetUrl() << std::endl;
+	std::cout << "content:" << channel->GetContent() << std::endl;
+}

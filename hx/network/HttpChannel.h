@@ -1,9 +1,14 @@
+#ifndef HTTP_CHANNEL_H
+#define HTTP_CHANNEL_H
 #include "Channel.h"
 #include "http_parser.h"
+#include <functional>
 
 namespace Network {
 
 class HttpChannel : public Channel {
+public:
+	typedef std::function<void(Network::HttpChannel*, void*)> OnComplete;
 
 public:
 	HttpChannel(Network::EventPoller* poller,int fd);
@@ -13,6 +18,8 @@ public:
 	virtual void HandleRead();
 
 	virtual void HandleError();
+
+	virtual void SetCallback(OnComplete callback_, void* userdata);
 
 	virtual void SetComplete();
 
@@ -62,7 +69,11 @@ private:
 	std::string content_;
 	std::string status_;
 	bool completed_;
+	OnComplete callback_;
+	void* userdata_;
 
 	std::map<std::string,std::string> replyHeaders_;
 };
 };
+
+#endif
