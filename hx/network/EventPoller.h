@@ -8,10 +8,8 @@
 #include "ev++.h"
 
 
-namespace Network 
-{
-	class EventPoller
-	{
+namespace Network {
+	class EventPoller {
 	public:
 		EventPoller();
 		virtual ~EventPoller(void);

@@ -5,15 +5,12 @@
 
 class MemoryStream;
 
-namespace Network
-{
+namespace Network {
 	class Channel;
 	
-	class Reader
-	{
+	class Reader {
 	public:
-		struct ReaderBuffer
-		{
+		struct ReaderBuffer {
 			int	rpos_;
 			int	wpos_;
 			int	size_;

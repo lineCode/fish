@@ -1,10 +1,8 @@
 ﻿#include "Network.h"
 
 
-namespace Network
-{
-	int SocketClose(int fd) 
-	{
+namespace Network {
+	int SocketClose(int fd) {
 #if defined( WIN32 )
 		int ret = closesocket(fd);
 #else
@@ -13,8 +11,7 @@ namespace Network
 		return ret;
 	}
 
-	int SocketAccept(int lfd, Addr* addr) 
-	{
+	int SocketAccept(int lfd, Addr* addr) {
 		socklen_t len = sizeof(addr->sockaddr);
 		int fd = accept(lfd, addr->Address(), &len);
 		if (fd < 0) {
@@ -24,8 +21,7 @@ namespace Network
 		return fd;
 	}
 
-	int SocketBind(Addr& addr) 
-	{
+	int SocketBind(Addr& addr) {
 		int fd = socket(addr.Family(), SOCK_STREAM, IPPROTO_TCP);
 		if (fd < 0) {
 			return -1;
@@ -46,18 +42,15 @@ namespace Network
 		return fd;
 	}
 
-	int SocketListen(int fd,int backlog) 
-	{
-		if (listen(fd, backlog) == -1) 
-		{
+	int SocketListen(int fd,int backlog) {
+		if (listen(fd, backlog) == -1) {
 			SocketClose(fd);
 			return -1;
 		}
 		return 0;
 	}
 
-	int SocketConnect(Addr& addr, bool nonblock, bool& connected)
-	{ 
+	int SocketConnect(Addr& addr, bool nonblock, bool& connected) { 
 		int fd = socket(addr.Family(), SOCK_STREAM, IPPROTO_TCP);
 		if (fd < 0) {
 			return -1;
@@ -72,34 +65,28 @@ namespace Network
 #if defined( WIN32 )
 
 		int err = WSAGetLastError();
-		if ( status != 0 && err != WSAEWOULDBLOCK)
-		{
+		if ( status != 0 && err != WSAEWOULDBLOCK) {
 #else
-		if ( status != 0 && errno != EINPROGRESS)
-		{
+		if ( status != 0 && errno != EINPROGRESS) {
 #endif
 			SocketClose(fd);
 			return -1;
 		}
 
-		if (fd < 0)
+		if (fd < 0) {
 			return -1;
+		}
 
-
-		if(status == 0)
-		{
+		if(status == 0) {
 			connected = true;
 			return fd;
-		}
-		else 
-		{
+		} else {
 			connected = false;
 			return fd;
 		}
 	}
 
-	int SocketSetKeepalive(int fd ,bool keepalive) 
-	{
+	int SocketSetKeepalive(int fd ,bool keepalive) {
 #if defined( WIN32 )
 		bool val;
 #else
@@ -109,14 +96,12 @@ namespace Network
 		return setsockopt(fd, SOL_SOCKET, SO_KEEPALIVE, (char*)&val, sizeof(val));
 	}
 
-	int SocketSetNodelay(int fd,bool nodelay) 
-	{
+	int SocketSetNodelay(int fd,bool nodelay) {
 		int arg = int(nodelay);
 		return setsockopt(fd, IPPROTO_TCP, TCP_NODELAY, (char*)&arg, sizeof(int));
 	}
 
-	int SocketSetNonblocking(int fd,bool nonblocking) 
-	{
+	int SocketSetNonblocking(int fd,bool nonblocking) {
 #if defined( WIN32 )
 		u_long val = nonblocking ? 1 : 0;
 		return ioctlsocket(fd, FIONBIO, &val);
@@ -126,8 +111,7 @@ namespace Network
 #endif
 	}
 
-	int SocketRead(int fd,char* data,int size) 
-	{
+	int SocketRead(int fd,char* data,int size) {
 #if defined( WIN32 )
 		int n = recv(fd,data,size,0);
 #else
@@ -135,13 +119,10 @@ namespace Network
 #endif
 		if (n == 0) {
 			return ReadError;
-		}
-		else if (n < 0) 
-		{
+		} else if (n < 0) {
 #if defined( WIN32 )
 			int error =  WSAGetLastError();
-			switch(error)
-			{
+			switch(error) {
 			case WSAEINTR:
 				break;
 			case WSAEWOULDBLOCK:
@@ -151,8 +132,7 @@ namespace Network
 				break;
 			}
 #else
-			switch(errno)
-			{
+			switch(errno) {
 			case EINTR:
 				break;
 			case EAGAIN:
@@ -166,8 +146,7 @@ namespace Network
 		return n > 0 ? n : 0;
 	}
 
-	int SocketWrite(int fd,const char* data,int size) 
-	{
+	int SocketWrite(int fd,const char* data,int size) {
 		int total = 0;
 		for (;;) {
 #if defined( WIN32 )
@@ -175,12 +154,10 @@ namespace Network
 #else
 			int sz =(int)write(fd, data, size);
 #endif
-			if (sz < 0) 
-			{
+			if (sz < 0) {
 #if defined( WIN32 )
 				int error =  WSAGetLastError();
-				switch(error)
-				{
+				switch(error) {
 				case WSAEINTR:
 					continue;
 				case WSAEWOULDBLOCK:
@@ -190,8 +167,7 @@ namespace Network
 					return WriteError;
 				}
 #else
-				switch(errno)
-				{
+				switch(errno) {
 				case EINTR:
 					continue;
 				case EAGAIN:
@@ -201,13 +177,9 @@ namespace Network
 					return WriteError;
 				}
 #endif
-			}
-			else if (sz == 0)
-			{
+			} else if (sz == 0) {
 				return WriteError;
-			}
-			else
-			{
+			} else {
 				size -= sz;
 				data += sz;
 				total += sz;
@@ -219,8 +191,7 @@ namespace Network
 		return total;
 	}
 
-	bool SocketHasError(int fd)
-	{
+	bool SocketHasError(int fd) {
 		int error;
 		socklen_t len = sizeof(error);  
 		int code = getsockopt(fd, SOL_SOCKET, SO_ERROR, (char*)&error, &len);

@@ -8,39 +8,37 @@
 #include <functional>
 
 
-namespace Network
-{
-	class Acceptor
-	{
-	public:
-		typedef std::function<void(int, Addr&,void*)> OnConnection;
+namespace Network {
+	class Acceptor {
+		public:
+			typedef std::function<void(int, Addr&,void*)> OnConnection;
 
-	public:
-		Acceptor(EventPoller* poller);
+		public:
+			Acceptor(EventPoller* poller);
 
-		virtual ~Acceptor();
+			virtual ~Acceptor();
 
-		void SetCallback(OnConnection callback);
+			void SetCallback(OnConnection callback);
 
-		void SetUserdata(void* userdata);
+			void SetUserdata(void* userdata);
 
-		void* GetUserdata();
-		
-		virtual int Listen(Addr& addr);
+			void* GetUserdata();
+			
+			virtual int Listen(Addr& addr);
 
-		virtual int Listen(const char * host,int port);
+			virtual int Listen(const char * host,int port);
 
-		virtual int Close();
+			virtual int Close();
 
-	private:
-		virtual void HandleConnection(ev::io &w, int revents);
+		private:
+			virtual void HandleConnection(ev::io &w, int revents);
 
-		EventPoller* poller_;
-		ev::io io_;
-		Addr addr_;
-		int fd_;
-		OnConnection callback_;
-		void* userdata_;
+			EventPoller* poller_;
+			ev::io io_;
+			Addr addr_;
+			int fd_;
+			OnConnection callback_;
+			void* userdata_;
 	};
 }
 

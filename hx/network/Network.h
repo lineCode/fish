@@ -27,10 +27,8 @@
 
 #include "Address.h"
 
-namespace Network
-{
-	enum SocketError
-	{
+namespace Network {
+	enum SocketError {
 		ReadError = -1,
 		WriteError = -2
 	};

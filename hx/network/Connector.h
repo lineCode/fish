@@ -6,10 +6,8 @@
 #include "ev++.h"
 #include "Address.h"
 
-namespace Network
-{
-	class Connector
-	{
+namespace Network {
+	class Connector {
 	public:
 		typedef std::function<void(int,const char*,void*)> OnConnect;
 

@@ -1,8 +1,10 @@
 ﻿#include "ServerApp.h"
 #include "util/format.h"
 #include "time/Timestamp.h"
-
 #include "Logger.h"
+
+extern "C" int luaopen_rapidjson(lua_State* L);
+extern "C" int luaopen_cjson(lua_State *l);
 
 ServerApp::ServerApp() {
 	state_ = AppRun;
@@ -17,9 +19,6 @@ ServerApp::~ServerApp() {
 	delete timer_;
 	delete lua_;
 }
-
-extern "C" int luaopen_rapidjson(lua_State* L);
-extern "C" int luaopen_cjson(lua_State *l);
 
 int ServerApp::Init() {
 	timer_->SetCallback(std::bind(&ServerApp::OnUpate, this, std::placeholders::_1, std::placeholders::_2));

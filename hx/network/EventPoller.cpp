@@ -3,10 +3,8 @@
 
 #include "ev++.h"
 
-namespace Network
-{
+namespace Network {
 	EventPoller::EventPoller() :loop_() {
-
 	}
 
 	EventPoller::~EventPoller(void) {

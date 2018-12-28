@@ -10,33 +10,27 @@
 #include <string.h>
 #include "../Typedef.h"
 
-namespace EndianConvert 
-{
+namespace EndianConvert {
 	template<size_t T>
-	inline void Convert(char* val)
-	{
+	inline void Convert(char* val) {
 		std::swap(*val,*(val + T - 1));
 		Convert<T-2>(val + 1);
 	}
 
 	template<>
-	inline void Convert<0>(char* )
-	{
+	inline void Convert<0>(char* ) {
 	}
 
 	template<>
-	inline void Convert<1>(char* )
-	{
+	inline void Convert<1>(char* ) {
 	}
 
 	template<typename T>
-	inline void Apply(T* val) 
-	{
+	inline void Apply(T* val) {
 		Convert<sizeof(T)>((char*)val);
 	}
 
-	inline void Convert(char *val, size_t size) 
-	{
+	inline void Convert(char *val, size_t size) {
 		if(size < 2)
 			return;
 		std::swap(*val, *(val + size - 1));
@@ -122,63 +116,55 @@ public:
 	
 public:
 	template<typename T>
-	void append(T value)
-	{
+	void append(T value) {
 		append((const uint8 *)&value, sizeof(value));
 	}
 
-	void append(const char* c,size_t cnt) 
-	{
+	void append(const char* c,size_t cnt) {
 		append((const uint8*)c,cnt);
 	}
 
-	void append(const std::string& str)
-	{
+	void append(const std::string& str) {
 		append(str.c_str(),str.size()+1);
 	}
 
-	void append(const uint8* val,size_t cnt) 
-	{
-		if (cnt == 0)
+	void append(const uint8* val,size_t cnt) {
+		if (cnt == 0) {
 			return;
-		if (_data.size() < _wpos + cnt)
-		{
-			int size = _data.size();
-			for (;;)
-			{
+		}
+		if (data_.size() < wpos_ + cnt) {
+			int size = data_.size();
+			for (;;) {
 				size = size * 2;
-				if (size > _wpos + (int)cnt)
-				{
-					_data.resize(size);
+				if (size > wpos_ + (int)cnt) {
+					data_.resize(size);
 					break;
 				}
 			}
 			
 		}
-		memcpy((void*)&_data[_wpos],val,cnt);
-		_wpos += cnt;
+		memcpy((void*)&data_[wpos_],val,cnt);
+		wpos_ += cnt;
 	}
 
 	template<typename T>
-	T read() 
-	{
-		T r = read<T>(_rpos);
-		_rpos += sizeof(T);
+	T read()  {
+		T r = read<T>(rpos_);
+		rpos_ += sizeof(T);
 		return r;
 	}
 
 	template <typename T> 
-	T read(size_t pos)
-	{
+	T read(size_t pos) {
 		assert(sizeof(T) <=  length());
-		T val = *((T const*)&_data[pos]);
+		T val = *((T const*)&data_[pos]);
 		return val;
 	}
+
 protected:
-	
-	int					_rpos;
-	int					_wpos;
-	std::vector<char>   _data;
+	int rpos_;
+	int wpos_;
+	std::vector<char> data_;
 };
 
 #endif

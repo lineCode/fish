@@ -1,26 +1,22 @@
 ﻿#include "Acceptor.h"
 #include "Network.h"
-namespace Network
-{
-	Acceptor::Acceptor(EventPoller* poller) :poller_(poller)
-	{
+
+namespace Network {
+	Acceptor::Acceptor(EventPoller* poller) :poller_(poller) {
 		fd_ = -1;
 		callback_ = NULL;
 		userdata_ = NULL;
 	}
 
-	Acceptor::~Acceptor()
-	{
+	Acceptor::~Acceptor() {
 		Close();
 	}
 
-	void Acceptor::SetCallback(OnConnection callback)
-	{
+	void Acceptor::SetCallback(OnConnection callback) {
 		callback_ = callback;
 	}
 
-	void Acceptor::SetUserdata(void* userdata)
-	{
+	void Acceptor::SetUserdata(void* userdata) {
 		userdata_ = userdata;
 	}
 
@@ -28,16 +24,17 @@ namespace Network
 		return userdata_;
 	}
 
-	int Acceptor::Listen(Addr& addr)
-	{
+	int Acceptor::Listen(Addr& addr) {
 		addr_ = addr;
 
 		int fd = SocketBind(addr_);
-		if ( fd < 0 )
+		if ( fd < 0 ) {
 			return -1;
+		}
 
-		if ( SocketListen(fd, 64) == -1 )
+		if ( SocketListen(fd, 64) == -1 ) {
 			return -1;
+		}
 
 		fd_ = fd;
 
@@ -48,11 +45,9 @@ namespace Network
 		io_.start(fd_, EV_READ);
 
 		return fd_;
-
 	}
 
-	int Acceptor::Listen(const char * host, int port)
-	{
+	int Acceptor::Listen(const char * host, int port) {
 		Addr addr = Addr::MakeIP4Addr(host,port);
 		return Listen(addr);
 	}
@@ -65,8 +60,7 @@ namespace Network
 		return -1;
 	}
 
-	void Acceptor::HandleConnection(ev::io &w, int revents)
-	{
+	void Acceptor::HandleConnection(ev::io &w, int revents) {
 		Addr addr;
 		memset(&addr.sockaddr, 0, sizeof(addr.sockaddr)); 
 		int fd = SocketAccept(fd_, &addr);
