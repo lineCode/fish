@@ -20,7 +20,7 @@ all:$(TARGET)
 	$(CC) $(CXXCFLAG) $(INCLUDE) -c $< -o $@
 
 %.o: %.cc
-	$(CC) $(CXXFLAG) $(INCLUDE) -c $< -o $@
+	$(CC) $(CXXCFLAG) $(INCLUDE) -c $< -o $@
 
 %.o: %.c
 	gcc $(CFLAG) $(INCLUDE) -c $< -o $@

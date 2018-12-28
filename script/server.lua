@@ -5,7 +5,7 @@ local util = require "util"
 function serverInit()
 	print("server init")
 	local timerId = fish.Timer(0.01,0.01,function ()
-		print("timeout",fish.Now())
+		--print("timeout",fish.Now())
 	end)
 
 	-- print("timerId",timerId)
