@@ -10,7 +10,7 @@
 #include "network/Channel.h"
 #include "lualib/LuaFish.h"
 #include "time/Timer.h"
-#include "thread/MessageQueue.h"
+#include "thread/TaskQueue.h"
 #include "Typedef.h"
 
 class MongoSession;

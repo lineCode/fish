@@ -11,6 +11,7 @@ ServerApp::ServerApp() {
 	poller_ = new Network::EventPoller();
 	timer_ = new Timer();
 	lua_ = new LuaFish();
+	queue_ = new TaskQueue();
 	now_ = ::Now();
 }
 
@@ -66,7 +67,13 @@ int ServerApp::Run() {
 }
 
 void ServerApp::OnUpate(Timer* timer, void* userdata) {
+	Task* task = NULL;
+	while ((task = queue_->Pop()) != NULL)  {
+		task->Do();
+	}
+
 	now_ = ::TimeStamp() / 1000;
+	
 	OOLUA::Script& script = lua_->GetScript();
 	if (!script.call("serverUpdate",now_)) {
 		LOG_ERROR(fmt::format("serverUpdate error:{}",OOLUA::get_last_error(script)));
