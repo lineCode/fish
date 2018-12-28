@@ -6,6 +6,7 @@
 FishApp::FishApp(std::string file) : file_(file) {
 	clientAcceptor_ = new Network::Acceptor(poller_);
 	httpAcceptor_ = new Network::Acceptor(poller_);
+	connector_ = new Network::Connector(poller_);
 }
 
 FishApp::~FishApp(void) {
@@ -22,6 +23,8 @@ int FishApp::Init() {
 	httpAcceptor_->SetCallback(httpCallback);
 
 	lua_->DoFile(file_);
+
+	int fd = connector_->Connect("127.0.0.1",1994);
 
 	return 0;
 }

@@ -7,6 +7,7 @@
 #include <string>
 
 #include "network/Acceptor.h"
+#include "network/Connector.h"
 #include "network/Address.h"
 #include "network/HttpChannel.h"
 
@@ -41,6 +42,8 @@ private:
 
 	Network::Acceptor* clientAcceptor_;
 	Network::Acceptor* httpAcceptor_;
+	Network::Connector* connector_;
+
 };
 
 #endif

@@ -11,8 +11,7 @@
 #endif
 
 
-uint64 Now()
-{
+uint64 Now() {
 #if defined (WIN32)
 	return time(NULL);
 #else
@@ -22,8 +21,7 @@ uint64 Now()
 #endif
 }
 
-uint64 StampPersecond()
-{
+uint64 StampPersecond() {
 #if defined (WIN32)
 	LARGE_INTEGER rate;
 	QueryPerformanceFrequency(&rate);
@@ -33,8 +31,7 @@ uint64 StampPersecond()
 #endif
 }
 
-uint64 TimeStamp()
-{
+uint64 TimeStamp() {
 #if defined (WIN32)
 	LARGE_INTEGER counter;
 	QueryPerformanceCounter( &counter );
@@ -44,5 +41,4 @@ uint64 TimeStamp()
 	gettimeofday( &tv, NULL );
 	return 1000000ULL * uint64( tv.tv_sec ) + uint64( tv.tv_usec );
 #endif
-
 }
