@@ -22,18 +22,19 @@ Logger::~Logger(void) {
 }
 
 void Logger::Log(const char* file,int line,Loglevel level,const char* content) {
+	if (level < Logger::level_) {
+		return;
+	}
 	std::lock_guard<std::mutex> guard(mutex_);
 
-	std::string log = fmt::format("@{}:{}: {}",file,line,content);
+	std::string log = fmt::format("@{}:{}: {}\n", file, line, content);
 	fwrite(log.c_str(), log.length() , 1, FILE_);
-	fprintf(FILE_,"\n");
 }
 
 void Logger::LuaLog(const char* content) {
 	std::lock_guard<std::mutex> guard(mutex_);
-	std::string log = fmt::format("@lua: {}",content);
+	std::string log = fmt::format("@lua: {}\n",content);
 	fwrite(log.c_str(), log.length() , 1, FILE_);
-	fprintf(FILE_,"\n");
 }
 
 void Logger::SetLogLevel(Loglevel level) {

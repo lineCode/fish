@@ -9,17 +9,14 @@ protected:
 	static T* singleton_;
 
 public:
-	Singleton(void)
-	{
+	Singleton(void) {
 		assert(!singleton_);
 		singleton_ = static_cast< T* >(this);
 	}
 
-
 	~Singleton(void){  assert(singleton_);  singleton_ = 0; }
 
-	static T& GetSingleton(void) { assert(singleton_);  return (*singleton_); }
-	static T* GetSingletonPtr(void){ return singleton_; }
+	static T* GetSingleton(void){ return singleton_; }
 };
 
 #endif

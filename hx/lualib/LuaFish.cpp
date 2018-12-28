@@ -195,7 +195,7 @@ int LuaFish::Register(lua_State* L)
 }
 
 int LuaFish::Log(lua_State* L) {
-	Logger::GetSingleton().LuaLog(lua_tostring(L,1));
+	Logger::GetSingleton()->LuaLog(lua_tostring(L,1));
 	return 0;
 }
 
