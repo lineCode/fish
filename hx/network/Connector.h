@@ -15,9 +15,9 @@ namespace Network {
 		Connector(EventPoller* poller);
 		~Connector(void);
 
-		virtual int Connect(const Addr& addr);
+		virtual int Connect(const Addr& addr, bool nonblock = true);
 
-		virtual int Connect(const char * host,int port);
+		virtual int Connect(const char * host,int port, bool nonblock = true);
 
 		virtual int Close();
 

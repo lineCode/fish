@@ -12,14 +12,15 @@ namespace Network
 		Close();
 	}
 
-	int Connector::Connect(const Addr& addr)  {
+	int Connector::Connect(const Addr& addr, bool nonblock)  {
 		addr_ = addr;
 
 		int fd;
 		bool connected = false;
-		if ( ( fd = SocketConnect(addr_, true, connected) ) < 0 )
+		if ( ( fd = SocketConnect(addr_, nonblock, connected) ) < 0 ) {
 			return -1;
-
+		}
+		
 		if ( connected ) {
 			callback_(fd, NULL, userdata_);	
 		} else {
@@ -28,7 +29,7 @@ namespace Network
 		return 0;
 	}
 
-	int Connector::Connect(const char * host, int port) {
+	int Connector::Connect(const char * host, int port, bool nonblock) {
 		Addr addr = Addr::MakeIP4Addr(host, port);
 		return Connect(addr);
 	}

@@ -62,6 +62,18 @@ namespace Network {
 		
 		int status = connect(fd, addr.Address(), addr.AddrLen());
 
+		if (!nonblock) {
+			if (status != 0) {
+				SocketClose(fd);
+				connected = false;
+				return -1;
+			} else {
+				connected = true;
+				SocketSetNonblocking(fd,true);
+				return fd;
+			}
+		}
+
 #if defined( WIN32 )
 
 		int err = WSAGetLastError();
@@ -73,17 +85,12 @@ namespace Network {
 			return -1;
 		}
 
-		if (fd < 0) {
-			return -1;
-		}
-
 		if(status == 0) {
 			connected = true;
-			return fd;
 		} else {
 			connected = false;
-			return fd;
 		}
+		return fd;
 	}
 
 	int SocketSetKeepalive(int fd ,bool keepalive) {
