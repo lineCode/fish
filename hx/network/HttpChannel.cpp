@@ -100,6 +100,10 @@ void HttpChannel::SetHeader(std::string& field, std::string& value) {
 	headers_[field] = value;
 }
 
+std::map<std::string,std::string>& HttpChannel::GetHeader() {
+	return headers_;
+}
+
 void HttpChannel::SetContent(const char* data, size_t size) {
 	content_.append(data, size);
 }

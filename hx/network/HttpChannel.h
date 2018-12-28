@@ -35,6 +35,8 @@ public:
 	
 	virtual void SetHeader(std::string& field, std::string& value);
 
+	virtual std::map<std::string,std::string>& GetHeader();
+
 	virtual void SetContent(const char* data, size_t size);
 
 	virtual std::string GetContent();
