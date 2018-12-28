@@ -2,22 +2,19 @@
 #define ALLOCATOR_H
 
 
-class Allocator
-{
+class Allocator {
 public:
-	struct PoolNode
-	{
-		PoolNode* _prev;
-		PoolNode* _next;
-		int _size;
-		int _used;
+	struct PoolNode {
+		PoolNode* prev_;
+		PoolNode* next_;
+		int size_;
+		int used_;
 	};
 
-	struct FreeNode
-	{
-		PoolNode* _parent;
-		FreeNode* _prev;
-		FreeNode* _next;
+	struct FreeNode {
+		PoolNode* parent_;
+		FreeNode* prev_;
+		FreeNode* next_;
 	};
 public:
 	Allocator(int size,int nodeCount = 64);
@@ -36,15 +33,15 @@ private:
 	void FreePool(PoolNode* pool);
 
 private:
-	PoolNode* _pool;
-	FreeNode* _freelist;
-	int _poolCount;
-	int _nodeCount;
-	int _totalNode;
-	int _usedNode;
-	int _objectSize;
-	int _nodeSize;
-	int _poolSize;
+	PoolNode* pool_;
+	FreeNode* freelist_;
+	int poolCount_;
+	int nodeCount_;
+	int totalNode_;
+	int usedNode_;
+	int objectSize_;
+	int nodeSize_;
+	int poolSize_;
 };
 
 

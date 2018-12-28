@@ -3,8 +3,7 @@
 #include <assert.h>
 
 template <typename T> 
-class Singleton
-{
+class Singleton {
 protected:
 	static T* singleton_;
 
@@ -14,9 +13,14 @@ public:
 		singleton_ = static_cast< T* >(this);
 	}
 
-	~Singleton(void){  assert(singleton_);  singleton_ = 0; }
+	~Singleton(void) { 
+		assert(singleton_);  
+		singleton_ = 0; 
+	}
 
-	static T* GetSingleton(void){ return singleton_; }
+	static T* GetSingleton(void) { 
+		return singleton_; 
+	}
 };
 
 #endif

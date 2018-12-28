@@ -4,142 +4,141 @@
 #include <stdlib.h>
 #include <assert.h>
 
-Allocator::Allocator(int size,int nodeCount)
-{
-	_pool = NULL;
-	_freelist = NULL;
-	_poolCount = 0;
-	_nodeCount = nodeCount;
-	_totalNode = 0;
-	_usedNode = 0;
+Allocator::Allocator(int size,int nodeCount) {
+	pool_ = NULL;
+	freelist_ = NULL;
+	poolCount_ = 0;
+	nodeCount_ = nodeCount;
+	totalNode_ = 0;
+	usedNode_ = 0;
 
-	if (size <= 2 * (int)sizeof(FreeNode*))
+	if (size <= 2 * (int)sizeof(FreeNode*)) {
 		size = 2 * (int)sizeof(FreeNode*);
-	_objectSize = size;
-	_nodeSize = _objectSize + sizeof(PoolNode*);
-	_poolSize = sizeof(PoolNode) + _nodeSize * _nodeCount;
+	}
+	objectSize_ = size;
+	nodeSize_ = objectSize_ + sizeof(PoolNode*);
+	poolSize_ = sizeof(PoolNode) + nodeSize_ * nodeCount_;
 }
 
-Allocator::~Allocator()
-{
-	PoolNode* pool = _pool;
-	while(pool != NULL)
-	{
+Allocator::~Allocator() {
+	PoolNode* pool = pool_;
+	while(pool != NULL) {
 		PoolNode* tmp = pool;
-		pool = pool->_next;
-		if (tmp->_used == 0)
+		pool = pool->next_;
+		if (tmp->used_ == 0) {
 			free(tmp);
+		}
 	}
 }
 
-void* Allocator::New()
-{
-	if (!_freelist)
+void* Allocator::New() {
+	if (!freelist_) {
 		CreatePool();
+	}
 
-	FreeNode* ptr = _freelist;
-	_freelist = _freelist->_next;
-	ptr->_prev = ptr->_next = NULL;
-	ptr->_parent->_used++;
+	FreeNode* ptr = freelist_;
+	freelist_ = freelist_->next_;
+	ptr->prev_ = ptr->next_ = NULL;
+	ptr->parent_->used_++;
 
-	_usedNode++;
+	usedNode_++;
 
 	return (void*)((char*)ptr+sizeof(PoolNode*));
 }
 
-void Allocator::Delete(void* ptr)
-{
+void Allocator::Delete(void* ptr) {
 	FreeNode* fn = (FreeNode*)((char*)ptr - sizeof(PoolNode*));
-	fn->_parent->_used--;
-	fn->_prev = NULL;
-	fn->_next = _freelist;
+	fn->parent_->used_--;
+	fn->prev_ = NULL;
+	fn->next_ = freelist_;
 
-	if (_freelist != NULL)
-		_freelist->_prev = fn;
-	_freelist = fn;
+	if (freelist_ != NULL) {
+		freelist_->prev_ = fn;
+	}
+	freelist_ = fn;
 
-	_usedNode--;
+	usedNode_--;
 
-	//if (fn->_parent->_used == 0)
+	//if (fn->_parent->used_ == 0)
 	//{
-	//	if (_totalNode - _usedNode >= 2 * _nodeCount)
-	//		FreePool(fn->_parent);
+	//	if (totalNode_ - _usedNode >= 2 * nodeCount_)
+	//		FreePool(fn->parent_);
 	//}
-		
 }
 
-void Allocator::CreatePool()
-{
-	PoolNode* pool = (PoolNode*)malloc(_poolSize);
-	memset(pool,0,_poolSize);
+void Allocator::CreatePool() {
+	PoolNode* pool = (PoolNode*)malloc(poolSize_);
+	memset(pool,0,poolSize_);
 
-	pool->_size = _nodeCount;
-	pool->_used = 0;
-	pool->_next = _pool;
-	pool->_prev = NULL;
-	if (_pool != NULL)
-		_pool->_prev = pool;
-	_pool = pool;
+	pool->size_ = nodeCount_;
+	pool->used_ = 0;
+	pool->next_ = pool_;
+	pool->prev_ = NULL;
+	if (pool_ != NULL) {
+		pool_->prev_ = pool;
+	}
+	pool_ = pool;
 
-	_freelist = (FreeNode*)((PoolNode*)pool + 1);
+	freelist_ = (FreeNode*)((PoolNode*)pool + 1);
 
-	char* fn = (char*)_freelist;
+	char* fn = (char*)freelist_;
 
-	for (int i=0 ; i < _nodeCount ; ++i)
-	{
+	for (int i=0 ; i < nodeCount_ ; ++i) {
 		FreeNode* node = (FreeNode*)fn;
-		node->_parent = pool;
+		node->parent_ = pool;
 
-		if (i + 1 < _nodeCount)
-		{
-			FreeNode* next = (FreeNode*)(fn + _nodeSize);
-			node->_next = next;
-			next->_prev = node;
+		if (i + 1 < nodeCount_) {
+			FreeNode* next = (FreeNode*)(fn + nodeSize_);
+			node->next_ = next;
+			next->prev_ = node;
 		}
 		
-		fn += _nodeSize;
+		fn += nodeSize_;
 	}
-	_poolCount++;
-	_totalNode += _nodeCount;
+	poolCount_++;
+	totalNode_ += nodeCount_;
 }
 
-void Allocator::FreePool(PoolNode* pool)
-{
-	assert(pool->_used == 0);
+void Allocator::FreePool(PoolNode* pool) {
+	assert(pool->used_ == 0);
 	char* fn = (char*)((PoolNode*)pool + 1);
 
-	for (int i = 0; i < _nodeCount;i++)
-	{
+	for (int i = 0; i < nodeCount_;i++) {
 		FreeNode* node = (FreeNode*)fn;
 
-		if (node == _freelist)
-			_freelist = node->_next;
+		if (node == freelist_) {
+			freelist_ = node->next_;
+		}
 
-		if (node->_next != NULL)
-			node->_next->_prev = node->_prev;
+		if (node->next_ != NULL) {
+			node->next_->prev_ = node->prev_;
+		}
 
-		if (node->_prev != NULL)
-			node->_prev->_next = node->_next;
+		if (node->prev_ != NULL) {
+			node->prev_->next_ = node->next_;
+		}
 
-		fn += _nodeSize;
+		fn += nodeSize_;
 	}
 
-	if (_pool == pool)
-		_pool = pool->_next;
+	if (pool_ == pool) {
+		pool_ = pool->next_;
+	}
 
-	if (pool->_next != NULL)
-		pool->_next->_prev = pool->_prev;
+	if (pool->next_ != NULL) {
+		pool->next_->prev_ = pool->prev_;
+	}
 
-	if (pool->_prev != NULL)
-		pool->_prev->_next = pool->_next;
+	if (pool->prev_ != NULL) {
+		pool->prev_->next_ = pool->next_;
+	}
 
 	free(pool);
 
-	_poolCount--;
-	_totalNode -= _nodeCount;
+	poolCount_--;
+	totalNode_ -= nodeCount_;
 }
 
-int Allocator::Dump()
-{
-	return _poolCount * _poolSize;
+int Allocator::Dump() {
+	return poolCount_ * poolSize_;
 }
