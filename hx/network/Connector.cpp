@@ -58,7 +58,7 @@ namespace Network
 		socklen_t len = sizeof( error );
 		int code = getsockopt(w.fd, SOL_SOCKET, SO_ERROR, (char*)&error, &len);
 		if ( code < 0 || error ) {
-			char* strerr == NULL;
+			char* strerr = NULL;
 			if ( code >= 0 ) {
 				strerr = strerror(error);
 			} else {

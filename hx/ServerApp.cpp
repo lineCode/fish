@@ -67,6 +67,8 @@ int ServerApp::Run() {
 }
 
 void ServerApp::OnUpate(Timer* timer, void* userdata) {
+	queue_->Prepare();
+	
 	Task* task = NULL;
 	while ((task = queue_->Pop()) != NULL)  {
 		task->Do();

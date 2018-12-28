@@ -20,6 +20,12 @@ public:
 
 	}
 
+	void Prepare() {
+		std::lock_guard<std::mutex> guard(mutex_);
+		reader_++;
+		writer_++;
+	}
+
 	void Push(Task* task) {
 		std::lock_guard<std::mutex> guard(mutex_);
 		std::queue<Task*>* queue = &queue_[writer_ % 2];
@@ -28,17 +34,6 @@ public:
 
 	Task* Pop() {
 		std::queue<Task*>* queue = &queue_[reader_ % 2];
-		if (!queue->empty()) {
-			Task* task = queue->front();
-			queue->pop();
-			return task;
-		}
-		{
-			std::lock_guard<std::mutex> guard(mutex_);
-			reader_++;
-			writer_++;
-		}
-		queue = &queue_[reader_ % 2];
 		if (!queue->empty()) {
 			Task* task = queue->front();
 			queue->pop();
