@@ -140,10 +140,6 @@ namespace Network {
 		return result;
 	}
 
-	void Channel::SetReader(Reader * reader) {
-		reader_ = reader;
-	}
-
 	bool Channel::IsAlive() {
 		return state_ == Alive;
 	}

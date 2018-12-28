@@ -13,10 +13,8 @@
 
 class ServerApp;
 
-namespace Network
-{
-	class Channel
-	{	
+namespace Network {
+	class Channel {	
 	public:
 		enum eChannelState {Alive,Closed,Error,Invalid};
 
@@ -45,8 +43,6 @@ namespace Network
 		virtual int Write(char* data,int size);
 
 		virtual int Write(MemoryStream* ms);
-
-		virtual void SetReader(Reader * reader);
 
 		virtual bool IsAlive();
 
