@@ -12,7 +12,11 @@ namespace Network
 		Close();
 	}
 
-	int Connector::Connect(const Addr& addr, bool nonblock)  {
+	int Connector::Connect(const Addr& addr, bool nonblock) {
+		if (io_.is_active()) {
+			return -1;
+		}
+		
 		addr_ = addr;
 
 		int fd;
