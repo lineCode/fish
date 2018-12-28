@@ -37,7 +37,7 @@ $(OOLUA_STATICLIB) :
 	mv $(OOLUA_LIB_PATH)/liboolua_d.a $(LIBS_DIR)/$(OOLUA_LIB)
 
 $(LIBEV_STATICLIB) :
-	cd $(LIBEV_INC) && $(MAKE)
+	cd $(LIBEV_INC) && ./configure && $(MAKE)
 	mv $(LIBEV_INC)/.libs/libev.a $(LIBS_DIR)
 
 $(HX_STATICLIB) :
