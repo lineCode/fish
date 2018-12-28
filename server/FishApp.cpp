@@ -24,7 +24,7 @@ int FishApp::Init() {
 
 	lua_->DoFile(file_);
 
-	int fd = connector_->Connect("127.0.0.1",1994);
+	int fd = connector_->Connect("127.0.0.1",1998,false);
 
 	return 0;
 }

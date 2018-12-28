@@ -25,6 +25,10 @@ namespace Network
 			return -1;
 		}
 		
+		if (!nonblock) {
+			return fd;
+		}		
+
 		if ( connected ) {
 			callback_(fd, NULL, userdata_);	
 		} else {
@@ -35,7 +39,7 @@ namespace Network
 
 	int Connector::Connect(const char * host, int port, bool nonblock) {
 		Addr addr = Addr::MakeIP4Addr(host, port);
-		return Connect(addr);
+		return Connect(addr,nonblock);
 	}
 
 	int Connector::Close() {
