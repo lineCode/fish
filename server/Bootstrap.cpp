@@ -21,11 +21,11 @@ void Bootstrap::Startup(const char* file)
 	LoadConfig(file);
 
 	const char* path = NULL;
-	if (_config.HasMember("log"))
-		path = _config["log"].GetString();
+	if (config_.HasMember("log"))
+		path = config_["log"].GetString();
 	Logger* logger = new Logger(path);
 
-	FishApp* app = new FishApp(_config["boot"].GetString());
+	FishApp* app = new FishApp(config_["boot"].GetString());
 
 	app->ListenClient(std::string("0.0.0.0"), 1989);
 
@@ -53,6 +53,6 @@ void Bootstrap::LoadConfig(const char* configFile)
 	rewind(file);
 	fread(json,1,len,file);
 	fclose(file);
-	assert(_config.ParseInsitu(json).HasParseError() == false);
+	assert(config_.ParseInsitu(json).HasParseError() == false);
 	//free(json);
 }

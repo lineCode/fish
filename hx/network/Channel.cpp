@@ -21,6 +21,24 @@ namespace Network {
 		delete writer_;
 	}
 	
+	bool Channel::IsAlive() {
+		return state_ == Alive;
+	}
+
+	void Channel::Close(bool rightnow) {
+		if (!IsAlive()) {
+			return ;
+		}
+
+		state_ = Closed;
+		if (!rightnow) {
+			EnableWrite();
+		} else {
+			Clean();
+			HandleClose();
+		}
+	}
+
 	void Channel::EnableRead() {
 		if (reader_ == NULL)
 			return;
@@ -97,20 +115,6 @@ namespace Network {
 		
 		state_ = Invalid;
 	}
-	
-	void Channel::Close(bool rightnow) {
-		if (!IsAlive()) {
-			return ;
-		}
-
-		state_ = Closed;
-		if (!rightnow) {
-			EnableWrite();
-		} else {
-			Clean();
-			HandleClose();
-		}
-	}
 
 	int Channel::Write(char* data, int size) {
 		if (!IsAlive()) {
@@ -139,9 +143,4 @@ namespace Network {
 		delete ms;
 		return result;
 	}
-
-	bool Channel::IsAlive() {
-		return state_ == Alive;
-	}
-
 }

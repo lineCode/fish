@@ -22,35 +22,28 @@ namespace Network {
 		Channel(Network::EventPoller* poller,int fd);
 		virtual ~Channel();
 
+		virtual bool IsAlive();
+
 		virtual void Close(bool rightnow = false);
 
 		virtual void EnableRead();
-
 		virtual void DisableRead();
 
 		virtual void EnableWrite();
-
 		virtual void DisableWrite();
 
 		virtual void HandleRead();
-
 		virtual void HandleWrite();
-
 		virtual void HandleClose();
-
 		virtual void HandleError();
 
 		virtual int Write(char* data,int size);
-
 		virtual int Write(MemoryStream* ms);
-
-		virtual bool IsAlive();
 
 	private:
 		virtual void Clean();
 
 		virtual void OnRead(ev::io &rio, int revents);
-
 		virtual void OnWrite(ev::io &wio, int revents);
 
 	protected:

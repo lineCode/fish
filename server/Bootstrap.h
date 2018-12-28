@@ -15,7 +15,7 @@ private:
 	void LoadConfig(const char* file);
 
 private:
-	rapidjson::Document _config;
+	rapidjson::Document config_;
 };
 
 #endif
