@@ -10,6 +10,7 @@
 #include "network/Channel.h"
 #include "lualib/LuaFish.h"
 #include "time/Timer.h"
+#include "thread/MessageQueue.h"
 #include "Typedef.h"
 
 class MongoSession;
@@ -45,6 +46,7 @@ protected:
 	Network::EventPoller * poller_;
 	Timer* timer_;
 	LuaFish* lua_;
+	TaskQueue* queue_;
 	uint64 now_;
 };
 

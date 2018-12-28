@@ -12,8 +12,13 @@ public:
 
 class TaskQueue {
 public:
-	TaskQueue();
-	virtual ~TaskQueue();
+	TaskQueue() : reader_(0), writer_(1) {
+
+	}
+
+	virtual ~TaskQueue() {
+
+	}
 
 	void Push(Task* task) {
 		std::lock_guard<std::mutex> guard(mutex_);
@@ -23,7 +28,7 @@ public:
 
 	Task* Pop() {
 		std::queue<Task*>* queue = &queue_[reader_ % 2];
-		if (!queue.empty()) {
+		if (!queue->empty()) {
 			Task* task = queue->front();
 			queue->pop();
 			return task;
@@ -33,8 +38,8 @@ public:
 			reader_++;
 			writer_++;
 		}
-		std::queue<Task*>* queue = &queue_[reader_ % 2];
-		if (!queue.empty()) {
+		queue = &queue_[reader_ % 2];
+		if (!queue->empty()) {
 			Task* task = queue->front();
 			queue->pop();
 			return task;
@@ -45,8 +50,8 @@ public:
 private:
 	std::queue<Task*> queue_[2];
 	std::mutex mutex_;
-	std::atomic<int> reader_;
-	std::atomic<int> writer_;
+	uint64_t reader_;
+	uint64_t writer_;
 };
 
 #endif
