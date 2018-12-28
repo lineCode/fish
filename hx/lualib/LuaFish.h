@@ -46,6 +46,8 @@ public:
 
 	static int Register(lua_State* L);
 
+	static int Stop(lua_State* L);
+
 	static int Log(lua_State* L);
 
 	static int Now(lua_State* L);
@@ -70,7 +72,7 @@ public:
 
 	static int ConnectorRelease(lua_State* L);
 
-	static int Stop(lua_State* L);
+	static int BindChannel(lua_State* L);
 protected:
 	OOLUA::Script script_;
 	ObjectPool<Timer> timerPool_;

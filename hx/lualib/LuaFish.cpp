@@ -168,6 +168,7 @@ int LuaFish::Register(lua_State* L)
 	luaL_checkversion(L);
 
 	luaL_Reg l[] = {
+		{ "Stop", LuaFish::Stop },
 		{ "Log", LuaFish::Log },
 		{ "Now", LuaFish::Now },
 		{ "Timestamp", LuaFish::Timestamp},
@@ -177,7 +178,6 @@ int LuaFish::Register(lua_State* L)
 		{ "Timer", LuaFish::TimerStart},
 		{ "Listen", LuaFish::AcceptorListen},
 		{ "Connect", LuaFish::ConnectorConnect},
-		{ "Stop", LuaFish::Stop },
 		{ NULL, NULL },
 	};
 
@@ -192,6 +192,12 @@ int LuaFish::Register(lua_State* L)
 	luaL_setfuncs(L,l,1);
 
 	return 1;
+}
+
+int LuaFish::Stop(lua_State* L) {
+	ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
+	app->Stop();
+	return 0;
 }
 
 int LuaFish::Log(lua_State* L) {
@@ -347,8 +353,10 @@ int LuaFish::ConnectorRelease(lua_State* L) {
 	return 0;
 }
 
-int LuaFish::Stop(lua_State* L) {
+int LuaFish::BindChannel(lua_State* L) {
 	ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
-	app->Stop();
-	return 0;
+	int fd = luaL_checkinteger(L, 1);
+	uint32_t header = luaL_checkinteger(L, 2);
+
+	
 }
