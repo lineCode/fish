@@ -1,7 +1,6 @@
 ﻿#ifndef POOLOBJECT_H
 #define POOLOBJECT_H
 #include <assert.h>
-#include "../thread/Mutex.h"
 #include "Allocator.h"
 
 template <class T, int ALLOC_COUNT = 64>

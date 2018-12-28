@@ -5,8 +5,7 @@
 #include <string>
 #include "format.h"
 #include "List.h"
-#include "../thread/Mutex.h"
-#include "../Logger.h"
+#include "Logger.h"
 
 #define OBJ_POOL_INIT_SIZE 16
 #define OBJ_POOL_WARNING_SIZE 1024
