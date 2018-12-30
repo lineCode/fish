@@ -18,6 +18,9 @@ public:
 	void SetCloseReference(int reference);
 	void SetErrorReference(int reference);
 
+	static int Read(lua_State* L);
+	static int Write(lua_State* L);
+	static int Close(lua_State* L);
 private:
 	LuaFish* lua_;
 	uint32_t header_;

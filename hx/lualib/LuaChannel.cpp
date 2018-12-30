@@ -40,3 +40,17 @@ void LuaChannel::SetCloseReference(int reference) {
 void LuaChannel::SetErrorReference(int reference) {
 	errorReference_ = reference;
 }
+
+int LuaChannel::Read(lua_State* L) {
+
+}
+
+int LuaChannel::Write(lua_State* L) {
+
+}
+
+int LuaChannel::Close(lua_State* L) {
+
+
+}
+
