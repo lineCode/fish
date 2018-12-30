@@ -21,6 +21,7 @@ public:
 	static int Read(lua_State* L);
 	static int Write(lua_State* L);
 	static int Close(lua_State* L);
+	static int Release(lua_State* L);
 private:
 	LuaFish* lua_;
 	uint32_t header_;
@@ -28,6 +29,6 @@ private:
 	int dataRefernce_;
 	int closeRefernce_;
 	int errorRefernce_;
-}
+};
 
 #endif

@@ -358,5 +358,43 @@ int LuaFish::BindChannel(lua_State* L) {
 	int fd = luaL_checkinteger(L, 1);
 	uint32_t header = luaL_checkinteger(L, 2);
 
-	
+	luaL_checktype(L, 3, LUA_TFUNCTION);
+	luaL_checktype(L, 4, LUA_TFUNCTION);
+	luaL_checktype(L, 5, LUA_TFUNCTION);
+
+	int error = luaL_ref(L, LUA_REGISTRYINDEX);
+	int close = luaL_ref(L, LUA_REGISTRYINDEX);
+	int data = luaL_ref(L, LUA_REGISTRYINDEX);
+
+	void* ud = lua_newuserdata(L, sizeof(LuaChannel));
+
+	if (luaL_newmetatable(L, "metChannel")) {
+        const luaL_Reg meta[] = {
+            { "Read", LuaChannel::Read },
+            { "Write", LuaChannel::Write },
+            { "Close", LuaChannel::Close },
+			{ NULL, NULL },
+        };
+        luaL_newlib(L, meta);
+        lua_setfield(L, -2, "__index");
+
+        lua_pushcfunction(L, LuaChannel::Release);
+        lua_setfield(L, -2, "__gc");
+    }
+    lua_setmetatable(L, -2);
+
+    lua_pushvalue(L, -1);
+
+    int reference = luaL_ref(L, LUA_REGISTRYINDEX);
+
+    LuaChannel* channel = new(ud) LuaChannel(app->Poller(), fd, app->Lua(), header);
+
+    channel->SetRefernce(reference);
+    channel->SetDataReference(data);
+    channel->SetCloseReference(close);
+    channel->SetErrorReference(error);
+
+    channel->EnableRead();
+
+    return 1;
 }
