@@ -25,6 +25,7 @@ public:
 private:
 	LuaFish* lua_;
 	uint32_t header_;
+	uint32_t need_;
 	int reference_;
 	int dataRefernce_;
 	int closeRefernce_;
