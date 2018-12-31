@@ -5,7 +5,7 @@ LuaChannel::LuaChannel(Network::EventPoller* poller,int fd, LuaFish* lua, uint32
 	header_ = header;
 	need_ = 0;
 	reference_ = 0;
-	dataRefernce_ = 0;
+	dataReference_ = 0;
 	closeRefernce_ = 0;
 	errorRefernce_ = 0;
 }
@@ -15,7 +15,7 @@ LuaChannel::~LuaChannel() {
 }
 
 void LuaChannel::HandleRead() {
-	lua_State* L = lua->GetScript()->state();
+	lua_State* L = lua_->GetScript().state();
 
 	lua_rawgeti(L, LUA_REGISTRYINDEX, dataReference_);
 	lua_rawgeti(L, LUA_REGISTRYINDEX, reference_);
@@ -32,11 +32,11 @@ void LuaChannel::HandleRead() {
 				}
 				if (header_ == 2) {
 					uint8_t header[2];
-					reader_->ReadData(header, 2);
+					reader_->ReadData((char*)header, 2);
 					need_ = header[0] | header[1] << 8;
 				} else if (header_ == 4) {
 					uint8_t header[4];
-					reader_->ReadData(header, 4);
+					reader_->ReadData((char*)header, 4);
 					need_ = header[0] | header[1] << 8 | header[2] << 16 | header[3] << 24;
 				}
 			} else {

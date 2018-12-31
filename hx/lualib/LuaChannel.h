@@ -34,7 +34,7 @@ private:
 	uint32_t header_;
 	uint32_t need_;
 	int reference_;
-	int dataRefernce_;
+	int dataReference_;
 	int closeRefernce_;
 	int errorRefernce_;
 };

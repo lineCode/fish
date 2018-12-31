@@ -41,7 +41,7 @@ namespace Network {
 		ReaderBuffer* AllocBuffer();
 		void FreeHead();
 
-	protected:
+	public:
 		int	total_;
 
 	private:

@@ -104,11 +104,7 @@ void LuaFish::OnTimeout(Timer* timer, uint64_t timerId, void* userdata) {
 	}
 
 	if (!timer->IsActive()) {
-		std::map<uint64_t, Timer*>::iterator iter = timerMgr_.find(timerId);
-		Timer* timer = iter->second;
-		timer->Cancel();
-		timerPool_.Push(timer);
-		timerMgr_.erase(iter);
+		DeleteTimer(timerId);
 		luaL_unref(L, LUA_REGISTRYINDEX, reference);
 	}
 }
