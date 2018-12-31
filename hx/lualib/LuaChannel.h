@@ -13,11 +13,18 @@ public:
 	virtual void HandleClose();
 	virtual void HandleError();
 
-	void SetRefernce(int reference);
-	void SetDataReference(int reference);
-	void SetCloseReference(int reference);
-	void SetErrorReference(int reference);
+	void SetReference(int reference);
+	int GetReference();
 
+	void SetDataReference(int reference);
+	int GetDataReference();
+
+	void SetCloseReference(int reference);
+	int GetCloseReference();
+
+	void SetErrorReference(int reference);
+	int GetErrorReference();
+	
 	static int Read(lua_State* L);
 	static int Write(lua_State* L);
 	static int Close(lua_State* L);

@@ -81,20 +81,36 @@ void LuaChannel::HandleError() {
 	}
 }
 
-void LuaChannel::SetRefernce(int reference) {
+void LuaChannel::SetReference(int reference) {
 	reference_ = reference;
+}
+
+int LuaChannel::GetReference() {
+	return reference_;
 }
 
 void LuaChannel::SetDataReference(int reference) {
 	dataReference_ = reference;
 }
 
+int LuaChannel::GetDataReference() {
+	return dataReference_;
+}
+
 void LuaChannel::SetCloseReference(int reference) {
 	closeReference_ = reference;
 }
 
+int LuaChannel::GetCloseReference() {
+	return closeReference_;
+}
+
 void LuaChannel::SetErrorReference(int reference) {
 	errorReference_ = reference;
+}
+
+int LuaChannel::GetErrorReference() {
+	return errorReference_;
 }
 
 int LuaChannel::Read(lua_State* L) {
@@ -119,14 +135,78 @@ int LuaChannel::Read(lua_State* L) {
 }
 
 int LuaChannel::Write(lua_State* L) {
+	LuaChannel* channel = (LuaChannel*)lua_touserdata(L, 1);
+	int header = luaL_optinteger(L, 2, 0);
+	int vt = lua_type(L, 3);
 
+	char* data;
+	size_t size;
+	switch(vt) {
+		case LUA_TSTRING: {
+			char* data = (char*) lua_tolstring(L, 3, &size);
+			break;
+		}
+		case LUA_TLIGHTUSERDATA: {
+			data = (char*)lua_touserdata(L, 3);
+			size = luaL_checkinteger(L, 4);
+		}
+		default: {
+			luaL_error(L, "channel:%p write error:unknow lua type:%s", channel, lua_typename(L,vt));
+		}
+	}
+
+	if (size <= 0) {
+		luaL_error(L, "channel:%p write error:empty content", channel);
+	}
+
+	char* content = NULL;
+	if (header == 0) {
+		content = data;
+		if (vt == LUA_TSTRING) {
+			content = malloc(size);
+			memcpy(content, data, size);
+		}
+	} else if (header == 2) {
+		ushort length = size + header;
+		content = malloc(size + header);
+		memcpy(content, &length, 2);
+		memcpy(content, data, size);
+		if (vt == LUA_TLIGHTUSERDATA) {
+			free(data);
+		}
+		size = length;
+	} else if (header == 4) {
+		uint32_t length = size + header;
+		content = malloc(size + header);
+		memcpy(content, &length, 4);
+		memcpy(content, data, size);
+		if (vt == LUA_TLIGHTUSERDATA) {
+			free(data);
+		}
+		size = length;
+	} else {
+		luaL_error(L, "channel:%p write error:error header size:%d", channel, header);
+	}
+
+	int status = channel->Write(content, size);
+
+	lua_pushboolean(L, status == 0);
+	return 1;
 }
 
 int LuaChannel::Close(lua_State* L) {
-
-
+	LuaChannel* channel = (LuaChannel*)lua_touserdata(L, 1);
+	bool rightnow = luaL_optinteger(L, 2, 1);
+	channel->Close(rightnow);
+	luaL_unref(L, LUA_REGISTRYINDEX, channel->GetReference());
+	return 0;
 }
 
 int LuaChannel::Release(lua_State* L) {
-
+	LuaChannel* channel = (LuaChannel*)lua_touserdata(L, 1);
+	luaL_unref(L, LUA_REGISTRYINDEX, channel->GetDataReference());
+	luaL_unref(L, LUA_REGISTRYINDEX, channel->GetCloseReference());
+	luaL_unref(L, LUA_REGISTRYINDEX, channel->GetErrorReference());
+	channel->~LuaChannel();
+	return 0;
 }
