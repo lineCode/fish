@@ -24,39 +24,39 @@ void LuaChannel::HandleRead() {
 		if (LUA_OK != lua_pcall(L, 1, 0, 0)) {
 			LOG_ERROR(fmt::format("HandleRead error:{}", lua_tostring(L, -1)));
 		}
-	} else {
-		while(IsAlive()) {
-			if (need_ == 0) {
-				if (reader_->total_ < (int)header_) {
-					break;
-				}
-				if (header_ == 2) {
-					uint8_t header[2];
-					reader_->ReadData((char*)header, 2);
-					need_ = header[0] | header[1] << 8;
-				} else if (header_ == 4) {
-					uint8_t header[4];
-					reader_->ReadData((char*)header, 4);
-					need_ = header[0] | header[1] << 8 | header[2] << 16 | header[3] << 24;
-				}
-			} else {
-				if (reader_->total_ < (int)need_) {
-					break;
-				}
-
-				char* data = (char*)malloc(need_);
-				reader_->ReadData(data, need_);
-				
-				lua_pushlightuserdata(L, data);
-				lua_pushinteger(L, need_);
-
-				if (LUA_OK != lua_pcall(L, 3, 0, 0)) {
-					LOG_ERROR(fmt::format("HandleRead error:{}", lua_tostring(L, -1)));
-				}
-
-				need_ = 0;
-				free(data);
+		return;
+	} 
+	while(IsAlive()) {
+		if (need_ == 0) {
+			if (reader_->total_ < (int)header_) {
+				break;
 			}
+			if (header_ == 2) {
+				uint8_t header[2];
+				reader_->ReadData((char*)header, 2);
+				need_ = header[0] | header[1] << 8;
+			} else if (header_ == 4) {
+				uint8_t header[4];
+				reader_->ReadData((char*)header, 4);
+				need_ = header[0] | header[1] << 8 | header[2] << 16 | header[3] << 24;
+			}
+		} else {
+			if (reader_->total_ < (int)need_) {
+				break;
+			}
+
+			char* data = (char*)malloc(need_);
+			reader_->ReadData(data, need_);
+			
+			lua_pushlightuserdata(L, data);
+			lua_pushinteger(L, need_);
+
+			if (LUA_OK != lua_pcall(L, 3, 0, 0)) {
+				LOG_ERROR(fmt::format("HandleRead error:{}", lua_tostring(L, -1)));
+			}
+
+			need_ = 0;
+			free(data);
 		}
 	}
 }
