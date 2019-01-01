@@ -33,16 +33,14 @@ public:
 	uint64_t AllocTimer(Timer*& timer);
 
 	int DeleteTimer(uint64_t timerId);
+	
+	Timer* GetTimer(uint64_t timerId);
 
 	void OnTimeout(Timer* timer, uint64_t timerId, void* userdata);
 
 	void OnAccept(int fd, Network::Addr& addr, void* userdata);
 
 	void OnConnect(int fd, const char* reason, void* userdata);
-
-	void OnData(int object, int callback, char* data, size_t size);
-
-	void OnError(int object, int callback, const char* reason);
 
 	static int Register(lua_State* L);
 

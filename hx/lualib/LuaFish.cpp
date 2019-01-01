@@ -7,12 +7,6 @@
 #include "time/Timestamp.h"
 #include "LuaChannel.h"
 
-enum {
-	eCHANNEL_DATA = 1,
-	eCHANNEL_CLOSE,
-	eCHANNEL_ERROR
-};
-
 LuaFish::LuaFish(void) :script_(),timerPool_("timer") {
 	timerStep_ = 0;
 }
@@ -92,6 +86,14 @@ int LuaFish::DeleteTimer(uint64_t timerId) {
 	return 0;
 }
 
+Timer* LuaFish::GetTimer(uint64_t timerId) {
+	std::map<uint64_t, Timer*>::iterator iter = timerMgr_.find(timerId);
+	if (iter == timerMgr_.end()) {
+		return NULL;
+	}
+	return iter->second;
+}
+
 void LuaFish::OnTimeout(Timer* timer, uint64_t timerId, void* userdata) {
 	int reference = (int)(intptr_t)userdata;
 
@@ -146,15 +148,6 @@ void LuaFish::OnConnect(int fd, const char* reason, void* userdata) {
 		LOG_ERROR(fmt::format("OnConnect error:{}", lua_tostring(L, -1)));
 	}
 }
-
-void LuaFish::OnData(int channel, int callback, char* data, size_t size) {
-
-}
-
-void LuaFish::OnError(int channel, int callback, const char* reason) {
-
-}
-
 
 extern "C" int luaseri_pack(lua_State*);
 extern "C" int luaseri_unpack(lua_State*);
@@ -244,6 +237,13 @@ int LuaFish::TimerStart(lua_State* L) {
 int LuaFish::TimerCancel(lua_State* L) {
 	ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
 	uint64_t timerId = luaL_checkinteger(L, 1);
+	Timer* timer = app->Lua()->GetTimer(timerId);
+	if (timer == NULL) {
+		luaL_error(L, "no such timer:%d", timerId);
+	}
+
+	int reference = (int)(intptr_t)timer->GetUserdata();
+	luaL_unref(L, LUA_REGISTRYINDEX, reference);
 	lua_pushboolean(L, app->Lua()->DeleteTimer(timerId) == 0);
 	return 1;
 }
