@@ -25,18 +25,18 @@ public:
 	void SetErrorReference(int reference);
 	int GetErrorReference();
 	
-	static int Read(lua_State* L);
-	static int Write(lua_State* L);
-	static int Close(lua_State* L);
-	static int Release(lua_State* L);
+	static int LRead(lua_State* L);
+	static int LWrite(lua_State* L);
+	static int LClose(lua_State* L);
+	static int LRelease(lua_State* L);
 private:
 	LuaFish* lua_;
 	uint32_t header_;
 	uint32_t need_;
 	int reference_;
 	int dataReference_;
-	int closeRefernce_;
-	int errorRefernce_;
+	int closeReference_;
+	int errorReference_;
 };
 
 #endif

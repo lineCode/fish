@@ -5,7 +5,7 @@
 #include "network/Connector.h"
 #include "util/MemoryStream.h"
 #include "time/Timestamp.h"
-
+#include "LuaChannel.h"
 
 enum {
 	eCHANNEL_DATA = 1,
@@ -366,15 +366,15 @@ int LuaFish::BindChannel(lua_State* L) {
 
 	if (luaL_newmetatable(L, "metChannel")) {
         const luaL_Reg meta[] = {
-            { "Read", LuaChannel::Read },
-            { "Write", LuaChannel::Write },
-            { "Close", LuaChannel::Close },
+            { "Read", LuaChannel::LRead },
+            { "Write", LuaChannel::LWrite },
+            { "Close", LuaChannel::LClose },
 			{ NULL, NULL },
         };
         luaL_newlib(L, meta);
         lua_setfield(L, -2, "__index");
 
-        lua_pushcfunction(L, LuaChannel::Release);
+        lua_pushcfunction(L, LuaChannel::LRelease);
         lua_setfield(L, -2, "__gc");
     }
     lua_setmetatable(L, -2);
@@ -385,7 +385,7 @@ int LuaFish::BindChannel(lua_State* L) {
 
     LuaChannel* channel = new(ud) LuaChannel(app->Poller(), fd, app->Lua(), header);
 
-    channel->SetRefernce(reference);
+    channel->SetReference(reference);
     channel->SetDataReference(data);
     channel->SetCloseReference(close);
     channel->SetErrorReference(error);
