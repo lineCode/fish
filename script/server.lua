@@ -17,11 +17,13 @@ end
 
 function ServerInit()
 	print("server init")
-	local timerId = fish.StartTimer(0.01,0.01,function ()
-		--print("timeout",fish.Now())
+	local timerId = fish.StartTimer(1,1,function ()
+		print("timeout",fish.Now())
+		collectgarbage("collect")	
 	end)
 
-	fish.Listen("127.0.0.1",1989,function (fd,addr)
+	acceptor = fish.Listen("127.0.0.1",1997,function (fd,addr)
+		print(addr)
 		fish.Bind(fd,0,OnData,OnClose,OnError)
 	end)
 

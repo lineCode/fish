@@ -69,6 +69,9 @@ void LuaChannel::HandleClose() {
 		LOG_ERROR(fmt::format("HandleClose error:{}", lua_tostring(L, -1)));
 	}
 	luaL_unref(L, LUA_REGISTRYINDEX, reference_);
+	luaL_unref(L, LUA_REGISTRYINDEX, dataReference_);
+	luaL_unref(L, LUA_REGISTRYINDEX, closeReference_);
+	luaL_unref(L, LUA_REGISTRYINDEX, errorReference_);
 }
 
 void LuaChannel::HandleError() {
@@ -81,6 +84,9 @@ void LuaChannel::HandleError() {
 	}
 
 	luaL_unref(L, LUA_REGISTRYINDEX, reference_);
+	luaL_unref(L, LUA_REGISTRYINDEX, dataReference_);
+	luaL_unref(L, LUA_REGISTRYINDEX, closeReference_);
+	luaL_unref(L, LUA_REGISTRYINDEX, errorReference_);
 }
 
 void LuaChannel::SetReference(int reference) {
@@ -205,9 +211,6 @@ int LuaChannel::LClose(lua_State* L) {
 
 int LuaChannel::LRelease(lua_State* L) {
 	LuaChannel* channel = (LuaChannel*)lua_touserdata(L, 1);
-	luaL_unref(L, LUA_REGISTRYINDEX, channel->GetDataReference());
-	luaL_unref(L, LUA_REGISTRYINDEX, channel->GetCloseReference());
-	luaL_unref(L, LUA_REGISTRYINDEX, channel->GetErrorReference());
 	channel->~LuaChannel();
 	return 0;
 }
