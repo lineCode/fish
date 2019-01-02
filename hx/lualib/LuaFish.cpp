@@ -67,9 +67,16 @@ void LuaFish::Require(const char* module, int (*func)(lua_State*)) {
 }
 
 uint64_t LuaFish::AllocTimer(Timer*& timer) {
-	uint64_t timerId = timerStep_++;
-	timerPool_.Pop(timer);
-	timerMgr_[timerId] = timer;
+	uint64_t timerId;
+	for(;;) {
+		timerId = timerStep_++;
+		std::map<uint64_t, Timer*>::iterator iter = timerPool_.find(timerId);
+		if (iter == timerPool_.end()) {
+			timerPool_.Pop(timer);
+			timerMgr_[timerId] = timer;
+			break;
+		}
+	}
 	return timerId;
 }
 
@@ -115,7 +122,6 @@ void LuaFish::OnAccept(int fd, Network::Addr& addr, void* userdata) {
 	lua_State* L = script_.state();
 
 	int callback = (int)(intptr_t)userdata;
-	close(fd);
 
 	lua_rawgeti(L, LUA_REGISTRYINDEX, callback);
 	lua_pushinteger(L, fd);
@@ -130,7 +136,6 @@ void LuaFish::OnConnect(int fd, const char* reason, void* userdata) {
 	lua_State* L = script_.state();
 
 	int callback = (int)(intptr_t)userdata;
-	close(fd);
 
 	lua_rawgeti(L, LUA_REGISTRYINDEX, callback);
 
@@ -152,8 +157,7 @@ void LuaFish::OnConnect(int fd, const char* reason, void* userdata) {
 extern "C" int luaseri_pack(lua_State*);
 extern "C" int luaseri_unpack(lua_State*);
 
-int LuaFish::Register(lua_State* L)
-{
+int LuaFish::Register(lua_State* L) {
 	luaL_checkversion(L);
 
 	luaL_Reg l[] = {
@@ -161,12 +165,13 @@ int LuaFish::Register(lua_State* L)
 		{ "Log", LuaFish::Log },
 		{ "Now", LuaFish::Now },
 		{ "Timestamp", LuaFish::Timestamp},
-		{ "TimestampToSecond", LuaFish::TimestampToSecond},
 		{ "Pack", luaseri_pack},
 		{ "UnPack", luaseri_unpack},
-		{ "Timer", LuaFish::TimerStart},
+		{ "StartTimer", LuaFish::TimerStart},
+		{ "CancelTimer", LuaFish::TimerCancel},
 		{ "Listen", LuaFish::AcceptorListen},
 		{ "Connect", LuaFish::ConnectorConnect},
+		{ "Bind", LuaFish::BindChannel},
 		{ NULL, NULL },
 	};
 
@@ -203,12 +208,6 @@ int LuaFish::Now(lua_State* L) {
 int LuaFish::Timestamp(lua_State* L) {
 	uint64 now = TimeStamp();
 	lua_pushnumber(L,now);
-	return 1;
-}
-
-int LuaFish::TimestampToSecond(lua_State* L) {
-	lua_Number ti = lua_tonumber(L,1);
-	lua_pushnumber(L,ti/StampPersecond());
 	return 1;
 }
 
