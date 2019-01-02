@@ -17,7 +17,7 @@ end
 
 function ServerInit()
 	print("server init")
-	local timerId = fish.Timer(0.01,0.01,function ()
+	local timerId = fish.StartTimer(0.01,0.01,function ()
 		--print("timeout",fish.Now())
 	end)
 
@@ -27,7 +27,7 @@ function ServerInit()
 
 	-- print("timerId",timerId)
 
-	-- local timerId = fish.Timer(1,0,function ()
+	-- local timerId = fish.StartTimer(1,0,function ()
 	-- 	print("timeout1")
 	-- end)
 
