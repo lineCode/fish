@@ -5,7 +5,9 @@
 #include <string>
 #include "network/Address.h"
 #include "util/Singleton.h"
+#include "time/Timer.h"
 #include "LoggerChannel.h"
+#include "ServerApp.h"
 
 class Logger : public Singleton<Logger> {
 public:
@@ -20,7 +22,7 @@ public:
 		LogEnd
 	};
 public:
-	Logger(Addr& addr, ServerApp* app);
+	Logger(Network::Addr& addr, ServerApp* app);
 	~Logger(void);
 
 	void Log(const char* file,int line,Loglevel level,const char* content);
@@ -37,7 +39,7 @@ public:
 private:
 	static Loglevel level_;
 	std::mutex mutex_;
-	Addr addr_;
+	Network::Addr addr_;
 	LoggerChannel* channel_;
 	Timer* timer_;
 	ServerApp* app_;

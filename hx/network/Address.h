@@ -47,8 +47,8 @@ public:
         memset(&addr.sockaddr,0,sizeof(addr.sockaddr));
         addr.family = AF_UNIX;
         addr.addrType = SOCK_ADDR_UNIX;
-        addr.un.sun_family = AF_UNIX;
-        strcpy(addr.un.sun_path, file);
+        addr.sockaddr.un.sun_family = AF_UNIX;
+        strcpy(addr.sockaddr.un.sun_path, file);
         return addr;
     }
 
