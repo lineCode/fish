@@ -42,6 +42,16 @@ public:
     	return addr;
     }
 
+    static Addr MakeUNIXAddr(const char* file) {
+        Addr addr;
+        memset(&addr.sockaddr,0,sizeof(addr.sockaddr));
+        addr.family = AF_UNIX;
+        addr.addrType = SOCK_ADDR_UNIX;
+        addr.un.sun_family = AF_UNIX;
+        strcpy(addr.un.sun_path, file);
+        return addr;
+    }
+
     static Addr MakeBySockAddr(struct sockaddr *addr_,socklen_t len) {
         Addr addr;
         memset(&addr.sockaddr,0,sizeof(addr.sockaddr));
