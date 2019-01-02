@@ -16,9 +16,10 @@ ServerApp::ServerApp() {
 }
 
 ServerApp::~ServerApp() {
-	delete poller_;
 	delete timer_;
 	delete lua_;
+	delete queue_;
+	delete poller_;
 }
 
 int ServerApp::Init() {
@@ -29,7 +30,6 @@ int ServerApp::Init() {
 
 	lua_->Require("fish", LuaFish::Register);
 	lua_->Require("json", luaopen_rapidjson);
-	lua_->Require("cjson", luaopen_cjson);
 	
 	lua_->SetPath("../../script/?.lua;");
 

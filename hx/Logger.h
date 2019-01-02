@@ -3,8 +3,9 @@
 
 #include <mutex>
 #include <string>
+#include "network/Address.h"
 #include "util/Singleton.h"
-
+#include "LoggerChannel.h"
 
 class Logger : public Singleton<Logger> {
 public:
@@ -19,22 +20,28 @@ public:
 		LogEnd
 	};
 public:
-	Logger(const char* file);
+	Logger(Addr& addr, ServerApp* app);
 	~Logger(void);
 
 	void Log(const char* file,int line,Loglevel level,const char* content);
 
 	void LuaLog(const char* content);
 
+	void OnChannelClose(void* userdata);
+
+	void OnUpdate(Timer* timer, void* userdata);
+
 	static void SetLogLevel(Loglevel level);
 	
 	static Loglevel LogLevel();
 private:
-	std::mutex mutex_;
-
 	static Loglevel level_;
-	
-	FILE* FILE_;
+	std::mutex mutex_;
+	Addr addr_;
+	LoggerChannel* channel_;
+	Timer* timer_;
+	ServerApp* app_;
+	std::vector<std::string> cached_;
 };
 
 #define LOG_TRACE(x) Logger::GetSingleton()->Log(__FILE__,__LINE__,Logger::Trace,(x).c_str())
