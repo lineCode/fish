@@ -9,6 +9,8 @@
 #include "LoggerChannel.h"
 #include "ServerApp.h"
 
+class ServerApp;
+class LoggerChannel;
 class Logger : public Singleton<Logger> {
 public:
 	enum Loglevel

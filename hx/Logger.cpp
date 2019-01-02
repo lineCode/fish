@@ -1,4 +1,5 @@
 #include "Logger.h"
+#include "network/Connector.h"
 #include "util/format.h"
 #include <iostream>
 #include <assert.h>
@@ -66,8 +67,8 @@ void Logger::OnUpdate(Timer* timer, void* userdata) {
 	Network::Connector connector(app_->Poller());
 	int fd = connector.connect(addr_, false);
 	assert(fd > 0);
-	channel_ = new Network::Channel(app_->Poller(), fd);
-	channel_->SetCloseCallback(std::bind(&Logger::OnChannelClose, this, std::placeholders::_1))
+	channel_ = new LoggerChannel(app_->Poller(), fd);
+	channel_->SetCloseCallback(std::bind(&Logger::OnChannelClose, this, std::placeholders::_1));
 
 	std::vector<std::string>::iterator iter = cached_.begin();
 	for(;iter != cached_.end();iter++) {
