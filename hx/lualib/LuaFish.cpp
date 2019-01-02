@@ -70,8 +70,8 @@ uint64_t LuaFish::AllocTimer(Timer*& timer) {
 	uint64_t timerId;
 	for(;;) {
 		timerId = timerStep_++;
-		std::map<uint64_t, Timer*>::iterator iter = timerPool_.find(timerId);
-		if (iter == timerPool_.end()) {
+		std::map<uint64_t, Timer*>::iterator iter = timerMgr_.find(timerId);
+		if (iter == timerMgr_.end()) {
 			timerPool_.Pop(timer);
 			timerMgr_[timerId] = timer;
 			break;
