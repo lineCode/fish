@@ -65,10 +65,10 @@ void LuaChannel::HandleClose() {
 	lua_State* L = lua_->GetScript().state();
 	lua_rawgeti(L, LUA_REGISTRYINDEX, closeReference_);
 	lua_rawgeti(L, LUA_REGISTRYINDEX, reference_);
-
 	if (LUA_OK != lua_pcall(L, 1, 0, 0)) {
 		LOG_ERROR(fmt::format("HandleClose error:{}", lua_tostring(L, -1)));
 	}
+	luaL_unref(L, LUA_REGISTRYINDEX, reference_);
 }
 
 void LuaChannel::HandleError() {
@@ -79,6 +79,8 @@ void LuaChannel::HandleError() {
 	if (LUA_OK != lua_pcall(L, 1, 0, 0)) {
 		LOG_ERROR(fmt::format("HandleError error:{}", lua_tostring(L, -1)));
 	}
+
+	luaL_unref(L, LUA_REGISTRYINDEX, reference_);
 }
 
 void LuaChannel::SetReference(int reference) {
@@ -198,7 +200,6 @@ int LuaChannel::LClose(lua_State* L) {
 	LuaChannel* channel = (LuaChannel*)lua_touserdata(L, 1);
 	bool rightnow = luaL_optinteger(L, 2, 1);
 	channel->Close(rightnow);
-	luaL_unref(L, LUA_REGISTRYINDEX, channel->GetReference());
 	return 0;
 }
 

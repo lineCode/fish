@@ -4,15 +4,15 @@ local cjson = require "cjson"
 local util = require "util"
 
 local function OnData(channel)
-
+	print(channel:Read())
 end
 
 local function OnClose(channel)
-
+	print(channel,"close")
 end
 
 local function OnError(channel)
-
+	print(channel,"error")
 end
 
 function ServerInit()
@@ -22,7 +22,7 @@ function ServerInit()
 	end)
 
 	fish.Listen("127.0.0.1",1989,function (fd,addr)
-		fish.Bind(fd,OnData,OnClose,OnError)
+		fish.Bind(fd,0,OnData,OnClose,OnError)
 	end)
 
 	-- print("timerId",timerId)
