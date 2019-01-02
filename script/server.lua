@@ -3,10 +3,26 @@ local json = require "json"
 local cjson = require "cjson"
 local util = require "util"
 
+local function OnData(channel)
+
+end
+
+local function OnClose(channel)
+
+end
+
+local function OnError(channel)
+
+end
+
 function ServerInit()
 	print("server init")
 	local timerId = fish.Timer(0.01,0.01,function ()
 		--print("timeout",fish.Now())
+	end)
+
+	fish.Listen("127.0.0.1",1989,function (fd,addr)
+		fish.Bind(fd,OnData,OnClose,OnError)
 	end)
 
 	-- print("timerId",timerId)
