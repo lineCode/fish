@@ -9,7 +9,7 @@ TARGET = libhx.a
 DIRS = $(shell find . -maxdepth 3 -type d)
 SRC = $(foreach dir,$(DIRS),$(wildcard $(dir)/*.cpp $(dir)/*.cc $(dir)/*.c))
 
-SRC += ../3rd/http-parser/http_parser.c ../3rd/cjson/lua_cjson.c ../3rd/cjson/fpconv.c ../3rd/cjson/strbuf.c 
+SRC += ../3rd/http-parser/http_parser.c 
 
 
 OBJ = $(patsubst %.c, %.o, $(patsubst %.cc, %.o, $(patsubst %.cpp,%.o,$(SRC))))

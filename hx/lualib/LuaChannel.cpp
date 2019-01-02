@@ -82,7 +82,6 @@ void LuaChannel::HandleError() {
 	if (LUA_OK != lua_pcall(L, 1, 0, 0)) {
 		LOG_ERROR(fmt::format("HandleError error:{}", lua_tostring(L, -1)));
 	}
-
 	luaL_unref(L, LUA_REGISTRYINDEX, reference_);
 	luaL_unref(L, LUA_REGISTRYINDEX, dataReference_);
 	luaL_unref(L, LUA_REGISTRYINDEX, closeReference_);
