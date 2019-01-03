@@ -5,11 +5,9 @@
 #include <string>
 #include "format.h"
 #include "List.h"
-#include "Logger.h"
 
 #define OBJ_POOL_INIT_SIZE 16
 #define OBJ_POOL_WARNING_SIZE 1024
-class Logger;
 template<typename T>
 class ObjectPool
 {
@@ -51,7 +49,7 @@ public:
 			++count_;
 			++cap_;
 			if (cap_ >= OBJ_POOL_WARNING_SIZE) {
-				LOG_ERROR(fmt::format("pool object:{} allocate too much:{}",name_,cap_));
+				//LOG_ERROR(fmt::format("pool object:{} allocate too much:{}",name_,cap_));
 			}
 		}
 	}
