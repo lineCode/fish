@@ -4,11 +4,10 @@
 #include <map>
 #include <queue>
 
-
+#include "ServerApp.h"
 #include "EventPoller.h"
 #include "Reader.h"
 #include "Writer.h"
-#include "ServerApp.h"
 #include "util/MemoryStream.h"
 
 class ServerApp;
@@ -38,6 +37,7 @@ namespace Network {
 		virtual void HandleError();
 
 		virtual int Write(char* data,int size);
+		virtual int Write(std::string& data);
 		virtual int Write(MemoryStream* ms);
 
 	private:

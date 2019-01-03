@@ -1,5 +1,6 @@
 #include "LoggerChannel.h"
-
+#include "network/EventPoller.h"
+#include "network/Channel.h"
 LoggerChannel::LoggerChannel(Network::EventPoller* poller, int fd):Network::Channel(poller,fd) {
 
 }

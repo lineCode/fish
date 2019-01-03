@@ -1,7 +1,6 @@
 #ifndef LOGGER_CHANNEL_H
 #define LOGGER_CHANNEL_H
 #include "network/Channel.h"
-#include <functional>
 
 class LoggerChannel : public Network::Channel {
 public:

@@ -9,19 +9,19 @@ Logger * Singleton<Logger>::singleton_ = 0;
 
 Logger::Loglevel Logger::level_ = Trace;
 
-Logger::Logger(Addr& addr, ServerApp* app):addr_(addr) {
+Logger::Logger(Network::Addr& addr, ServerApp* app):addr_(addr) {
 	app_ = app;
 	
 	Network::Connector connector(app_->Poller());
-	int fd = connector.connect(addr_, false);
+	int fd = connector.Connect(addr_, false);
 	assert(fd > 0);
 
-	channel_ = new Network::Channel(app_->Poller(), fd);
-	channel_->SetCloseCallback(std::bind(&Logger::OnChannelClose, this, std::placeholders::_1))
+	channel_ = new LoggerChannel(app_->Poller(), fd);
+	channel_->SetCloseCallback(std::bind(&Logger::OnChannelClose, this, std::placeholders::_1));
 
 	timer_ = new Timer();
-	timer_->SetCallback(std::bind(&Logger::OnUpate, this, std::placeholders::_1, std::placeholders::_2));
-	timer_->Start(poller_, 1, 1);
+	timer_->SetCallback(std::bind(&Logger::OnUpdate, this, std::placeholders::_1, std::placeholders::_2));
+	timer_->Start(app->Poller(), 1, 1);
 }
 
 Logger::~Logger(void) {
@@ -38,9 +38,9 @@ void Logger::Log(const char* file,int line,Loglevel level,const char* content) {
 	std::lock_guard<std::mutex> guard(mutex_);
 	std::string log = fmt::format("@{}:{}: {}\n", file, line, content);
 	if (channel_) {
-		channel_->Write(log.c_str(), log.length());
+		channel_->Write(log);
 	} else {
-		cached_.push(log);
+		cached_.push_back(log);
 	}
 }
 
@@ -48,9 +48,9 @@ void Logger::LuaLog(const char* content) {
 	std::lock_guard<std::mutex> guard(mutex_);
 	std::string log = fmt::format("@lua: {}\n",content);
 	if (channel_) {
-		channel_->Write(log.c_str(), log.length());
+		channel_->Write(log);
 	} else {
-		cached_.push(log);
+		cached_.push_back(log);
 	}
 }
 
@@ -65,7 +65,7 @@ void Logger::OnUpdate(Timer* timer, void* userdata) {
 	}
 
 	Network::Connector connector(app_->Poller());
-	int fd = connector.connect(addr_, false);
+	int fd = connector.Connect((const Network::Addr&)addr_, false);
 	assert(fd > 0);
 	channel_ = new LoggerChannel(app_->Poller(), fd);
 	channel_->SetCloseCallback(std::bind(&Logger::OnChannelClose, this, std::placeholders::_1));
@@ -73,7 +73,7 @@ void Logger::OnUpdate(Timer* timer, void* userdata) {
 	std::vector<std::string>::iterator iter = cached_.begin();
 	for(;iter != cached_.end();iter++) {
 		std::string log = *iter;
-		channel_->Write(log.c_str(), log.length());
+		channel_->Write(log);
 	}
 	cached_.clear();
 }

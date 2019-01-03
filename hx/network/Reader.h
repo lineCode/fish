@@ -1,13 +1,9 @@
 ﻿#ifndef READER_H
 #define READER_H
 
-#include "../util/List.h"
-
-class MemoryStream;
+#include "util/List.h"
 
 namespace Network {
-	class Channel;
-	
 	class Reader {
 	public:
 		struct ReaderBuffer {

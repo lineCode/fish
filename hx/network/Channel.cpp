@@ -137,7 +137,20 @@ namespace Network {
 
 		return 0;
 	}
+	
+	int Channel::Write(std::string& data) {
+		if (!IsAlive()) {
+			return -1;
+		}
+		if (data.length() == 0) {
+			return -1;
+		}
 
+		int size = data.length();
+		char* str = (char*)malloc(size);
+		memcpy(str, data.c_str(), size);
+		return Write(str, size);
+	}
 	int Channel::Write(MemoryStream* ms) {
 		int result = Write(ms->data(),ms->length());
 		delete ms;

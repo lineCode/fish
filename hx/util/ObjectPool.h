@@ -9,7 +9,7 @@
 
 #define OBJ_POOL_INIT_SIZE 16
 #define OBJ_POOL_WARNING_SIZE 1024
-
+class Logger;
 template<typename T>
 class ObjectPool
 {
