@@ -4,7 +4,6 @@
 #include "Logger.h"
 
 extern "C" int luaopen_rapidjson(lua_State* L);
-extern "C" int luaopen_cjson(lua_State *l);
 
 ServerApp::ServerApp() {
 	state_ = AppRun;
