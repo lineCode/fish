@@ -1,7 +1,7 @@
 #include "LoggerApp.h"
 
 
-LoggerApp::LoggerApp() {
+LoggerApp::LoggerApp(Network::EventPoller* poller) : ServerApp(poller) {
 
 }
 
@@ -20,13 +20,4 @@ int LoggerApp::Init() {
 	}
 	return 0;
 }
-
-int LoggerApp::Fina() {
-	return ServerApp::Fina();
-}
-
-int LoggerApp::Run() {
-	return ServerApp::Run();
-}
-
 

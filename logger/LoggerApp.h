@@ -13,15 +13,11 @@
 class LoggerApp : public ServerApp
 {
 public:
-	LoggerApp();
+	LoggerApp(Network::EventPoller* poller);
 
 	~LoggerApp(void);
 
 	virtual int Init();
-
-	virtual int Fina();
-
-	virtual int Run();
 
 private:
 	

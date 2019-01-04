@@ -12,9 +12,6 @@ public:
 	void Startup();
 
 private:
-	void LoadConfig(const char* file);
-
-private:
 	rapidjson::Document config_;
 };
 

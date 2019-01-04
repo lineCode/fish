@@ -42,17 +42,3 @@ void Bootstrap::Startup() {
 	delete logger;
 	delete poller;
 }
-
-void Bootstrap::LoadConfig(const char* configFile) {
-	FILE* file = fopen(configFile,"r");
-	assert(file != NULL);
-	fseek(file,0,SEEK_END);
-	int len = ftell(file);
-	char* json = (char*)malloc(len);
-	memset(json,0,len);
-	rewind(file);
-	fread(json,1,len,file);
-	fclose(file);
-	assert(config_.ParseInsitu(json).HasParseError() == false);
-	//free(json);
-}
