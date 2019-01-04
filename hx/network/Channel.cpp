@@ -151,6 +151,7 @@ namespace Network {
 		memcpy(str, data.c_str(), size);
 		return Write(str, size);
 	}
+	
 	int Channel::Write(MemoryStream* ms) {
 		int result = Write(ms->data(),ms->length());
 		delete ms;

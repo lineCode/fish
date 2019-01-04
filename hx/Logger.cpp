@@ -66,7 +66,10 @@ void Logger::OnUpdate(Timer* timer, void* userdata) {
 
 	Network::Connector connector(app_->Poller());
 	int fd = connector.Connect((const Network::Addr&)addr_, false);
-	assert(fd > 0);
+	if (fd < 0) {
+		return;
+	}
+	
 	channel_ = new LoggerChannel(app_->Poller(), fd);
 	channel_->SetCloseCallback(std::bind(&Logger::OnChannelClose, this, std::placeholders::_1));
 
