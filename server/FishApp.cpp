@@ -13,7 +13,7 @@ FishApp::~FishApp(void) {
 }
 
 int FishApp::Init() {
-	LOG_ERROR(fmt::format("FishApp start:{}", file_));
+	LOG_ERROR(std::string("FishApp start"));
 	ServerApp::Init();
 
 	Network::Acceptor::OnConnection callback = std::bind(&FishApp::OnClientAccept, this, std::placeholders::_1, std::placeholders::_2);
@@ -22,7 +22,6 @@ int FishApp::Init() {
 	Network::Acceptor::OnConnection httpCallback = std::bind(&FishApp::OnHttpAccept, this, std::placeholders::_1, std::placeholders::_2);
 	httpAcceptor_->SetCallback(httpCallback);
 
-	lua_->DoFile(file_);
 
 	int fd = connector_->Connect("127.0.0.1",1998,false);
 

@@ -22,7 +22,7 @@ Logger::Logger(Network::Addr& addr, Network::EventPoller* poller):addr_(addr) {
 
 	timer_ = new Timer();
 	timer_->SetCallback(std::bind(&Logger::OnUpdate, this, std::placeholders::_1, std::placeholders::_2));
-	timer_->Start(app->Poller(), 1, 1);
+	timer_->Start(poller_, 1, 1);
 
 	FILE_ = NULL;
 }
