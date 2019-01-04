@@ -1,6 +1,7 @@
-#include "util.h"
-#include "logger.h"
-
+#include "Util.h"
+#include "Logger.h"
+#include "rapidjson.h"
+#include "filereadstream.h"
 namespace Util {
 	int LoadJson(rapidjson::Document& doc, const char* file) {
 		FILE* F = fopen(file, "r");
@@ -8,8 +9,10 @@ namespace Util {
 			LOG_ERROR(fmt::format("LoadJson error:no such file:{}", file));
 			return -1;
 		}
+		
+		char readBuffer[1024];
 
-		rapidjson::FileStream stream(F);
+		rapidjson::FileReadStream stream(F, readBuffer, sizeof(readBuffer));
 		doc.ParseStream(stream);
 
 		fclose(F);
