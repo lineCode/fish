@@ -38,7 +38,7 @@ namespace Network {
 
 		virtual int Write(char* data,int size);
 		virtual int Write(std::string& data);
-		virtual int Write(MemoryStream* ms);
+		virtual int Write(MemoryStream& stream);
 
 	private:
 		virtual void Clean();

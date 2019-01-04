@@ -151,10 +151,9 @@ namespace Network {
 		memcpy(str, data.c_str(), size);
 		return Write(str, size);
 	}
-	
-	int Channel::Write(MemoryStream* ms) {
-		int result = Write(ms->data(),ms->length());
-		delete ms;
-		return result;
+
+	int Channel::Write(MemoryStream& stream) {
+		char* data = (char*)malloc(stream.Length());
+		return Write(data, stream.Length());
 	}
 }
