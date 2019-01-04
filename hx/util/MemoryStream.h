@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <string.h>
-#include "../Typedef.h"
+#include "Typedef.h"
 
 namespace EndianConvert {
 	template<size_t T>
