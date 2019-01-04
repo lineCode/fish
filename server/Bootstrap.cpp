@@ -4,13 +4,14 @@
 #include "ServerApp.h"
 #include "network/EventPoller.h"
 #include "network/Address.h"
+#include "util/Util.h"
 
 #include <assert.h>
 
 using namespace rapidjson;
 
 Bootstrap::Bootstrap(const char* file) {
-	LoadConfig(file);
+	assert(Util::LoadJson(config_, file) == 0);
 }
 
 
