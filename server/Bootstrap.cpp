@@ -32,7 +32,7 @@ void Bootstrap::Startup() {
 	}
 	
 	{
-		FishApp app(&poller);
+		FishApp app(poller);
 		app.Init();
 		app.Run();
 		app.Fina();
