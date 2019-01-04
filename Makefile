@@ -57,6 +57,7 @@ $(LOGGER) : $(LUA_STATICLIB) $(OOLUA_STATICLIB) $(LIBEV_STATICLIB) $(HX_STATICLI
 
 cleanall:
 	rm -rf $(FISH) $(FISH_INC)/*o
+	rm -rf $(LOGGER) $(LOGGER_INC)/*o
 	rm -rf $(LIBS_DIR)/$(HX_LIB) && cd $(HX_INC) && make clean
 	rm -rf $(LIBS_DIR)/$(LUA_LIB) $(LIBS_DIR)/liblua.so && cd $(LUA_INC) && make clean
 	rm -rf $(LIBS_DIR)/$(OOLUA_LIB) && cd $(OOLUA_PATH) && make clean
@@ -64,6 +65,7 @@ cleanall:
 
 cleanhx:
 	rm -rf $(FISH) $(FISH_INC)/*o
+	rm -rf $(LOGGER) $(LOGGER_INC)/*o
 	rm -rf $(LIBS_DIR)/$(HX_LIB) && cd $(HX_INC) && make clean
 
 clean:

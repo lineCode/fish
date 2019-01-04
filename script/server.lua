@@ -1,6 +1,5 @@
 local fish = require "fish"
 local json = require "json"
-local cjson = require "cjson"
 local util = require "util"
 
 local function OnData(channel)

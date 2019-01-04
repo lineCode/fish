@@ -1,0 +1,394 @@
+@LoggerApp.cpp:12: LoggerApp start
+@lualib/LuaFish.cpp:43: do file:../../script/server.lua error:../../script/server.lua:3: module 'cjson' not found:
+	no field package.preload['cjson']
+	no file '../../script/cjson.lua'
+	no file '/usr/local/share/lua/5.2/cjson.lua'
+	no file '/usr/local/share/lua/5.2/cjson/init.lua'
+	no file '/usr/local/lib/lua/5.2/cjson.lua'
+	no file '/usr/local/lib/lua/5.2/cjson/init.lua'
+	no file './cjson.lua'
+	no file '/usr/local/lib/lua/5.2/cjson.so'
+	no file '/usr/local/lib/lua/5.2/loadall.so'
+	no file './cjson.so'
+@ServerApp.cpp:38: serverInit error:attempt to call a nil value
+stack traceback:
+@LoggerApp.cpp:18: LoggerInit error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack traceback:
+@ServerApp.cpp:79: serverUpdate error:attempt to call a nil value
+stack trac

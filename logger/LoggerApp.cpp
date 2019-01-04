@@ -1,5 +1,5 @@
 #include "LoggerApp.h"
-
+#include "Logger.h"
 
 LoggerApp::LoggerApp(Network::EventPoller* poller) : ServerApp(poller) {
 
@@ -11,7 +11,7 @@ LoggerApp::~LoggerApp(void) {
 int LoggerApp::Init() {
 	LOG_ERROR(fmt::format("LoggerApp start"));
 	ServerApp::Init();
-	lua_->DoFile("logger.lua");
+	lua_->DoFile("../../script/logger.lua");
 
 	OOLUA::Script& script = lua_->GetScript();
 	if (!script.call("LoggerInit")) {

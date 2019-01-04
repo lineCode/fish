@@ -31,7 +31,7 @@ int ServerApp::Init() {
 	
 	lua_->SetPath("../../script/?.lua;");
 
-	lua_->DoFile("server.lua");
+	lua_->DoFile("../../script/server.lua");
 	
 	OOLUA::Script& script = lua_->GetScript();
 	if (!script.call("ServerInit")) {

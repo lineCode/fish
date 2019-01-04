@@ -2,7 +2,7 @@
 
 
 
-function Init()
+function LoggerInit()
 
 
 end
