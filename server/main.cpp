@@ -14,8 +14,8 @@ int main(int argc, char *argv[])
  	assert(argc > 1);
  	const char* config = argv[1];
 
- 	Bootstrap bootstrap;
- 	bootstrap.Startup(config);
+ 	Bootstrap bootstrap(config);
+ 	bootstrap.Startup();
 
 	return 0;
 }
