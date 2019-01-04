@@ -177,19 +177,22 @@ char* MemoryStream::Data() {
 char* MemoryStream::Begin() { 
 	if (readOffset_ >= writeOffset_)
 		return NULL;
-	return &*(data_.begin()+readOffset_); 
+	return &data_[readOffset_]; 
 }
 
 const char* MemoryStream::Begin() const { 
-	return &*(data_.begin()+readOffset_); 
+	if (readOffset_ >= writeOffset_)
+		return NULL;
+	return &data_[readOffset_]; 
+
 }
 
 char* MemoryStream::End() { 
-	return &*(data_.begin()+writeOffset_); 
+	return &data_[writeOffset_]; 
 }
 
 const char* MemoryStream::End() const { 
-	return &*(data_.begin()+writeOffset_); 
+	return &data_[writeOffset_]; 
 }
 
 int MemoryStream::ReadOffset() { 
