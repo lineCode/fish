@@ -21,11 +21,13 @@ HX_INC ?= ./hx
 FISH := $(BIN_PATH)/fish
 FISH_INC ?= ./server
 
+LOGGER := $(BIN_PATH)/logger
+LOGGER_INC ?= ./logger
 
 LIBS_DIR := $(BIN_PATH)
 
 
-all: $(LUA_STATICLIB) $(OOLUA_STATICLIB) $(LIBEV_STATICLIB) $(HX_STATICLIB) $(FISH)
+all: $(LUA_STATICLIB) $(OOLUA_STATICLIB) $(LIBEV_STATICLIB) $(HX_STATICLIB) $(FISH) $(LOGGER)
 
 $(LUA_STATICLIB) :
 	cd $(LUA_INC)&& $(MAKE) linux
@@ -46,7 +48,11 @@ $(HX_STATICLIB) :
  
 $(FISH) : $(LUA_STATICLIB) $(OOLUA_STATICLIB) $(LIBEV_STATICLIB) $(HX_STATICLIB)
 	cd $(FISH_INC) && $(MAKE)
-	mv $(FISH_INC)/fish $(LIBS_DIR) 
+	mv $(FISH_INC)/fish $(LIBS_DIR)
+
+$(LOGGER) : $(LUA_STATICLIB) $(OOLUA_STATICLIB) $(LIBEV_STATICLIB) $(HX_STATICLIB)
+	cd $(LOGGER_INC) && $(MAKE)
+	mv $(LOGGER_INC)/logger $(LIBS_DIR) 
  
 
 cleanall:
@@ -62,4 +68,5 @@ cleanhx:
 
 clean:
 	rm -rf $(FISH) $(FISH_INC)/*o
+	rm -rf $(LOGGER) $(LOGGER_INC)/*o
 	
