@@ -3,13 +3,13 @@
 
 const char MemoryStream::kCRLF[] = "\r\n";
 
-MemoryStream::MemoryStream(size_t size):rpos_(0),wpos_(0) {
+MemoryStream::MemoryStream(size_t size):readOffset_(0),writeOffset_(0) {
 	data_.resize(size);
 }
 
 MemoryStream::MemoryStream(char* buffer,int size) {
-	rpos_ = 0;
-	wpos_ = size;
+	readOffset_ = 0;
+	writeOffset_ = size;
 	data_.assign(buffer,buffer+size);
 }
 
@@ -17,138 +17,138 @@ MemoryStream::~MemoryStream() {
 }
 
 MemoryStream& MemoryStream::operator<<(bool value) {
-	append<bool>(value);
+	Append<bool>(value);
 	return *this;
 }
 
-MemoryStream& MemoryStream::operator<<(uint8 value) {
-	append<uint8>(value);
+MemoryStream& MemoryStream::operator<<(uint8_t value) {
+	Append<uint8_t>(value);
 	return *this;
 }
 
-MemoryStream& MemoryStream::operator<<(uint16 value) {
-	append<uint16>(value);
+MemoryStream& MemoryStream::operator<<(uint16_t value) {
+	Append<uint16_t>(value);
 	return *this;
 }
 
-MemoryStream& MemoryStream::operator<<(uint32 value) {
-	append<uint32>(value);
+MemoryStream& MemoryStream::operator<<(uint32_t value) {
+	Append<uint32_t>(value);
 	return *this;
 }
 
-MemoryStream& MemoryStream::operator<<(uint64 value) {
-	append<uint64>(value);
+MemoryStream& MemoryStream::operator<<(uint64_t value) {
+	Append<uint64_t>(value);
 	return *this;
 }
 
-MemoryStream& MemoryStream::operator<<(int8 value) {
-	append<int8>(value);
+MemoryStream& MemoryStream::operator<<(int8_t value) {
+	Append<int8_t>(value);
 	return *this;
 }
 
-MemoryStream& MemoryStream::operator<<(int16 value) {
-	append<int16>(value);
+MemoryStream& MemoryStream::operator<<(int16_t value) {
+	Append<int16_t>(value);
 	return *this;
 }
 
-MemoryStream& MemoryStream::operator<<(int32 value) {
-	append<int32>(value);
+MemoryStream& MemoryStream::operator<<(int32_t value) {
+	Append<int32_t>(value);
 	return *this;
 }
 
-MemoryStream& MemoryStream::operator<<(int64 value) {
-	append<int64>(value);
+MemoryStream& MemoryStream::operator<<(int64_t value) {
+	Append<int64_t>(value);
 	return *this;
 }
 
 MemoryStream& MemoryStream::operator<<(float value) {
-	append<float>(value);
+	Append<float>(value);
 	return *this;
 }
 
 MemoryStream& MemoryStream::operator<<(double value) {
-	append<double>(value);
+	Append<double>(value);
 	return *this;
 }
 
 MemoryStream& MemoryStream::operator<<(const std::string& value) {
-	append((const uint8 *)value.c_str(), value.length());
-	append((uint8)0);
+	Append((const uint8_t *)value.c_str(), value.length());
+	Append((uint8_t)0);
 	return *this;
 }
 
 MemoryStream& MemoryStream::operator<<(const char *str) {
-	append((uint8 const *)str, str ? strlen(str) : 0);
-	append((uint8)0);
+	Append((uint8_t const *)str, str ? strlen(str) : 0);
+	Append((uint8_t)0);
 	return *this;
 }
 
 MemoryStream& MemoryStream::operator<<(MemoryStream& ms) {
-	append(ms.begin(),ms.length());
-	append((uint8)0);
+	Append(ms.Begin(),ms.Length());
+	Append((uint8_t)0);
 	return *this;
 }
 
 MemoryStream& MemoryStream::operator>>(bool &value) {
-	value = read<char>() > 0 ? true : false;
+	value = Read<char>() > 0 ? true : false;
 	return *this;
 }
 
-MemoryStream& MemoryStream::operator>>(uint8 &value) {
-	value = read<uint8>();
+MemoryStream& MemoryStream::operator>>(uint8_t &value) {
+	value = Read<uint8_t>();
 	return *this;
 }
 
-MemoryStream& MemoryStream::operator>>(uint16 &value) {
-	value = read<uint16>();
+MemoryStream& MemoryStream::operator>>(uint16_t &value) {
+	value = Read<uint16_t>();
 	return *this;
 }
 
-MemoryStream& MemoryStream::operator>>(uint32 &value) {
-	value = read<uint32>();
+MemoryStream& MemoryStream::operator>>(uint32_t &value) {
+	value = Read<uint32_t>();
 	return *this;
 }
 
-MemoryStream& MemoryStream::operator>>(uint64 &value) {
-	value = read<uint64>();
+MemoryStream& MemoryStream::operator>>(uint64_t &value) {
+	value = Read<uint64_t>();
 	return *this;
 }
 
-MemoryStream& MemoryStream::operator>>(int8 &value) {
-	value = read<int8>();
+MemoryStream& MemoryStream::operator>>(int8_t &value) {
+	value = Read<int8_t>();
 	return *this;
 }
 
-MemoryStream& MemoryStream::operator>>(int16 &value) {
-	value = read<int16>();
+MemoryStream& MemoryStream::operator>>(int16_t &value) {
+	value = Read<int16_t>();
 	return *this;
 }
 
-MemoryStream& MemoryStream::operator>>(int32 &value) {
-	value = read<int32>();
+MemoryStream& MemoryStream::operator>>(int32_t &value) {
+	value = Read<int32_t>();
 	return *this;
 }
 
-MemoryStream& MemoryStream::operator>>(int64 &value) {
-	value = read<int64>();
+MemoryStream& MemoryStream::operator>>(int64_t &value) {
+	value = Read<int64_t>();
 	return *this;
 }
 
 MemoryStream& MemoryStream::operator>>(float &value) {
-	value = read<float>();
+	value = Read<float>();
 	return *this;
 }
 
 MemoryStream& MemoryStream::operator>>(double &value) 
 {
-	value = read<double>();
+	value = Read<double>();
 	return *this;
 }
 
 MemoryStream& MemoryStream::operator>>(std::string& value) {
 	value.clear();
-	while (length() > 0) {
-		char c = read<char>();
+	while (Length() > 0) {
+		char c = Read<char>();
 		if (c == 0) {
 			break;
 		}
@@ -158,8 +158,8 @@ MemoryStream& MemoryStream::operator>>(std::string& value) {
 }
 
 MemoryStream& MemoryStream::operator>>(char *value) {
-	while (length() > 0) {
-		char c = read<char>();
+	while (Length() > 0) {
+		char c = Read<char>();
 		if (c == 0) {
 			break;
 		}
@@ -170,115 +170,115 @@ MemoryStream& MemoryStream::operator>>(char *value) {
 	return *this;
 }
 
-char* MemoryStream::data() {
+char* MemoryStream::Data() {
 	return &data_[0];
 }
 
-char* MemoryStream::begin() { 
-	if (rpos_ >= wpos_)
+char* MemoryStream::Begin() { 
+	if (readOffset_ >= writeOffset_)
 		return NULL;
-	return &*(data_.begin()+rpos_); 
+	return &*(data_.Begin()+readOffset_); 
 }
 
-const char* MemoryStream::begin() const { 
-	return &*(data_.begin()+rpos_); 
+const char* MemoryStream::Begin() const { 
+	return &*(data_.Begin()+readOffset_); 
 }
 
-char* MemoryStream::end() { 
-	return &*(data_.begin()+wpos_); 
+char* MemoryStream::End() { 
+	return &*(data_.Begin()+writeOffset_); 
 }
 
-const char* MemoryStream::end() const { 
-	return &*(data_.begin()+wpos_); 
+const char* MemoryStream::End() const { 
+	return &*(data_.Begin()+writeOffset_); 
 }
 
-int MemoryStream::rpos() { 
-	return rpos_; 
+int MemoryStream::ReadOffset() { 
+	return readOffset_; 
 }
 
-void MemoryStream::rpos(int pos) {
+void MemoryStream::ReadOffset(int pos) {
 	if(pos < 0)
 		pos = 0;
-	rpos_ = pos;
+	readOffset_ = pos;
 }
 
-int MemoryStream::wpos() { 
-	return wpos_; 
+int MemoryStream::WriteOffset() { 
+	return writeOffset_; 
 }
 
-void MemoryStream::wpos(int pos) {
+void MemoryStream::WriteOffset(int pos) {
 	if(pos < 0)
 		pos = 0;
-	wpos_ = pos;
+	writeOffset_ = pos;
 }
 
-size_t MemoryStream::length() {
-	return rpos() >= wpos() ? 0 : wpos() - rpos();
+size_t MemoryStream::Length() {
+	return ReadOffset() >= WriteOffset() ? 0 : WriteOffset() - ReadOffset();
 }
 
-size_t MemoryStream::size() {
+size_t MemoryStream::Size() {
 	return data_.size();
 }
 
-void MemoryStream::resize(size_t newsize) {
+void MemoryStream::Resize(size_t newsize) {
 	data_.resize(newsize);
 }
 
-void MemoryStream::reserve(size_t ressize) {
-	if (ressize > size())
+void MemoryStream::Reserve(size_t ressize) {
+	if (ressize > Size())
 		data_.reserve(ressize);
 }
 
-void MemoryStream::clear() {
+void MemoryStream::Clear() {
 	data_.clear();
-	rpos_ = wpos_ = 0;
+	readOffset_ = writeOffset_ = 0;
 }
 
-void MemoryStream::reset() {
-	rpos_ = wpos_ = 0;
+void MemoryStream::Reset() {
+	readOffset_ = writeOffset_ = 0;
 }
 
-char* MemoryStream::peekData(int pos) {
+char* MemoryStream::Peek(int pos) {
 	assert((size_t)pos < data_.size());
 	return &data_[pos];
 }
 
-void MemoryStream::retrieveUntil(const char* endc) {
-	assert(begin() <= endc);
-	assert(endc <= end());
-	rpos_ += endc - begin();
+void MemoryStream::RetrieveUntil(const char* endc) {
+	assert(Begin() <= endc);
+	assert(endc <= End());
+	readOffset_ += endc - Begin();
 }
 
-const char* MemoryStream::findCRLF() {
-	const char* crlf = std::search(begin(),end(), kCRLF, kCRLF+2);
-	return crlf == &data_[wpos_] ? NULL : crlf;
+const char* MemoryStream::FindCRLF() {
+	const char* crlf = std::search(Begin(),End(), kCRLF, kCRLF+2);
+	return crlf == &data_[writeOffset_] ? NULL : crlf;
 }
 
-const char* MemoryStream::findCRLF(const char* start) {
-	assert(start <= end());
-	const char* crlf = std::search((char*)start,end(), kCRLF, kCRLF+2);
-	return crlf == &data_[wpos_] ? NULL : crlf;
+const char* MemoryStream::FindCRLF(const char* start) {
+	assert(start <= End());
+	const char* crlf = std::search((char*)start,End(), kCRLF, kCRLF+2);
+	return crlf == &data_[writeOffset_] ? NULL : crlf;
 }
 
-const char* MemoryStream::findEOL() {
-	const void* eol = memchr(begin(), '\n', length());
+const char* MemoryStream::FindEOL() {
+	const void* eol = memchr(Begin(), '\n', Length());
 	return static_cast<const char*>(eol);
 }
 
-const char* MemoryStream::findEOL(const char* start) {
-	const void* eol = memchr(start, '\n', length());
+const char* MemoryStream::FindEOL(const char* start) {
+	const void* eol = memchr(start, '\n', Length());
 	return static_cast<const char*>(eol);
 }
 
-void MemoryStream::copyAll(char*& ptr,int & size) {
-	size = length();
+void MemoryStream::CopyAll(char*& ptr,int & size) {
+	size = Length();
 	ptr = (char*)malloc(size);
-	memcpy(ptr,data()+ rpos_,size);
-	rpos_ += size;
+	memcpy(ptr,Data()+ readOffset_,size);
+	readOffset_ += size;
 }
 
-void MemoryStream::copyWithSize(char* ptr,int size) {
-	assert(wpos_ - rpos_ >= size);
-	memcpy(ptr,data()+ rpos_,size);
-	rpos_ += size;
+void MemoryStream::CopyWithSize(char* ptr,int size) {
+	assert(writeOffset_ - readOffset_ >= size);
+	memcpy(ptr,Data()+ readOffset_,size);
+	readOffset_ += size;
 }

@@ -38,26 +38,24 @@ namespace EndianConvert {
 	}
 };
 
-class MemoryStream
-{
+class MemoryStream {
 public:
 	const static size_t		DEFAULT_SIZE = 0x100;
 	static const char		kCRLF[];
-
 
 	MemoryStream(size_t size = DEFAULT_SIZE);
 	MemoryStream(char* buffer,int size);
 	~MemoryStream();
 
 	MemoryStream& operator<<(bool value);
-	MemoryStream& operator<<(uint8 value);
-	MemoryStream& operator<<(uint16 value);
-	MemoryStream& operator<<(uint32 value);
-	MemoryStream& operator<<(uint64 value);
-	MemoryStream& operator<<(int8 value);
-	MemoryStream& operator<<(int16 value);
-	MemoryStream& operator<<(int32 value);
-	MemoryStream& operator<<(int64 value);
+	MemoryStream& operator<<(uint8_t value);
+	MemoryStream& operator<<(uint16_t value);
+	MemoryStream& operator<<(uint32_t value);
+	MemoryStream& operator<<(uint64_t value);
+	MemoryStream& operator<<(int8_t value);
+	MemoryStream& operator<<(int16_t value);
+	MemoryStream& operator<<(int32_t value);
+	MemoryStream& operator<<(int64_t value);
 	MemoryStream& operator<<(float value);
 	MemoryStream& operator<<(double value);
 	MemoryStream& operator<<(const std::string& value);
@@ -65,105 +63,103 @@ public:
 	MemoryStream& operator<<(MemoryStream& ms);
 
 	MemoryStream& operator>>(bool& value);
-	MemoryStream& operator>>(uint8& value);
-	MemoryStream& operator>>(uint16& value);
-	MemoryStream& operator>>(uint32& value);
-	MemoryStream& operator>>(uint64& value);
-	MemoryStream& operator>>(int8& value);
-	MemoryStream& operator>>(int16& value);
-	MemoryStream& operator>>(int32& value);
-	MemoryStream& operator>>(int64& value);
+	MemoryStream& operator>>(uint8_t& value);
+	MemoryStream& operator>>(uint16_t& value);
+	MemoryStream& operator>>(uint32_t& value);
+	MemoryStream& operator>>(uint64_t& value);
+	MemoryStream& operator>>(int8_t& value);
+	MemoryStream& operator>>(int16_t& value);
+	MemoryStream& operator>>(int32_t& value);
+	MemoryStream& operator>>(int64_t& value);
 	MemoryStream& operator>>(float& value);
 	MemoryStream& operator>>(double& value);
 	MemoryStream& operator>>(std::string& value);
 	MemoryStream& operator>>(char *value);
 
-	char*		data();
+	char* Data();
 
-	char*		begin();
-	const char* begin() const;
+	char* Begin();
+	const char* Begin() const;
 
-	char*		end();
-	const char* end() const;
+	char* End();
+	const char* End() const;
 
-	int			rpos();
-	void		rpos(int rpos);
+	int ReadOffset();
+	void ReadOffset(int offset);
 
-	int			wpos();
-	void		wpos(int wpos);
+	int WriteOffset();
+	void WriteOffset(int offset);
 
-	size_t		length();
-	size_t		size();
+	size_t Length();
+	size_t Size();
 
-	void		resize(size_t size);
-	void		reserve(size_t size);
+	void Resize(size_t size);
+	void Reserve(size_t size);
 
-	void		clear();
-	void		reset();
+	void Clear();
+	void Reset();
 
-	char*		peekData(int pos);
-	void		retrieveUntil(const char* endc);
+	char* Peek(int pos);
+	void RetrieveUntil(const char* endc);
 
+	const char* FindCRLF();
+	const char* FindCRLF(const char* start);
 
-	const char* findCRLF();
-	const char* findCRLF(const char* start);
+	const char* FindEOL();
+	const char* FindEOL(const char* start);
 
-	const char* findEOL();
-	const char* findEOL(const char* start);
-
-	void		copyAll(char*& ptr,int & size);
-	void		copyWithSize(char* ptr,int size);
+	void CopyAll(char*& ptr,int & size);
+	void CopyWithSize(char* ptr,int size);
 	
-public:
+private:
 	template<typename T>
-	void append(T value) {
-		append((const uint8 *)&value, sizeof(value));
+	void Append(T value) {
+		Append((const uint8 *)&value, sizeof(value));
 	}
 
-	void append(const char* c,size_t cnt) {
-		append((const uint8*)c,cnt);
+	void Append(const char* c,size_t cnt) {
+		Append((const uint8*)c,cnt);
 	}
 
-	void append(const std::string& str) {
-		append(str.c_str(),str.size()+1);
+	void Append(const std::string& str) {
+		Append(str.c_str(),str.size()+1);
 	}
 
-	void append(const uint8* val,size_t cnt) {
+	void Append(const uint8* val,size_t cnt) {
 		if (cnt == 0) {
 			return;
 		}
-		if (data_.size() < wpos_ + cnt) {
+		if (data_.size() < writeOffset_ + cnt) {
 			int size = data_.size();
 			for (;;) {
 				size = size * 2;
-				if (size > wpos_ + (int)cnt) {
+				if (size > writeOffset_ + (int)cnt) {
 					data_.resize(size);
 					break;
 				}
 			}
 			
 		}
-		memcpy((void*)&data_[wpos_],val,cnt);
-		wpos_ += cnt;
+		memcpy((void*)&data_[writeOffset_],val,cnt);
+		writeOffset_ += cnt;
 	}
 
 	template<typename T>
-	T read()  {
-		T r = read<T>(rpos_);
-		rpos_ += sizeof(T);
+	T Read()  {
+		T r = Read<T>(readOffset_);
+		readOffset_ += sizeof(T);
 		return r;
 	}
 
 	template <typename T> 
-	T read(size_t pos) {
-		assert(sizeof(T) <=  length());
+	T Read(size_t pos) {
+		assert(sizeof(T) <=  Length());
 		T val = *((T const*)&data_[pos]);
 		return val;
 	}
 
-protected:
-	int rpos_;
-	int wpos_;
+	int readOffset_;
+	int writeOffset_;
 	std::vector<char> data_;
 };
 
