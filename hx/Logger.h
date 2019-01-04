@@ -25,6 +25,9 @@ public:
 	};
 public:
 	Logger(Network::Addr& addr, ServerApp* app);
+
+	Logger(const char* file);
+
 	~Logger(void);
 
 	void Log(const char* file,int line,Loglevel level,const char* content);
@@ -40,12 +43,16 @@ public:
 	static Loglevel LogLevel();
 private:
 	static Loglevel level_;
+
 	std::mutex mutex_;
+
 	Network::Addr addr_;
 	LoggerChannel* channel_;
 	Timer* timer_;
 	ServerApp* app_;
 	std::vector<std::string> cached_;
+	
+	FILE* FILE_;
 };
 
 #define LOG_TRACE(x) Logger::GetSingleton()->Log(__FILE__,__LINE__,Logger::Trace,(x).c_str())

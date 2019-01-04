@@ -9,6 +9,7 @@ Logger * Singleton<Logger>::singleton_ = 0;
 
 Logger::Loglevel Logger::level_ = Trace;
 
+//as logger client
 Logger::Logger(Network::Addr& addr, ServerApp* app):addr_(addr) {
 	app_ = app;
 	
@@ -22,13 +23,35 @@ Logger::Logger(Network::Addr& addr, ServerApp* app):addr_(addr) {
 	timer_ = new Timer();
 	timer_->SetCallback(std::bind(&Logger::OnUpdate, this, std::placeholders::_1, std::placeholders::_2));
 	timer_->Start(app->Poller(), 1, 1);
+
+	FILE_ = NULL;
+}
+
+//as logger server
+Logger::Logger(const char* file) {
+	channel_ = NULL;
+	timer_ = NULL;
+	app_ = NULL;
+
+	if (file != NULL) {
+		FILE_ = fopen(file,"w");
+		assert(FILE_ != NULL);
+	} else {
+		FILE_ = stderr;
+	}
 }
 
 Logger::~Logger(void) {
 	if (channel_) {
 		delete channel_;
 	}
-	delete timer_;
+	if (timer_) {
+		delete timer_;
+	}
+	if (FILE_) {
+		fflush(FILE_);
+		fclose(FILE_);
+	}
 }
 
 void Logger::Log(const char* file,int line,Loglevel level,const char* content) {
@@ -37,20 +60,29 @@ void Logger::Log(const char* file,int line,Loglevel level,const char* content) {
 	}
 	std::lock_guard<std::mutex> guard(mutex_);
 	std::string log = fmt::format("@{}:{}: {}\n", file, line, content);
-	if (channel_) {
-		channel_->Write(log);
+
+	if (FILE_) {
+		fwrite(log.c_str(), log.length() , 1, FILE_);
 	} else {
-		cached_.push_back(log);
+		if (channel_) {
+			channel_->Write(log);
+		} else {
+			cached_.push_back(log);
+		}
 	}
 }
 
 void Logger::LuaLog(const char* content) {
 	std::lock_guard<std::mutex> guard(mutex_);
 	std::string log = fmt::format("@lua: {}\n",content);
-	if (channel_) {
-		channel_->Write(log);
+	if (FILE_) {
+		fwrite(log.c_str(), log.length() , 1, FILE_);
 	} else {
-		cached_.push_back(log);
+		if (channel_) {
+			channel_->Write(log);
+		} else {
+			cached_.push_back(log);
+		}
 	}
 }
 
@@ -69,7 +101,7 @@ void Logger::OnUpdate(Timer* timer, void* userdata) {
 	if (fd < 0) {
 		return;
 	}
-	
+
 	channel_ = new LoggerChannel(app_->Poller(), fd);
 	channel_->SetCloseCallback(std::bind(&Logger::OnChannelClose, this, std::placeholders::_1));
 
