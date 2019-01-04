@@ -2,48 +2,47 @@
 #include "Logger.h"
 #include "FishApp.h"
 #include "ServerApp.h"
+#include "network/EventPoller.h"
+#include "network/Address.h"
 
 #include <assert.h>
 
 using namespace rapidjson;
 
-Bootstrap::Bootstrap(void)
-{
-}
-
-
-Bootstrap::~Bootstrap(void)
-{
-}
-
-void Bootstrap::Startup(const char* file)
-{
+Bootstrap::Bootstrap(const char* file) {
 	LoadConfig(file);
-
-	const char* path = NULL;
-	if (config_.HasMember("log"))
-		path = config_["log"].GetString();
-	Logger* logger = new Logger(path);
-
-	FishApp* app = new FishApp(config_["boot"].GetString());
-
-	app->ListenClient(std::string("0.0.0.0"), 1989);
-
-	app->ListenHttp(std::string("0.0.0.0"), 1994);
-	
-	app->Init();
-
-	app->Run();
-
-	app->Fina();
-
-	delete app;
-
-	delete logger;
 }
 
-void Bootstrap::LoadConfig(const char* configFile)
-{
+
+Bootstrap::~Bootstrap(void) {
+}
+
+void Bootstrap::Startup() {
+
+	Network::EventPoller* poller = new Network::EventPoller();
+
+	Logger* logger = NULL;
+	if (config_.HasMember("logPath")) {
+		logger = new Logger(config_["logPath"].GetString());
+	} else {
+		const char* ip = config_["logPath"]["ip"].GetString();
+		int port = config_["logPath"]["port"].GetInt();
+		Network::Addr addr = Network::Addr::MakeIP4Addr(ip, port);
+		logger = new Logger(addr, poller);
+	}
+	
+	{
+		FishApp app(&poller);
+		app.Init();
+		app.Run();
+		app.Fina();
+	}
+	
+	delete logger;
+	delete poller;
+}
+
+void Bootstrap::LoadConfig(const char* configFile) {
 	FILE* file = fopen(configFile,"r");
 	assert(file != NULL);
 	fseek(file,0,SEEK_END);

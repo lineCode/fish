@@ -24,7 +24,7 @@ public:
 		LogEnd
 	};
 public:
-	Logger(Network::Addr& addr, ServerApp* app);
+	Logger(Network::Addr& addr, Network::EventPoller* poller);
 
 	Logger(const char* file);
 
@@ -49,7 +49,7 @@ private:
 	Network::Addr addr_;
 	LoggerChannel* channel_;
 	Timer* timer_;
-	ServerApp* app_;
+	Network::EventPoller* poller_;
 	std::vector<std::string> cached_;
 	
 	FILE* FILE_;

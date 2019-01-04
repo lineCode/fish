@@ -15,13 +15,12 @@
 
 class MongoSession;
 
-class ServerApp
-{
+class ServerApp {
 public:
 	enum AppState{AppRun,AppStop};
 
 public:
-	ServerApp(void);
+	ServerApp(Network::EventPoller* poller);
 
 	virtual ~ServerApp(void);
 
@@ -43,7 +42,7 @@ public:
 
 protected:
 	AppState  state_;
-	Network::EventPoller * poller_;
+	Network::EventPoller* poller_;
 	Timer* timer_;
 	LuaFish* lua_;
 	TaskQueue* queue_;

@@ -6,10 +6,10 @@
 class Bootstrap
 {
 public:
-	Bootstrap(void);
+	Bootstrap(const char* file);
 	~Bootstrap(void);
 
-	void Startup(const char* file);
+	void Startup();
 
 private:
 	void LoadConfig(const char* file);

@@ -3,7 +3,7 @@
 #include "util/format.h"
 #include "network/HttpChannel.h"
 
-FishApp::FishApp(std::string file) : file_(file) {
+FishApp::FishApp(Network::EventPoller* poller) : ServerApp(poller) {
 	clientAcceptor_ = new Network::Acceptor(poller_);
 	httpAcceptor_ = new Network::Acceptor(poller_);
 	connector_ = new Network::Connector(poller_);

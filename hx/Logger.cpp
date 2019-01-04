@@ -10,14 +10,14 @@ Logger * Singleton<Logger>::singleton_ = 0;
 Logger::Loglevel Logger::level_ = Trace;
 
 //as logger client
-Logger::Logger(Network::Addr& addr, ServerApp* app):addr_(addr) {
-	app_ = app;
+Logger::Logger(Network::Addr& addr, Network::EventPoller* poller):addr_(addr) {
+	poller_ = poller;
 	
-	Network::Connector connector(app_->Poller());
+	Network::Connector connector(poller_);
 	int fd = connector.Connect(addr_, false);
 	assert(fd > 0);
 
-	channel_ = new LoggerChannel(app_->Poller(), fd);
+	channel_ = new LoggerChannel(poller_, fd);
 	channel_->SetCloseCallback(std::bind(&Logger::OnChannelClose, this, std::placeholders::_1));
 
 	timer_ = new Timer();
@@ -31,7 +31,7 @@ Logger::Logger(Network::Addr& addr, ServerApp* app):addr_(addr) {
 Logger::Logger(const char* file) {
 	channel_ = NULL;
 	timer_ = NULL;
-	app_ = NULL;
+	poller_ = NULL;
 
 	if (file != NULL) {
 		FILE_ = fopen(file,"w");
@@ -96,13 +96,13 @@ void Logger::OnUpdate(Timer* timer, void* userdata) {
 		return;
 	}
 
-	Network::Connector connector(app_->Poller());
+	Network::Connector connector(poller_);
 	int fd = connector.Connect((const Network::Addr&)addr_, false);
 	if (fd < 0) {
 		return;
 	}
 
-	channel_ = new LoggerChannel(app_->Poller(), fd);
+	channel_ = new LoggerChannel(poller_, fd);
 	channel_->SetCloseCallback(std::bind(&Logger::OnChannelClose, this, std::placeholders::_1));
 
 	std::vector<std::string>::iterator iter = cached_.begin();

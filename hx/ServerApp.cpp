@@ -5,9 +5,9 @@
 
 extern "C" int luaopen_rapidjson(lua_State* L);
 
-ServerApp::ServerApp() {
+ServerApp::ServerApp(Network::EventPoller* poller) {
 	state_ = AppRun;
-	poller_ = new Network::EventPoller();
+	poller_ = poller;
 	timer_ = new Timer();
 	lua_ = new LuaFish();
 	queue_ = new TaskQueue();
@@ -18,7 +18,6 @@ ServerApp::~ServerApp() {
 	delete timer_;
 	delete lua_;
 	delete queue_;
-	delete poller_;
 }
 
 int ServerApp::Init() {

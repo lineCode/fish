@@ -12,10 +12,10 @@
 #include "network/HttpChannel.h"
 
 
-class FishApp:public ServerApp
+class FishApp : public ServerApp
 {
 public:
-	FishApp(std::string file);
+	FishApp(Network::EventPoller* poller);
 
 	~FishApp(void);
 
@@ -38,8 +38,6 @@ public:
 	virtual void OnHttpComplete(Network::HttpChannel* channel, void* userdata);
 
 private:
-	std::string file_;
-
 	Network::Acceptor* clientAcceptor_;
 	Network::Acceptor* httpAcceptor_;
 	Network::Connector* connector_;

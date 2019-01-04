@@ -1,3 +1,5 @@
 {
-    "boot": "../script/test/test_timer.lua"
+    "boot": "../script/test/test_timer.lua",
+    "logPath" : "./server.log",
+    "logAddr" : {"ip" : "127.0.0.1", "port" : 1989}
 }
