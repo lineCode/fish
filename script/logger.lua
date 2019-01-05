@@ -6,7 +6,7 @@ local acceptor = nil
 
 local function OnData(channel, data, size)
 	local file, log = util.ParseLoggerMessage(data, size)
-	print(file,log)
+	fish.Log(file, log)
 end
 
 local function OnClose(channel)
