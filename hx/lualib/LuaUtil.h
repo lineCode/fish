@@ -6,6 +6,7 @@
 
 
 class LuaUtil {
+public:
 	static int Register(lua_State* L);
 	static int ParseLoggerMessage(lua_State* L);
 };

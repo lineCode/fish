@@ -32,7 +32,7 @@ namespace Util {
 	}
 
 	char* MakeMessage(std::string& data, size_t* outSize) {
-		return MakeMessage(data.c_str(), data.length(), outSize);
+		return MakeMessage((char*)data.c_str(), data.length(), outSize);
 	}
 
 	char* MakeMessage(MemoryStream& data, size_t* outSize) {

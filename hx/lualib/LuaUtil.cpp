@@ -1,4 +1,5 @@
 #include "LuaUtil.h"
+#include "ServerApp.h"
 #include "util/MemoryStream.h"
 
 int LuaUtil::Register(lua_State* L) {
@@ -23,7 +24,7 @@ int LuaUtil::Register(lua_State* L) {
 }
 
 int LuaUtil::ParseLoggerMessage(lua_State* L) {
-	char* data = lua_touserdata(L, 1);
+	char* data = (char*)lua_touserdata(L, 1);
 	int size = luaL_checkinteger(L, 2);
 
 	MemoryStream ms(data, size);
