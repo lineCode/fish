@@ -63,7 +63,7 @@ void LuaFish::SetPath(const char* path) {
 }
 
 void LuaFish::Require(const char* module, int (*func)(lua_State*)) {
-	luaL_requiref(script_.state(), module, func,0);
+	luaL_requiref(script_.state(), module, func, 1);
 }
 
 uint64_t LuaFish::AllocTimer(Timer*& timer) {
