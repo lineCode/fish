@@ -2,7 +2,7 @@
 #include "util/format.h"
 #include <assert.h>
 
-LoggerHost::LoggerHost(bool show) {
+LoggerHost::LoggerHost(const char* path, bool show) : path_(path) {
 	runtime_ = NULL;
 	show_ = show;
 }
@@ -20,7 +20,9 @@ void LoggerHost::RuntimeLog(std::string& log) {
 	if (runtime_ == NULL) {
 		std::map<std::string, FILE*>::iterator iter = FILEMgr_.find("runtime");
 		if (iter == FILEMgr_.end()) {
-			FILE* F = fopen("./runtime.log","w");
+			std::string path = fmt::format("{}/runtime.log", path_);
+
+			FILE* F = fopen(path.c_str(),"w");
 			assert(F != NULL);
 			FILEMgr_["runtime"] = F;
 			runtime_ = F;
@@ -39,7 +41,7 @@ void LoggerHost::LuaLog(const char* file, std::string& log) {
 	FILE* F = NULL;
 	std::map<std::string, FILE*>::iterator iter = FILEMgr_.find(file);
 	if (iter == FILEMgr_.end()) {
-		std::string path = fmt::format("./{}.log", file);
+		std::string path = fmt::format("{}/{}.log", path_, file);
 		F = fopen(path.c_str(),"w");
 		assert(F != NULL);
 		FILEMgr_[file] = F;

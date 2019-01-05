@@ -20,7 +20,7 @@ ServerApp::~ServerApp() {
 	delete queue_;
 }
 
-int ServerApp::Init() {
+int ServerApp::Init(std::string& boot) {
 	timer_->SetCallback(std::bind(&ServerApp::OnUpate, this, std::placeholders::_1, std::placeholders::_2));
 	timer_->Start(poller_, 0.01, 0.01);
 
@@ -34,7 +34,8 @@ int ServerApp::Init() {
 	lua_->DoFile("../../script/server.lua");
 	
 	OOLUA::Script& script = lua_->GetScript();
-	if (!script.call("ServerInit")) {
+	script.push<std::string>(boot);
+	if (!script.call("ServerInit", 1)) {
 		LOG_ERROR(fmt::format("serverInit error:{}",OOLUA::get_last_error(script)));
 		return -1;
 	}
