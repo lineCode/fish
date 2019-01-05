@@ -7,22 +7,23 @@
 extern "C" int luaopen_rapidjson(lua_State* L);
 
 ServerApp::ServerApp(Network::EventPoller* poller) {
-	state_ = AppRun;
 	poller_ = poller;
-	timer_ = new Timer();
 	lua_ = new LuaFish();
+	timer_ = new Timer();
 	queue_ = new TaskQueue();
 	now_ = ::Now();
 }
 
 ServerApp::~ServerApp() {
-	delete timer_;
 	delete lua_;
 	delete queue_;
+	delete timer_;
 }
 
 int ServerApp::Init(std::string& boot) {
-	timer_->SetCallback(std::bind(&ServerApp::OnUpate, this, std::placeholders::_1, std::placeholders::_2));
+	using namespace std::placeholders;
+
+	timer_->SetCallback(std::bind(&ServerApp::OnUpate, this, _1, _2));
 	timer_->Start(poller_, 0.01, 0.01);
 
 	lua_->Init(this);
@@ -55,14 +56,11 @@ int ServerApp::Fina() {
 
 int ServerApp::Stop() {
 	poller_->Break();
-	state_ = AppStop;
 	return 0;
 }
 
 int ServerApp::Run() {
-	while (state_ == AppRun) {
-		poller_->Process();
-	}
+	poller_->Process();
 	return 0; 
 }
 
@@ -82,7 +80,7 @@ void ServerApp::OnUpate(Timer* timer, void* userdata) {
 	}
 }
 
-uint64 ServerApp::Now() {
+uint64_t ServerApp::Now() {
 	return now_;
 }
 

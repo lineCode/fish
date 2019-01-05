@@ -7,6 +7,8 @@
 #include "time/Timestamp.h"
 #include "LuaChannel.h"
 
+using namespace std::placeholders;
+
 LuaFish::LuaFish(void) :script_(),timerPool_("timer") {
 	timerStep_ = 0;
 }
@@ -227,7 +229,7 @@ int LuaFish::TimerStart(lua_State* L) {
 	Timer* timer = NULL;
 	uint64_t timerId = fish->AllocTimer(timer);
 
-	timer->SetCallback(std::bind(&LuaFish::OnTimeout, fish, std::placeholders::_1, timerId, std::placeholders::_2));
+	timer->SetCallback(std::bind(&LuaFish::OnTimeout, fish, _1, timerId, _2));
 	timer->SetUserdata((void*)(long)reference);
 	timer->Start(app->Poller(), after, repeat);
 
@@ -274,7 +276,7 @@ int LuaFish::AcceptorListen(lua_State* L) {
 
 	Network::Acceptor* acceptor = new(ud) Network::Acceptor(app->Poller());
 
-	acceptor->SetCallback(std::bind(&LuaFish::OnAccept, app->Lua(), std::placeholders::_1, std::placeholders::_2,std::placeholders::_3));
+	acceptor->SetCallback(std::bind(&LuaFish::OnAccept, app->Lua(), _1, _2, _3));
 	acceptor->SetUserdata((void*)(long)callback);
 
 	Network::Addr addr = Network::Addr::MakeIP4Addr(ip, port);
@@ -323,7 +325,7 @@ int LuaFish::ConnectorConnect(lua_State* L) {
 
     Network::Connector* connector = new(ud) Network::Connector(app->Poller());
 
-    connector->SetCallback(std::bind(&LuaFish::OnConnect, app->Lua(), std::placeholders::_1, std::placeholders::_2,std::placeholders::_3));
+    connector->SetCallback(std::bind(&LuaFish::OnConnect, app->Lua(), _1, _2, _3));
 	connector->SetUserdata((void*)(long)callback);
 
 	Network::Addr addr = Network::Addr::MakeIP4Addr(ip, port);

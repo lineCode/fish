@@ -13,12 +13,7 @@
 #include "TaskQueue.h"
 #include "Typedef.h"
 
-class MongoSession;
-
 class ServerApp {
-public:
-	enum AppState{AppRun,AppStop};
-
 public:
 	ServerApp(Network::EventPoller* poller);
 
@@ -34,19 +29,18 @@ public:
 
 	virtual void OnUpate(Timer* timer, void* userdata);
 
-	virtual uint64 Now();
+	virtual uint64_t Now();
 
 	virtual LuaFish* Lua();
 
 	virtual Network::EventPoller* Poller();
 
 protected:
-	AppState  state_;
 	Network::EventPoller* poller_;
-	Timer* timer_;
 	LuaFish* lua_;
+	Timer* timer_;
 	TaskQueue* queue_;
-	uint64 now_;
+	uint64_t now_;
 };
 
 #endif
