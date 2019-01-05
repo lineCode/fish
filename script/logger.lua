@@ -1,7 +1,5 @@
 
 
-
-
 function Init()
 	print("logger init")
 end

@@ -1,4 +1,4 @@
-
+local util = require "util"
 
 local _M = {}
 
@@ -22,8 +22,11 @@ function _M.Import(file)
 
 	ctx.env = setmetatable({},{__index = _G,__pairs = function (self) return env_pairs,self end})
 
-	loadfile(file, nil, ctx.env)
-
+	local loader,err = loadfile(file, "text", ctx.env)
+	if not loader then
+		error(err)
+	end
+	loader()
 	if ctx.env["__init__"] then
 		ctx.env["__init__"](ctx.env)
 	end

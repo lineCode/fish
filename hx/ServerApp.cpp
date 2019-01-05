@@ -34,8 +34,7 @@ int ServerApp::Init(std::string& boot) {
 	lua_->DoFile("../../script/server.lua");
 	
 	OOLUA::Script& script = lua_->GetScript();
-	script.push<std::string>(boot);
-	if (!script.call("ServerInit", 1)) {
+	if (!script.call("ServerInit", boot)) {
 		LOG_ERROR(fmt::format("serverInit error:{}",OOLUA::get_last_error(script)));
 		return -1;
 	}

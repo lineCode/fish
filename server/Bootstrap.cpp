@@ -29,10 +29,11 @@ void Bootstrap::Startup() {
 	LoggerInterface* interface = new LoggerClient(addr, poller);
 	
 	Logger* logger = new Logger(interface);
-
+	
+	std::string boot("test");
 	{
 		FishApp app(poller);
-		app.Init();
+		app.Init(boot);
 		app.Run();
 		app.Fina();
 	}

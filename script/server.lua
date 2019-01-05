@@ -5,18 +5,17 @@ local import = require "import"
 
 _G.Import = import.Import
 
-local boot = ...
+local ServerInst = nil
 
-local bootInst = Import(boot)
-
-function ServerInit()
-	bootInst:Init()
+function ServerInit(boot)
+	ServerInst = Import(boot)
+	ServerInst:Init()
 end
 
 function ServerFina()
-	bootInst:Fina()
+	ServerInst:Fina()
 end
 
 function ServerUpdate(now)
-	bootInst:Update(now)
+	ServerInst:Update(now)
 end

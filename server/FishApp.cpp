@@ -12,9 +12,9 @@ FishApp::FishApp(Network::EventPoller* poller) : ServerApp(poller) {
 FishApp::~FishApp(void) {
 }
 
-int FishApp::Init() {
+int FishApp::Init(std::string& boot) {
 	LOG_ERROR(std::string("FishApp start"));
-	ServerApp::Init();
+	ServerApp::Init(boot);
 
 	Network::Acceptor::OnConnection callback = std::bind(&FishApp::OnClientAccept, this, std::placeholders::_1, std::placeholders::_2);
 	clientAcceptor_->SetCallback(callback);

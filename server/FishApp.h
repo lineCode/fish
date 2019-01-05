@@ -19,7 +19,7 @@ public:
 
 	~FishApp(void);
 
-	virtual int Init();
+	virtual int Init(std::string& boot);
 
 	virtual int Fina();
 
