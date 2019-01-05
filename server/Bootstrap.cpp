@@ -1,5 +1,6 @@
 ﻿#include "Bootstrap.h"
-#include "Logger.h"
+#include "logger/Logger.h"
+#include "logger/LoggerClient.h"
 #include "FishApp.h"
 #include "ServerApp.h"
 #include "network/EventPoller.h"
@@ -22,16 +23,13 @@ void Bootstrap::Startup() {
 
 	Network::EventPoller* poller = new Network::EventPoller();
 
-	Logger* logger = NULL;
-	if (config_.HasMember("logPath")) {
-		logger = new Logger(config_["logPath"].GetString());
-	} else {
-		const char* ip = config_["logPath"]["ip"].GetString();
-		int port = config_["logPath"]["port"].GetInt();
-		Network::Addr addr = Network::Addr::MakeIP4Addr(ip, port);
-		logger = new Logger(addr, poller);
-	}
+	const char* ip = config_["logPath"]["ip"].GetString();
+	int port = config_["logPath"]["port"].GetInt();
+	Network::Addr addr = Network::Addr::MakeIP4Addr(ip, port);
+	LoggerInterface* interface = new LoggerClient(addr, poller);
 	
+	Logger* logger = new Logger(interface);
+
 	{
 		FishApp app(poller);
 		app.Init();

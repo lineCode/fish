@@ -2,8 +2,9 @@
 #include "util/format.h"
 #include <assert.h>
 
-LoggerHost::LoggerHost() {
+LoggerHost::LoggerHost(bool show) {
 	runtime_ = NULL;
+	show_ = show;
 }
 
 LoggerHost::~LoggerHost(void) {
@@ -29,6 +30,9 @@ void LoggerHost::RuntimeLog(std::string& log) {
 	}
 
 	fwrite(log.c_str(), log.length() , 1, runtime_);
+	if (show_) {
+		fwrite(log.c_str(), log.length() , 1, stderr);
+	}
 }
 
 void LoggerHost::LuaLog(const char* file, std::string& log) {
@@ -43,6 +47,10 @@ void LoggerHost::LuaLog(const char* file, std::string& log) {
 		F = iter->second;
 	}
 	fwrite(log.c_str(), log.length() , 1, F);
+	if (show_) {
+		fwrite(log.c_str(), log.length() , 1, stderr);
+	}
+
 }
 
 

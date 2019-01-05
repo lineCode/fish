@@ -1,7 +1,7 @@
 ﻿
 #ifndef MESSAGEHANDLER_H
 #define MESSAGEHANDLER_H
-#include "Logger.h"
+#include "logger/Logger.h"
 #include "util/format.h"
 #include "network/Channel.h"
 #include "util/MessageReader.h"

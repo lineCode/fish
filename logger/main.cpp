@@ -2,7 +2,8 @@
 #include "network/EventPoller.h"
 #include "util/Util.h"
 #include "util/format.h"
-#include "Logger.h"
+#include "logger/Logger.h"
+#include "logger/LoggerHost.h"
 #include "document.h" 
 
 int main(int argc, char *argv[]) {
@@ -19,7 +20,7 @@ int main(int argc, char *argv[]) {
 		loggerPath = config["loggerPath"].GetString();
 	} 
 
-	Logger* logger = new Logger(loggerPath);
+	Logger* logger = new Logger(new LoggerHost(loggerPath));
 
 	{
 		LoggerApp app(poller);

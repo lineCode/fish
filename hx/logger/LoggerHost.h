@@ -6,7 +6,7 @@
 
 class LoggerHost : public LoggerInterface {
 public:
-	LoggerHost();
+	LoggerHost(bool show = true);
 	virtual ~LoggerHost();
 
 	virtual void RuntimeLog(std::string& log);
@@ -16,5 +16,6 @@ public:
 private:
 	std::map<std::string, FILE*> FILEMgr_;
 	FILE* runtime_;
+	bool show_;
 };
 #endif

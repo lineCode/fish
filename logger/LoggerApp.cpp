@@ -1,5 +1,5 @@
 #include "LoggerApp.h"
-#include "Logger.h"
+#include "logger/Logger.h"
 
 LoggerApp::LoggerApp(Network::EventPoller* poller) : ServerApp(poller) {
 
