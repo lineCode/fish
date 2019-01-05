@@ -1,5 +1,5 @@
 CC = g++
-CFLAG = -g -std=c++11 -fPIC -Wall -fno-strict-aliasing -Wno-unused-local-typedefs 
+CFLAG = -g -std=c++11 -fPIC -Wall -fsanitize=address -fno-strict-aliasing -Wno-unused-local-typedefs 
 
 
 INCLUDE = -I. -I../3rd -I../hx -I../3rd/libev -I../3rd/lua/src -I../3rd/oolua/include -I../3rd/rapidjson -I../3rd/http-parser
@@ -15,7 +15,7 @@ all:$(TARGET)
 	$(CC) $(CFLAG) $(INCLUDE) -c $< -o $@
 
 $(TARGET):$(OBJ) 
-	$(CC) -o $@ $^ -Wl,-E -L../bin/debug -llua -lhx -loolua -lev -lm -ldl -lrt -lpthread 
+	$(CC) -o $@ $^ -Wl,-E -L../bin/debug -llua -lhx -loolua -lev -lm -ldl -lrt -lpthread -lasan
 
 clean:
 	rm -f *.o $(TARGET)

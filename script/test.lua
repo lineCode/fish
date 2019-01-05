@@ -3,7 +3,7 @@
 
 function Init()
 	fish.StartTimer(1,1,function ()
-		for i = 1,1024 do
+		for i = 1,1024*100 do
 			fish.Log("runtime", "fuck"..math.random(1, 1024))
 		end
 	end)
