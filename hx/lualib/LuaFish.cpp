@@ -1,6 +1,6 @@
 ﻿#include "LuaFish.h"
 #include "ServerApp.h"
-#include "Logger.h"
+#include "logger/Logger.h"
 #include "network/Acceptor.h"
 #include "network/Connector.h"
 #include "util/MemoryStream.h"

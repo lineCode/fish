@@ -1,6 +1,6 @@
 #include "HttpChannel.h"
 #include "util/format.h"
-#include "Logger.h"
+#include "logger/Logger.h"
 #include <iostream>
 
 namespace Network {

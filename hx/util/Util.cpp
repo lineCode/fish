@@ -1,5 +1,4 @@
 #include "Util.h"
-#include "Logger.h"
 #include "rapidjson.h"
 #include "filereadstream.h"
 namespace Util {
