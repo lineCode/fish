@@ -21,4 +21,21 @@ namespace Util {
 
 		return 0;
 	}
+
+	char* MakeMessage(char* data, size_t size, size_t* outSize) {
+		ushort length = size + 2;
+		char* content = (char*)malloc(length);
+		memcpy(content, &length, 2);
+		memcpy(content, data, size);
+		*outSize = length;
+		return content;
+	}
+
+	char* MakeMessage(std::string& data, size_t* outSize) {
+		return MakeMessage(data.c_str(), data.length(), outSize);
+	}
+
+	char* MakeMessage(MemoryStream& data, size_t* outSize) {
+		return MakeMessage(data.Data(), data.Length(), outSize);
+	}
 };

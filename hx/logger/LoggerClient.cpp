@@ -1,6 +1,7 @@
 #include "LoggerClient.h"
 #include "network/Connector.h"
 #include "util/format.h"
+#include "util/Util.h"
 #include <iostream>
 #include <assert.h>
 
@@ -32,7 +33,9 @@ void LoggerClient::RuntimeLog(std::string& log) {
 	MemoryStream ms;
 	ms << "runtime" << log;
 	if (channel_) {
-		channel_->Write(ms);
+		size_t size;
+		char* message = Util::MakeMessage(ms, &size);
+		channel_->Write(message, size);
 	} else {
 		cached_.push_back(ms);
 	}
@@ -42,7 +45,9 @@ void LoggerClient::LuaLog(const char* file, std::string& log) {
 	MemoryStream ms;
 	ms << file << log;
 	if (channel_) {
-		channel_->Write(ms);
+		size_t size;
+		char* message = Util::MakeMessage(ms, &size);
+		channel_->Write(message, size);
 	} else {
 		cached_.push_back(ms);
 	}
@@ -70,7 +75,9 @@ void LoggerClient::OnUpdate(Timer* timer, void* userdata) {
 	std::vector<MemoryStream>::iterator iter = cached_.begin();
 	for(;iter != cached_.end();iter++) {
 		MemoryStream& ms = *iter;
-		channel_->Write(ms);
+		size_t size;
+		char* message = Util::MakeMessage(ms, &size);
+		channel_->Write(message, size);
 	}
 	cached_.clear();
 }
