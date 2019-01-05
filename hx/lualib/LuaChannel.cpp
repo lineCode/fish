@@ -18,10 +18,9 @@ LuaChannel::~LuaChannel() {
 void LuaChannel::HandleRead() {
 	lua_State* L = lua_->GetScript().state();
 
-	lua_rawgeti(L, LUA_REGISTRYINDEX, dataReference_);
-	lua_rawgeti(L, LUA_REGISTRYINDEX, reference_);
-	
 	if (header_ == 0) {
+		lua_rawgeti(L, LUA_REGISTRYINDEX, dataReference_);
+		lua_rawgeti(L, LUA_REGISTRYINDEX, reference_);
 		if (LUA_OK != lua_pcall(L, 1, 0, 0)) {
 			LOG_ERROR(fmt::format("HandleRead error:{}", lua_tostring(L, -1)));
 		}
@@ -50,6 +49,8 @@ void LuaChannel::HandleRead() {
 			char* data = (char*)malloc(need_);
 			reader_->ReadData(data, need_);
 			
+			lua_rawgeti(L, LUA_REGISTRYINDEX, dataReference_);
+			lua_rawgeti(L, LUA_REGISTRYINDEX, reference_);
 			lua_pushlightuserdata(L, data);
 			lua_pushinteger(L, need_);
 
