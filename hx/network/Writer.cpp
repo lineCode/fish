@@ -13,8 +13,7 @@ void* WriterBuffer::Begin() {
 	return (void*)((char*)data_+offset_);
 }
 
-void WriterBuffer::Skip(int offset)
-{
+void WriterBuffer::Skip(int offset) {
 	offset_ += offset;
 }
 
@@ -75,6 +74,7 @@ WriterBuffer* Writer::AllocBuffer() {
 	}
 	WriterBuffer* buffer = freelist_;
 	freelist_ = buffer->next_;
+	buffer->next_ = NULL;
 	return buffer;
 }
 
