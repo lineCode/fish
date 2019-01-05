@@ -195,7 +195,9 @@ int LuaFish::Stop(lua_State* L) {
 }
 
 int LuaFish::Log(lua_State* L) {
-	Logger::GetSingleton()->LuaLog(lua_tostring(L,1));
+	const char* file = luaL_checkstring(L, 1);
+	const char* log = luaL_checkstring(L, 2);
+	Logger::GetSingleton()->LuaLog(file, log);
 	return 0;
 }
 

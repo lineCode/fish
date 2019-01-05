@@ -35,6 +35,7 @@ clean:
 	rm -f time/*.o
 	rm -f util/*.o
 	rm -f thread/*.o
+	rm -f logger/*.o
 	rm -f ../3rd/http-parser/*.o
 	rm -f ../3rd/cjson/*.o
 	rm -f *.o 

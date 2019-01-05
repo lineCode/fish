@@ -1,5 +1,6 @@
 #include "LoggerHost.h"
-
+#include "util/format.h"
+#include <assert.h>
 
 LoggerHost::LoggerHost() {
 	runtime_ = NULL;

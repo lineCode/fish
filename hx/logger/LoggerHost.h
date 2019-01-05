@@ -2,6 +2,7 @@
 #define LOGGER_HOST_H
 
 #include <map>
+#include "LoggerInterface.h"
 
 class LoggerHost : public LoggerInterface {
 public:
@@ -15,5 +16,5 @@ public:
 private:
 	std::map<std::string, FILE*> FILEMgr_;
 	FILE* runtime_;
-}
+};
 #endif

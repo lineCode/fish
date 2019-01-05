@@ -4,6 +4,7 @@
 #include <mutex>
 #include <string>
 #include "util/Singleton.h"
+#include "logger/LoggerInterface.h"
 #include "ServerApp.h"
 
 class LoggerChannel;

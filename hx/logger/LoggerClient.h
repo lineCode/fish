@@ -2,6 +2,12 @@
 #define LOGGER_CLIENT_H
 
 #include "LoggerInterface.h"
+#include "network/Address.h"
+#include "network/EventPoller.h"
+#include "LoggerChannel.h"
+#include "time/Timer.h"
+#include "util/MemoryStream.h"
+#include <vector>
 
 class LoggerClient : public LoggerInterface {
 public:
@@ -23,5 +29,5 @@ private:
 	Timer* timer_;
 	Network::EventPoller* poller_;
 	std::vector<MemoryStream> cached_;
-}
+};
 #endif
