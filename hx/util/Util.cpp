@@ -26,7 +26,7 @@ namespace Util {
 		ushort length = size + 2;
 		char* content = (char*)malloc(length);
 		memcpy(content, &length, 2);
-		memcpy(content, data, size);
+		memcpy(content+2, data, size);
 		*outSize = length;
 		return content;
 	}

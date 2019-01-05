@@ -23,8 +23,8 @@ void Bootstrap::Startup() {
 
 	Network::EventPoller* poller = new Network::EventPoller();
 
-	const char* ip = config_["logPath"]["ip"].GetString();
-	int port = config_["logPath"]["port"].GetInt();
+	const char* ip = config_["loggerAddr"]["ip"].GetString();
+	int port = config_["loggerAddr"]["port"].GetInt();
 	Network::Addr addr = Network::Addr::MakeIP4Addr(ip, port);
 	LoggerInterface* interface = new LoggerClient(addr, poller);
 	

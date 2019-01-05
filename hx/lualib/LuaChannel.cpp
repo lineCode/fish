@@ -41,6 +41,7 @@ void LuaChannel::HandleRead() {
 				reader_->ReadData((char*)header, 4);
 				need_ = header[0] | header[1] << 8 | header[2] << 16 | header[3] << 24;
 			}
+			need_ -= header_;
 		} else {
 			if (reader_->total_ < (int)need_) {
 				break;

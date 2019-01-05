@@ -59,7 +59,7 @@ void LoggerClient::OnChannelClose(void* userdata) {
 }
 
 void LoggerClient::OnUpdate(Timer* timer, void* userdata) {
-	if (!channel_) {
+	if (channel_) {
 		return;
 	}
 
