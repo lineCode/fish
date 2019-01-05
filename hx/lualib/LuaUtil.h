@@ -3,7 +3,11 @@
 
 #include "lua.hpp"
 
-int ParseLoggerMessage(lua_State* L);
 
+
+class LuaUtil {
+	static int Register(lua_State* L);
+	static int ParseLoggerMessage(lua_State* L);
+};
 
 #endif

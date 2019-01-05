@@ -1,7 +1,28 @@
 #include "LuaUtil.h"
 #include "util/MemoryStream.h"
 
-int ParseLoggerMessage(lua_State* L) {
+int LuaUtil::Register(lua_State* L) {
+	luaL_checkversion(L);
+
+	luaL_Reg methods[] = {
+		{ "ParseLoggerMessage", LuaUtil::ParseLoggerMessage },
+		{ NULL, NULL },
+	};
+
+	luaL_newlibtable(L, methods);
+
+	lua_getfield(L, LUA_REGISTRYINDEX, "app");
+	ServerApp *app = (ServerApp*)lua_touserdata(L,-1);
+	if (app == NULL) {
+		return luaL_error(L, "Init ServerApp context first");
+	}
+
+	luaL_setfuncs(L, methods, 1);
+
+	return 1;
+}
+
+int LuaUtil::ParseLoggerMessage(lua_State* L) {
 	char* data = lua_touserdata(L, 1);
 	int size = luaL_checkinteger(L, 2);
 

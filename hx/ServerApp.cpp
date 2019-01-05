@@ -2,6 +2,7 @@
 #include "util/format.h"
 #include "time/Timestamp.h"
 #include "logger/Logger.h"
+#include "lualib/LuaUtil.h"
 
 extern "C" int luaopen_rapidjson(lua_State* L);
 
@@ -26,11 +27,12 @@ int ServerApp::Init(std::string& boot) {
 
 	lua_->Init(this);
 
-	lua_->Require("fish", LuaFish::Register);
-	lua_->Require("json", luaopen_rapidjson);
-	
 	lua_->SetPath("../../script/?.lua;");
 
+	lua_->Require("fish", LuaFish::Register);
+	lua_->Require("util", LuaUtil::Register);
+	lua_->Require("json", luaopen_rapidjson);
+	
 	lua_->DoFile("../../script/server.lua");
 	
 	OOLUA::Script& script = lua_->GetScript();
