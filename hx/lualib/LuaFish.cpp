@@ -22,8 +22,29 @@ OOLUA::Script& LuaFish::GetScript() {
 
 int LuaFish::Init(ServerApp* app) {
 	lua_State* L = script_.state();
+
 	lua_pushlightuserdata(L, app);
 	lua_setfield(L, LUA_REGISTRYINDEX, "app");
+
+	const luaL_Reg metaAcceptor[] = {
+        { "Stop", LuaFish::AcceptorClose },
+		{ NULL, NULL },
+    };
+    CreateMetaTable("metaAcceptor", meta, LuaFish::AcceptorRelease);
+
+    const luaL_Reg metaConnector[] = {
+        { "Stop", LuaFish::ConnectorClose },
+		{ NULL, NULL },
+    };
+	CreateMetaTable("metaConnector", metaConnector, LuaFish::ConnectorRelease);
+
+    const luaL_Reg metChannel[] = {
+        { "Read", LuaChannel::LRead },
+        { "Write", LuaChannel::LWrite },
+        { "Close", LuaChannel::LClose },
+		{ NULL, NULL },
+    };
+    CreateMetaTable("metChannel", metChannel, LuaChannel::LRelease);
 	return 0;
 }
 
@@ -66,6 +87,20 @@ void LuaFish::SetPath(const char* path) {
 
 void LuaFish::Require(const char* module, int (*func)(lua_State*)) {
 	luaL_requiref(script_.state(), module, func, 1);
+}
+
+void CreateMetaTable(const char* name, const luaL_Reg meta[], lua_CFunction gc) {
+	lua_State* L = script_.state();
+
+	if (luaL_newmetatable(L, name)) {
+        luaL_newlib(L, meta);
+        lua_setfield(L, -2, "__index");
+
+        if (gc) {
+        	lua_pushcfunction(L, gc);
+        	lua_setfield(L, -2, "__gc");
+        }
+    }
 }
 
 uint64_t LuaFish::AllocTimer(Timer*& timer) {
@@ -162,7 +197,7 @@ extern "C" int luaseri_unpack(lua_State*);
 int LuaFish::Register(lua_State* L) {
 	luaL_checkversion(L);
 
-	luaL_Reg l[] = {
+	luaL_Reg methods[] = {
 		{ "Stop", LuaFish::Stop },
 		{ "Log", LuaFish::Log },
 		{ "Now", LuaFish::Now },
@@ -177,15 +212,14 @@ int LuaFish::Register(lua_State* L) {
 		{ NULL, NULL },
 	};
 
-	luaL_newlibtable(L, l);
+	luaL_newlibtable(L, methods);
 
 	lua_getfield(L, LUA_REGISTRYINDEX, "app");
-	ServerApp *app = (ServerApp*)lua_touserdata(L,-1);
+	ServerApp *app = (ServerApp*)lua_touserdata(L, -1);
 	if (app == NULL) {
 		return luaL_error(L, "Init ServerApp context first");
 	}
-
-	luaL_setfuncs(L,l,1);
+	luaL_setfuncs(L, methods, 1);
 
 	return 1;
 }
@@ -260,18 +294,7 @@ int LuaFish::AcceptorListen(lua_State* L) {
 	int callback = luaL_ref(L, LUA_REGISTRYINDEX);
 
 	void* ud = lua_newuserdata(L, sizeof(Network::Acceptor));
-
-	if (luaL_newmetatable(L, "metaAcceptor")) {
-        const luaL_Reg meta[] = {
-            { "Stop", LuaFish::AcceptorClose },
-			{ NULL, NULL },
-        };
-        luaL_newlib(L, meta);
-        lua_setfield(L, -2, "__index");
-
-        lua_pushcfunction(L, LuaFish::AcceptorRelease);
-        lua_setfield(L, -2, "__gc");
-    }
+	luaL_newmetatable(L, "metaAcceptor");
     lua_setmetatable(L, -2);
 
 	Network::Acceptor* acceptor = new(ud) Network::Acceptor(app->Poller());
@@ -309,18 +332,7 @@ int LuaFish::ConnectorConnect(lua_State* L) {
 	int callback = luaL_ref(L, LUA_REGISTRYINDEX);
 
 	void* ud = lua_newuserdata(L, sizeof(Network::Connector));
-
-	if (luaL_newmetatable(L, "metaConnector")) {
-        const luaL_Reg meta[] = {
-            { "Stop", LuaFish::ConnectorClose },
-			{ NULL, NULL },
-        };
-        luaL_newlib(L, meta);
-        lua_setfield(L, -2, "__index");
-
-        lua_pushcfunction(L, LuaFish::ConnectorRelease);
-        lua_setfield(L, -2, "__gc");
-    }
+	luaL_newmetatable(L, "metaConnector");
     lua_setmetatable(L, -2);
 
     Network::Connector* connector = new(ud) Network::Connector(app->Poller());
@@ -366,20 +378,7 @@ int LuaFish::BindChannel(lua_State* L) {
 	int data = luaL_ref(L, LUA_REGISTRYINDEX);
 
 	void* ud = lua_newuserdata(L, sizeof(LuaChannel));
-
-	if (luaL_newmetatable(L, "metChannel")) {
-        const luaL_Reg meta[] = {
-            { "Read", LuaChannel::LRead },
-            { "Write", LuaChannel::LWrite },
-            { "Close", LuaChannel::LClose },
-			{ NULL, NULL },
-        };
-        luaL_newlib(L, meta);
-        lua_setfield(L, -2, "__index");
-
-        lua_pushcfunction(L, LuaChannel::LRelease);
-        lua_setfield(L, -2, "__gc");
-    }
+	luaL_newmetatable(L, "metChannel");
     lua_setmetatable(L, -2);
 
     lua_pushvalue(L, -1);
