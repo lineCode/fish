@@ -30,7 +30,7 @@ int LuaFish::Init(ServerApp* app) {
         { "Stop", LuaFish::AcceptorClose },
 		{ NULL, NULL },
     };
-    CreateMetaTable("metaAcceptor", meta, LuaFish::AcceptorRelease);
+    CreateMetaTable("metaAcceptor", metaAcceptor, LuaFish::AcceptorRelease);
 
     const luaL_Reg metaConnector[] = {
         { "Stop", LuaFish::ConnectorClose },
