@@ -13,6 +13,9 @@ class ServerApp;
 class LuaFish
 {
 public:
+	typedef std::unordered_map<uint64_t, Timer*> TimerMap;
+	
+public:
 	LuaFish(void);
 	~LuaFish(void);
 
@@ -72,7 +75,7 @@ public:
 protected:
 	OOLUA::Script script_;
 	ObjectPool<Timer> timerPool_;
-	std::map<uint64_t, Timer*> timerMgr_;
+	TimerMap timerMgr_;
 	uint64_t timerStep_;
 };
 

@@ -72,7 +72,7 @@ uint64_t LuaFish::AllocTimer(Timer*& timer) {
 	uint64_t timerId;
 	for(;;) {
 		timerId = timerStep_++;
-		std::map<uint64_t, Timer*>::iterator iter = timerMgr_.find(timerId);
+		TimerMap::iterator iter = timerMgr_.find(timerId);
 		if (iter == timerMgr_.end()) {
 			timerPool_.Pop(timer);
 			timerMgr_[timerId] = timer;
@@ -83,7 +83,7 @@ uint64_t LuaFish::AllocTimer(Timer*& timer) {
 }
 
 int LuaFish::DeleteTimer(uint64_t timerId) {
-	std::map<uint64_t, Timer*>::iterator iter = timerMgr_.find(timerId);
+	TimerMap::iterator iter = timerMgr_.find(timerId);
 	if (iter == timerMgr_.end()) {
 		return -1;
 	}
@@ -96,7 +96,7 @@ int LuaFish::DeleteTimer(uint64_t timerId) {
 }
 
 Timer* LuaFish::GetTimer(uint64_t timerId) {
-	std::map<uint64_t, Timer*>::iterator iter = timerMgr_.find(timerId);
+	TimerMap::iterator iter = timerMgr_.find(timerId);
 	if (iter == timerMgr_.end()) {
 		return NULL;
 	}
