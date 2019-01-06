@@ -7,6 +7,7 @@
 #include "util/ObjectPool.h"
 #include "network/Address.h"
 #include "time/Timer.h"
+#include <unordered_map>
 
 class ServerApp;
 
