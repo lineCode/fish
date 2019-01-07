@@ -156,6 +156,9 @@
     <ClInclude Include="lualib\json\values.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="lualib\LuaHttpChannel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="network\Channel.cpp">
@@ -264,6 +267,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="..\3rd\http-parser\http_parser.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="lualib\LuaHttpChannel.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

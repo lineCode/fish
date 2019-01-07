@@ -1,6 +1,6 @@
-#ifndef LUA_HTTP_CHANNEL_H
+﻿#ifndef LUA_HTTP_CHANNEL_H
 #define LUA_HTTP_CHANNEL_H
-
+#include "network/HttpChannel.h"
 
 class LuaHttpChannel : public Network::HttpChannel {
 public:
@@ -24,6 +24,6 @@ public:
 private:
 	LuaFish* lua_;
 	int reference_;
-}
+};
 
 #endif

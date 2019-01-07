@@ -1,7 +1,7 @@
-#include "LuaHttpChannel.h"
+﻿#include "LuaHttpChannel.h"
 #include "logger/Logger.h"
 
-LuaHttpChannel::LuaHttpChannel(Network::EventPoller* poller,int fd, LuaFish* lua) : Network::Channel(poller, fd) {
+LuaHttpChannel::LuaHttpChannel(Network::EventPoller* poller, int fd, LuaFish* lua) : Network::HttpChannel(poller, fd) {
 	lua_ = lua;
 	reference_ = 0;
 }
@@ -42,8 +42,8 @@ int LuaHttpChannel::LGetHeader(lua_State* L) {
 
 	lua_newtable(L);
 	for(;iter != headers.end();iter++) {
-		std::string& k = iter->first;
-		std::string& v = iter->second;
+		const std::string& k = iter->first;
+		const std::string& v = iter->second;
 
 		lua_pushlstring(L, k.c_str(), k.length());
 		lua_pushlstring(L, v.c_str(), v.length());

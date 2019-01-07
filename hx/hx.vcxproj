@@ -93,6 +93,7 @@
     <ClInclude Include="lualib\json\values.hpp" />
     <ClInclude Include="lualib\LuaChannel.h" />
     <ClInclude Include="lualib\LuaFish.h" />
+    <ClInclude Include="lualib\LuaHttpChannel.h" />
     <ClInclude Include="lualib\LuaUtil.h" />
     <ClInclude Include="lualib\LuaZeropack.h" />
     <ClInclude Include="network\Acceptor.h" />
@@ -143,6 +144,7 @@
     <ClCompile Include="lualib\lua-seri.c" />
     <ClCompile Include="lualib\LuaChannel.cpp" />
     <ClCompile Include="lualib\LuaFish.cpp" />
+    <ClCompile Include="lualib\LuaHttpChannel.cpp" />
     <ClCompile Include="lualib\LuaUtil.cpp" />
     <ClCompile Include="lualib\LuaZeropack.cpp" />
     <ClCompile Include="network\Acceptor.cpp" />
