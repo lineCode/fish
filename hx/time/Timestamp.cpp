@@ -39,6 +39,6 @@ uint64_t TimeStamp() {
 #else
 	timeval tv;
 	gettimeofday( &tv, NULL );
-	return 1000000ULL * uint64( tv.tv_sec ) + uint64( tv.tv_usec );
+	return 1000000ULL * uint64_t( tv.tv_sec ) + uint64_t( tv.tv_usec );
 #endif
 }
