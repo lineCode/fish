@@ -56,8 +56,6 @@ void HttpChannel::HandleRead() {
 	if (completed_) {
 		if (callback_) {
 			callback_(this, userdata_);
-		} else {
-			Close(true);
 		}
 	}
 }
