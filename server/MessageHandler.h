@@ -13,30 +13,16 @@ typedef void(*HandlerFunc)( Network::Channel* channel, MessageHelper::MessageRea
 
 static HandlerFunc HandlerTable[CMD_MAX];
 
-static void DefaultHandler(Network::Channel* channel, MessageHelper::MessageReader& reader)
-{
-	LOG_ERROR(fmt::format("error message handler"));
-}
+void DefaultHandler(Network::Channel* channel, MessageHelper::MessageReader& reader);
 
 int DispatchHandler(int cmd, Network::Channel* channel, MessageHelper::MessageReader& reader);
 
-struct InitializeHandlers
-{
-	InitializeHandlers()
-	{
-		for (int i = 0;i < CMD_MAX;i++)
-		{
-			HandlerTable[i] = DefaultHandler;
-		}
-	}
+struct InitializeHandlers {
+	InitializeHandlers();
 };
 
-struct RegisterHandler
-{
-	RegisterHandler(int cmd,HandlerFunc func)
-	{
-		HandlerTable[cmd] = func;
-	}
+struct RegisterHandler {
+	RegisterHandler(int cmd, HandlerFunc func);
 };
 
 #define REGISTER_HANDLER(cmd,channel,reader) \
