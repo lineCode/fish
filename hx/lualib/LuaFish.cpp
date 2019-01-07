@@ -89,7 +89,7 @@ void LuaFish::Require(const char* module, int (*func)(lua_State*)) {
 	luaL_requiref(script_.state(), module, func, 1);
 }
 
-void CreateMetaTable(const char* name, const luaL_Reg meta[], lua_CFunction gc) {
+void LuaFish::CreateMetaTable(const char* name, const luaL_Reg meta[], lua_CFunction gc) {
 	lua_State* L = script_.state();
 
 	if (luaL_newmetatable(L, name)) {
