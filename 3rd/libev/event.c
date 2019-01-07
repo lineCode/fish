@@ -47,10 +47,6 @@
 # include "event.h"
 #endif
 
-#if _WIN32
-# include <WinSock2.h>
-#endif
-
 #if EV_MULTIPLICITY
 # define dLOOPev struct ev_loop *loop = (struct ev_loop *)ev->ev_base
 # define dLOOPbase struct ev_loop *loop = (struct ev_loop *)base
