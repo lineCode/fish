@@ -27,9 +27,9 @@ void Bootstrap::Startup() {
 	int port = config_["loggerAddr"]["port"].GetInt();
 
 	Network::Addr addr = Network::Addr::MakeIP4Addr(ip, port);
-	LoggerInterface* interface = new LoggerClient(addr, poller);
+	LoggerInterface* loggerInterface = new LoggerClient(addr, poller);
 	
-	Logger* logger = new Logger(interface);
+	Logger* logger = new Logger(loggerInterface);
 	
 	const char* file = config_["boot"].GetString();
 	std::string boot(file);

@@ -1,4 +1,4 @@
-/*
+﻿/*
 	modify from https://github.com/cloudwu/lua-serialize
  */
 
@@ -53,6 +53,11 @@ struct read_block {
 	int len;
 	int ptr;
 };
+
+#ifdef _WIN32
+#define inline __inline
+#endif
+
 
 inline static struct block *
 blk_alloc(void) {
