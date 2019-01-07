@@ -81,6 +81,13 @@ int LuaHttpChannel::LGetContent(lua_State* L) {
 
 int LuaHttpChannel::LSetReplyHeader(lua_State* L) {
 	LuaHttpChannel* channel = (LuaHttpChannel*)lua_touserdata(L, 1);
+	const char* field = luaL_checkstring(L, 2);
+	const char* value = luaL_checkstring(L, 3);
+
+	std::string f(field);
+	std::string v(value);
+	channel->SetReplyHeader(f, v);
+
 	return 0;
 }
 
@@ -89,8 +96,7 @@ int LuaHttpChannel::LReply(lua_State* L) {
 	int code = luaL_checkinteger(L, 2);
 	size_t size;
 	const char* content = luaL_checklstring(L, 3, &size);
-	std::string body(content);
-	channel->Reply(code, body);
+	channel->Reply(code, (char*)content, size);
 	return 0;
 }
 

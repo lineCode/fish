@@ -2,7 +2,7 @@
 #include "util/format.h"
 #include "logger/Logger.h"
 #include <iostream>
-#include <unordered_map>
+
 
 namespace Network {
 
@@ -19,7 +19,7 @@ static const http_parser_settings ParserSetting = {
 	HttpChannel::OnChunkComplete,
 };
 
-static const std::unordered_map<uint32_t, const std::string> StatusMsg = {
+static std::unordered_map<uint32_t, const std::string> StatusMsg = {
 #define XX(num, name, string) { num, #string },
 	HTTP_STATUS_MAP(XX)
 #undef XX
@@ -127,8 +127,25 @@ void HttpChannel::SetReplyHeader(std::string& field, std::string& value) {
 	replyHeaders_[field] = value;
 }
 	
-void HttpChannel::Reply(int code, std::string& content) {
+void HttpChannel::Reply(uint32_t code, std::string& content) {
+	Reply(code, (char*)content.c_str(), content.length());
+}
 
+void HttpChannel::Reply(uint32_t code, char* content, size_t size) {
+	std::string message = "";
+	message += fmt::format("HTTP/1.1 {} {}\r\n", code, StatusMsg[code]);
+
+	std::map<std::string, std::string>::iterator iter = replyHeaders_.begin();
+	for ( ; iter != replyHeaders_.end(); iter++ ) {
+		message += fmt::format("{}: {}\r\n", iter->first, iter->second);
+	}
+
+	if ( size != 0 ) {
+		message += fmt::format("Content-Length: {}\r\n\r\n", size);
+		message.append(content, size);
+	}
+
+	Write(message);
 }
 
 int HttpChannel::OnParseBegin(struct http_parser* parser) {

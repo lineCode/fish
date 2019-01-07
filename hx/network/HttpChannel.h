@@ -3,6 +3,7 @@
 #include "Channel.h"
 #include "http_parser.h"
 #include <functional>
+#include <unordered_map>
 
 namespace Network {
 
@@ -45,7 +46,8 @@ public:
 
 	virtual void SetReplyHeader(std::string& field, std::string& value);
 
-	virtual void Reply(int code, std::string& content);
+	virtual void Reply(uint32_t code, std::string& content);
+	virtual void Reply(uint32_t code, char* content, size_t size);
 
 	static int OnParseBegin(struct http_parser* parser);
 	static int OnParseComplete(struct http_parser* parser);
@@ -70,7 +72,7 @@ public:
 	int phase_;
 private:
 	struct http_parser parser_;
-	std::map<std::string,std::string> headers_;
+	std::map<std::string, std::string> headers_;
 	std::string url_;
 	std::string content_;
 	std::string status_;
@@ -78,7 +80,7 @@ private:
 	OnComplete callback_;
 	void* userdata_;
 
-	std::map<std::string,std::string> replyHeaders_;
+	std::map<std::string, std::string> replyHeaders_;
 };
 };
 
