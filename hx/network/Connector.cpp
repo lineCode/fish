@@ -6,6 +6,8 @@ namespace Network
 	Connector::Connector(EventPoller* poller) :poller_(poller) {
 		io_.set(poller_->GetLoop());
 		io_.set<Connector, &Connector::ConnectCallback>(this);
+		callback_ = nullptr;
+		userdata_ = NULL;
 	}
 
 	Connector::~Connector(void) {

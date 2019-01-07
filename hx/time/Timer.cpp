@@ -1,7 +1,7 @@
-#include "Timer.h"
+﻿#include "Timer.h"
 
 Timer::Timer() {
-	callback_ = NULL;
+	callback_ = nullptr;
 	userdata_ = NULL;
 }
 

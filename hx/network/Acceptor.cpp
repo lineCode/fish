@@ -4,7 +4,7 @@
 namespace Network {
 	Acceptor::Acceptor(EventPoller* poller) :poller_(poller) {
 		fd_ = -1;
-		callback_ = NULL;
+		callback_ = nullptr;
 		userdata_ = NULL;
 	}
 
