@@ -33,19 +33,7 @@
     <ClInclude Include="network\Reader.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="network\TcpReader.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Typedef.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="AppThread.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Logger.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectPoolMgr.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="ServerApp.h">
@@ -108,12 +96,45 @@
     <ClInclude Include="util\ZeroPack.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="TaskQueue.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="util\Util.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="network\Address.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="network\Writer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="lualib\LuaChannel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="lualib\LuaUtil.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="logger\Logger.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="logger\LoggerChannel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="logger\LoggerClient.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="logger\LoggerHost.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="logger\LoggerInterface.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="network\HttpChannel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="network\Channel.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="network\Accepter.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="network\Connector.cpp">
@@ -128,25 +149,10 @@
     <ClCompile Include="network\Reader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="network\TcpReader.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="AppThread.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Logger.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectPoolMgr.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="ServerApp.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="time\Timestamp.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="thread\Thread.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="lualib\LuaFish.cpp">
@@ -177,6 +183,42 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="util\ZeroPack.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="util\Util.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="time\Timer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="network\Acceptor.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="network\Writer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="lualib\LuaChannel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="lualib\lua-seri.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="lualib\LuaUtil.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="logger\Logger.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="logger\LoggerChannel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="logger\LoggerClient.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="logger\LoggerHost.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="network\HttpChannel.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

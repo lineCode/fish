@@ -1,4 +1,4 @@
-#include "Logger.h"
+﻿#include "Logger.h"
 #include "network/Connector.h"
 #include "util/format.h"
 #include <iostream>
@@ -9,8 +9,8 @@ Logger * Singleton<Logger>::singleton_ = 0;
 
 Logger::Loglevel Logger::level_ = eDebug;
 
-Logger::Logger(LoggerInterface* interface) {
-	interface_ = interface;
+Logger::Logger(LoggerInterface* logger) {
+	interface_ = logger;
 }
 
 Logger::~Logger(void) {

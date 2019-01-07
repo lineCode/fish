@@ -1,4 +1,4 @@
-#include "Timestamp.h"
+﻿#include "Timestamp.h"
 
 #if defined (WIN32)
 #include <windows.h>
@@ -11,7 +11,7 @@
 #endif
 
 
-uint64 Now() {
+uint64_t Now() {
 #if defined (WIN32)
 	return time(NULL);
 #else
@@ -21,7 +21,7 @@ uint64 Now() {
 #endif
 }
 
-uint64 StampPersecond() {
+uint64_t StampPersecond() {
 #if defined (WIN32)
 	LARGE_INTEGER rate;
 	QueryPerformanceFrequency(&rate);
@@ -31,7 +31,7 @@ uint64 StampPersecond() {
 #endif
 }
 
-uint64 TimeStamp() {
+uint64_t TimeStamp() {
 #if defined (WIN32)
 	LARGE_INTEGER counter;
 	QueryPerformanceCounter( &counter );

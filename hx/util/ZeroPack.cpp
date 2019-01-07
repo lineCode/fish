@@ -1,12 +1,12 @@
-
+﻿
 #include "ZeroPack.h"
+#include <stdint.h>
 
-
-static int packSegment(uint8* src,uint8* buffer,int sz,int n)
+static int packSegment(uint8_t* src, uint8_t* buffer, int sz, int n)
 {
-	uint8 header = 0;
+	uint8_t header = 0;
 	int notzero = 0;
-	uint8* obuffer = buffer;
+	uint8_t* obuffer = buffer;
 
 	++buffer;
 	--sz;
@@ -45,7 +45,7 @@ static int packSegment(uint8* src,uint8* buffer,int sz,int n)
 	return notzero+1;
 }
 
-static void makeFF(uint8* src,uint8* des,int n)
+static void makeFF(uint8_t* src, uint8_t* des, int n)
 {
 	int align8_n = (n+7)&(~7);
 
@@ -58,14 +58,14 @@ static void makeFF(uint8* src,uint8* des,int n)
 
 int Zeropack(void* srcv,int srcsz,void* bufferv,int bufsz)
 {
-	uint8 tmp[8];
-	uint8* ffSrcStart = NULL;
-	uint8* ffDesStart = NULL;
+	uint8_t tmp[8];
+	uint8_t* ffSrcStart = NULL;
+	uint8_t* ffDesStart = NULL;
 	int ffCount = 0;
 	int size = 0;
 
-	uint8* src = (uint8*)srcv;
-	uint8* buffer = (uint8*)bufferv;
+	uint8_t* src = (uint8_t*)srcv;
+	uint8_t* buffer = (uint8_t*)bufferv;
 
 	for (int i = 0;i < srcsz;i+=8)
 	{
@@ -115,7 +115,7 @@ int Zeropack(void* srcv,int srcsz,void* bufferv,int bufsz)
 		if(ffCount == 1)
 			makeFF(ffSrcStart, ffDesStart, 8);
 		else if (ffCount > 1)
-			makeFF(ffSrcStart, ffDesStart, srcsz - (intptr_t)(ffSrcStart - (uint8*)srcv));
+			makeFF(ffSrcStart, ffDesStart, srcsz - (intptr_t)( ffSrcStart - (uint8_t*)srcv ));
 	}
 	return size;
 }
@@ -123,12 +123,12 @@ int Zeropack(void* srcv,int srcsz,void* bufferv,int bufsz)
 int Zerounpack(void * srcv, int srcsz, void* bufferv,int* buffsize)
 {
 	int bufsz = *buffsize;
-	const uint8 * src = (const uint8*)srcv;
-	uint8 * buffer = (uint8*)bufferv;
+	const uint8_t * src = (const uint8_t*)srcv;
+	uint8_t * buffer = (uint8_t*)bufferv;
 	int size = 0;
 	while (srcsz > 0) 
 	{
-		uint8 header = src[0];
+		uint8_t header = src[0];
 		--srcsz;
 		++src;
 		if (header == 0xff)

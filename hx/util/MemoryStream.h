@@ -1,4 +1,4 @@
-#ifndef MEMORYSTREAM_H
+﻿#ifndef MEMORYSTREAM_H
 #define MEMORYSTREAM_H
 
 #include <vector>
@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <string.h>
+#include <stdint.h>
 #include "Typedef.h"
 
 namespace EndianConvert {
@@ -114,18 +115,18 @@ public:
 private:
 	template<typename T>
 	void Append(T value) {
-		Append((const uint8 *)&value, sizeof(value));
+		Append((const uint8_t *)&value, sizeof( value ));
 	}
 
 	void Append(const char* c,size_t cnt) {
-		Append((const uint8*)c,cnt);
+		Append((const uint8_t*)c, cnt);
 	}
 
 	void Append(const std::string& str) {
 		Append(str.c_str(),str.size()+1);
 	}
 
-	void Append(const uint8* val,size_t cnt) {
+	void Append(const uint8_t* val, size_t cnt) {
 		if (cnt == 0) {
 			return;
 		}

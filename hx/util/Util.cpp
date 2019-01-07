@@ -1,4 +1,4 @@
-#include "Util.h"
+﻿#include "Util.h"
 #include "rapidjson.h"
 #include "filereadstream.h"
 namespace Util {
@@ -23,7 +23,7 @@ namespace Util {
 	}
 
 	char* MakeMessage(char* data, size_t size, size_t* outSize) {
-		ushort length = size + 2;
+		uint16_t length = size + 2;
 		char* content = (char*)malloc(length);
 		memcpy(content, &length, 2);
 		memcpy(content+2, data, size);

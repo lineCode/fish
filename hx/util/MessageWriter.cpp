@@ -1,7 +1,6 @@
-#include "MessageWriter.h"
+﻿#include "MessageWriter.h"
 #include "ZeroPack.h"
-
-#include "../ServerApp.h"
+#include "ServerApp.h"
 
 
 namespace MessageHelper
@@ -18,78 +17,78 @@ namespace MessageHelper
 
 	MessageWriter& MessageWriter::operator<<(bool value) 
 	{
-		uint8 type = TYPE_BOOL;
-		append(&type,(uint8*)&value,sizeof(bool));
+		uint8_t type = TYPE_BOOL;
+		append(&type, (uint8_t*)&value, sizeof( bool ));
 		return *this;
 	}
 
-	MessageWriter& MessageWriter::operator<<(uint8 value) 
+	MessageWriter& MessageWriter::operator<<(uint8_t value) 
 	{
-		uint8 type = TYPE_UINT8;
-		append(&type,(uint8*)&value,sizeof(uint8));
+		uint8_t type = TYPE_UINT8;
+		append(&type, (uint8_t*)&value, sizeof( uint8_t ));
 		return *this;
 	}
 
-	MessageWriter& MessageWriter::operator<<(uint16 value)
+	MessageWriter& MessageWriter::operator<<(uint16_t value)
 	{
-		uint8 type = TYPE_UINT16;
-		append(&type,(uint8*)&value,sizeof(uint16));
+		uint8_t type = TYPE_UINT16;
+		append(&type, (uint8_t*)&value, sizeof( uint16_t ));
 		return *this;
 	}
 
-	MessageWriter& MessageWriter::operator<<(uint32 value)
+	MessageWriter& MessageWriter::operator<<(uint32_t value)
 	{
-		uint8 type = TYPE_UINT32;
-		append(&type,(uint8*)&value,sizeof(uint32));
+		uint8_t type = TYPE_UINT32;
+		append(&type, (uint8_t*)&value, sizeof( uint32_t ));
 		return *this;
 	}
 
-	MessageWriter& MessageWriter::operator<<(uint64 value)
+	MessageWriter& MessageWriter::operator<<( uint64_t value )
 	{
-		uint8 type = TYPE_UINT64;
-		append(&type,(uint8*)&value,sizeof(uint64));
+		uint8_t type = TYPE_UINT64;
+		append(&type, (uint8_t*)&value, sizeof( uint64_t ));
 		return *this;
 	}
 
-	MessageWriter& MessageWriter::operator<<(int8 value)
+	MessageWriter& MessageWriter::operator<<( int8_t value )
 	{
-		uint8 type = TYPE_INT8;
-		append(&type,(uint8*)&value,sizeof(float));
+		uint8_t type = TYPE_INT8;
+		append(&type, (uint8_t*)&value, sizeof( float ));
 		return *this;
 	}
 
-	MessageWriter& MessageWriter::operator<<(int16 value)
+	MessageWriter& MessageWriter::operator<<( int16_t value )
 	{
-		uint8 type = TYPE_INT16;
-		append(&type,(uint8*)&value,sizeof(int16));
+		uint8_t type = TYPE_INT16;
+		append(&type, (uint8_t*)&value, sizeof( int16_t ));
 		return *this;
 	}
 
-	MessageWriter& MessageWriter::operator<<(int32 value)
+	MessageWriter& MessageWriter::operator<<( int32_t value )
 	{
-		uint8 type = TYPE_INT32;
-		append(&type,(uint8*)&value,sizeof(int32));
+		uint8_t type = TYPE_INT32;
+		append(&type, (uint8_t*)&value, sizeof( int32_t ));
 		return *this;
 	}
 
-	MessageWriter& MessageWriter::operator<<(int64 value) 
+	MessageWriter& MessageWriter::operator<<( int64_t value )
 	{
-		uint8 type = TYPE_INT64;
-		append(&type,(uint8*)&value,sizeof(int64));
+		uint8_t type = TYPE_INT64;
+		append(&type, (uint8_t*)&value, sizeof( int64_t ));
 		return *this;
 	}
 
 	MessageWriter& MessageWriter::operator<<(float value)
 	{
-		uint8 type = TYPE_FLOAT;
-		append(&type,(uint8*)&value,sizeof(float));
+		uint8_t type = TYPE_FLOAT;
+		append(&type, (uint8_t*)&value, sizeof( float ));
 		return *this;
 	}
 
 	MessageWriter& MessageWriter::operator<<(double value)
 	{
-		uint8 type = TYPE_DOUBLE;
-		append(&type,(uint8*)&value,sizeof(double));
+		uint8_t type = TYPE_DOUBLE;
+		append(&type, (uint8_t*)&value, sizeof( double ));
 		return *this;
 	}
 
@@ -139,7 +138,7 @@ namespace MessageHelper
 		}
 	}
 
-	void MessageWriter::append(uint8* type,uint8* val,int cnt)
+	void MessageWriter::append(uint8_t* type, uint8_t* val, int cnt)
 	{
 		reserve(cnt + 1);
 		_data[_offset] = *type;

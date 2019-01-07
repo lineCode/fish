@@ -1,11 +1,10 @@
-#ifndef TIMESTAMP_H
+﻿#ifndef TIMESTAMP_H
 #define TIMESTAMP_H
-#include "../Typedef.h"
+#include <stdint.h>
 
-
-uint64 Now();
-uint64 TimeStamp();
-uint64 StampPersecond();
+uint64_t Now();
+uint64_t TimeStamp();
+uint64_t StampPersecond();
 
 
 #endif

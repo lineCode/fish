@@ -1,11 +1,18 @@
-#ifndef ADDRESS_H
+﻿#ifndef ADDRESS_H
 #define ADDRESS_H
 
+#include <assert.h>
 
-
+#ifdef _WIN32
+#include <winsock2.h>
+#include <ws2ipdef.h>
+#include <WS2tcpip.h>
+#define snprintf _snprintf
+#else
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <sys/un.h>
+#endif
 #include <string>
 
 namespace Network {
@@ -22,7 +29,9 @@ public:
 	union {
         struct sockaddr_in 	in;
         struct sockaddr_in6 in6;
+#ifndef _WIN32
         struct sockaddr_un 	un;
+#endif
     } sockaddr;
 
 	int addrType;
@@ -42,6 +51,7 @@ public:
     	return addr;
     }
 
+#ifndef _WIN32
     static Addr MakeUNIXAddr(const char* file) {
         Addr addr;
         memset(&addr.sockaddr,0,sizeof(addr.sockaddr));
@@ -51,6 +61,7 @@ public:
         strcpy(addr.sockaddr.un.sun_path, file);
         return addr;
     }
+#endif
 
     static Addr MakeBySockAddr(struct sockaddr *addr_,socklen_t len) {
         Addr addr;
@@ -63,10 +74,12 @@ public:
             addr.family   = AF_INET6;
             addr.addrType = SOCK_ADDR_IPV6;
             addr.sockaddr.in6 = *((struct sockaddr_in6*)addr_);
+#ifndef _WIN32
         } else if(len == sizeof(addr.sockaddr.un)){
             addr.family   = AF_UNIX;            
             addr.addrType = SOCK_ADDR_UNIX;
             addr.sockaddr.un = *((struct sockaddr_un*)addr_);
+#endif
         } else {
             addr.addrType = SOCK_ADDR_EMPTY;
         }
@@ -78,30 +91,39 @@ public:
     }
 	
     void SetAddrLen(socklen_t len) {
-	if (len == sizeof(struct sockaddr_in)) {
-		family = AF_INET;
-		addrType = SOCK_ADDR_IPV4;
-	} else if (len == sizeof(struct sockaddr_in6)) {
-		family = AF_INET6;
-		addrType = SOCK_ADDR_IPV6;
-
-	} else if (len == sizeof(struct sockaddr_un)) {
-		family = AF_UNIX;
-		addrType = SOCK_ADDR_UNIX;
-	} else {
-		addrType = SOCK_ADDR_EMPTY;
-	}
+		if ( len == sizeof( struct sockaddr_in ) ) {
+			family = AF_INET;
+			addrType = SOCK_ADDR_IPV4;
+		}
+		else if ( len == sizeof( struct sockaddr_in6 ) ) {
+			family = AF_INET6;
+			addrType = SOCK_ADDR_IPV6;
+		}
+#ifndef _WIN32
+		else if ( len == sizeof( struct sockaddr_un ) ) {
+			family = AF_UNIX;
+			addrType = SOCK_ADDR_UNIX;
+		}
+#endif
+		else {
+			addrType = SOCK_ADDR_EMPTY;
+		}
     }
     socklen_t AddrLen() const {
-		if(this->addrType == SOCK_ADDR_IPV4) {
-    		return sizeof(this->sockaddr.in);
-    	} else if(this->addrType == SOCK_ADDR_IPV6) {
-    		return sizeof(this->sockaddr.in6);
-    	} else if(this->addrType == SOCK_ADDR_UNIX) {
-    		return sizeof(this->sockaddr.un);
-    	} else {
-    		return 0;
-    	}
+		if ( this->addrType == SOCK_ADDR_IPV4 ) {
+			return sizeof( this->sockaddr.in );
+		}
+		else if ( this->addrType == SOCK_ADDR_IPV6 ) {
+			return sizeof( this->sockaddr.in6 );
+		}
+#ifndef _WIN32
+		else if ( this->addrType == SOCK_ADDR_UNIX ) {
+			return sizeof( this->sockaddr.un );
+		}
+#endif
+		else {
+			return 0;
+		}
     }
 
     int Family() const {
@@ -116,17 +138,22 @@ public:
     Addr():addrType(SOCK_ADDR_EMPTY),family(0){} 
 
     std::string ToStr() const {
-        if(this->addrType == SOCK_ADDR_IPV4) {
-            char ip[INET6_ADDRSTRLEN] = {0};
-            char ret[INET6_ADDRSTRLEN] = {0};
-            short port = ntohs(this->sockaddr.in.sin_port);
-            if(NULL == ::inet_ntop(this->family,(const char*)&this->sockaddr.in.sin_addr,ip,sizeof(ip))){
-                return std::string("");
-            } else {
-                snprintf(ret,INET6_ADDRSTRLEN,"%s:%d",ip,port);
-                return std::string(ret);
-            }
-        }
+		if ( this->addrType == SOCK_ADDR_IPV4 ) {
+			char ip[INET6_ADDRSTRLEN] = { 0 };
+			char ret[INET6_ADDRSTRLEN] = { 0 };
+			short port = ntohs(this->sockaddr.in.sin_port);
+#ifndef _WIN32
+			if ( NULL == ::inet_ntop(this->family, (const char*)&this->sockaddr.in.sin_addr, ip, sizeof( ip )) ){
+#else
+			if ( NULL == ::inet_ntop(this->family, (PVOID)&this->sockaddr.in.sin_addr, ip, sizeof( ip )) ){
+#endif
+				return std::string("");
+			}
+			else {
+				snprintf(ret, INET6_ADDRSTRLEN, "%s:%d", ip, port);
+				return std::string(ret);
+			}
+		}
         return std::string("");
     }
 };

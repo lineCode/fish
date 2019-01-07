@@ -1,4 +1,4 @@
-#include "LuaChannel.h"
+﻿#include "LuaChannel.h"
 #include "logger/Logger.h"
 
 LuaChannel::LuaChannel(Network::EventPoller* poller,int fd, LuaFish* lua, uint32_t header) : Network::Channel(poller, fd) {
@@ -149,7 +149,7 @@ int LuaChannel::LWrite(lua_State* L) {
 	int header = luaL_optinteger(L, 2, 0);
 	int vt = lua_type(L, 3);
 
-	char* data;
+	char* data = NULL;
 	size_t size;
 	switch(vt) {
 		case LUA_TSTRING: {
@@ -177,7 +177,7 @@ int LuaChannel::LWrite(lua_State* L) {
 			memcpy(content, data, size);
 		}
 	} else if (header == 2) {
-		ushort length = size + header;
+		uint16_t length = size + header;
 		content = (char*)malloc(size + header);
 		memcpy(content, &length, 2);
 		memcpy(content, data, size);

@@ -1,6 +1,7 @@
-#ifndef MESSAGEREADER_H
+﻿#ifndef MESSAGEREADER_H
 #define MESSAGEREADER_H
-#include "../Typedef.h"
+#include "Typedef.h"
+#include <stdint.h>
 #include <string>
 #include <assert.h>
 
@@ -14,14 +15,14 @@ namespace MessageHelper
 		~MessageReader(void);
 
 		MessageReader& operator>>(bool& value);
-		MessageReader& operator>>(uint8& value);
-		MessageReader& operator>>(uint16& value);
-		MessageReader& operator>>(uint32& value);
-		MessageReader& operator>>(uint64& value);
-		MessageReader& operator>>(int8& value);
-		MessageReader& operator>>(int16& value);
-		MessageReader& operator>>(int32& value);
-		MessageReader& operator>>(int64& value);
+		MessageReader& operator>>(uint8_t& value);
+		MessageReader& operator>>(uint16_t& value);
+		MessageReader& operator>>(uint32_t& value);
+		MessageReader& operator>>(uint64_t& value);
+		MessageReader& operator>>(int8_t& value);
+		MessageReader& operator>>(int16_t& value);
+		MessageReader& operator>>(int32_t& value);
+		MessageReader& operator>>(int64_t& value);
 		MessageReader& operator>>(float& value);
 		MessageReader& operator>>(double& value);
 		MessageReader& operator>>(std::string& value);

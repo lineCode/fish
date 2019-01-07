@@ -42,7 +42,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <TargetExt>.lib</TargetExt>
-    <IncludePath>..\3rd\libev;..\3rd\oolua\include;..\3rd\lua\src;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>..\hx;..\3rd\libev;..\3rd\oolua\include;..\3rd\lua\src;..\3rd\rapidjson;..\3rd\http-parser;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)\bin\$(Configuration)</OutDir>
     <IntDir>$(SolutionDir)\build\$(Configuration)</IntDir>
   </PropertyGroup>
@@ -82,19 +82,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="AppThread.h" />
-    <ClInclude Include="Logger.h" />
+    <ClInclude Include="logger\Logger.h" />
+    <ClInclude Include="logger\LoggerChannel.h" />
+    <ClInclude Include="logger\LoggerClient.h" />
+    <ClInclude Include="logger\LoggerHost.h" />
+    <ClInclude Include="logger\LoggerInterface.h" />
+    <ClInclude Include="lualib\LuaChannel.h" />
     <ClInclude Include="lualib\LuaFish.h" />
+    <ClInclude Include="lualib\LuaUtil.h" />
     <ClInclude Include="lualib\LuaZeropack.h" />
     <ClInclude Include="network\Acceptor.h" />
+    <ClInclude Include="network\Address.h" />
     <ClInclude Include="network\Channel.h" />
     <ClInclude Include="network\Connector.h" />
     <ClInclude Include="network\EventPoller.h" />
+    <ClInclude Include="network\HttpChannel.h" />
     <ClInclude Include="network\Network.h" />
     <ClInclude Include="network\Reader.h" />
-    <ClInclude Include="network\TcpReader.h" />
-    <ClInclude Include="ObjectPoolMgr.h" />
+    <ClInclude Include="network\Writer.h" />
     <ClInclude Include="ServerApp.h" />
+    <ClInclude Include="TaskQueue.h" />
     <ClInclude Include="thread\Mutex.h" />
     <ClInclude Include="thread\Thread.h" />
     <ClInclude Include="time\Timer.h" />
@@ -112,23 +119,29 @@
     <ClInclude Include="util\ObjectPool.h" />
     <ClInclude Include="util\PoolObject.h" />
     <ClInclude Include="util\Singleton.h" />
+    <ClInclude Include="util\Util.h" />
     <ClInclude Include="util\ZeroPack.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AppThread.cpp" />
-    <ClCompile Include="Logger.cpp" />
+    <ClCompile Include="logger\Logger.cpp" />
+    <ClCompile Include="logger\LoggerChannel.cpp" />
+    <ClCompile Include="logger\LoggerClient.cpp" />
+    <ClCompile Include="logger\LoggerHost.cpp" />
+    <ClCompile Include="lualib\lua-seri.c" />
+    <ClCompile Include="lualib\LuaChannel.cpp" />
     <ClCompile Include="lualib\LuaFish.cpp" />
+    <ClCompile Include="lualib\LuaUtil.cpp" />
     <ClCompile Include="lualib\LuaZeropack.cpp" />
-    <ClCompile Include="network\Accepter.cpp" />
+    <ClCompile Include="network\Acceptor.cpp" />
     <ClCompile Include="network\Channel.cpp" />
     <ClCompile Include="network\Connector.cpp" />
     <ClCompile Include="network\EventPoller.cpp" />
+    <ClCompile Include="network\HttpChannel.cpp" />
     <ClCompile Include="network\Network.cpp" />
     <ClCompile Include="network\Reader.cpp" />
-    <ClCompile Include="network\TcpReader.cpp" />
-    <ClCompile Include="ObjectPoolMgr.cpp" />
+    <ClCompile Include="network\Writer.cpp" />
     <ClCompile Include="ServerApp.cpp" />
-    <ClCompile Include="thread\Thread.cpp" />
+    <ClCompile Include="time\Timer.cpp" />
     <ClCompile Include="time\Timestamp.cpp" />
     <ClCompile Include="util\Allocator.cpp" />
     <ClCompile Include="util\format.cc" />
@@ -137,6 +150,7 @@
     <ClCompile Include="util\MessageReader.cpp" />
     <ClCompile Include="util\MessageWriter.cpp" />
     <ClCompile Include="util\MiniHeap.cpp" />
+    <ClCompile Include="util\Util.cpp" />
     <ClCompile Include="util\ZeroPack.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

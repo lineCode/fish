@@ -1,4 +1,4 @@
-#ifndef LOGGER_H
+﻿#ifndef LOGGER_H
 #define LOGGER_H
 
 #include <mutex>
@@ -19,7 +19,7 @@ public:
 		eError,
 	};
 public:
-	Logger(LoggerInterface* interface);
+	Logger(LoggerInterface* logger);
 
 	~Logger(void);
 

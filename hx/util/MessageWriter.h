@@ -1,7 +1,6 @@
-#ifndef MESSAGEWRITER_H
+﻿#ifndef MESSAGEWRITER_H
 #define MESSAGEWRITER_H
-#include "../Typedef.h"
-
+#include <stdint.h>
 #include <string>
 #include <vector>
 
@@ -14,14 +13,14 @@ namespace MessageHelper
 		~MessageWriter();
 
 		MessageWriter& operator<<(bool value);
-		MessageWriter& operator<<(uint8 value);
-		MessageWriter& operator<<(uint16 value);
-		MessageWriter& operator<<(uint32 value);
-		MessageWriter& operator<<(uint64 value);
-		MessageWriter& operator<<(int8 value);
-		MessageWriter& operator<<(int16 value);
-		MessageWriter& operator<<(int32 value);
-		MessageWriter& operator<<(int64 value);
+		MessageWriter& operator<<(uint8_t value);
+		MessageWriter& operator<<(uint16_t value);
+		MessageWriter& operator<<(uint32_t value);
+		MessageWriter& operator<<(uint64_t value);
+		MessageWriter& operator<<(int8_t value);
+		MessageWriter& operator<<(int16_t value);
+		MessageWriter& operator<<(int32_t value);
+		MessageWriter& operator<<(int64_t value);
 		MessageWriter& operator<<(float value);
 		MessageWriter& operator<<(double value);
 		MessageWriter& operator<<(const std::string& str);
@@ -34,7 +33,7 @@ namespace MessageHelper
 		int Length();
 
 		void reserve(int cnt);
-		void append(uint8* type,uint8* val,int size);
+		void append(uint8_t* type, uint8_t* val, int size);
 		void append(char* str,int size);
 
 		char* _data;
