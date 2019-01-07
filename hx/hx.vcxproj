@@ -42,7 +42,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <TargetExt>.lib</TargetExt>
-    <IncludePath>..\hx;..\3rd\libev;..\3rd\oolua\include;..\3rd\lua\src;..\3rd\rapidjson;..\3rd\http-parser;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <IncludePath>..\hx;..\3rd;..\3rd\libev;..\3rd\oolua\include;..\3rd\lua\src;..\3rd\rapidjson;..\3rd\http-parser;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)\bin\$(Configuration)</OutDir>
     <IntDir>$(SolutionDir)\build\$(Configuration)</IntDir>
   </PropertyGroup>
@@ -87,6 +87,10 @@
     <ClInclude Include="logger\LoggerClient.h" />
     <ClInclude Include="logger\LoggerHost.h" />
     <ClInclude Include="logger\LoggerInterface.h" />
+    <ClInclude Include="lualib\json\file.hpp" />
+    <ClInclude Include="lualib\json\luax.hpp" />
+    <ClInclude Include="lualib\json\Userdata.hpp" />
+    <ClInclude Include="lualib\json\values.hpp" />
     <ClInclude Include="lualib\LuaChannel.h" />
     <ClInclude Include="lualib\LuaFish.h" />
     <ClInclude Include="lualib\LuaUtil.h" />
@@ -127,10 +131,15 @@
     <ClInclude Include="util\ZeroPack.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\3rd\http-parser\http_parser.c" />
     <ClCompile Include="logger\Logger.cpp" />
     <ClCompile Include="logger\LoggerChannel.cpp" />
     <ClCompile Include="logger\LoggerClient.cpp" />
     <ClCompile Include="logger\LoggerHost.cpp" />
+    <ClCompile Include="lualib\json\Document.cpp" />
+    <ClCompile Include="lualib\json\rapidjson.cpp" />
+    <ClCompile Include="lualib\json\Schema.cpp" />
+    <ClCompile Include="lualib\json\values.cpp" />
     <ClCompile Include="lualib\lua-seri.c" />
     <ClCompile Include="lualib\LuaChannel.cpp" />
     <ClCompile Include="lualib\LuaFish.cpp" />

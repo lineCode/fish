@@ -144,6 +144,18 @@
     <ClInclude Include="time\TimerWheel.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="lualib\json\file.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="lualib\json\luax.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="lualib\json\Userdata.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="lualib\json\values.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="network\Channel.cpp">
@@ -237,6 +249,21 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="time\TimerWheel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="lualib\json\Document.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="lualib\json\rapidjson.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="lualib\json\Schema.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="lualib\json\values.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rd\http-parser\http_parser.c">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
