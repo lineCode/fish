@@ -14,7 +14,7 @@ int Timer::Start(Network::EventPoller* poller, float after, float repeat) {
 		return -1;
 	}
 
-	timer_.set(poller->GetEvLoop());
+	timer_.set(poller->GetLoop());
 	timer_.set(after, repeat);
 	timer_.set<Timer, &Timer::OnTimeout>(this);
 	timer_.start();

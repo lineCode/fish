@@ -4,7 +4,7 @@ namespace Network
 {
 
 	Connector::Connector(EventPoller* poller) :poller_(poller) {
-		io_.set(poller_->GetEvLoop());
+		io_.set(poller_->GetLoop());
 		io_.set<Connector, &Connector::ConnectCallback>(this);
 	}
 

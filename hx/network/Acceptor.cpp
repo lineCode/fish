@@ -38,7 +38,7 @@ namespace Network {
 
 		fd_ = fd;
 
-		io_.set(poller_->GetEvLoop());
+		io_.set(poller_->GetLoop());
 
 		io_.set<Acceptor, &Acceptor::HandleConnection>(this);
 

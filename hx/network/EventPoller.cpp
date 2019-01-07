@@ -18,7 +18,7 @@ namespace Network {
 		loop_.break_loop();
 	}
 
-	ev::default_loop& EventPoller::GetEvLoop() {
+	ev::default_loop& EventPoller::GetLoop() {
 		return loop_;
 	}
 }

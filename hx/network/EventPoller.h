@@ -18,7 +18,7 @@ namespace Network {
 
 		virtual void Break();
 
-		ev::default_loop& GetEvLoop();
+		ev::default_loop& GetLoop();
 		
 	protected:
 		ev::default_loop loop_;

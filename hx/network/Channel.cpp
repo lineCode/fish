@@ -6,10 +6,10 @@ namespace Network {
 	Channel::Channel(Network::EventPoller* poller, int fd) :poller_(poller), fd_(fd) {
 		state_ = Alive;
 
-		rio_.set(poller_->GetEvLoop());
+		rio_.set(poller_->GetLoop());
 		rio_.set<Channel, &Channel::OnRead>(this);
 
-		wio_.set(poller_->GetEvLoop());
+		wio_.set(poller_->GetLoop());
 		wio_.set<Channel, &Channel::OnWrite>(this);
 
 		reader_ = new Reader();
