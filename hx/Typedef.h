@@ -1,6 +1,6 @@
 ﻿#ifndef TYPEDEF_H
 #define TYPEDEF_H
-
+#include <stdint.h>
 
 #define TYPE_BOOL		1
 #define TYPE_UINT8		2

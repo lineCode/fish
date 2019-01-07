@@ -1,8 +1,9 @@
 ﻿#ifndef TIMERHANDLER_H
 #define TIMERHANDLER_H
-#include "../Typedef.h"
-class TimeoutHandler
-{
+
+#include "Typedef.h"
+
+class TimeoutHandler {
 	friend class TimerWheelMgr;
 	friend class TimerWheel;
 	friend class TimerHeap;
@@ -11,15 +12,14 @@ public:
 
 	virtual ~TimeoutHandler() {}
 
-	virtual int HandleTimeout()
-	{
+	virtual int HandleTimeout() {
 		return 0;
 	}
 
 private:
-	uint64	_expire;
-	int		_timeout;
-	int		_id;
+	uint64_t expire_;
+	int timeout_;
+	int id_;
 };
 
 #endif

@@ -1,20 +1,18 @@
-#ifndef TIMERWHEEL_H
+﻿#ifndef TIMERWHEEL_H
 #define TIMERWHEEL_H
 #include <list>
 #include "TimerHandler.h"
-#include "../Typedef.h"
+#include "Typedef.h"
 
 class TimerWheel;
 
-class TimerWheelMgr
-{
+class TimerWheelMgr {
 public:
-	enum Wheel
-	{
-		WheelSec = 0,
-		WheelHour,
-		WheelDay,
-		WheelEnd
+	enum Wheel {
+		eWheelSec = 0,
+		eWheelHour,
+		eWheelDay,
+		eWheelEnd
 	};
 public:
 	TimerWheelMgr();
@@ -29,18 +27,17 @@ public:
 
 	int Register(TimeoutHandler* handler,int ti);
 
-	int Update(uint64 now);
+	int Update(uint64_t now);
 
 private:
-	int Fire(uint64 now);
+	int Fire(uint64_t now);
 
 private:
-	uint64		_lastTime;
-	TimerWheel*	_wheels[WheelEnd];
+	uint64_t lastTime_;
+	TimerWheel*	wheels_[eWheelEnd];
 };
 
-class TimerWheel
-{ 
+class TimerWheel { 
 public:
 	typedef std::list<TimeoutHandler*> TimeoutHandlers;
 
@@ -53,16 +50,16 @@ public:
 
 	int NextTick();
 
-	int ShiftUp(uint64 now);
+	int ShiftUp(uint64_t now);
 
-	int Trigger(uint64 now);
+	int Trigger(uint64_t now);
 
 	int Register(TimeoutHandler* handler,int ti);
 
 protected:
-	TimerWheelMgr*		_timerMgr;
-	TimerWheelMgr::Wheel _what;
-	int					_tick;
-	TimeoutHandlers**	_slots;
+	TimerWheelMgr* timeMgr_;
+	TimerWheelMgr::Wheel what_;
+	int tick_;
+	TimeoutHandlers** slots_;
 };
 #endif

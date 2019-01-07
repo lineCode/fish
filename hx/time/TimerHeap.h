@@ -1,10 +1,10 @@
-#ifndef TIMERHEAP_H
+﻿#ifndef TIMERHEAP_H
 #define TIMERHEAP_H
-#include "../util/MiniheapT.h"
+#include <stdint.h>
+#include "util/MiniheapT.h"
 #include "TimerHandler.h"
 
-class TimerHeap : public MiniheapT<TimeoutHandler>
-{
+class TimerHeap : public MiniheapT<TimeoutHandler> {
 public:
 	typedef MiniheapT<TimeoutHandler> Super;
 
@@ -19,10 +19,10 @@ public:
 
 	virtual int DoCompare(TimeoutHandler* left,TimeoutHandler* right);
 
-	virtual int Update(uint64 now);
+	virtual int Update(uint64_t now);
 
 private:
-	uint64 _now;
+	uint64_t now_;
 };
 
 #endif

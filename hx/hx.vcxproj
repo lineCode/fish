@@ -105,6 +105,10 @@
     <ClInclude Include="thread\Mutex.h" />
     <ClInclude Include="thread\Thread.h" />
     <ClInclude Include="time\Timer.h" />
+    <ClInclude Include="time\TimerEngineT.h" />
+    <ClInclude Include="time\TimerHandler.h" />
+    <ClInclude Include="time\TimerHeap.h" />
+    <ClInclude Include="time\TimerWheel.h" />
     <ClInclude Include="time\Timestamp.h" />
     <ClInclude Include="Typedef.h" />
     <ClInclude Include="util\Allocator.h" />
@@ -142,6 +146,8 @@
     <ClCompile Include="network\Writer.cpp" />
     <ClCompile Include="ServerApp.cpp" />
     <ClCompile Include="time\Timer.cpp" />
+    <ClCompile Include="time\TimerHeap.cpp" />
+    <ClCompile Include="time\TimerWheel.cpp" />
     <ClCompile Include="time\Timestamp.cpp" />
     <ClCompile Include="util\Allocator.cpp" />
     <ClCompile Include="util\format.cc" />

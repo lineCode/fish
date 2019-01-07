@@ -132,6 +132,18 @@
     <ClInclude Include="network\HttpChannel.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="time\TimerEngineT.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="time\TimerHandler.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="time\TimerHeap.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="time\TimerWheel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="network\Channel.cpp">
@@ -219,6 +231,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="network\HttpChannel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="time\TimerHeap.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="time\TimerWheel.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
