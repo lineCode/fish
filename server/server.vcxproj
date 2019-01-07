@@ -87,11 +87,13 @@
     <ClCompile Include="FishApp.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MessageHandler.cpp" />
+    <ClCompile Include="MessageRegister.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bootstrap.h" />
     <ClInclude Include="FishApp.h" />
-    <ClInclude Include="MessageHandler.h" />
+    <ClInclude Include="MessageDefine.h" />
+    <ClInclude Include="MessageRegister.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
