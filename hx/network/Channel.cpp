@@ -4,7 +4,7 @@
 
 namespace Network {
 	Channel::Channel(Network::EventPoller* poller, int fd) :poller_(poller), fd_(fd) {
-		state_ = Alive;
+		state_ = eAlive;
 
 		rio_.set(poller_->GetLoop());
 		rio_.set<Channel, &Channel::OnRead>(this);
@@ -22,7 +22,7 @@ namespace Network {
 	}
 	
 	bool Channel::IsAlive() {
-		return state_ == Alive;
+		return state_ == eAlive;
 	}
 
 	void Channel::Close(bool rightnow) {
@@ -30,7 +30,7 @@ namespace Network {
 			return ;
 		}
 
-		state_ = Closed;
+		state_ = eClosed;
 		if (!rightnow) {
 			EnableWrite();
 		} else {
@@ -66,7 +66,7 @@ namespace Network {
 		assert(reader_ != NULL);
 
 		if (reader_->Read(fd_) < 0) {
-			state_ = Error;
+			state_ = eError;
 			Clean();
 			this->HandleError();
 		} else  {
@@ -75,20 +75,20 @@ namespace Network {
 	}
 
 	void Channel::OnWrite(ev::io &wio, int wevents) {
-		if (state_ == Error || state_ == Invalid)
+		if (state_ == eError || state_ == eInvalid)
 			return;
 		
 		int result = writer_->Write(fd_);
 		if (result == 0) {
 			DisableWrite();
-			if (state_ == Closed) {
+			if (state_ == eClosed) {
 				Clean();
 				HandleClose();
 			} else {
 				HandleWrite();
 			}
 		} else if (result < 0) {
-			state_ = Error;
+			state_ = eError;
 			Clean();
 			HandleError();
 		}
@@ -113,7 +113,7 @@ namespace Network {
 
 		SocketClose(fd_);
 		
-		state_ = Invalid;
+		state_ = eInvalid;
 	}
 
 	int Channel::Write(char* data, int size) {
@@ -126,7 +126,7 @@ namespace Network {
 		if (!wio_.is_active()) {
 			int result = writer_->Write(fd_);
 			if (result < 0) {
-				state_ = Error;
+				state_ = eError;
 				this->HandleError();
 				return -1;
 			}

@@ -17,6 +17,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rapidjson", "3rd\rapidjson\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "server", "server\server.vcxproj", "{95986763-CC56-48B5-AB47-9BB9C56946AC}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "logger", "logger\logger.vcxproj", "{17888C5A-C471-4DFF-9C32-FAE8C3A6773C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -73,6 +75,14 @@ Global
 		{95986763-CC56-48B5-AB47-9BB9C56946AC}.Release|Win32.Build.0 = Release|Win32
 		{95986763-CC56-48B5-AB47-9BB9C56946AC}.RelWithDebInfo|Win32.ActiveCfg = Release|Win32
 		{95986763-CC56-48B5-AB47-9BB9C56946AC}.RelWithDebInfo|Win32.Build.0 = Release|Win32
+		{17888C5A-C471-4DFF-9C32-FAE8C3A6773C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{17888C5A-C471-4DFF-9C32-FAE8C3A6773C}.Debug|Win32.Build.0 = Debug|Win32
+		{17888C5A-C471-4DFF-9C32-FAE8C3A6773C}.MinSizeRel|Win32.ActiveCfg = Release|Win32
+		{17888C5A-C471-4DFF-9C32-FAE8C3A6773C}.MinSizeRel|Win32.Build.0 = Release|Win32
+		{17888C5A-C471-4DFF-9C32-FAE8C3A6773C}.Release|Win32.ActiveCfg = Release|Win32
+		{17888C5A-C471-4DFF-9C32-FAE8C3A6773C}.Release|Win32.Build.0 = Release|Win32
+		{17888C5A-C471-4DFF-9C32-FAE8C3A6773C}.RelWithDebInfo|Win32.ActiveCfg = Release|Win32
+		{17888C5A-C471-4DFF-9C32-FAE8C3A6773C}.RelWithDebInfo|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

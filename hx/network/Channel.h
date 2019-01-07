@@ -15,7 +15,7 @@ class ServerApp;
 namespace Network {
 	class Channel {	
 	public:
-		enum eChannelState {Alive,Closed,Error,Invalid};
+		enum eChannelState {eAlive,eClosed,eError,eInvalid};
 
 	public:
 		Channel(Network::EventPoller* poller,int fd);
