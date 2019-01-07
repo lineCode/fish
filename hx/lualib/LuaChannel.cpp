@@ -2,7 +2,7 @@
 #include "logger/Logger.h"
 
 LuaChannel::LuaChannel(Network::EventPoller* poller,int fd, LuaFish* lua, uint32_t header) : Network::Channel(poller, fd) {
-lua_ = lua;
+	lua_ = lua;
 	header_ = header;
 	need_ = 0;
 	reference_ = 0;

@@ -6,6 +6,7 @@
 #include "util/MemoryStream.h"
 #include "time/Timestamp.h"
 #include "LuaChannel.h"
+#include "LuaHttpChannel.h"
 
 using namespace std::placeholders;
 
@@ -38,13 +39,24 @@ int LuaFish::Init(ServerApp* app) {
     };
 	CreateMetaTable("metaConnector", metaConnector, LuaFish::ConnectorRelease);
 
-    const luaL_Reg metChannel[] = {
+    const luaL_Reg metaChannel[] = {
         { "Read", LuaChannel::LRead },
         { "Write", LuaChannel::LWrite },
         { "Close", LuaChannel::LClose },
 		{ NULL, NULL },
     };
-    CreateMetaTable("metChannel", metChannel, LuaChannel::LRelease);
+    CreateMetaTable("metaChannel", metaChannel, LuaChannel::LRelease);
+
+    const luaL_Reg metaHttpChannel[] = {
+        { "GetUrl", LuaHttpChannel::LGetUrl },
+        { "GetHeader", LuaHttpChannel::LGetHeader },
+        { "GetContent", LuaHttpChannel::LGetContent },
+        { "SetHeader", LuaHttpChannel::LSetReplyHeader },
+        { "Reply", LuaHttpChannel::LReply },
+        { "Close", LuaHttpChannel::LClose },
+		{ NULL, NULL },
+    };
+    CreateMetaTable("metaHttpChannel", metaHttpChannel, LuaHttpChannel::LRelease);
 	return 0;
 }
 
