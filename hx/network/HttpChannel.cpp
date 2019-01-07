@@ -2,6 +2,7 @@
 #include "util/format.h"
 #include "logger/Logger.h"
 #include <iostream>
+#include <unordered_map>
 
 namespace Network {
 
@@ -16,6 +17,13 @@ static const http_parser_settings ParserSetting = {
 	HttpChannel::OnParseComplete,
 	HttpChannel::OnChunkHeader,
 	HttpChannel::OnChunkComplete,
+};
+
+
+static const std::unordered_map<uint32_t, const std::string> StatusMsg = {
+#define XX(num, name, string) { num, string}, \
+	HTTP_STATUS_MAP(XX),
+#undef XX
 };
 
 HttpChannel::HttpChannel(Network::EventPoller* poller,int fd):Channel(poller,fd) {
@@ -54,6 +62,11 @@ void HttpChannel::HandleRead() {
 	}
 
 	if (completed_) {
+		std::unordered_map<uint32_t, const std::string>::const_iterator iter = StatusMsg.begin();
+		for ( ; iter != StatusMsg.end();iter++ )
+		{
+			std::cout << iter->first << ":" << iter->second << std::endl;
+		}
 		if (callback_) {
 			callback_(this, userdata_);
 		}
@@ -117,7 +130,7 @@ std::string HttpChannel::GetContent() {
 }
 
 void HttpChannel::SetReplyHeader(std::string& field, std::string& value) {
-
+	replyHeaders_[field] = value;
 }
 	
 void HttpChannel::Reply(int code, std::string& content) {
@@ -181,5 +194,13 @@ int HttpChannel::OnContent(struct http_parser* parser,const char* at,size_t len)
 	HttpChannel* channel = (HttpChannel*)parser->data;
 	channel->SetContent(at, len);
 	return 0;
+}
+
+const std::string* HttpChannel::GetStatusMsg(uint32_t code) {
+	std::unordered_map<uint32_t, const std::string>::const_iterator iter = StatusMsg.find(code);
+	if (iter == StatusMsg.end()) {
+		return NULL;
+	}
+	return &iter->second;
 }
 };

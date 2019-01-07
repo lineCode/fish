@@ -61,6 +61,8 @@ public:
 	static int OnHeaderComplete(struct http_parser* parser);
 
 	static int OnContent(struct http_parser* parser,const char* at,size_t length);
+	
+	static const std::string* GetStatusMsg(uint32_t code);
 
 public:
 	std::string field_;
