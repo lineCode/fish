@@ -221,6 +221,7 @@ int LuaFish::Register(lua_State* L) {
 		{ "Listen", LuaFish::AcceptorListen},
 		{ "Connect", LuaFish::ConnectorConnect},
 		{ "Bind", LuaFish::BindChannel},
+		{ "BindHttpChannel", LuaFish::BindHttpChannel },
 		{ NULL, NULL },
 	};
 
@@ -390,7 +391,7 @@ int LuaFish::BindChannel(lua_State* L) {
 	int data = luaL_ref(L, LUA_REGISTRYINDEX);
 
 	void* ud = lua_newuserdata(L, sizeof(LuaChannel));
-	luaL_newmetatable(L, "metChannel");
+	luaL_newmetatable(L, "metaChannel");
     lua_setmetatable(L, -2);
 
     lua_pushvalue(L, -1);
@@ -407,4 +408,27 @@ int LuaFish::BindChannel(lua_State* L) {
     channel->EnableRead();
 
     return 1;
+}
+
+int LuaFish::BindHttpChannel(lua_State* L) {
+	ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
+	int fd = luaL_checkinteger(L, 1);
+	luaL_checktype(L, 2, LUA_TFUNCTION);
+	int callback = luaL_ref(L, LUA_REGISTRYINDEX);
+
+	void* ud = lua_newuserdata(L, sizeof( LuaHttpChannel ));
+	luaL_newmetatable(L, "metaHttpChannel");
+	lua_setmetatable(L, -2);
+
+	lua_pushvalue(L, -1);
+	int reference = luaL_ref(L, LUA_REGISTRYINDEX);
+
+	LuaHttpChannel* channel = new(ud)LuaHttpChannel(app->Poller(), fd, app->Lua());
+
+	channel->SetReference(reference);
+	channel->SetCallback(callback);
+
+	channel->EnableRead();
+
+	return 1;
 }

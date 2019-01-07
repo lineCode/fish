@@ -8,11 +8,14 @@ public:
 
 	virtual ~LuaHttpChannel();
 
+	virtual void HandleRead();
 	virtual void HandleClose();
 	virtual void HandleError();
 
 	void SetReference(int reference);
 	int GetReference();
+
+	void SetCallback(int callback);
 	
 	static int LGetUrl(lua_State* L);
 	static int LGetHeader(lua_State* L);
@@ -24,6 +27,7 @@ public:
 private:
 	LuaFish* lua_;
 	int reference_;
+	int callback_;
 };
 
 #endif

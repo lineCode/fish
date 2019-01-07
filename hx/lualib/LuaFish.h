@@ -75,6 +75,8 @@ public:
 	static int ConnectorRelease(lua_State* L);
 
 	static int BindChannel(lua_State* L);
+
+	static int BindHttpChannel(lua_State* L);
 protected:
 	OOLUA::Script script_;
 	ObjectPool<Timer> timerPool_;

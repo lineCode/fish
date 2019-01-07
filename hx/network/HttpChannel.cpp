@@ -1,4 +1,4 @@
-#include "HttpChannel.h"
+﻿#include "HttpChannel.h"
 #include "util/format.h"
 #include "logger/Logger.h"
 #include <iostream>
@@ -28,6 +28,8 @@ HttpChannel::HttpChannel(Network::EventPoller* poller,int fd):Channel(poller,fd)
 	phase_ = false;
 	parser_.data = this;
 	completed_ = false;
+	callback_ = nullptr;
+	userdata_ = nullptr;
 }
 
 HttpChannel::~HttpChannel() {
@@ -66,6 +68,10 @@ void HttpChannel::HandleError() {
 
 void HttpChannel::SetComplete() {
 	completed_ = true;
+}
+
+bool HttpChannel::GetComplete() {
+	return completed_;
 }
 
 void HttpChannel::SetCallback(OnComplete callback, void* userdata) {

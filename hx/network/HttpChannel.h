@@ -1,4 +1,4 @@
-#ifndef HTTP_CHANNEL_H
+﻿#ifndef HTTP_CHANNEL_H
 #define HTTP_CHANNEL_H
 #include "Channel.h"
 #include "http_parser.h"
@@ -22,6 +22,8 @@ public:
 	virtual void SetCallback(OnComplete callback_, void* userdata);
 
 	virtual void SetComplete();
+
+	virtual bool GetComplete();
 
 	virtual std::string GetMethod();
 	

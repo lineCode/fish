@@ -3,12 +3,27 @@
 
 LuaHttpChannel::LuaHttpChannel(Network::EventPoller* poller, int fd, LuaFish* lua) : Network::HttpChannel(poller, fd) {
 	lua_ = lua;
-	reference_ = 0;
+	reference_ = LUA_NOREF;
+	callback_ = LUA_NOREF;
 }
 
 LuaHttpChannel::~LuaHttpChannel() {
 }
 
+void LuaHttpChannel::HandleRead() {
+	Network::HttpChannel::HandleRead();
+
+	if ( !GetComplete() ) {
+		return;
+	}
+	lua_State* L = lua_->GetScript().state();
+
+	lua_rawgeti(L, LUA_REGISTRYINDEX, callback_);
+	lua_rawgeti(L, LUA_REGISTRYINDEX, reference_);
+	if ( LUA_OK != lua_pcall(L, 1, 0, 0) ) {
+		LOG_ERROR(fmt::format("LuaHttpChannel::HandleRead error:{}", lua_tostring(L, -1)));
+	}
+}
 
 void LuaHttpChannel::HandleClose() {
 	lua_State* L = lua_->GetScript().state();
@@ -26,6 +41,10 @@ void LuaHttpChannel::SetReference(int reference) {
 
 int LuaHttpChannel::GetReference() {
 	return reference_;
+}
+
+void LuaHttpChannel::SetCallback(int callback) {
+	callback_ = callback;
 }
 
 int LuaHttpChannel::LGetUrl(lua_State* L) {
