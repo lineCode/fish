@@ -100,6 +100,7 @@ namespace Network {
 		}
 		buffer = freelist_;
 		freelist_ = freelist_->next_;
+		buffer->next_ = NULL;
 		return buffer;
 	}
 
