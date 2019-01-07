@@ -28,7 +28,8 @@ local function OnHttpAccept(fd, addr)
 	fish.BindHttp(fd, function (request)
 		print(request:GetUrl())
 		common.dump(request:GetHeader())
-		request:Close()
+		request:Reply(200,"fuck")
+		request:Close(0)
 	end)
 end
 
