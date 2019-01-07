@@ -1,6 +1,7 @@
-CC = g++
-CFLAG = -g -std=c++11 -fPIC -Wall -fno-strict-aliasing -Wno-unused-local-typedefs 
+#CC = g++ 
+CFLAG = -g -std=c++11 -fPIC -Wall -fno-strict-aliasing 
 
+#-fsanitize=address
 
 INCLUDE = -I. -I../3rd -I../hx -I../3rd/libev -I../3rd/lua/src -I../3rd/oolua/include -I../3rd/rapidjson -I../3rd/http-parser
 TARGET = ./logger

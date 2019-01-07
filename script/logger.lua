@@ -29,7 +29,8 @@ local function OnHttpAccept(fd, addr)
 		print(request:GetUrl())
 		common.dump(request:GetHeader())
 		request:Reply(200,"fuck")
-		request:Close(0)
+		request:Close(0)	
+		fish.Stop()
 	end)
 end
 

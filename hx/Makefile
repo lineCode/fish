@@ -1,4 +1,3 @@
-CC = g++
 AR = ar
 CXXFLAG = -g -std=c++11 -fPIC -Wall -fno-omit-frame-pointer -fpermissive -fno-strict-aliasing -Wno-unused-local-typedefs 
 CFLAG = -g -fPIC -Wall -fno-strict-aliasing -Wno-unused-local-typedefs 
