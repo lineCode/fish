@@ -14,8 +14,8 @@ all:$(TARGET)
 %.o: %.cpp
 	$(CC) $(CFLAG) $(INCLUDE) -c $< -o $@
 
-$(TARGET):$(OBJ) 
-	$(CC) -o $@ $^ -Wl,-E -L../bin/debug -llua -lhx -loolua -lev -lm -ldl -lrt -lpthread 
+$(TARGET):$(OBJ) ../bin/debug/libhx.a ../bin/debug/libev.a ../bin/debug/liboolua.a ../bin/debug/liblua.a 
+	$(CC) -o $@ $^ -Wl,-E -lm -ldl -lrt -lpthread 
 
 clean:
 	rm -f *.o $(TARGET)

@@ -32,7 +32,6 @@ all: $(LUA_STATICLIB) $(OOLUA_STATICLIB) $(LIBEV_STATICLIB) $(HX_STATICLIB) $(FI
 $(LUA_STATICLIB) :
 	cd $(LUA_INC)&& $(MAKE) linux
 	mv $(LUA_INC)/$(LUA_LIB) $(LIBS_DIR) 
-	mv $(LUA_INC)/liblua.so $(LIBS_DIR) 
 
 $(OOLUA_STATICLIB) :
 	cd $(OOLUA_PATH) && $(MAKE)
@@ -59,7 +58,7 @@ cleanall:
 	rm -rf $(FISH) $(FISH_INC)/*o
 	rm -rf $(LOGGER) $(LOGGER_INC)/*o
 	rm -rf $(LIBS_DIR)/$(HX_LIB) && cd $(HX_INC) && make clean
-	rm -rf $(LIBS_DIR)/$(LUA_LIB) $(LIBS_DIR)/liblua.so && cd $(LUA_INC) && make clean
+	rm -rf $(LIBS_DIR)/$(LUA_LIB) && cd $(LUA_INC) && make clean
 	rm -rf $(LIBS_DIR)/$(OOLUA_LIB) && cd $(OOLUA_PATH) && make clean
 	rm -rf $(LIBS_DIR)/$(LIBEV_LIB) && cd $(LIBEV_INC) && make clean
 

@@ -12,10 +12,10 @@ OBJ = $(patsubst %.cpp, %.o, $(SRC))
 all:$(TARGET) 
 
 %.o: %.cpp
-	$(CC) $(CFLAG) $(INCLUDE) -c $< -o $@
+	$(CC) $(CFLAG) $(INCLUDE) -c $< -o $@ 
 
-$(TARGET):$(OBJ) 
-	$(CC) -o $@ $^ -Wl,-E -L../bin/debug -llua -lhx -loolua -lev -lm -ldl -lrt -lpthread -lasan
+$(TARGET):$(OBJ) ../bin/debug/libhx.a ../bin/debug/libev.a  ../bin/debug/liboolua.a  ../bin/debug/liblua.a
+	$(CC) -o $@ $^ -lm -ldl -lrt -lpthread -lasan -lstdc++
 
 clean:
 	rm -f *.o $(TARGET)
