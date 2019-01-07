@@ -1,7 +1,8 @@
-
+local common = require "common"
 
 local acceptor = nil
 
+local httpAcceptor = nil
 
 
 local function OnData(channel, data, size)
@@ -22,9 +23,19 @@ local function OnClientAccept(fd, addr)
 	fish.Bind(fd, 2, OnData, OnClose, OnError)
 end
 
+local function OnHttpAccept(fd, addr)
+	print("accept http",addr)
+	fish.BindHttp(fd, function (request)
+		print(request:GetUrl())
+		common.dump(request:GetHeader())
+		request:Close()
+	end)
+end
+
 function Init()
 	print("logger init")
 	acceptor = fish.Listen("127.0.0.1", 1989, OnClientAccept)
+	httpAcceptor = fish.Listen("0.0.0.0", 2000, OnHttpAccept)
 end
 
 function Fina()

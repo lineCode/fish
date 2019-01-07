@@ -221,7 +221,7 @@ int LuaFish::Register(lua_State* L) {
 		{ "Listen", LuaFish::AcceptorListen},
 		{ "Connect", LuaFish::ConnectorConnect},
 		{ "Bind", LuaFish::BindChannel},
-		{ "BindHttpChannel", LuaFish::BindHttpChannel },
+		{ "BindHttp", LuaFish::BindHttpChannel },
 		{ NULL, NULL },
 	};
 
