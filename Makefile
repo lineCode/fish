@@ -26,7 +26,7 @@ LOGGER_INC ?= ./logger
 
 LIBS_DIR := $(BIN_PATH)
 
-CC="CC=g++"
+CCFLAG="CC=g++"
 
 all: $(LUA_STATICLIB) $(OOLUA_STATICLIB) $(LIBEV_STATICLIB) $(HX_STATICLIB) $(FISH) $(LOGGER)
 
@@ -43,20 +43,20 @@ $(LIBEV_STATICLIB) :
 	mv $(LIBEV_INC)/.libs/libev.a $(LIBS_DIR)
 
 $(HX_STATICLIB) :
-	cd $(HX_INC) && $(MAKE) $(CC)
+	cd $(HX_INC) && $(MAKE) $(CCFLAG) 
 	mv $(HX_INC)/$(HX_LIB) $(LIBS_DIR)
  
 $(FISH) : $(LUA_STATICLIB) $(OOLUA_STATICLIB) $(LIBEV_STATICLIB) $(HX_STATICLIB)
-	cd $(FISH_INC) && $(MAKE) $(CC) 
+	cd $(FISH_INC) && $(MAKE) $(CCFLAG)
 	mv $(FISH_INC)/fish $(LIBS_DIR)
 
 $(LOGGER) : $(LUA_STATICLIB) $(OOLUA_STATICLIB) $(LIBEV_STATICLIB) $(HX_STATICLIB)
-	cd $(LOGGER_INC) && $(MAKE) $(CC) 
+	cd $(LOGGER_INC) && $(MAKE) $(CCFLAG) 
 	mv $(LOGGER_INC)/logger $(LIBS_DIR) 
  
 
-clang :
-	$(MAKE) $(ALL) CC="CC=clang"
+leak :
+	$(MAKE) $(ALL) CCFLAG="CC=clang" 
 
 cleanall:
 	rm -rf $(FISH) $(FISH_INC)/*o
