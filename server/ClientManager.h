@@ -17,6 +17,8 @@ public:
 
 	void OnUpate(Timer* timer, void* userdata);
 
+	void OnCheck();
+
 	int AllocVfd();
 
 	void BindClient(int id, ClientChannel* channel);
@@ -43,6 +45,8 @@ private:
 	Timer* timer_;
 	Network::Acceptor* acceptor_;
 	Network::EventPoller* poller_;
+
+	ev::check check_;
 };
 
 #endif

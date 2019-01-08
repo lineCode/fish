@@ -1,5 +1,6 @@
 ﻿#include "ClientChannel.h"
 #include "ClientManager.h"
+#include "logger/Logger.h"
 
 #define HEADER_SIZE 2
 #define MAX_MESSAGE_SIZE 16 * 1024
@@ -20,7 +21,7 @@ void ClientChannel::HandleRead() {
 	while(IsAlive()) {
 		if (need_ == 0) {
 			uint8_t header[HEADER_SIZE];
-			ReadData(header, HEADER_SIZE);
+			reader_->ReadData((char*)header, HEADER_SIZE);
 
 			need_ = header[0] | header[1] << 8;
 			need_ -= HEADER_SIZE;

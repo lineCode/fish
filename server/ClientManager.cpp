@@ -26,6 +26,10 @@ ClientManager::ClientManager(Network::EventPoller* poller, uint32_t maxClient, u
 	timer_ = new Timer();
 	timer_->SetCallback(std::bind(&ClientManager::OnUpate, this, _1, _2));
 	timer_->Start(poller_, 1, 1);
+
+	check_.set(poller_->GetLoop());
+	check_.set<ClientManager, &ClientManager::OnCheck>(this);
+	check_.start();
 }
 
 
@@ -33,6 +37,7 @@ ClientManager::~ClientManager() {
 	free(clientMgr_);
 	delete acceptor_;
 	delete timer_;
+	check_.stop();
 }
 
 void ClientManager::OnClientAccept(int fd, Network::Addr& addr) {
@@ -48,6 +53,10 @@ void ClientManager::OnClientAccept(int fd, Network::Addr& addr) {
 }
 
 void ClientManager::OnUpate(Timer* timer, void* userdata) {
+
+}
+
+void ClientManager::OnCheck() {
 
 }
 
