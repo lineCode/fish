@@ -1,7 +1,8 @@
-local common = require "common"
-local import = require "import"
-local co = require "co"
-local timer = require "timer"
+local co = require "lib.co"
+local timer = require "lib.timer"
+local common = require "lib.common"
+local import = require "lib.import"
+
 
 _G.Import = import.Import
 
