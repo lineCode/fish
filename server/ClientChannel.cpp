@@ -1,6 +1,7 @@
 ﻿#include "ClientChannel.h"
 #include "ClientManager.h"
 #include "logger/Logger.h"
+#include "FishApp.h"
 
 #define HEADER_SIZE 2
 #define MAX_MESSAGE_SIZE 16 * 1024
@@ -42,7 +43,7 @@ void ClientChannel::HandleRead() {
 			free(data);
 
 			need_ = 0;
-			lastMsgTime_ = FishApp::GetSingleton().Now();
+			lastMsgTime_ = FishApp::GetSingleton()->Now();
 			freq_++;
 		}
 	}
