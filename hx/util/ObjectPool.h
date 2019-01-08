@@ -3,14 +3,14 @@
 
 #include <list>
 #include <string>
+#include <iostream>
 #include "format.h"
 #include "List.h"
 
 #define OBJ_POOL_INIT_SIZE 16
-#define OBJ_POOL_WARNING_SIZE 1024
+
 template<typename T>
-class ObjectPool
-{
+class ObjectPool {
 public:
 	typedef List<T> OBJECTS;
 
@@ -24,7 +24,7 @@ public:
 			T* obj;
 			objects_.PopHead(obj);
 			delete obj;
-        }
+	        }
 	}
 
 	void Pop(T*& obj) {
@@ -48,11 +48,13 @@ public:
 			objects_.PushTail(new T);
 			++count_;
 			++cap_;
-			if (cap_ >= OBJ_POOL_WARNING_SIZE) {
-				//LOG_ERROR(fmt::format("pool object:{} allocate too much:{}",name_,cap_));
-			}
 		}
 	}
+	
+	void Dump() {
+		std::string report = fmt::format("ObjectPool.name:{} total:{} used:{}", name_, cap_, count_);
+		std::cout << report << std::endl;
+	}	
 
 private:
 	OBJECTS objects_;

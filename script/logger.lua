@@ -37,12 +37,15 @@ function Init()
 	print("logger init")
 	acceptor = fish.Listen("127.0.0.1", 1989, OnClientAccept)
 	httpAcceptor = fish.Listen("0.0.0.0", 2000, OnHttpAccept)
-
-	fish.StartTimer(1,1,function ()
-		print("timeout")
+	
+	for i = 1,10240 do
+		fish.StartTimer(0.05,0.05,function ()
+		end)
+	end
+	fish.StartTimer(0.1,0.1,function ()
+		fish.Dump()
 	end)
 
-	table.print(common.ListDir("./"))
 end
 
 function Fina()

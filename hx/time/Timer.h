@@ -27,6 +27,7 @@ public:
 
 	void* GetUserdata();
 
+	static ObjectPool<Timer>& GetPool();
 	static Timer* AssignTimer();
 	static void ReclaimTimer(Timer* timer);
 

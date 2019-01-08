@@ -215,6 +215,7 @@ int LuaFish::Register(lua_State* L) {
 		{ "Log", LuaFish::Log },
 		{ "Now", LuaFish::Now },
 		{ "Timestamp", LuaFish::Timestamp},
+		{ "Dump", LuaFish::Dump},
 		{ "Pack", luaseri_pack},
 		{ "UnPack", luaseri_unpack},
 		{ "StartTimer", LuaFish::TimerStart},
@@ -261,6 +262,11 @@ int LuaFish::Timestamp(lua_State* L) {
 	uint64_t now = TimeStamp();
 	lua_pushnumber(L,now);
 	return 1;
+}
+
+int LuaFish::Dump(lua_State* L) {
+	Timer::GetPool().Dump();
+	return 0;
 }
 
 int LuaFish::TimerStart(lua_State* L) {

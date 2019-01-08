@@ -58,6 +58,8 @@ public:
 
 	static int Timestamp(lua_State* L);
 
+	static int Dump(lua_State* L);
+
 	static int TimerStart(lua_State* L);
 
 	static int TimerCancel(lua_State* L);

@@ -52,6 +52,10 @@ void* Timer::GetUserdata() {
 	return userdata_;
 }
 
+ObjectPool<Timer>& Timer::GetPool() {
+	return pool_;
+}
+
 Timer* Timer::AssignTimer() {
 	Timer* timer = NULL;
 	pool_.Pop(timer);
