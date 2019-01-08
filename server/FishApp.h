@@ -10,10 +10,10 @@
 #include "network/Connector.h"
 #include "network/Address.h"
 #include "network/HttpChannel.h"
+#include "util/Singleton.h"
 
 
-class FishApp : public ServerApp
-{
+class FishApp : public ServerApp, public Singleton<FishApp> {
 public:
 	FishApp(Network::EventPoller* poller);
 

@@ -3,6 +3,9 @@
 #include "util/format.h"
 #include "network/HttpChannel.h"
 
+template <>
+FishApp * Singleton<FishApp>::singleton_ = 0;
+
 FishApp::FishApp(Network::EventPoller* poller) : ServerApp(poller) {
 	clientAcceptor_ = new Network::Acceptor(poller_);
 	httpAcceptor_ = new Network::Acceptor(poller_);

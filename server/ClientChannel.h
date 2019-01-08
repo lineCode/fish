@@ -9,14 +9,17 @@ public:
 
 public:
 	ClientChannel(Network::EventPoller* poller, int fd);
+
 	~ClientChannel();
 
 	virtual void HandleRead();
 	virtual void HandleClose();
 	virtual void HandleError();
 
+	void OnUpdate();
+
 	void OnClientError();
-	
+
 	void SetId(int id);
 	int GetId();
 
@@ -25,7 +28,7 @@ private:
 	uint32_t freq_;
 	uint32_t need_;
 	uint16_t seed_;
-	uint32_t lastMsgTime_;
+	uint64_t lastMsgTime_;
 };
 
 #endif

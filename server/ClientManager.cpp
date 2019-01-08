@@ -52,12 +52,20 @@ void ClientManager::OnClientAccept(int fd, Network::Addr& addr) {
 	channel->EnableRead();
 }
 
+void ClientManager::MarkClientDead(ClientChannel* channel) {
+	deadClients_.push_back(channel);
+}
+
 void ClientManager::OnUpate(Timer* timer, void* userdata) {
 
 }
 
 void ClientManager::OnCheck() {
-
+	for(int i = 0; i < deadClients_.size();i++) {
+		ClientChannel* channel = deadClients_[i];
+		delete channel;
+	}
+	deadClients_.clear();
 }
 
 int ClientManager::AllocVfd() {

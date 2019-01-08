@@ -33,7 +33,17 @@ void ClientChannel::HandleRead() {
 				return;
 			}
 		} else {
+			if (reader_->total_ < need_) {
+				return;
+			}
 
+			uint8_t* data = (uint8_t*)malloc(need_);
+			reader_->ReadData((char*)data, need_);
+			free(data);
+
+			need_ = 0;
+			lastMsgTime_ = FishApp::GetSingleton().Now();
+			freq_++;
 		}
 	}
 }
@@ -46,8 +56,13 @@ void ClientChannel::HandleError() {
 	OnClientError();
 }
 
+void ClientChannel::OnUpdate() {
+
+}
+
 void ClientChannel::OnClientError() {
 	ClientManager::GetSingleton()->DeleteClient(id_);
+	ClientManager::GetSingleton()->MarkClientDead(this);
 }
 
 void ClientChannel::SetId(int id) {

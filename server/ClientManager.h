@@ -4,6 +4,7 @@
 #include "util/Singleton.h"
 #include "time/Timer.h"
 #include "network/Acceptor.h"
+#include <vector>
 
 class ClientChannel;
 
@@ -14,6 +15,8 @@ public:
 	~ClientManager();
 
 	void OnClientAccept(int fd, Network::Addr& addr);
+
+	void MarkClientDead(ClientChannel* channel);
 
 	void OnUpate(Timer* timer, void* userdata);
 
@@ -47,6 +50,8 @@ private:
 	Network::EventPoller* poller_;
 
 	ev::check check_;
+
+	std::vector<ClientChannel*> deadClients_;
 };
 
 #endif
