@@ -10,6 +10,7 @@ namespace Network {
 class HttpChannel : public Channel {
 public:
 	typedef std::function<void(Network::HttpChannel*, void*)> OnComplete;
+	typedef std::unordered_map<std::string, std::string> HeadersMap;
 
 public:
 	HttpChannel(Network::EventPoller* poller,int fd);
@@ -38,12 +39,13 @@ public:
 	
 	virtual void SetHeader(std::string& field, std::string& value);
 
-	virtual std::map<std::string,std::string>& GetHeader();
+	virtual HeadersMap& GetHeader();
 
 	virtual void SetContent(const char* data, size_t size);
 
 	virtual std::string GetContent();
 
+	virtual void SetReplyHeader(const char* field, const char* value);
 	virtual void SetReplyHeader(std::string& field, std::string& value);
 
 	virtual void Reply(uint32_t code, std::string& content);
@@ -63,16 +65,15 @@ public:
 	static int OnHeaderComplete(struct http_parser* parser);
 
 	static int OnContent(struct http_parser* parser,const char* at,size_t length);
-	
-	static const std::string* GetStatusMsg(uint32_t code);
 
 public:
 	std::string field_;
 	std::string value_;
 	int phase_;
+
 private:
 	struct http_parser parser_;
-	std::map<std::string, std::string> headers_;
+	HeadersMap receiveHeaders_;
 	std::string url_;
 	std::string content_;
 	std::string status_;
@@ -80,7 +81,7 @@ private:
 	OnComplete callback_;
 	void* userdata_;
 
-	std::map<std::string, std::string> replyHeaders_;
+	HeadersMap replyHeaders_;
 };
 };
 

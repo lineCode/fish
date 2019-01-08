@@ -108,11 +108,11 @@ std::string HttpChannel::GetStatus() {
 }
 
 void HttpChannel::SetHeader(std::string& field, std::string& value) {
-	headers_[field] = value;
+	receiveHeaders_[field] = value;
 }
 
-std::map<std::string,std::string>& HttpChannel::GetHeader() {
-	return headers_;
+HttpChannel::HeadersMap& HttpChannel::GetHeader() {
+	return receiveHeaders_;
 }
 
 void HttpChannel::SetContent(const char* data, size_t size) {
@@ -121,6 +121,10 @@ void HttpChannel::SetContent(const char* data, size_t size) {
 
 std::string HttpChannel::GetContent() {
 	return content_;
+}
+
+void HttpChannel::SetReplyHeader(const char* field, const char* value) {
+	replyHeaders_[field] = value;
 }
 
 void HttpChannel::SetReplyHeader(std::string& field, std::string& value) {
@@ -135,7 +139,7 @@ void HttpChannel::Reply(uint32_t code, char* content, size_t size) {
 	std::string message = "";
 	message += fmt::format("HTTP/1.1 {} {}\r\n", code, StatusMsg[code]);
 
-	std::map<std::string, std::string>::iterator iter = replyHeaders_.begin();
+	HeadersMap::iterator iter = replyHeaders_.begin();
 	for ( ; iter != replyHeaders_.end(); iter++ ) {
 		message += fmt::format("{}: {}\r\n", iter->first, iter->second);
 	}
@@ -207,11 +211,4 @@ int HttpChannel::OnContent(struct http_parser* parser,const char* at,size_t len)
 	return 0;
 }
 
-const std::string* HttpChannel::GetStatusMsg(uint32_t code) {
-	std::unordered_map<uint32_t, const std::string>::const_iterator iter = StatusMsg.find(code);
-	if (iter == StatusMsg.end()) {
-		return NULL;
-	}
-	return &iter->second;
-}
 };

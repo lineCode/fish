@@ -56,8 +56,8 @@ int LuaHttpChannel::LGetUrl(lua_State* L) {
 
 int LuaHttpChannel::LGetHeader(lua_State* L) {
 	LuaHttpChannel* channel = (LuaHttpChannel*)lua_touserdata(L, 1);
-	std::map<std::string, std::string>& headers = channel->GetHeader();
-	std::map<std::string, std::string>::iterator iter = headers.begin();
+	HttpChannel::HeadersMap& headers = channel->GetHeader();
+	HttpChannel::HeadersMap::iterator iter = headers.begin();
 
 	lua_newtable(L);
 	for(;iter != headers.end();iter++) {
@@ -83,11 +83,7 @@ int LuaHttpChannel::LSetReplyHeader(lua_State* L) {
 	LuaHttpChannel* channel = (LuaHttpChannel*)lua_touserdata(L, 1);
 	const char* field = luaL_checkstring(L, 2);
 	const char* value = luaL_checkstring(L, 3);
-
-	std::string f(field);
-	std::string v(value);
-	channel->SetReplyHeader(f, v);
-
+	channel->SetReplyHeader(field, value);
 	return 0;
 }
 
