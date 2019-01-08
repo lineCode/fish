@@ -37,9 +37,9 @@ end
 function Init(self)
 	print("logger init")
 	acceptor = fish.Listen("127.0.0.1", 1989, OnClientAccept)
-	httpAcceptor = fish.Listen("0.0.0.0", 2000, OnHttpAccept)
+	httpAcceptor = fish.Listen("0.0.0.0", 2001, OnHttpAccept)
 	
-	telnet.Listen("127.0.0.1", 3000, self)
+	telnet.Listen("127.0.0.1", 3001, self)
 
 end
 

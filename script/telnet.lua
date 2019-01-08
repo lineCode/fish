@@ -9,7 +9,6 @@ channelData_ = setmetatable({}, {__mode = "k"})
 local function OnData(channel)
 	local data = channelData_[channel]
 	data = data..channel:Read()
-
 	local start, over, str = data:find("(.+)\r\n")
 	if start then
 		local list = common.Split(str," ")
@@ -19,6 +18,8 @@ local function OnData(channel)
 			func(inst_,table.unpack(list,2))
 		end
 		data = data:sub(over+1)
+		channelData_[channel] = data
+	else
 		channelData_[channel] = data
 	end
 end
@@ -37,7 +38,7 @@ local function OnAccept(fd, addr)
 end
 
 function _M.Listen(ip, port, inst)
-	assert(acceptor_)
+	assert(not acceptor_)
 
 	acceptor_ = fish.Listen(ip, port, OnAccept)
 	if not acceptor_ then

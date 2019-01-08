@@ -52,7 +52,7 @@ public:
 	}
 	
 	void Dump() {
-		std::string report = fmt::format("ObjectPool.name:{} total:{} used:{}", name_, cap_, count_);
+		std::string report = fmt::format("ObjectPool.name:{} total:{} used:{}", name_, cap_, cap_ - count_);
 		std::cout << report << std::endl;
 	}	
 
