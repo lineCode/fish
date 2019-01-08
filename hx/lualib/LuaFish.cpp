@@ -324,7 +324,9 @@ int LuaFish::AcceptorListen(lua_State* L) {
 
 	Network::Addr addr = Network::Addr::MakeIP4Addr(ip, port);
 
-	acceptor->Listen(addr);
+	if (acceptor->Listen(addr) < 0) {
+		return 0;
+	}
 
 	return 1;
 }
@@ -362,7 +364,9 @@ int LuaFish::ConnectorConnect(lua_State* L) {
 
 	Network::Addr addr = Network::Addr::MakeIP4Addr(ip, port);
 
-	connector->Connect(addr);
+	if (connector->Connect(addr) < 0) {
+		return 0;
+	}
 
 	return 1;
 }

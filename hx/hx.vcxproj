@@ -43,8 +43,8 @@
     <LinkIncremental>true</LinkIncremental>
     <TargetExt>.lib</TargetExt>
     <IncludePath>..\hx;..\3rd;..\3rd\libev;..\3rd\oolua\include;..\3rd\lua\src;..\3rd\rapidjson;..\3rd\http-parser;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
-    <OutDir>$(SolutionDir)\bin\$(Configuration)</OutDir>
-    <IntDir>$(SolutionDir)\build\$(Configuration)</IntDir>
+    <OutDir>$(SolutionDir)bin\$(Configuration)</OutDir>
+    <IntDir>$(SolutionDir)build\$(Configuration)</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
