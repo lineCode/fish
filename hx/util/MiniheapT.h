@@ -1,4 +1,4 @@
-#ifndef MINIHEAPT_H
+﻿#ifndef MINIHEAPT_H
 #define MINIHEAPT_H
 #include "MiniHeap.h"
 #include "PoolObject.h"
@@ -14,6 +14,10 @@ struct MiniHeapNodeT : public element, public PoolObject< MiniHeapNodeT<T> >
 		_data = data;
 	}
 	T* _data;
+
+	static std::string GetClassName() {
+		return std::string("MiniHeapNodeT");
+	}
 };
 
 template<class T>

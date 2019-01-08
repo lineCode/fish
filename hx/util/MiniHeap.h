@@ -1,4 +1,4 @@
-#ifndef MINHEAP_H
+﻿#ifndef MINHEAP_H
 #define MINHEAP_H
 
 #include <math.h>
@@ -7,12 +7,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#ifndef _MSC_VER
-#include <stdbool.h>
-#else
-#define inline __inline
-#define false 0
-#endif
+
 
 struct element 
 {

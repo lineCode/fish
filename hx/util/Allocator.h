@@ -1,6 +1,7 @@
-#ifndef ALLOCATOR_H
+﻿#ifndef ALLOCATOR_H
 #define ALLOCATOR_H
 
+#include <string>
 
 class Allocator {
 public:
@@ -17,7 +18,7 @@ public:
 		FreeNode* next_;
 	};
 public:
-	Allocator(int size,int nodeCount = 64);
+	Allocator(std::string name, int size,int nodeCount = 64);
 
 	~Allocator();
 
@@ -25,7 +26,7 @@ public:
 
 	void Delete(void* ptr);
 
-	int Dump();
+	void Dump();
 
 private:
 	void CreatePool();
@@ -33,6 +34,7 @@ private:
 	void FreePool(PoolNode* pool);
 
 private:
+	std::string name_;
 	PoolNode* pool_;
 	FreeNode* freelist_;
 	int poolCount_;

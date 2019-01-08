@@ -1,10 +1,12 @@
-#include "Allocator.h"
+﻿#include "Allocator.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <assert.h>
+#include <iostream>
+#include "logger/Logger.h"
 
-Allocator::Allocator(int size,int nodeCount) {
+Allocator::Allocator(std::string name, int size,int nodeCount) : name_(name) {
 	pool_ = NULL;
 	freelist_ = NULL;
 	poolCount_ = 0;
@@ -139,6 +141,6 @@ void Allocator::FreePool(PoolNode* pool) {
 	totalNode_ -= nodeCount_;
 }
 
-int Allocator::Dump() {
-	return poolCount_ * poolSize_;
+void Allocator::Dump() {
+	LOG_ERROR(fmt::format("pool object:{} pool:{} pool size:{} node:{} node size:{} total node:{} used node:{}", name_, poolCount_, poolSize_, nodeCount_, nodeSize_, totalNode_, usedNode_));
 }

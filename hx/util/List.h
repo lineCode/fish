@@ -11,6 +11,10 @@ struct ListNode final: public PoolObject< ListNode<T> >
 	T* _data;
 	ListNode<T>* _prev;
 	ListNode<T>* _next;
+
+	static std::string GetClassName() {
+		return std::string("ListNode");
+	}
 };
 
 template<typename T>

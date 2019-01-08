@@ -1,4 +1,4 @@
-#include "LuaAllocator.h"
+﻿#include "LuaAllocator.h"
 
 
 static int where[] = {
@@ -35,8 +35,9 @@ void LuaAllocator::Dump(int* smallMem,int* big,int* total)
 	for (int i = 0;i < 7;i++)
 	{
 		Allocator* allocator = _freelist[i];
-		if (allocator)
-			smallTotal += allocator->Dump();
+		if ( allocator ) {
+			allocator->Dump();
+		}
 	}
 	*smallMem = smallTotal;
 	*big = _bigtotal;
@@ -62,7 +63,7 @@ void* LuaAllocator::AllocSmall(int index)
 	Allocator* allocator = this->_freelist[index];
 	if (!allocator)
 	{
-		allocator = new Allocator(rsz,128);
+		allocator = new Allocator("lua", rsz,128);
 		this->_freelist[index] = allocator;
 	}
 	return allocator->New();
