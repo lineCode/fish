@@ -1,4 +1,4 @@
-CFLAG = -g -std=c++11 -fPIC -Wall -fsanitize=address -fno-omit-frame-pointer -fno-strict-aliasing -Wno-unused-local-typedefs 
+CFLAG = -g -std=c++11  -fPIC -Wall -fno-omit-frame-pointer -fno-strict-aliasing -Wno-unused-local-typedefs 
 
 INCLUDE = -I. -I../3rd -I../hx -I../3rd/libev -I../3rd/lua/src -I../3rd/oolua/include -I../3rd/rapidjson -I../3rd/http-parser
 TARGET = ./fish
@@ -15,7 +15,7 @@ all:$(TARGET)
 	$(CC) $(CFLAG) $(INCLUDE) -c $< -o $@ 
 
 $(TARGET):$(OBJ) $(STATIC_LIBS)
-	$(CC) -o $@ $^ -lm -ldl -lrt -lpthread -lasan
+	$(CC) -o $@ $^ -lm -ldl -lrt -lpthread -lstdc++ 
 
 clean:
 	rm -f *.o $(TARGET)

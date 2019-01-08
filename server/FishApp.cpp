@@ -63,8 +63,8 @@ void FishApp::OnHttpComplete(Network::HttpChannel* channel, void* userdata) {
 	std::cout << "url:" << channel->GetUrl() << std::endl;
 	std::cout << "content:" << channel->GetContent() << std::endl;
 
-	std::map<std::string,std::string>& headers = channel->GetHeader();
-	std::map<std::string,std::string>::iterator iter = headers.begin();
+	Network::HttpChannel::HeadersMap& headers = channel->GetHeader();
+	Network::HttpChannel::HeadersMap::iterator iter = headers.begin();
 	for(;iter != headers.end();iter++) {
 		std::cout << iter->first << ":" << iter->second << std::endl;
 	}

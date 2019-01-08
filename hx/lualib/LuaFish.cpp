@@ -121,7 +121,7 @@ uint64_t LuaFish::AllocTimer(Timer*& timer) {
 		timerId = timerStep_++;
 		TimerMap::iterator iter = timerMgr_.find(timerId);
 		if (iter == timerMgr_.end()) {
-			Timer* timer = Timer::AssignTimer();
+			timer = Timer::AssignTimer();
 			timerMgr_[timerId] = timer;
 			break;
 		}

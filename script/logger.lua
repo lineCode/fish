@@ -30,7 +30,6 @@ local function OnHttpAccept(fd, addr)
 		common.dump(request:GetHeader())
 		request:Reply(200,"fuck")
 		request:Close(0)	
-		fish.Stop()
 	end)
 end
 
@@ -38,6 +37,10 @@ function Init()
 	print("logger init")
 	acceptor = fish.Listen("127.0.0.1", 1989, OnClientAccept)
 	httpAcceptor = fish.Listen("0.0.0.0", 2000, OnHttpAccept)
+
+	fish.StartTimer(1,1,function ()
+		print("timeout")
+	end)
 end
 
 function Fina()
