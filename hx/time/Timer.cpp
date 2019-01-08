@@ -1,5 +1,7 @@
 ﻿#include "Timer.h"
 
+ObjectPool<Timer> Timer::pool_("timer");
+
 Timer::Timer() {
 	callback_ = nullptr;
 	userdata_ = NULL;
@@ -48,4 +50,14 @@ void Timer::SetUserdata(void* userdata) {
 
 void* Timer::GetUserdata() {
 	return userdata_;
+}
+
+Timer* Timer::AssignTimer() {
+	Timer* timer = NULL;
+	pool_.Pop(timer);
+	return timer;
+}
+
+void Timer::ReclaimTimer(Timer* timer) {
+	pool_.Push(timer);
 }

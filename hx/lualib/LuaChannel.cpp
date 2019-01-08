@@ -5,10 +5,10 @@ LuaChannel::LuaChannel(Network::EventPoller* poller,int fd, LuaFish* lua, uint32
 	lua_ = lua;
 	header_ = header;
 	need_ = 0;
-	reference_ = 0;
-	dataReference_ = 0;
-	closeReference_ = 0;
-	errorReference_ = 0;
+	reference_ = LUA_NOREF;
+	dataReference_ = LUA_NOREF;
+	closeReference_ = LUA_NOREF;
+	errorReference_ = LUA_NOREF;
 }
 
 LuaChannel::~LuaChannel() {

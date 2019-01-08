@@ -79,7 +79,6 @@ public:
 	static int BindHttpChannel(lua_State* L);
 protected:
 	OOLUA::Script script_;
-	ObjectPool<Timer> timerPool_;
 	TimerMap timerMgr_;
 	uint64_t timerStep_;
 };

@@ -10,7 +10,7 @@
 
 using namespace std::placeholders;
 
-LuaFish::LuaFish(void) :script_(),timerPool_("timer") {
+LuaFish::LuaFish(void) :script_() {
 	timerStep_ = 0;
 }
 
@@ -121,7 +121,7 @@ uint64_t LuaFish::AllocTimer(Timer*& timer) {
 		timerId = timerStep_++;
 		TimerMap::iterator iter = timerMgr_.find(timerId);
 		if (iter == timerMgr_.end()) {
-			timerPool_.Pop(timer);
+			Timer* timer = Timer::AssignTimer();
 			timerMgr_[timerId] = timer;
 			break;
 		}
@@ -137,8 +137,9 @@ int LuaFish::DeleteTimer(uint64_t timerId) {
 
 	Timer* timer = iter->second;
 	timer->Cancel();
-	timerPool_.Push(timer);
 	timerMgr_.erase(iter);
+
+	Timer::ReclaimTimer(timer);
 	return 0;
 }
 
