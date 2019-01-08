@@ -1,13 +1,14 @@
 ﻿#include "ClientManager.h"
 #include "ClientChannel.h"
 #include "network/Network.h"
+#include "FishApp.h"
 #include <stdlib.h>
 #include <string.h>
 
 template <>
 ClientManager * Singleton<ClientManager>::singleton_ = 0;
 
-ClientManager::ClientManager(Network::EventPoller* poller, uint32_t maxClient, uint8_t serverId) {
+ClientManager::ClientManager(uint32_t maxClient, uint8_t serverId) {
 	serverId_ = serverId;
 	maxClient_ = maxClient;
 	allocStep_ = 0;
@@ -16,18 +17,16 @@ ClientManager::ClientManager(Network::EventPoller* poller, uint32_t maxClient, u
 	clientMgr_ = (ClientChannel**)malloc(sizeof( *clientMgr_ ) * maxClient);
 	memset(clientMgr_, 0, sizeof( *clientMgr_ ) * maxClient);
 
-	poller = poller_;
-
 	using namespace std::placeholders;
 
-	acceptor_ = new Network::Acceptor(poller_);
+	acceptor_ = new Network::Acceptor(FishApp::GetSingleton()->Poller());
 	acceptor_->SetCallback(std::bind(&ClientManager::OnClientAccept, this, _1, _2));
 
 	timer_ = new Timer();
 	timer_->SetCallback(std::bind(&ClientManager::OnUpate, this, _1, _2));
-	timer_->Start(poller_, 1, 1);
+	timer_->Start(FishApp::GetSingleton()->Poller(), 1, 1);
 
-	check_.set(poller_->GetLoop());
+	check_.set(FishApp::GetSingleton()->Poller()->GetLoop());
 	check_.set<ClientManager, &ClientManager::OnCheck>(this);
 	check_.start();
 }
@@ -46,7 +45,7 @@ void ClientManager::OnClientAccept(int fd, Network::Addr& addr) {
 		return;
 	}
 
-	ClientChannel* channel = new ClientChannel(poller_, fd);
+	ClientChannel* channel = new ClientChannel(FishApp::GetSingleton()->Poller(), fd);
 	channel->SetId(AllocVfd());
 	BindClient(channel->GetId(), channel);
 	channel->EnableRead();

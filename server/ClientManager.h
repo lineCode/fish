@@ -11,7 +11,7 @@ class ClientChannel;
 class ClientManager : public Singleton<ClientManager>
 {
 public:
-	ClientManager(Network::EventPoller* poller, uint32_t maxClient, uint8_t serverId);
+	ClientManager(uint32_t maxClient, uint8_t serverId);
 	~ClientManager();
 
 	void OnClientAccept(int fd, Network::Addr& addr);
@@ -47,8 +47,6 @@ private:
 
 	Timer* timer_;
 	Network::Acceptor* acceptor_;
-	Network::EventPoller* poller_;
-
 	ev::check check_;
 
 	std::vector<ClientChannel*> deadClients_;
