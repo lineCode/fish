@@ -4,8 +4,7 @@
 #include "Allocator.h"
 
 template <class T, int ALLOC_COUNT = 64>
-class PoolObject
-{
+class PoolObject {
 public:
 	static void* operator new(size_t size) {
 		assert(sizeof( T ) == size);
