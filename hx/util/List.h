@@ -1,4 +1,4 @@
-#ifndef LIST_H
+﻿#ifndef LIST_H
 #define LIST_H
 #include <stdlib.h>
 #include <stdio.h>
@@ -6,7 +6,7 @@
 #include "PoolObject.h"
 
 template<typename T>
-struct ListNode : public PoolObject< ListNode<T> >
+struct ListNode final: public PoolObject< ListNode<T> >
 {
 	T* _data;
 	ListNode<T>* _prev;
