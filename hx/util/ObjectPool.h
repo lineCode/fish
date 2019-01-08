@@ -1,4 +1,4 @@
-#ifndef OBJECTPOOLX_H
+﻿#ifndef OBJECTPOOLX_H
 #define OBJECTPOOLX_H
 
 #include <list>
@@ -29,7 +29,7 @@ public:
 
 	void Pop(T*& obj) {
 		for (;;) {
-			if (objects_._size > 0) {
+			if (objects_.size_ > 0) {
 				objects_.PopHead(obj);
 				--count_;
 				return;

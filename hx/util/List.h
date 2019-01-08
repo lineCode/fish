@@ -6,11 +6,10 @@
 #include "PoolObject.h"
 
 template<typename T>
-struct ListNode final: public PoolObject< ListNode<T> >
-{
-	T* _data;
-	ListNode<T>* _prev;
-	ListNode<T>* _next;
+struct ListNode final: public PoolObject<ListNode<T>> {
+	T* data_;
+	ListNode<T>* prev_;
+	ListNode<T>* next_;
 
 	static std::string GetClassName() {
 		return std::string("ListNode");
@@ -18,155 +17,135 @@ struct ListNode final: public PoolObject< ListNode<T> >
 };
 
 template<typename T>
-struct List
-{
+struct List {
 	typedef ListNode<T> Node;
-	Node* _head;
-	Node* _tail;
-	int _size;
+	Node* head_;
+	Node* tail_;
+	int size_;
 
-	List():
-		_head(NULL),
-		_tail(NULL),
-		_size(0)
-	{
+	List(): head_(NULL), tail_(NULL), size_(0) {
 	}
 
-	bool Empty()
-	{
-		return _head == NULL? true:false;
+	~List() {
+		Node* cursor = head_;
+		while(cursor) {
+			Node* tmp = cursor;
+			cursor = cursor->next_;
+			delete tmp;
+		}
 	}
 
-	Node* Next(Node* node)
-	{
+	bool Empty() {
+		return head_ == NULL? true:false;
+	}
+
+	Node* Next(Node* node) {
 		if (node == NULL)
-			return _head;
-		return _head->_next;
+			return head_;
+		return head_->next_;
 	}
 
-	T* Front()
-	{
-		return _head->_data;
+	T* Front() {
+		return head_->data_;
 	}
 
-	T* Back()
-	{
-		return _tail->_data;
+	T* Back() {
+		return tail_->data_;
 	}
 
-	void RemoveFront()
-	{
-		assert(_head != NULL && _tail != NULL);
-		if (_head == _tail)
-		{
-			delete _head;
-			_head = _tail = NULL;
-		}
-		else
-		{
-			Node* node = _head;
-			_head = _head->_next;
+	void RemoveFront() {
+		assert(head_ != NULL && tail_ != NULL);
+		if (head_ == tail_) {
+			delete head_;
+			head_ = tail_ = NULL;
+		} else {
+			Node* node = head_;
+			head_ = head_->next_;
 			delete node;
 		}
-		_size--;
+		size_--;
 	}
 
-	void RemoveBack()
-	{
-		assert(_head != NULL && _tail != NULL);
-		if (_head == _tail)
-		{
-			delete _tail;
-			_head = _tail = NULL;
-		}
-		else
-		{
-			Node* node = _tail;
-			_tail->_prev->_next = NULL;
-			_tail = _tail->_prev;
+	void RemoveBack() {
+		assert(head_ != NULL && tail_ != NULL);
+		if (head_ == tail_) {
+			delete tail_;
+			head_ = tail_ = NULL;
+		} else {
+			Node* node = tail_;
+			tail_->prev_->next_ = NULL;
+			tail_ = tail_->prev_;
 			delete node;
 		}
-		_size--;
+		size_--;
 	}
 
-	void PopHead(T*& obj)
-	{
+	void PopHead(T*& obj) {
 		obj = NULL;
-		if (_head == NULL)
+		if (head_ == NULL)
 			return;
 
 		Node* node = NULL;
-		if (_head == _tail)
-		{
-			node = _head;
-			_head = _tail = NULL;
-			obj = node->_data;
-		}
-		else
-		{
-			node = _head;
-			_head = node->_next;
-			obj = node->_data;
+		if (head_ == tail_) {
+			node = head_;
+			head_ = tail_ = NULL;
+			obj = node->data_;
+		} else {
+			node = head_;
+			head_ = node->next_;
+			obj = node->data_;
 		}
 		delete node;
-		_size--;
+		size_--;
 	}
 
-	void PopTail(T*& obj)
-	{
+	void PopTail(T*& obj) {
 		obj = NULL;
-		if (_tail == NULL)
+		if (tail_ == NULL)
 			return;
 
 		Node* node = NULL;
-		if (_head == _tail)
-		{
-			node = _tail;
-			_head = _tail = NULL;
-			obj = node->_data;
-		}
-		else
-		{
-			node = _tail;
-			obj = node->_data;
-			_tail->_prev->_next = NULL;
-			_tail = _tail->_prev;
+		if (head_ == tail_) {
+			node = tail_;
+			head_ = tail_ = NULL;
+			obj = node->data_;
+		} else {
+			node = tail_;
+			obj = node->data_;
+			tail_->prev_->next_ = NULL;
+			tail_ = tail_->prev_;
 		}
 		delete node;
-		_size--;
+		size_--;
 	}
 
-	void PushTail(T* obj)
-	{
+	void PushTail(T* obj) {
 		Node* node = new Node();
-		node->_next = node->_prev = NULL;
-		node->_data = obj;
+		node->next_ = node->prev_ = NULL;
+		node->data_ = obj;
 
-		if (_head == NULL)
-			_head = _tail = node;
-		else
-		{
-			_tail->_next = node;
-			node->_prev = _tail;
-			_tail = node;
+		if (head_ == NULL) {
+			head_ = tail_ = node;
+		} else {
+			tail_->next_ = node;
+			node->prev_ = tail_;
+			tail_ = node;
 		}
-		_size++;
+		size_++;
 	}
 
-	void PushHead(T* obj)
-	{
+	void PushHead(T* obj) {
 		Node* node = new Node();
-		node->_next = node->_prev = NULL;
-		node->_data = obj;
+		node->next_ = node->prev_ = NULL;
+		node->data_ = obj;
 
-		if (_head == NULL)
-			_head = _tail = node;
-		else
-		{
-			node->_next = _head;
-			_head = node;
+		if (head_ == NULL) {
+			head_ = tail_ = node;
+		} else {
+			node->next_ = head_;
+			head_ = node;
 		}
-		_size++;
+		size_++;
 	}
 };
 
