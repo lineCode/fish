@@ -118,6 +118,7 @@
     <ClInclude Include="Typedef.h" />
     <ClInclude Include="util\Allocator.h" />
     <ClInclude Include="util\format.h" />
+    <ClInclude Include="util\linenoise.hpp" />
     <ClInclude Include="util\List.h" />
     <ClInclude Include="util\LuaAllocator.h" />
     <ClInclude Include="util\MemoryStream.h" />
@@ -133,6 +134,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\3rd\http-parser\http_parser.c" />
+    <ClCompile Include="..\3rd\luafilesystem\src\lfs.c" />
     <ClCompile Include="logger\Logger.cpp" />
     <ClCompile Include="logger\LoggerChannel.cpp" />
     <ClCompile Include="logger\LoggerClient.cpp" />
