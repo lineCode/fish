@@ -41,6 +41,8 @@ function Init()
 	fish.StartTimer(1,1,function ()
 		print("timeout")
 	end)
+
+	table.print(common.ListDir("./"))
 end
 
 function Fina()

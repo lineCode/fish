@@ -2,12 +2,12 @@ local fish = require "fish"
 
 local _M = {}
 
-local function get_tag( t )
+local function GetTag( t )
     local str = type(t)
     return string.sub(str, 1, 1)..":"
 end
 
-function _M.dump(data, prefix, depth, output, record)
+function _M.Dump(data, prefix, depth, output, record)
     record = record or {}
 
     depth = depth or 1
@@ -27,7 +27,7 @@ function _M.dump(data, prefix, depth, output, record)
     end
 
     if type(data) ~= "table" then
-        output(tab..get_tag(data)..tostring(data))
+        output(tab..GetTag(data)..tostring(data))
         return
     end
 
@@ -40,12 +40,12 @@ function _M.dump(data, prefix, depth, output, record)
 
     local count = 0
     for k,v in pairs(data) do
-        local str_k = get_tag(k)
+        local str_k = GetTag(k)
         if type(v) == "table" then
             output(tab..str_k..tostring(k).." -> ")
-            _M.dump(v, prefix, depth + 1, output, record)
+            _M.Dump(v, prefix, depth + 1, output, record)
         else
-            output(tab..str_k..tostring(k).." -> ".. get_tag(v)..tostring(v))
+            output(tab..str_k..tostring(k).." -> ".. GetTag(v)..tostring(v))
         end
         count = count + 1
     end
@@ -55,10 +55,34 @@ function _M.dump(data, prefix, depth, output, record)
     end
 end
 
-function _M.time_diff(desc,func)
+function _M.TimeDiff(desc,func)
     local now = fish.Timestamp()
     func()
     print(string.format("%s:%f",desc,fish.Timestamp() - now))
+end
+
+function _M.ListDir(path,recursive,suffix,isPathName,result)
+    result = result or {}
+
+    for file in lfs.dir(path) do
+        if file ~= "." and file ~= ".." then
+            local f = path..'/'..file
+
+            local attr = lfs.attributes (f)
+            if attr.mode == "directory" and recursive then
+                _M.ListDir(f, recursive, suffix, isPathName,result)
+            else
+                local target = file
+                if isPathName then target = f end
+
+                if suffix == nil or suffix == "" or suffix == f:match(".+%.(%w+)$") then
+                    table.insert(result, target)
+                end
+            end
+        end
+    end
+
+    return result
 end
 
 return _M

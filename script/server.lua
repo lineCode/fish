@@ -5,6 +5,8 @@ local timer = require "timer"
 
 _G.Import = import.Import
 
+table.print = common.Dump
+
 local ServerInst = nil
 
 function ServerInit(boot)
