@@ -85,4 +85,12 @@ function _M.ListDir(path,recursive,suffix,isPathName,result)
     return result
 end
 
+function _M.Split(str,reps)
+    local result = {}
+    string.gsub(str,'[^'..reps..']+',function ( w )
+        table.insert(result,w)
+    end)
+    return result
+end
+
 return _M

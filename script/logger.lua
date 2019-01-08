@@ -1,4 +1,5 @@
 local common = require "common"
+local telnet = require "telnet"
 
 local acceptor = nil
 
@@ -33,18 +34,12 @@ local function OnHttpAccept(fd, addr)
 	end)
 end
 
-function Init()
+function Init(self)
 	print("logger init")
 	acceptor = fish.Listen("127.0.0.1", 1989, OnClientAccept)
 	httpAcceptor = fish.Listen("0.0.0.0", 2000, OnHttpAccept)
 	
-	for i = 1,10240 do
-		fish.StartTimer(0.05,0.05,function ()
-		end)
-	end
-	fish.StartTimer(0.1,0.1,function ()
-		fish.Dump()
-	end)
+	telnet.Listen("127.0.0.1", 3000, self)
 
 end
 
@@ -54,4 +49,8 @@ end
 
 function Update(now)
 
+end
+
+function Test(self,...)
+	print(...)
 end
