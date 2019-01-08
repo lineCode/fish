@@ -15,11 +15,17 @@ public:
 	virtual void HandleClose();
 	virtual void HandleError();
 
+	void OnClientError();
+	
 	void SetId(int id);
 	int GetId();
 
 private:
 	int id_;
+	uint32_t freq_;
+	uint32_t need_;
+	uint16_t seed_;
+	uint32_t lastMsgTime_;
 };
 
 #endif
