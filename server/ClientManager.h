@@ -8,8 +8,7 @@
 
 class ClientChannel;
 
-class ClientManager : public Singleton<ClientManager>
-{
+class ClientManager : public Singleton<ClientManager> {
 public:
 	ClientManager(uint32_t maxClient, uint8_t serverId);
 	~ClientManager();
@@ -24,11 +23,11 @@ public:
 
 	int AllocVfd();
 
+	ClientChannel* GetClient(int id);
+
 	void BindClient(int id, ClientChannel* channel);
 
 	void DeleteClient(int id);
-
-	ClientChannel* GetClient(int id);
 
 	int SendClient(int id, char* data, size_t size);
 
@@ -51,5 +50,7 @@ private:
 
 	std::vector<ClientChannel*> deadClients_;
 };
+
+#define CLIENT_MGR ClientManager::GetSingleton()
 
 #endif

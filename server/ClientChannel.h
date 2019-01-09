@@ -1,6 +1,7 @@
 ﻿#ifndef CLIENT_CHANNEL_H
 #define CLIENT_CHANNEL_H
 
+#include "time/Timer.h"
 #include "network/Channel.h"
 
 class ClientChannel : public Network::Channel {
@@ -8,7 +9,7 @@ public:
 	typedef Network::Channel Super;
 
 public:
-	ClientChannel(Network::EventPoller* poller, int fd);
+	ClientChannel(Network::EventPoller* poller, int fd, int id);
 
 	~ClientChannel();
 
@@ -16,11 +17,10 @@ public:
 	virtual void HandleClose();
 	virtual void HandleError();
 
-	void OnUpdate();
+	void OnUpdate(Timer* timer, void* userdata);
 
 	void OnClientError();
 
-	void SetId(int id);
 	int GetId();
 
 private:
@@ -29,6 +29,7 @@ private:
 	uint32_t need_;
 	uint16_t seed_;
 	uint64_t lastMsgTime_;
+	Timer* timer_;
 };
 
 #endif

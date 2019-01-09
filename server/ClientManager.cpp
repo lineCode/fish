@@ -19,14 +19,14 @@ ClientManager::ClientManager(uint32_t maxClient, uint8_t serverId) {
 
 	using namespace std::placeholders;
 
-	acceptor_ = new Network::Acceptor(FishApp::GetSingleton()->Poller());
+	acceptor_ = new Network::Acceptor(APP->Poller());
 	acceptor_->SetCallback(std::bind(&ClientManager::OnClientAccept, this, _1, _2));
 
-	timer_ = new Timer();
+	timer_ = Timer::AssignTimer();
 	timer_->SetCallback(std::bind(&ClientManager::OnUpate, this, _1, _2));
-	timer_->Start(FishApp::GetSingleton()->Poller(), 1, 1);
+	timer_->Start(APP->Poller(), 1, 1);
 
-	check_.set(FishApp::GetSingleton()->Poller()->GetLoop());
+	check_.set(APP->Poller()->GetLoop());
 	check_.set<ClientManager, &ClientManager::OnCheck>(this);
 	check_.start();
 }
@@ -35,7 +35,7 @@ ClientManager::ClientManager(uint32_t maxClient, uint8_t serverId) {
 ClientManager::~ClientManager() {
 	free(clientMgr_);
 	delete acceptor_;
-	delete timer_;
+	Timer::ReclaimTimer(timer_);
 	check_.stop();
 }
 
@@ -45,8 +45,7 @@ void ClientManager::OnClientAccept(int fd, Network::Addr& addr) {
 		return;
 	}
 
-	ClientChannel* channel = new ClientChannel(FishApp::GetSingleton()->Poller(), fd);
-	channel->SetId(AllocVfd());
+	ClientChannel* channel = new ClientChannel(APP->Poller(), fd, AllocVfd());
 	BindClient(channel->GetId(), channel);
 	channel->EnableRead();
 }
@@ -82,6 +81,19 @@ int ClientManager::AllocVfd() {
 	return -1;
 }
 
+ClientChannel* ClientManager::GetClient(int id) {
+	int serverId = id & 0xff;
+	if ( serverId != serverId_ ) {
+		return NULL;
+	}
+	int vfd = id >> 8;
+	ClientChannel* channel = clientMgr_[vfd];
+	if ( !channel ) {
+		return NULL;
+	}
+	return channel;
+}
+
 void ClientManager::BindClient(int id, ClientChannel* channel) {
 	int serverId = id & 0xff;
 	if ( serverId != serverId_) {
@@ -100,19 +112,6 @@ void ClientManager::DeleteClient(int id) {
 	int vfd = id >> 8;
 	assert(clientMgr_[vfd] != NULL);
 	clientMgr_[vfd] = NULL;
-}
-
-ClientChannel* ClientManager::GetClient(int id) {
-	int serverId = id & 0xff;
-	if ( serverId != serverId_ ) {
-		return NULL;
-	}
-	int vfd = id >> 8;
-	ClientChannel* channel = clientMgr_[vfd];
-	if ( !channel ) {
-		return NULL;
-	}
-	return channel;
 }
 
 int ClientManager::SendClient(int id, char* data, size_t size) {

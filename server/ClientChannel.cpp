@@ -4,18 +4,27 @@
 #include "FishApp.h"
 
 #define HEADER_SIZE 2
-#define MAX_MESSAGE_SIZE 16 * 1024
+#define MAX_MESSAGE_SIZE 1024 * 16
+#define WARN_WRITER_TOTAL 1024 * 10
+#define MAX_FREQ 200
+#define MAX_ALIVE_TIME 60 * 3
 
-ClientChannel::ClientChannel(Network::EventPoller* poller, int fd) :Super(poller, fd) {
-	id_ = 0;
+ClientChannel::ClientChannel(Network::EventPoller* poller, int fd, int id) :Super(poller, fd) {
+	id_ = id;
 	freq_ = 0;
 	need_ = 0;
 	seed_ = 0;
 	lastMsgTime_ = 0;
+
+	using namespace std::placeholders;
+	timer_ = Timer::AssignTimer();
+	timer_->SetCallback(std::bind(&ClientChannel::OnUpdate, this, _1, _2));
+	timer_->Start(poller, 1, 1);
 }
 
 
 ClientChannel::~ClientChannel() {
+	Timer::ReclaimTimer(timer_);
 }
 
 void ClientChannel::HandleRead() {
@@ -43,31 +52,46 @@ void ClientChannel::HandleRead() {
 			free(data);
 
 			need_ = 0;
-			lastMsgTime_ = FishApp::GetSingleton()->Now();
+			lastMsgTime_ = APP->Now();
 			freq_++;
 		}
 	}
 }
 
 void ClientChannel::HandleClose() {
-	ClientManager::GetSingleton()->DeleteClient(id_);
+	CLIENT_MGR->DeleteClient(id_);
 }
 
 void ClientChannel::HandleError() {
 	OnClientError();
 }
 
-void ClientChannel::OnUpdate() {
+void ClientChannel::OnUpdate(Timer* timer, void* userdata) {
+	if (reader_->total_ > WARN_WRITER_TOTAL) {
+		LOG_ERROR(std::string("client:{} more than {}kb need to send out", id_, reader_->total_));
+	}
 
+	bool error = false;
+	if (freq_ >= MAX_FREQ) {
+		LOG_ERROR(std::string("client:{} receive message too much:{} in last 1s", id_, freq_));
+		error = true;
+	} else {
+		freq_ = 0;
+		if (lastMsgTime_ != 0 && APP->Now() - lastMsgTime_ > MAX_ALIVE_TIME) {
+			LOG_ERROR(std::string("client:{} time out", id_));
+			error = true;
+		}
+	}
+
+	if (error) {
+		Close(true);
+		OnClientError();
+	}
 }
 
 void ClientChannel::OnClientError() {
-	ClientManager::GetSingleton()->DeleteClient(id_);
-	ClientManager::GetSingleton()->MarkClientDead(this);
-}
-
-void ClientChannel::SetId(int id) {
-	id_ = id;
+	CLIENT_MGR->DeleteClient(id_);
+	CLIENT_MGR->MarkClientDead(this);
 }
 
 int ClientChannel::GetId() {
