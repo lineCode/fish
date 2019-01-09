@@ -90,7 +90,7 @@ ClientChannel* ClientManager::GetClient(int vid) {
 	}
 	
 	int id = CLIENT_ID(vid);
-	if (id < 0 || id >= maxClient_) {
+	if (id < 0 || id >= (int)maxClient_) {
 		LOG_ERROR(fmt::format("invalid vid:{}, id:{}", vid, id));
 		return NULL;
 	}
@@ -109,7 +109,7 @@ void ClientManager::BindClient(int vid, ClientChannel* channel) {
 		return;
 	}
 	int id = CLIENT_ID(vid);
-	if (id < 0 || id >= maxClient_) {
+	if (id < 0 || id >= (int)maxClient_) {
 		LOG_ERROR(fmt::format("invalid vid:{}, id:{}", vid, id));
 		return;
 	}
@@ -124,7 +124,7 @@ void ClientManager::DeleteClient(int vid) {
 		return;
 	}
 	int id = CLIENT_ID(vid);
-	if (id < 0 || id >= maxClient_) {
+	if (id < 0 || id >= (int)maxClient_) {
 		LOG_ERROR(fmt::format("invalid vid:{}, id:{}", vid, id));
 		return;
 	}
