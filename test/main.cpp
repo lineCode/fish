@@ -36,5 +36,6 @@ int main() {
 	PoolObject<TestA>::Dump();
 	PoolObject<TestB>::Dump();
 	//PoolObject<TestC>::Dump();
+	std::priority_queue
 	return 0;
 }

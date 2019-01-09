@@ -90,7 +90,7 @@ void ClientChannel::HandleError() {
 }
 
 void ClientChannel::OnUpdate(Timer* timer, void* userdata) {
-	if (reader_->total_ > CLIENT_MGR->GetWarnFlow()) {
+	if (reader_->total_ > (int)CLIENT_MGR->GetWarnFlow()) {
 		LOG_ERROR(fmt::format("client:{} more than {}kb need to send out", vid_, reader_->total_ / 1024));
 	}
 

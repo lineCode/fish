@@ -13,7 +13,7 @@ TimerWheelMgr::TimerWheelMgr() {
 
 
 TimerWheelMgr::~TimerWheelMgr(void) {
-	for (int i = eWheelSec;i < eWheelEnd;i++)
+	for (uint32_t i = eWheelSec;i < eWheelEnd;i++)
 		delete wheels_[i];
 }
 
