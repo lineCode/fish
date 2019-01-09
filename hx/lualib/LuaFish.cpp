@@ -305,11 +305,34 @@ int LuaFish::TimerCancel(lua_State* L) {
 	return 1;
 }
 
+Network::Addr MakeAddr(lua_State* L, int index) {
+	luaL_checktype(L, index, LUA_TTABLE);
+	lua_getfield(L, index, "file");
+
+	Network::Addr addr;
+	if (!lua_isnoneornil(L, -1)) {
+		addr = Network::Addr::MakeUNIXAddr(luaL_checkstring(L, -1));
+		lua_pop(L, 1);
+	} else {
+		lua_pop(L, 1);
+
+		lua_getfield(L, index, "ip");
+		const char* ip = luaL_checkstring(L, -1);
+
+		lua_getfield(L, index, "port");
+		int port = luaL_checkinteger(L, -1);
+		
+		addr = Network::Addr::MakeIP4Addr(ip, port);
+
+		lua_pop(L, 2);
+	}
+
+	return addr;
+}
+
 int LuaFish::AcceptorListen(lua_State* L) {
 	ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
-
-	const char* ip = luaL_checkstring(L, 1);
-	int port = luaL_checkinteger(L, 2);
+	Network::Addr addr = MakeAddr(L, 2);
 	luaL_checktype(L, 3, LUA_TFUNCTION);
 	int callback = luaL_ref(L, LUA_REGISTRYINDEX);
 
@@ -321,8 +344,6 @@ int LuaFish::AcceptorListen(lua_State* L) {
 
 	acceptor->SetCallback(std::bind(&LuaFish::OnAccept, app->Lua(), _1, _2, _3));
 	acceptor->SetUserdata((void*)(long)callback);
-
-	Network::Addr addr = Network::Addr::MakeIP4Addr(ip, port);
 
 	if (acceptor->Listen(addr) < 0) {
 		return 0;

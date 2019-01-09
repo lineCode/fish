@@ -40,7 +40,7 @@ end
 function _M.Listen(ip, port, inst)
 	assert(not acceptor_)
 
-	acceptor_ = fish.Listen(ip, port, OnAccept)
+	acceptor_ = fish.Listen({ip = ip, port = port}, OnAccept)
 	if not acceptor_ then
 		error(string.format("telnet listen:%s:%d error", ip, port))
 	end
