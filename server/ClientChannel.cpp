@@ -6,9 +6,6 @@
 
 #define HEADER_SIZE 2
 #define MAX_MESSAGE_SIZE 1024 * 16
-#define WARN_WRITER_TOTAL 1024 * 10
-#define MAX_FREQ 200
-#define MAX_ALIVE_TIME 60 * 3
 
 ClientChannel::ClientChannel(Network::EventPoller* poller, int fd, int id) :Super(poller, fd) {
 	id_ = id;
@@ -92,17 +89,17 @@ void ClientChannel::HandleError() {
 }
 
 void ClientChannel::OnUpdate(Timer* timer, void* userdata) {
-	if (reader_->total_ > WARN_WRITER_TOTAL) {
+	if (reader_->total_ > CLIENT_MGR->GetWarnFlow()) {
 		LOG_ERROR(fmt::format("client:{} more than {}kb need to send out", id_, reader_->total_));
 	}
 
 	bool error = false;
-	if (freq_ >= MAX_FREQ) {
+	if (freq_ >= CLIENT_MGR->GetMaxFreq()) {
 		LOG_ERROR(fmt::format("client:{} receive message too much:{} in last 1s", id_, freq_));
 		error = true;
 	} else {
 		freq_ = 0;
-		if (lastMsgTime_ != 0 && APP->Now() - lastMsgTime_ > MAX_ALIVE_TIME) {
+		if (lastMsgTime_ != 0 && APP->Now() - lastMsgTime_ > CLIENT_MGR->GetMaxAlive()) {
 			LOG_ERROR(fmt::format("client:{} time out", id_));
 			error = true;
 		}

@@ -25,6 +25,10 @@ ClientManager::ClientManager(uint32_t maxClient, uint8_t serverId) {
 	check_.set(APP->Poller()->GetLoop());
 	check_.set<ClientManager, &ClientManager::OnCheck>(this);
 	check_.start();
+
+	maxFreq_ = 100;
+	maxAlive_ = 60 * 3;
+	warnFlow_ = 1024 * 16;
 }
 
 
@@ -136,6 +140,34 @@ int ClientManager::CloseClient(int id) {
 	return 0;
 }
 
-int ClientManager::Listen(Network::Addr& addr) {
+int ClientManager::Start(Network::Addr& addr) {
 	return acceptor_->Listen(addr);
+}
+
+int ClientManager::Stop() {
+	return acceptor_->Close();
+}
+
+void ClientManager::SetMaxFreq(uint32_t freq) {
+	maxFreq_ = freq;
+}
+
+uint32_t ClientManager::GetMaxFreq() {
+	return maxFreq_;
+}
+
+void ClientManager::SetMaxAlive(uint32_t alive) {
+	maxAlive_ = alive;
+}
+
+uint32_t ClientManager::GetMaxAlive() {
+	return maxAlive_;
+}
+
+void ClientManager::SetWarnFlow(uint32_t flow) {
+	warnFlow_ = flow;
+}
+
+uint32_t ClientManager::GetWarnFlow() {
+	return warnFlow_;
 }

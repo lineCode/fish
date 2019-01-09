@@ -33,7 +33,21 @@ public:
 
 	int CloseClient(int id);
 
-	int Listen(Network::Addr& addr);
+	int Start(Network::Addr& addr);
+
+	int Stop();
+
+	void SetMaxFreq(uint32_t freq);
+
+	uint32_t GetMaxFreq();
+
+	void SetMaxAlive(uint32_t alive);
+
+	uint32_t GetMaxAlive();
+
+	void SetWarnFlow(uint32_t flow);	
+
+	uint32_t GetWarnFlow();
 
 private:
 	uint8_t serverId_;
@@ -46,6 +60,10 @@ private:
 	ev::check check_;
 
 	std::vector<ClientChannel*> deadClients_;
+
+	uint32_t maxFreq_;
+	uint32_t maxAlive_;
+	uint32_t warnFlow_;
 };
 
 #define CLIENT_MGR ClientManager::GetSingleton()

@@ -33,17 +33,32 @@ void Bootstrap::Startup() {
 
 	ClientManager* clientMgr = NULL;
 	if ( config_.HasMember("clientAddr") ) {
-		const char* clientIp = config_["clientAddr"]["ip"].GetString();
-		int clientPort = config_["clientAddr"]["port"].GetInt();
 
 		int maxClient = 1000;
 		if (config_.HasMember("maxClient")) {
 			maxClient = config_["maxClient"].GetInt();
 		}
+
 		clientMgr = new ClientManager(maxClient, 1);
-		Network::Addr addr = Network::Addr::MakeIP4Addr(clientIp, clientPort);
-		if ( clientMgr->Listen(addr) < 0 ) {
-			std::cerr << fmt::format("client manager listen:{} error", addr.ToStr()) << std::endl;
+
+		if (config_.HasMember("maxFreq")) {
+			clientMgr->SetMaxFreq(config_["maxFreq"].GetInt());
+		}
+
+		if (config_.HasMember("maxAlive")) {
+			clientMgr->SetMaxAlive(config_["maxAlive"].GetInt());
+		}
+
+		if (config_.HasMember("warnFlow")) {
+			clientMgr->SetWarnFlow(config_["warnFlow"].GetInt());
+		}
+
+		ip = config_["clientAddr"]["ip"].GetString();
+		port = config_["clientAddr"]["port"].GetInt();
+
+		Network::Addr addr = Network::Addr::MakeIP4Addr(ip, port);
+		if ( clientMgr->Start(addr) < 0 ) {
+			std::cerr << fmt::format("client manager start:{} error", addr.ToStr()) << std::endl;
 			return;
 		}
 	}
