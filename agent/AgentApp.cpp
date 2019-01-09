@@ -18,7 +18,7 @@ AgentApp::~AgentApp(void) {
 
 int AgentApp::Init(rapidjson::Document& config) {
 	LOG_ERROR(fmt::format("AgentApp start"));
-	
+
 	std::string boot("../../script/agent.lua");
 	ServerApp::Init(boot);
 
@@ -55,7 +55,7 @@ int AgentApp::Init(rapidjson::Document& config) {
 		Util::Exit(fmt::format("client manager start:{} error", addr.ToStr()));
 	}
 
-	lua_->Require("CLIENT_MGR", ClientManager::Register);
+	lua_->Require("clientMgr", ClientManager::Register);
 
 	return 0;
 }
