@@ -256,6 +256,40 @@ int ClientManager::LSendClient(lua_State* L) {
 }
 
 int ClientManager::LBroadcastClient(lua_State* L) {
+	luaL_checktype(L, 1, LUA_TTABLE);
+	int vt = lua_type(L, 2);
+	char* data = NULL;
+	size_t size;
+	switch(vt) {
+		case LUA_TSTRING: {
+			data = (char*)lua_tolstring(L, 2, &size);
+			break;
+		}
+		case LUA_TLIGHTUSERDATA: {
+			data = (char*)lua_touserdata(L, 2);
+			size = luaL_checkinteger(L, 3);
+		}
+		default: {
+			luaL_error(L, "client manager write error:unknow lua type:%s", lua_typename(L,vt));
+		}
+	}
+
+	if (size <= 0) {
+		return 0;
+	}
+
+	lua_pushnil(L);
+	while (lua_next(L, 1) != 0) {
+		int vid = luaL_checkinteger(L, -1);
+		char* tmp = (char*)malloc(size);
+		CLIENT_MGR->SendClient(vid, tmp, size);
+		lua_pop(L, 1);
+	}
+
+	if (vt == LUA_TLIGHTUSERDATA) {
+		free(data);
+	}
+
 	return 0;
 }
 
