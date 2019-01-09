@@ -51,9 +51,11 @@ public:
 
 private:
 	uint8_t serverId_;
+
 	uint32_t maxClient_;
 	uint32_t allocStep_;
 	uint32_t size_;
+	
 	ClientChannel** clientSlots_;
 
 	Network::Acceptor* acceptor_;
