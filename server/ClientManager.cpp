@@ -163,7 +163,7 @@ int ClientManager::CloseClient(int vid) {
 		return -1;
 	}
 	if (!channel->IsAlive()) {
-		LOG_ERROR(fmt::format("client:{} no alive", vid));
+		LOG_ERROR(fmt::format("client:{} not alive", vid));
 		return -1;
 	}
 	channel->Close(true);
@@ -201,7 +201,6 @@ void ClientManager::SetWarnFlow(uint32_t flow) {
 uint32_t ClientManager::GetWarnFlow() {
 	return warnFlow_;
 }
-
 
 int ClientManager::Register(lua_State* L) {
 	luaL_checkversion(L);
