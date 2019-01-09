@@ -375,10 +375,8 @@ int LuaFish::AcceptorRelease(lua_State* L) {
 
 int LuaFish::ConnectorConnect(lua_State* L) {
 	ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
-
-	const char* ip = luaL_checkstring(L, 1);
-	int port = luaL_checkinteger(L, 2);
-	int callback = Ref(L, 3, LUA_TFUNCTION);
+	Network::Addr addr = MakeAddr(L, 1);
+	int callback = Ref(L, 2, LUA_TFUNCTION);
 
 	void* ud = lua_newuserdata(L, sizeof(Network::Connector));
 	luaL_newmetatable(L, "metaConnector");
@@ -388,8 +386,6 @@ int LuaFish::ConnectorConnect(lua_State* L) {
 
     connector->SetCallback(std::bind(&LuaFish::OnConnect, app->Lua(), _1, _2, _3));
 	connector->SetUserdata((void*)(long)callback);
-
-	Network::Addr addr = Network::Addr::MakeIP4Addr(ip, port);
 
 	if (connector->Connect(addr) < 0) {
 		return 0;
