@@ -37,7 +37,7 @@ end
 function Init(self)
 	print("logger init")
 	acceptor = fish.Listen({ip = "127.0.0.1", port = 1989}, OnClientAccept)
-	httpAcceptor = fish.Listen({file = "fuck.ipc"}, OnHttpAccept)
+	httpAcceptor = fish.Listen({ip = "127.0.0.1", port = 1990}, OnHttpAccept)
 	
 	telnet.Listen("127.0.0.1", 3001, self)
 

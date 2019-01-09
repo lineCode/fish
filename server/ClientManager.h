@@ -4,6 +4,7 @@
 #include "util/Singleton.h"
 #include "time/Timer.h"
 #include "network/Acceptor.h"
+#include "lua.hpp"
 #include <vector>
 
 class ClientChannel;
@@ -29,7 +30,7 @@ public:
 
 	int SendClient(int vid, char* data, size_t size);
 
-	int BroadClient(std::vector<int>& vids, char* data, size_t size);
+	int BroadcastClient(std::vector<int>& vids, char* data, size_t size);
 
 	int CloseClient(int vid);
 
@@ -49,6 +50,15 @@ public:
 
 	uint32_t GetWarnFlow();
 
+	static int Register(lua_State* L);
+
+	static int LStop(lua_State* L);
+
+	static int LSendClient(lua_State* L);
+
+	static int LBroadcastClient(lua_State* L);
+
+	static int LCloseClient(lua_State* L);
 private:
 	uint8_t serverId_;
 
