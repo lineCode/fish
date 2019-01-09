@@ -48,7 +48,7 @@ void ClientChannel::HandleRead() {
 				return;
 			}
 		} else {
-			if (reader_->total_ < need_) {
+			if (reader_->total_ < (int)need_) {
 				return;
 			}
 

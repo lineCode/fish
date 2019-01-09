@@ -50,7 +50,7 @@ void ClientManager::MarkClientDead(ClientChannel* channel) {
 }
 
 void ClientManager::OnCheck() {
-	for(int i = 0; i < deadClients_.size();i++) {
+	for(size_t i = 0; i < deadClients_.size();i++) {
 		ClientChannel* channel = deadClients_[i];
 		delete channel;
 	}
@@ -114,7 +114,7 @@ int ClientManager::SendClient(int id, char* data, size_t size) {
 }
 
 int ClientManager::BroadClient(std::vector<int>& ids, char* data, size_t size) {
-	for ( int i = 0; i < ids.size();i++ ) {
+	for ( size_t i = 0; i < ids.size();i++ ) {
 		int id = ids[i];
 		char* message = (char*)malloc(size);
 		memcpy(message, data, size);
