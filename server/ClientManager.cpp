@@ -18,8 +18,8 @@ ClientManager::ClientManager(uint32_t maxClient, uint8_t serverId) {
 	allocStep_ = 0;
 	size_ = 0;
 
-	clientMgr_ = (ClientChannel**)malloc(sizeof( *clientMgr_ ) * maxClient);
-	memset(clientMgr_, 0, sizeof( *clientMgr_ ) * maxClient);
+	clientSlots_ = (ClientChannel**)malloc(sizeof(*clientSlots_) * maxClient);
+	memset(clientSlots_, 0, sizeof(*clientSlots_) * maxClient);
 
 	using namespace std::placeholders;
 
@@ -37,7 +37,7 @@ ClientManager::ClientManager(uint32_t maxClient, uint8_t serverId) {
 
 
 ClientManager::~ClientManager() {
-	free(clientMgr_);
+	free(clientSlots_);
 	delete acceptor_;
 	check_.stop();
 }
@@ -72,7 +72,7 @@ int ClientManager::AllocVid() {
 
 	for ( ;; ) {
 		int id = (allocStep_++) % maxClient_;
-		if ( !clientMgr_[id] ) {
+		if ( !clientSlots_[id] ) {
 			return MAKE_VID(id, serverId_);
 		}
 	}
@@ -86,7 +86,7 @@ ClientChannel* ClientManager::GetClient(int vid) {
 		return NULL;
 	}
 	int id = CLIENT_ID(vid);
-	ClientChannel* channel = clientMgr_[id];
+	ClientChannel* channel = clientSlots_[id];
 	if ( !channel ) {
 		return NULL;
 	}
@@ -99,8 +99,8 @@ void ClientManager::BindClient(int vid, ClientChannel* channel) {
 		return;
 	}
 	int id = CLIENT_ID(vid);
-	assert(clientMgr_[id] == NULL);
-	clientMgr_[id] = channel;
+	assert(clientSlots_[id] == NULL);
+	clientSlots_[id] = channel;
 }
 
 void ClientManager::DeleteClient(int vid) {
@@ -109,8 +109,8 @@ void ClientManager::DeleteClient(int vid) {
 		return;
 	}
 	int id = CLIENT_ID(vid);
-	assert(clientMgr_[id] != NULL);
-	clientMgr_[id] = NULL;
+	assert(clientSlots_[id] != NULL);
+	clientSlots_[id] = NULL;
 }
 
 int ClientManager::SendClient(int vid, char* data, size_t size) {

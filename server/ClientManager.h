@@ -54,7 +54,7 @@ private:
 	uint32_t maxClient_;
 	uint32_t allocStep_;
 	uint32_t size_;
-	ClientChannel** clientMgr_;
+	ClientChannel** clientSlots_;
 
 	Network::Acceptor* acceptor_;
 	ev::check check_;
