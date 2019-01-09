@@ -1,7 +1,7 @@
 
 
 function Init(self)
-	print("agent init")
+	fish.Log("runtime","agent init")
 
 end
 
