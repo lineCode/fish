@@ -1,6 +1,7 @@
 ﻿#include "ClientChannel.h"
 #include "ClientManager.h"
 #include "logger/Logger.h"
+#include "util/Util.h"
 #include "FishApp.h"
 
 #define HEADER_SIZE 2
@@ -33,7 +34,7 @@ void ClientChannel::HandleRead() {
 			if (reader_->total_ < HEADER_SIZE) {
 				return;
 			}
-			
+
 			uint8_t header[HEADER_SIZE];
 			reader_->ReadData((char*)header, HEADER_SIZE);
 
@@ -41,7 +42,7 @@ void ClientChannel::HandleRead() {
 			need_ -= HEADER_SIZE;
 
 			if (need_ > MAX_MESSAGE_SIZE) {
-				LOG_ERROR(std::string("client:{} receive message:{} too much", id_, need_));
+				LOG_ERROR(fmt::format("client:{} receive message:{} too much", id_, need_));
 				Close(true);
 				OnClientError();
 				return;
@@ -53,6 +54,17 @@ void ClientChannel::HandleRead() {
 
 			uint8_t* data = (uint8_t*)malloc(need_);
 			reader_->ReadData((char*)data, need_);
+
+			if (Util::MessageDecrypt(&seed_, data, need_) < 0) {
+				LOG_ERROR(fmt::format("client:{} message decrypt error", id_));
+				free(data);
+				Close(true);
+				OnClientError();
+				return;
+			}
+			
+			uint16_t id = data[2] | data[3] << 8;
+			
 			free(data);
 
 			need_ = 0;
@@ -73,17 +85,17 @@ void ClientChannel::HandleError() {
 
 void ClientChannel::OnUpdate(Timer* timer, void* userdata) {
 	if (reader_->total_ > WARN_WRITER_TOTAL) {
-		LOG_ERROR(std::string("client:{} more than {}kb need to send out", id_, reader_->total_));
+		LOG_ERROR(fmt::format("client:{} more than {}kb need to send out", id_, reader_->total_));
 	}
 
 	bool error = false;
 	if (freq_ >= MAX_FREQ) {
-		LOG_ERROR(std::string("client:{} receive message too much:{} in last 1s", id_, freq_));
+		LOG_ERROR(fmt::format("client:{} receive message too much:{} in last 1s", id_, freq_));
 		error = true;
 	} else {
 		freq_ = 0;
 		if (lastMsgTime_ != 0 && APP->Now() - lastMsgTime_ > MAX_ALIVE_TIME) {
-			LOG_ERROR(std::string("client:{} time out", id_));
+			LOG_ERROR(fmt::format("client:{} time out", id_));
 			error = true;
 		}
 	}
