@@ -27,6 +27,7 @@ ClientChannel::ClientChannel(Network::EventPoller* poller, int fd, int vid) : Su
 
 
 ClientChannel::~ClientChannel() {
+	timer_->Cancel();
 	Timer::ReclaimTimer(timer_);
 }
 
