@@ -7,7 +7,7 @@
 
 TimerWheelMgr::TimerWheelMgr() {
 	lastTime_ = 0;
-	for ( int i = eWheelSec; i < lastTime_; i++ )
+	for (uint32_t i = eWheelSec; i < eWheelEnd;i++)
 		wheels_[i] = new TimerWheel((TimerWheelMgr::Wheel)i,this);
 }
 
