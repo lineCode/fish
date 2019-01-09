@@ -135,3 +135,7 @@ int ClientManager::CloseClient(int id) {
 	channel->Close(true);
 	return 0;
 }
+
+int ClientManager::Listen(Network::Addr& addr) {
+	return acceptor_->Listen(addr);
+}

@@ -21,6 +21,11 @@ ClientChannel::ClientChannel(Network::EventPoller* poller, int fd, int id) :Supe
 	timer_ = Timer::AssignTimer();
 	timer_->SetCallback(std::bind(&ClientChannel::OnUpdate, this, _1, _2));
 	timer_->Start(poller, 1, 1);
+
+	OOLUA::Script& script = APP->Lua()->GetScript();
+	if ( !script.call("OnClientEnter", id_) ) {
+		LOG_ERROR(fmt::format("OnClientEnter error:{}", OOLUA::get_last_error(script)));
+	}
 }
 
 
@@ -43,8 +48,7 @@ void ClientChannel::HandleRead() {
 
 			if (need_ > MAX_MESSAGE_SIZE) {
 				LOG_ERROR(fmt::format("client:{} receive message:{} too much", id_, need_));
-				Close(true);
-				OnClientError();
+				OnClientError(true);
 				return;
 			}
 		} else {
@@ -58,12 +62,16 @@ void ClientChannel::HandleRead() {
 			if (Util::MessageDecrypt(&seed_, data, need_) < 0) {
 				LOG_ERROR(fmt::format("client:{} message decrypt error", id_));
 				free(data);
-				Close(true);
-				OnClientError();
+				OnClientError(true);
 				return;
 			}
-			
-			uint16_t id = data[2] | data[3] << 8;
+
+			uint16_t msgId = data[2] | data[3] << 8;
+
+			OOLUA::Script& script = APP->Lua()->GetScript();
+			if ( !script.call("OnClientData", id_, msgId, &data[4], need_ - 4) ) {
+				LOG_ERROR(fmt::format("OnClientData error:{}", OOLUA::get_last_error(script)));
+			}
 			
 			free(data);
 
@@ -80,7 +88,7 @@ void ClientChannel::HandleClose() {
 }
 
 void ClientChannel::HandleError() {
-	OnClientError();
+	OnClientError(false);
 }
 
 void ClientChannel::OnUpdate(Timer* timer, void* userdata) {
@@ -101,14 +109,21 @@ void ClientChannel::OnUpdate(Timer* timer, void* userdata) {
 	}
 
 	if (error) {
-		Close(true);
-		OnClientError();
+		OnClientError(true);
 	}
 }
 
-void ClientChannel::OnClientError() {
+void ClientChannel::OnClientError(bool close) {
+	if ( close ) {
+		Close(true);
+	}
 	CLIENT_MGR->DeleteClient(id_);
 	CLIENT_MGR->MarkClientDead(this);
+
+	OOLUA::Script& script = APP->Lua()->GetScript();
+	if ( !script.call("OnClientError", id_) ) {
+		LOG_ERROR(fmt::format("OnClientError error:{}", OOLUA::get_last_error(script)));
+	}
 }
 
 int ClientChannel::GetId() {

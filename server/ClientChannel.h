@@ -19,7 +19,7 @@ public:
 
 	void OnUpdate(Timer* timer, void* userdata);
 
-	void OnClientError();
+	void OnClientError(bool close = false);
 
 	int GetId();
 
