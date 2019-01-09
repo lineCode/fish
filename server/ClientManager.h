@@ -17,8 +17,6 @@ public:
 
 	void MarkClientDead(ClientChannel* channel);
 
-	void OnUpate(Timer* timer, void* userdata);
-
 	void OnCheck();
 
 	int AllocVfd();
@@ -44,7 +42,6 @@ private:
 	uint32_t size_;
 	ClientChannel** clientMgr_;
 
-	Timer* timer_;
 	Network::Acceptor* acceptor_;
 	ev::check check_;
 

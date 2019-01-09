@@ -30,6 +30,10 @@ ClientChannel::~ClientChannel() {
 void ClientChannel::HandleRead() {
 	while(IsAlive()) {
 		if (need_ == 0) {
+			if (reader_->total_ < HEADER_SIZE) {
+				return;
+			}
+			
 			uint8_t header[HEADER_SIZE];
 			reader_->ReadData((char*)header, HEADER_SIZE);
 
@@ -60,6 +64,7 @@ void ClientChannel::HandleRead() {
 
 void ClientChannel::HandleClose() {
 	CLIENT_MGR->DeleteClient(id_);
+	CLIENT_MGR->MarkClientDead(this);
 }
 
 void ClientChannel::HandleError() {
