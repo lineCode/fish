@@ -68,6 +68,7 @@ leak :
 cleanall:
 	rm -rf $(FISH) $(FISH_INC)/*o
 	rm -rf $(LOGGER) $(LOGGER_INC)/*o
+	rm -rf $(AGENT) $(AGENT_INC)/*o
 	rm -rf $(LIBS_DIR)/$(HX_LIB) && cd $(HX_INC) && make clean
 	rm -rf $(LIBS_DIR)/$(LUA_LIB) && cd $(LUA_INC) && make clean
 	rm -rf $(LIBS_DIR)/$(OOLUA_LIB) && cd $(OOLUA_PATH) && make clean
