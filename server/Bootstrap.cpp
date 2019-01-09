@@ -23,6 +23,10 @@ void Bootstrap::Startup() {
 
 	Network::EventPoller* poller = new Network::EventPoller();
 
+	if (!config_.HasMember("loggerAddr")) {
+		Util::Exit("logger addr not found");
+	}
+
 	const char* ip = config_["loggerAddr"]["ip"].GetString();
 	int port = config_["loggerAddr"]["port"].GetInt();
 
@@ -32,7 +36,7 @@ void Bootstrap::Startup() {
 	Logger* logger = new Logger(loggerInterface);
 
 	ClientManager* clientMgr = NULL;
-	if ( config_.HasMember("clientAddr") ) {
+	if (config_.HasMember("clientAddr")) {
 
 		int maxClient = 1000;
 		if (config_.HasMember("maxClient")) {
@@ -57,9 +61,8 @@ void Bootstrap::Startup() {
 		port = config_["clientAddr"]["port"].GetInt();
 
 		Network::Addr addr = Network::Addr::MakeIP4Addr(ip, port);
-		if ( clientMgr->Start(addr) < 0 ) {
-			std::cerr << fmt::format("client manager start:{} error", addr.ToStr()) << std::endl;
-			return;
+		if (clientMgr->Start(addr) < 0) {
+			Util::Exit(fmt::format("client manager start:{} error", addr.ToStr()));
 		}
 	}
 	
@@ -73,7 +76,7 @@ void Bootstrap::Startup() {
 	}
 	
 	delete logger;
-	if ( clientMgr ) {
+	if (clientMgr) {
 		delete clientMgr;
 	}
 	delete poller;

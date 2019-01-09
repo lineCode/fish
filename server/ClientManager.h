@@ -19,19 +19,19 @@ public:
 
 	void OnCheck();
 
-	int AllocVfd();
+	int AllocVid();
 
-	ClientChannel* GetClient(int id);
+	ClientChannel* GetClient(int vid);
 
-	void BindClient(int id, ClientChannel* channel);
+	void BindClient(int vid, ClientChannel* channel);
 
-	void DeleteClient(int id);
+	void DeleteClient(int vid);
 
-	int SendClient(int id, char* data, size_t size);
+	int SendClient(int vid, char* data, size_t size);
 
-	int BroadClient(std::vector<int>& ids, char* data, size_t size);
+	int BroadClient(std::vector<int>& vids, char* data, size_t size);
 
-	int CloseClient(int id);
+	int CloseClient(int vid);
 
 	int Start(Network::Addr& addr);
 

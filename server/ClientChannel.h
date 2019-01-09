@@ -9,22 +9,24 @@ public:
 	typedef Network::Channel Super;
 
 public:
-	ClientChannel(Network::EventPoller* poller, int fd, int id);
+	ClientChannel(Network::EventPoller* poller, int fd, int vid);
 
 	~ClientChannel();
 
 	virtual void HandleRead();
+
 	virtual void HandleClose();
+	
 	virtual void HandleError();
 
 	void OnUpdate(Timer* timer, void* userdata);
 
 	void OnClientError(bool close = false);
 
-	int GetId();
+	int GetVid();
 
 private:
-	int id_;
+	int vid_;
 	uint32_t freq_;
 	uint32_t need_;
 	uint16_t seed_;

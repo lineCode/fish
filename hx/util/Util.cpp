@@ -4,8 +4,14 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <iostream>
 
 namespace Util {
+	void Exit(std::string reason) {
+		std::cerr << reason << std::endl;
+		exit(1);
+	}
+
 	int LoadJson(rapidjson::Document& doc, const char* file) {
 		FILE* F = fopen(file, "r");
 		if (!F) {

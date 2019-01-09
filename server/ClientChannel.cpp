@@ -7,8 +7,8 @@
 #define HEADER_SIZE 2
 #define MAX_MESSAGE_SIZE 1024 * 16
 
-ClientChannel::ClientChannel(Network::EventPoller* poller, int fd, int id) :Super(poller, fd) {
-	id_ = id;
+ClientChannel::ClientChannel(Network::EventPoller* poller, int fd, int vid) : Super(poller, fd) {
+	vid_ = vid;
 	freq_ = 0;
 	need_ = 0;
 	seed_ = 0;
@@ -20,7 +20,7 @@ ClientChannel::ClientChannel(Network::EventPoller* poller, int fd, int id) :Supe
 	timer_->Start(poller, 1, 1);
 
 	OOLUA::Script& script = APP->Lua()->GetScript();
-	if ( !script.call("OnClientEnter", id_) ) {
+	if ( !script.call("OnClientEnter", vid_) ) {
 		LOG_ERROR(fmt::format("OnClientEnter error:{}", OOLUA::get_last_error(script)));
 	}
 }
@@ -44,7 +44,7 @@ void ClientChannel::HandleRead() {
 			need_ -= HEADER_SIZE;
 
 			if (need_ > MAX_MESSAGE_SIZE) {
-				LOG_ERROR(fmt::format("client:{} receive message:{} too much", id_, need_));
+				LOG_ERROR(fmt::format("client:{} receive message:{} too much", vid_, need_));
 				OnClientError(true);
 				return;
 			}
@@ -57,7 +57,7 @@ void ClientChannel::HandleRead() {
 			reader_->ReadData((char*)data, need_);
 
 			if (Util::MessageDecrypt(&seed_, data, need_) < 0) {
-				LOG_ERROR(fmt::format("client:{} message decrypt error", id_));
+				LOG_ERROR(fmt::format("client:{} message decrypt error", vid_));
 				free(data);
 				OnClientError(true);
 				return;
@@ -66,7 +66,7 @@ void ClientChannel::HandleRead() {
 			uint16_t msgId = data[2] | data[3] << 8;
 
 			OOLUA::Script& script = APP->Lua()->GetScript();
-			if ( !script.call("OnClientData", id_, msgId, &data[4], need_ - 4) ) {
+			if ( !script.call("OnClientData", vid_, msgId, &data[4], need_ - 4) ) {
 				LOG_ERROR(fmt::format("OnClientData error:{}", OOLUA::get_last_error(script)));
 			}
 			
@@ -80,7 +80,7 @@ void ClientChannel::HandleRead() {
 }
 
 void ClientChannel::HandleClose() {
-	CLIENT_MGR->DeleteClient(id_);
+	CLIENT_MGR->DeleteClient(vid_);
 	CLIENT_MGR->MarkClientDead(this);
 }
 
@@ -90,17 +90,17 @@ void ClientChannel::HandleError() {
 
 void ClientChannel::OnUpdate(Timer* timer, void* userdata) {
 	if (reader_->total_ > CLIENT_MGR->GetWarnFlow()) {
-		LOG_ERROR(fmt::format("client:{} more than {}kb need to send out", id_, reader_->total_));
+		LOG_ERROR(fmt::format("client:{} more than {}kb need to send out", vid_, reader_->total_ / 1024));
 	}
 
 	bool error = false;
 	if (freq_ >= CLIENT_MGR->GetMaxFreq()) {
-		LOG_ERROR(fmt::format("client:{} receive message too much:{} in last 1s", id_, freq_));
+		LOG_ERROR(fmt::format("client:{} receive message too much:{} in last 1s", vid_, freq_));
 		error = true;
 	} else {
 		freq_ = 0;
 		if (lastMsgTime_ != 0 && APP->Now() - lastMsgTime_ > CLIENT_MGR->GetMaxAlive()) {
-			LOG_ERROR(fmt::format("client:{} time out", id_));
+			LOG_ERROR(fmt::format("client:{} time out", vid_));
 			error = true;
 		}
 	}
@@ -111,18 +111,18 @@ void ClientChannel::OnUpdate(Timer* timer, void* userdata) {
 }
 
 void ClientChannel::OnClientError(bool close) {
-	if ( close ) {
+	if (close) {
 		Close(true);
 	}
-	CLIENT_MGR->DeleteClient(id_);
+	CLIENT_MGR->DeleteClient(vid_);
 	CLIENT_MGR->MarkClientDead(this);
 
 	OOLUA::Script& script = APP->Lua()->GetScript();
-	if ( !script.call("OnClientError", id_) ) {
+	if ( !script.call("OnClientError", vid_) ) {
 		LOG_ERROR(fmt::format("OnClientError error:{}", OOLUA::get_last_error(script)));
 	}
 }
 
-int ClientChannel::GetId() {
-	return id_;
+int ClientChannel::GetVid() {
+	return vid_;
 }

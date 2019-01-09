@@ -25,7 +25,7 @@ int ServerApp::Init(std::string& boot) {
 	using namespace std::placeholders;
 
 	timer_->SetCallback(std::bind(&ServerApp::OnUpate, this, _1, _2));
-	timer_->Start(poller_, 0.01, 0.01);
+	timer_->Start(poller_, 0.01f, 0.01f);
 
 	lua_->Init(this);
 

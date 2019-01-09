@@ -5,6 +5,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define SERVER_ID(vid) 			(vid & 0xff)
+#define CLIENT_ID(vid) 			(vid >> 8)
+#define MAKE_VID(id,serverId)	(id << 8 | serverId)
+
 template <>
 ClientManager * Singleton<ClientManager>::singleton_ = 0;
 
@@ -44,8 +48,8 @@ void ClientManager::OnClientAccept(int fd, Network::Addr& addr) {
 		return;
 	}
 
-	ClientChannel* channel = new ClientChannel(APP->Poller(), fd, AllocVfd());
-	BindClient(channel->GetId(), channel);
+	ClientChannel* channel = new ClientChannel(APP->Poller(), fd, AllocVid());
+	BindClient(channel->GetVid(), channel);
 	channel->EnableRead();
 }
 
@@ -61,75 +65,75 @@ void ClientManager::OnCheck() {
 	deadClients_.clear();
 }
 
-int ClientManager::AllocVfd() {
+int ClientManager::AllocVid() {
 	if ( size_ >= maxClient_ ) {
 		return -1;
 	}
 
 	for ( ;; ) {
-		int vfd = (allocStep_++) % maxClient_;
-		if ( !clientMgr_[vfd] ) {
-			return vfd << 8 | serverId_;
+		int id = (allocStep_++) % maxClient_;
+		if ( !clientMgr_[id] ) {
+			return MAKE_VID(id, serverId_);
 		}
 	}
 	assert(0);
 	return -1;
 }
 
-ClientChannel* ClientManager::GetClient(int id) {
-	int serverId = id & 0xff;
+ClientChannel* ClientManager::GetClient(int vid) {
+	int serverId = SERVER_ID(vid);
 	if ( serverId != serverId_ ) {
 		return NULL;
 	}
-	int vfd = id >> 8;
-	ClientChannel* channel = clientMgr_[vfd];
+	int id = CLIENT_ID(vid);
+	ClientChannel* channel = clientMgr_[id];
 	if ( !channel ) {
 		return NULL;
 	}
 	return channel;
 }
 
-void ClientManager::BindClient(int id, ClientChannel* channel) {
-	int serverId = id & 0xff;
+void ClientManager::BindClient(int vid, ClientChannel* channel) {
+	int serverId = SERVER_ID(vid);
 	if ( serverId != serverId_) {
 		return;
 	}
-	int vfd = id >> 8;
-	assert(clientMgr_[vfd] == NULL);
-	clientMgr_[vfd] = channel;
+	int id = CLIENT_ID(vid);
+	assert(clientMgr_[id] == NULL);
+	clientMgr_[id] = channel;
 }
 
-void ClientManager::DeleteClient(int id) {
-	int serverId = id & 0xff;
-	if ( serverId != serverId_ ) {
+void ClientManager::DeleteClient(int vid) {
+	int serverId = SERVER_ID(vid);
+	if ( serverId != serverId_) {
 		return;
 	}
-	int vfd = id >> 8;
-	assert(clientMgr_[vfd] != NULL);
-	clientMgr_[vfd] = NULL;
+	int id = CLIENT_ID(vid);
+	assert(clientMgr_[id] != NULL);
+	clientMgr_[id] = NULL;
 }
 
-int ClientManager::SendClient(int id, char* data, size_t size) {
-	ClientChannel* channel = GetClient(id);
+int ClientManager::SendClient(int vid, char* data, size_t size) {
+	ClientChannel* channel = GetClient(vid);
 	if ( !channel ) {
 		return -1;
 	}
 	return channel->Write(data, size);
 }
 
-int ClientManager::BroadClient(std::vector<int>& ids, char* data, size_t size) {
-	for ( size_t i = 0; i < ids.size();i++ ) {
-		int id = ids[i];
+int ClientManager::BroadClient(std::vector<int>& vids, char* data, size_t size) {
+	for ( size_t i = 0; i < vids.size();i++ ) {
+		int vid = vids[i];
 		char* message = (char*)malloc(size);
 		memcpy(message, data, size);
-		SendClient(id, message, size);
+		SendClient(vid, message, size);
 	}
 	free(data);
 	return 0;
 }
 
-int ClientManager::CloseClient(int id) {
-	ClientChannel* channel = GetClient(id);
+int ClientManager::CloseClient(int vid) {
+	ClientChannel* channel = GetClient(vid);
 	if ( !channel ) {
 		return -1;
 	}

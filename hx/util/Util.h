@@ -6,6 +6,7 @@
 #include "util/MemoryStream.h"
 
 namespace Util {
+	void Exit(std::string reason);
 
 	int LoadJson(rapidjson::Document& doc, const char* file);
 

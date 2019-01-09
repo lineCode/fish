@@ -259,13 +259,13 @@ int LuaFish::Log(lua_State* L) {
 
 int LuaFish::Now(lua_State* L) {
 	ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
-	lua_pushnumber(L,app->Now());
+	lua_pushinteger(L,app->Now());
 	return 1;
 }
 
 int LuaFish::Timestamp(lua_State* L) {
 	uint64_t now = TimeStamp();
-	lua_pushnumber(L,now);
+	lua_pushinteger(L, now);
 	return 1;
 }
 
