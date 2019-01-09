@@ -1,4 +1,4 @@
-local co = require "co"
+local co = require "lib.co"
 
 local _M = {}
 

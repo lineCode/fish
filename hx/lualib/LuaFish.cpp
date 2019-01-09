@@ -332,8 +332,8 @@ Network::Addr MakeAddr(lua_State* L, int index) {
 
 int LuaFish::AcceptorListen(lua_State* L) {
 	ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
-	Network::Addr addr = MakeAddr(L, 2);
-	luaL_checktype(L, 3, LUA_TFUNCTION);
+	Network::Addr addr = MakeAddr(L, 1);
+	luaL_checktype(L, 2, LUA_TFUNCTION);
 	int callback = luaL_ref(L, LUA_REGISTRYINDEX);
 
 	void* ud = lua_newuserdata(L, sizeof(Network::Acceptor));

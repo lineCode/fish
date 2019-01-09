@@ -1,5 +1,5 @@
-local common = require "common"
-local telnet = require "telnet"
+local common = require "lib.common"
+local telnet = require "lib.telnet"
 
 local acceptor = nil
 

@@ -1,4 +1,4 @@
-local common = require "common"
+local common = require "lib.common"
 
 local _M = {}
 
