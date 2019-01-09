@@ -18,39 +18,41 @@ AgentApp::~AgentApp(void) {
 
 int AgentApp::Init(rapidjson::Document& config) {
 	LOG_ERROR(fmt::format("AgentApp start"));
+	
 	std::string boot("../../script/agent.lua");
 	ServerApp::Init(boot);
 
 	lua_->DoFile("../../script/client.lua");
 	
-	if ( config.HasMember("clientAddr") ) {
+	if (!config.HasMember("clientAddr")) {
+		Util::Exit("no client addr");
+	}
 
-		int maxClient = 1000;
-		if ( config.HasMember("maxClient") ) {
-			maxClient = config["maxClient"].GetInt();
-		}
+	int maxClient = 1000;
+	if (config.HasMember("maxClient")) {
+		maxClient = config["maxClient"].GetInt();
+	}
 
-		clientMgr_ = new ClientManager(maxClient, 1);
+	clientMgr_ = new ClientManager(maxClient, 1);
 
-		if ( config.HasMember("maxFreq") ) {
-			clientMgr_->SetMaxFreq(config["maxFreq"].GetInt());
-		}
+	if (config.HasMember("maxFreq")) {
+		clientMgr_->SetMaxFreq(config["maxFreq"].GetInt());
+	}
 
-		if ( config.HasMember("maxAlive") ) {
-			clientMgr_->SetMaxAlive(config["maxAlive"].GetInt());
-		}
+	if (config.HasMember("maxAlive")) {
+		clientMgr_->SetMaxAlive(config["maxAlive"].GetInt());
+	}
 
-		if ( config.HasMember("warnFlow") ) {
-			clientMgr_->SetWarnFlow(config["warnFlow"].GetInt());
-		}
+	if (config.HasMember("warnFlow")) {
+		clientMgr_->SetWarnFlow(config["warnFlow"].GetInt());
+	}
 
-		const char* ip = config["clientAddr"]["ip"].GetString();
-		int port = config["clientAddr"]["port"].GetInt();
+	const char* ip = config["clientAddr"]["ip"].GetString();
+	int port = config["clientAddr"]["port"].GetInt();
 
-		Network::Addr addr = Network::Addr::MakeIP4Addr(ip, port);
-		if ( clientMgr_->Start(addr) < 0 ) {
-			Util::Exit(fmt::format("client manager start:{} error", addr.ToStr()));
-		}
+	Network::Addr addr = Network::Addr::MakeIP4Addr(ip, port);
+	if (clientMgr_->Start(addr) < 0) {
+		Util::Exit(fmt::format("client manager start:{} error", addr.ToStr()));
 	}
 
 	lua_->Require("CLIENT_MGR", ClientManager::Register);
