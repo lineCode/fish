@@ -207,6 +207,11 @@ void LuaFish::OnConnect(int fd, const char* reason, void* userdata) {
 extern "C" int luaseri_pack(lua_State*);
 extern "C" int luaseri_unpack(lua_State*);
 
+int Ref(lua_State* L, int index, int type) {
+	luaL_checktype(L, index, type);
+	return luaL_ref(L, LUA_REGISTRYINDEX);
+}
+
 int LuaFish::Register(lua_State* L) {
 	luaL_checkversion(L);
 
@@ -275,8 +280,7 @@ int LuaFish::TimerStart(lua_State* L) {
 	double after = luaL_checknumber(L, 1);
 	double repeat = luaL_checknumber(L, 2);
 
-	luaL_checktype(L, 3, LUA_TFUNCTION);
-	int reference = luaL_ref(L, LUA_REGISTRYINDEX);
+	int reference = Ref(L, 3, LUA_TFUNCTION);
 
 	LuaFish* fish = app->Lua();
 
@@ -311,7 +315,11 @@ Network::Addr MakeAddr(lua_State* L, int index) {
 
 	Network::Addr addr;
 	if (!lua_isnoneornil(L, -1)) {
+#ifndef _WIN32
 		addr = Network::Addr::MakeUNIXAddr(luaL_checkstring(L, -1));
+#else
+		luaL_error(L, "win32 not support unix socket");
+#endif
 		lua_pop(L, 1);
 	} else {
 		lua_pop(L, 1);
@@ -333,8 +341,7 @@ Network::Addr MakeAddr(lua_State* L, int index) {
 int LuaFish::AcceptorListen(lua_State* L) {
 	ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
 	Network::Addr addr = MakeAddr(L, 1);
-	luaL_checktype(L, 2, LUA_TFUNCTION);
-	int callback = luaL_ref(L, LUA_REGISTRYINDEX);
+	int callback = Ref(L, 2, LUA_TFUNCTION);
 
 	void* ud = lua_newuserdata(L, sizeof(Network::Acceptor));
 	luaL_newmetatable(L, "metaAcceptor");
@@ -371,8 +378,7 @@ int LuaFish::ConnectorConnect(lua_State* L) {
 
 	const char* ip = luaL_checkstring(L, 1);
 	int port = luaL_checkinteger(L, 2);
-	luaL_checktype(L, 3, LUA_TFUNCTION);
-	int callback = luaL_ref(L, LUA_REGISTRYINDEX);
+	int callback = Ref(L, 3, LUA_TFUNCTION);
 
 	void* ud = lua_newuserdata(L, sizeof(Network::Connector));
 	luaL_newmetatable(L, "metaConnector");
@@ -414,13 +420,9 @@ int LuaFish::BindChannel(lua_State* L) {
 	int fd = luaL_checkinteger(L, 1);
 	uint32_t header = luaL_checkinteger(L, 2);
 
-	luaL_checktype(L, 3, LUA_TFUNCTION);
-	luaL_checktype(L, 4, LUA_TFUNCTION);
-	luaL_checktype(L, 5, LUA_TFUNCTION);
-
-	int error = luaL_ref(L, LUA_REGISTRYINDEX);
-	int close = luaL_ref(L, LUA_REGISTRYINDEX);
-	int data = luaL_ref(L, LUA_REGISTRYINDEX);
+	int error = Ref(L, -1, LUA_TFUNCTION);
+	int close = Ref(L, -1, LUA_TFUNCTION);
+	int data = Ref(L, -1, LUA_TFUNCTION);
 
 	void* ud = lua_newuserdata(L, sizeof(LuaChannel));
 	luaL_newmetatable(L, "metaChannel");
@@ -428,7 +430,7 @@ int LuaFish::BindChannel(lua_State* L) {
 
     lua_pushvalue(L, -1);
 
-    int reference = luaL_ref(L, LUA_REGISTRYINDEX);
+    int reference = Ref(L, -1, LUA_TUSERDATA);
 
     LuaChannel* channel = new(ud) LuaChannel(app->Poller(), fd, app->Lua(), header);
 
@@ -445,15 +447,14 @@ int LuaFish::BindChannel(lua_State* L) {
 int LuaFish::BindHttpChannel(lua_State* L) {
 	ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
 	int fd = luaL_checkinteger(L, 1);
-	luaL_checktype(L, 2, LUA_TFUNCTION);
-	int callback = luaL_ref(L, LUA_REGISTRYINDEX);
+	int callback = Ref(L, 2, LUA_TFUNCTION);
 
 	void* ud = lua_newuserdata(L, sizeof( LuaHttpChannel ));
 	luaL_newmetatable(L, "metaHttpChannel");
 	lua_setmetatable(L, -2);
 
 	lua_pushvalue(L, -1);
-	int reference = luaL_ref(L, LUA_REGISTRYINDEX);
+	int reference = Ref(L, -1, LUA_TUSERDATA);
 
 	LuaHttpChannel* channel = new(ud)LuaHttpChannel(app->Poller(), fd, app->Lua());
 
