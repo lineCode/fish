@@ -84,8 +84,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bootstrap.cpp" />
-    <ClCompile Include="ClientChannel.cpp" />
-    <ClCompile Include="ClientManager.cpp" />
     <ClCompile Include="FishApp.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MessageHandler.cpp" />
@@ -93,8 +91,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bootstrap.h" />
-    <ClInclude Include="ClientChannel.h" />
-    <ClInclude Include="ClientManager.h" />
     <ClInclude Include="FishApp.h" />
     <ClInclude Include="MessageDefine.h" />
     <ClInclude Include="MessageRegister.h" />

@@ -24,11 +24,14 @@ FISH_INC ?= ./server
 LOGGER := $(BIN_PATH)/logger
 LOGGER_INC ?= ./logger
 
+AGENT := $(BIN_PATH)/agent
+AGENT_INC ?= ./agent
+
 LIBS_DIR := $(BIN_PATH)
 
 CCFLAG="CC=g++"
 
-all: $(LUA_STATICLIB) $(OOLUA_STATICLIB) $(LIBEV_STATICLIB) $(HX_STATICLIB) $(FISH) $(LOGGER)
+all: $(LUA_STATICLIB) $(OOLUA_STATICLIB) $(LIBEV_STATICLIB) $(HX_STATICLIB) $(FISH) $(LOGGER) $(AGENT)
 
 $(LUA_STATICLIB) :
 	cd $(LUA_INC)&& $(MAKE) linux
@@ -53,6 +56,10 @@ $(FISH) : $(LUA_STATICLIB) $(OOLUA_STATICLIB) $(LIBEV_STATICLIB) $(HX_STATICLIB)
 $(LOGGER) : $(LUA_STATICLIB) $(OOLUA_STATICLIB) $(LIBEV_STATICLIB) $(HX_STATICLIB)
 	cd $(LOGGER_INC) && $(MAKE) $(CCFLAG) 
 	mv $(LOGGER_INC)/logger $(LIBS_DIR) 
+
+$(AGENT) : $(LUA_STATICLIB) $(OOLUA_STATICLIB) $(LIBEV_STATICLIB) $(HX_STATICLIB)
+	cd $(AGENT_INC) && $(MAKE) $(CCFLAG) 
+	mv $(AGENT_INC)/agent $(LIBS_DIR) 
  
 
 leak :
@@ -69,9 +76,11 @@ cleanall:
 cleanhx:
 	rm -rf $(FISH) $(FISH_INC)/*o
 	rm -rf $(LOGGER) $(LOGGER_INC)/*o
+	rm -rf $(AGENT) $(AGENT_INC)/*o
 	rm -rf $(LIBS_DIR)/$(HX_LIB) && cd $(HX_INC) && make clean
 
 clean:
 	rm -rf $(FISH) $(FISH_INC)/*o
 	rm -rf $(LOGGER) $(LOGGER_INC)/*o
+	rm -rf $(AGENT) $(AGENT_INC)/*o
 	

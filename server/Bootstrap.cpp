@@ -2,7 +2,6 @@
 #include "logger/Logger.h"
 #include "logger/LoggerClient.h"
 #include "FishApp.h"
-#include "ClientManager.h"
 #include "network/EventPoller.h"
 #include "network/Address.h"
 #include "util/Util.h"
@@ -35,37 +34,6 @@ void Bootstrap::Startup() {
 	
 	Logger* logger = new Logger(loggerInterface);
 
-	ClientManager* clientMgr = NULL;
-	if (config_.HasMember("clientAddr")) {
-
-		int maxClient = 1000;
-		if (config_.HasMember("maxClient")) {
-			maxClient = config_["maxClient"].GetInt();
-		}
-
-		clientMgr = new ClientManager(maxClient, 1);
-
-		if (config_.HasMember("maxFreq")) {
-			clientMgr->SetMaxFreq(config_["maxFreq"].GetInt());
-		}
-
-		if (config_.HasMember("maxAlive")) {
-			clientMgr->SetMaxAlive(config_["maxAlive"].GetInt());
-		}
-
-		if (config_.HasMember("warnFlow")) {
-			clientMgr->SetWarnFlow(config_["warnFlow"].GetInt());
-		}
-
-		ip = config_["clientAddr"]["ip"].GetString();
-		port = config_["clientAddr"]["port"].GetInt();
-
-		Network::Addr addr = Network::Addr::MakeIP4Addr(ip, port);
-		if (clientMgr->Start(addr) < 0) {
-			Util::Exit(fmt::format("client manager start:{} error", addr.ToStr()));
-		}
-	}
-	
 	const char* file = config_["boot"].GetString();
 	std::string boot(file);
 	{
@@ -76,8 +44,5 @@ void Bootstrap::Startup() {
 	}
 	
 	delete logger;
-	if (clientMgr) {
-		delete clientMgr;
-	}
 	delete poller;
 }
