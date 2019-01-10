@@ -7,6 +7,10 @@ _G.Import = import.Import
 
 table.print = common.Dump
 
+_G.config = json.decode("./config")
+
+table.print(config)
+
 local ServerInst = nil
 
 function ServerInit(boot)
