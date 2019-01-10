@@ -29,8 +29,7 @@ void Logger::RuntimeLog(const char* file,int line,Loglevel level,const char* con
 
 void Logger::LuaLog(const char* file, const char* content) {
 	std::lock_guard<std::mutex> guard(mutex_);
-	std::string log = fmt::format("@lua: {}\n",content);
-	
+	std::string log(content);
 	interface_->LuaLog(file, log);
 }
 
