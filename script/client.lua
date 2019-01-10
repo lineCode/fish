@@ -1,12 +1,13 @@
 
 
-print("!!!!!!!!!!")
 
 function OnClientEnter(vid)
+	print("client enter",vid)
 end
 
 
-function OnClientLeave(vid)
+function OnClientError(vid)
+	print("client leave",vid)
 end
 
 function OnClientData(vid, data, size)
