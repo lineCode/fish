@@ -1,4 +1,4 @@
-local co = require "co"
+local co = require "lib.co"
 
 local acceptorCtx_ = {}
 local channelCtx_ = setmetatable({},{__mode = "k"})
@@ -72,3 +72,4 @@ function _M.Bind(fd, header, inst, onData, onClose, onError)
 	return channel
 end
 
+return _M

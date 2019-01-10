@@ -1,0 +1,106 @@
+@LoggerApp.cpp:12: LoggerApp start
+@lua: server init:logger
+@lua: @FishApp.cpp:16: FishApp start
+
+@lua: @FishApp.cpp:16: FishApp start
+
+@lua: @FishApp.cpp:16: FishApp start
+
+@lua: @AgentApp.cpp:20: AgentApp start
+
+@lua: @AgentApp.cpp:20: AgentApp start
+
+@lua: @AgentApp.cpp:20: AgentApp start
+
+@lua: @AgentApp.cpp:20: AgentApp start
+
+@lua: @AgentApp.cpp:20: AgentApp start
+
+@lua: @AgentApp.cpp:20: AgentApp start
+
+@lua: @AgentApp.cpp:20: AgentApp start
+
+@lua: @ServerApp.cpp:43: serverInit error:../../script/agent.lua:6: attempt to index global 'rpc' (a nil value)
+stack traceback:
+	../../script/agent.lua:6: in function 'Init'
+	../../script/server.lua:14: in function <../../script/server.lua:12>
+
+@lua: @lualib/LuaFish.cpp:79: do file:../../script/client error:cannot open ../../script/client: No such file or directory
+
+@lua: @AgentApp.cpp:20: AgentApp start
+
+@lua: @ServerApp.cpp:43: serverInit error:../../script/lib/socket.lua:1: module 'co' not found:
+	no field package.preload['co']
+	no file '../../script/co.lua'
+	no file '/usr/local/share/lua/5.2/co.lua'
+	no file '/usr/local/share/lua/5.2/co/init.lua'
+	no file '/usr/local/lib/lua/5.2/co.lua'
+	no file '/usr/local/lib/lua/5.2/co/init.lua'
+	no file './co.lua'
+	no file '/usr/local/lib/lua/5.2/co.so'
+	no file '/usr/local/lib/lua/5.2/loadall.so'
+	no file './co.so'
+stack traceback:
+	[C]: in function 'require'
+	../../script/lib/socket.lua:1: in main chunk
+	[C]: in function 'require'
+	../../script/rpc.lua:1: in function 'loader'
+	../../script/lib/import.lua:31: in function 'Import'
+	../../script/agent.lua:1: in function 'loader'
+	../../script/lib/import.lua:31: in function 'Import'
+	../../script/server.lua:13: in function <../../script/server.lua:12>
+
+@lua: @lualib/LuaFish.cpp:79: do file:../../script/client error:cannot open ../../script/client: No such file or directory
+
+@lua: @AgentApp.cpp:20: AgentApp start
+
+@lua: @ServerApp.cpp:43: serverInit error:../../script/lib/socket.lua:1: module 'co' not found:
+	no field package.preload['co']
+	no file '../../script/co.lua'
+	no file '/usr/local/share/lua/5.2/co.lua'
+	no file '/usr/local/share/lua/5.2/co/init.lua'
+	no file '/usr/local/lib/lua/5.2/co.lua'
+	no file '/usr/local/lib/lua/5.2/co/init.lua'
+	no file './co.lua'
+	no file '/usr/local/lib/lua/5.2/co.so'
+	no file '/usr/local/lib/lua/5.2/loadall.so'
+	no file './co.so'
+stack traceback:
+	[C]: in function 'require'
+	../../script/lib/socket.lua:1: in main chunk
+	[C]: in function 'require'
+	../../script/rpc.lua:1: in function 'loader'
+	../../script/lib/import.lua:31: in function 'Import'
+	../../script/agent.lua:1: in function 'loader'
+	../../script/lib/import.lua:31: in function 'Import'
+	../../script/server.lua:13: in function <../../script/server.lua:12>
+
+@lua: @lualib/LuaFish.cpp:79: do file:../../script/client error:cannot open ../../script/client: No such file or directory
+
+@lua: @AgentApp.cpp:20: AgentApp start
+
+@lua: @ServerApp.cpp:43: serverInit error:../../script/rpc.lua:133: attempt to index upvalue 'socket' (a boolean value)
+stack traceback:
+	../../script/rpc.lua:133: in function 'Connect'
+	../../script/agent.lua:5: in function 'Init'
+	../../script/server.lua:14: in function <../../script/server.lua:12>
+
+@lua: @lualib/LuaFish.cpp:79: do file:../../script/client error:cannot open ../../script/client: No such file or directory
+
+@lua: @AgentApp.cpp:20: AgentApp start
+
+@lua: @ServerApp.cpp:43: serverInit error:../../script/lib/co.lua:74: attempt to compare nil with number
+stack traceback:
+	../../script/lib/co.lua:74: in function 'GenSession'
+	../../script/lib/socket.lua:46: in function 'Connect'
+	../../script/rpc.lua:133: in function 'Connect'
+	../../script/agent.lua:5: in function 'Init'
+	../../script/server.lua:14: in function <../../script/server.lua:12>
+
+@lua: @lualib/LuaFish.cpp:79: do file:../../script/client error:cannot open ../../script/client: No such file or directory
+
+@lua: @AgentApp.cpp:20: AgentApp start
+
+@lua: @ServerApp.cpp:43: serverInit error:../../script/lib/co.lua:75: attempt to compare nil with number
+stack traceback:
+	../../script/lib/co.lua:75: in function 'GenSes

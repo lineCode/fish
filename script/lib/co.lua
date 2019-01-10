@@ -71,6 +71,7 @@ function _M.Wait(session)
 end
 
 function _M.GenSession()
+	print(math)
 	if Session_ >= math.maxinteger then
 		Session_ = 1
 	end
