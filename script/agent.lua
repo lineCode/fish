@@ -1,4 +1,4 @@
-local rpc = Import "rpc"
+local rpc = Import "rpc.lua"
 
 function Init(self)
 	print("agent init")
