@@ -1,12 +1,16 @@
 local common = require "lib.common"
+local socket = require "lib.socket"
 
-local _M = {}
+local inst_ = nil
+local channelData_ = setmetatable({}, {__mode = "k"})
+local telnet = {}
 
-acceptor_ = nil
-inst_ = nil
-channelData_ = setmetatable({}, {__mode = "k"})
+function telnet:OnAccept(fd, addr)
+	local channel = fish.Bind(fd, 0, telnet, "OnData", "OnClose", "OnError")
+	channelData_[channel] = ""
+end
 
-local function OnData(channel)
+function telnet:OnData(channel)
 	local data = channelData_[channel]
 	data = data..channel:Read()
 	local start, over, str = data:find("(.+)\r\n")
@@ -24,28 +28,19 @@ local function OnData(channel)
 	end
 end
 
-local function OnClose(channel)
+function telnet:OnClose(channel)
 
 end
 
-local function OnError(channel)
-
+function telnet:OnError(channel)
+	
 end
 
-local function OnAccept(fd, addr)
-	local channel = fish.Bind(fd, 0, OnData, OnClose, OnError)
-	channelData_[channel] = ""
-end
+local _M = {}
 
 function _M.Listen(ip, port, inst)
-	assert(not acceptor_)
-
-	acceptor_ = fish.Listen({ip = ip, port = port}, OnAccept)
-	if not acceptor_ then
-		error(string.format("telnet listen:%s:%d error", ip, port))
-	end
 	inst_ = inst
-	return true
+	socket.Listen({ip = ip, port = port}, telnet, "OnAccept")
 end
 
 return _M
