@@ -26,20 +26,24 @@ local function SendChannel(channel, method, args, callback)
 	local session = 0
 	if callback then
 		session = co.GenSession()
-		SessionCtx_[session] = {callback = callback}
+		SessionCtx_[session] = callback 
 	end
 
 	local ptr, size = encode({method = method,session = session,args = args})
 	channel:Write(2, ptr, size)
 end
 
-local function CallChannel(channel, method, args)
+local function CallChannel(channel, method, args, timeout)
 	local session = co.GenSession()
 
 	local ptr, size = encode({method = method,session = session,args = args})
 	channel:Write(2, ptr, size)
 	
-	SessionCtx_[session] = {}
+	if timeout then
+		fish.StartTimer(timeout, 0, function ()
+			co.Wakeup(session, false, "timeout")
+		end)
+	end
 
 	local ok,value = co.Wait(session)
 	if not ok then
@@ -74,16 +78,15 @@ end
 function OnData(self, channel, data, size)
 	local message = decode(data, size)
 	if message.ret then
-		local ctx = SessionCtx_[message.session]
-		local callback = ctx.callback 
+		local callback = SessionCtx_[message.session]
 		if callback then
 			if message.args[1] then
 				co.Fork(callback, table.unpack(message.args, 2))
 			end
+			SessionCtx_[message.session] = nil
 		else
 			co.Wakeup(message.session, table.unpack(message.args))
 		end
-		SessionCtx_[message.session] = nil
 	else
 		local moduleInst
 		local funcInst
@@ -132,13 +135,13 @@ function Listen(self, addr, id, name)
 	return true
 end
 
-function Connect(self, addr, id, name)
+function Connect(self, addr, id, name, timeout)
 	local fd, reason = socket.Connect(addr)
 	if not fd then
 		return false, reason
 	end
 	local channel = socket.Bind(fd, 2, self, "OnData", "OnClose", "OnError")
-	local result = CallChannel(channel, "rpc:Register", {id = id, name = name})
+	local result = CallChannel(channel, "rpc:Register", {id = id, name = name}, timeout)
 	SetChannel(result.name, channel)
 	channelCtx_[result.id] = channel
 
