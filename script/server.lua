@@ -7,9 +7,8 @@ _G.Import = import.Import
 
 table.print = common.Dump
 
-_G.config = json.decode("./config")
+_G.config = json.load("./config")
 
-table.print(config)
 
 local ServerInst = nil
 
