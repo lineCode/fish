@@ -33,7 +33,7 @@ function _M.Dump(data, prefix, depth, output, record)
 
     if record[data] then
         output(tab.." {}")
-	return
+	   return
     end
     --assert(record[data] == nil)
     record[data] = true
