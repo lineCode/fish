@@ -23,6 +23,7 @@ OOLUA::Script& LuaFish::GetScript() {
 
 int LuaFish::Init(ServerApp* app) {
 	lua_State* L = script_.state();
+	luaL_openlibs(L);
 
 	lua_pushlightuserdata(L, app);
 	lua_setfield(L, LUA_REGISTRYINDEX, "app");

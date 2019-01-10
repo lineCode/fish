@@ -18,21 +18,23 @@ function _M.Import(file)
 		return ctx.env
 	end
 
+	local path = package.searchpath(file, package.path)
+
 	local ctx = {}
-
+	ctx.path = path
 	ctx.env = setmetatable({},{__index = _G,__pairs = function (self) return env_pairs,self end})
-
-	local loader,err = loadfile("../../script/"..file, "text", ctx.env)
+	
+	local loader,err = loadfile(path, "text", ctx.env)
 	if not loader then
 		error(err)
 	end
 	loader()
+
 	if ctx.env["__init__"] then
 		ctx.env["__init__"](ctx.env)
 	end
 
 	_ScriptCtx[file] = ctx
-	
 	return ctx.env
 end
 
