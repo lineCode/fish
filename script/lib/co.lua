@@ -14,6 +14,7 @@ local CO_STATE = {
 	eWAIT = 2	
 }
 
+local kMAX_SESSION = math.pow(2,32)
 local Session_ = 1
 local MainCo_ = CoRunning()
 
@@ -43,7 +44,7 @@ local function CoMonitor(co,ok,state,session)
 			assert(state == CO_STATE.eEXIT)
 		end
 	else
-		fish.Log("runtime", traceback(co,tostring(state)))
+		fish.Log("runtime", debug.traceback(co,tostring(state)))
 	end
 end
 
@@ -71,8 +72,7 @@ function _M.Wait(session)
 end
 
 function _M.GenSession()
-	print(math)
-	if Session_ >= math.maxinteger then
+	if Session_ >= kMAX_SESSION then
 		Session_ = 1
 	end
 	local session = Session_

@@ -159,6 +159,7 @@ int LuaChannel::LWrite(lua_State* L) {
 		case LUA_TLIGHTUSERDATA: {
 			data = (char*)lua_touserdata(L, 3);
 			size = luaL_checkinteger(L, 4);
+			break;
 		}
 		default: {
 			luaL_error(L, "channel:%p write error:unknow lua type:%s", channel, lua_typename(L,vt));
@@ -178,18 +179,18 @@ int LuaChannel::LWrite(lua_State* L) {
 		}
 	} else if (header == 2) {
 		uint16_t length = size + header;
-		content = (char*)malloc(size + header);
+		content = (char*)malloc(length);
 		memcpy(content, &length, 2);
-		memcpy(content, data, size);
+		memcpy(content+2, data, size);
 		if (vt == LUA_TLIGHTUSERDATA) {
 			free(data);
 		}
 		size = length;
 	} else if (header == 4) {
 		uint32_t length = size + header;
-		content = (char*)malloc(size + header);
+		content = (char*)malloc(length);
 		memcpy(content, &length, 4);
-		memcpy(content, data, size);
+		memcpy(content+4, data, size);
 		if (vt == LUA_TLIGHTUSERDATA) {
 			free(data);
 		}

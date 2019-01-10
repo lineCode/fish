@@ -240,6 +240,7 @@ int ClientManager::LSendClient(lua_State* L) {
 		case LUA_TLIGHTUSERDATA: {
 			data = (char*)lua_touserdata(L, 2);
 			size = luaL_checkinteger(L, 3);
+			break;	
 		}
 		default: {
 			luaL_error(L, "client manager write error:unknow lua type:%s", lua_typename(L,vt));
@@ -267,6 +268,7 @@ int ClientManager::LBroadcastClient(lua_State* L) {
 		case LUA_TLIGHTUSERDATA: {
 			data = (char*)lua_touserdata(L, 2);
 			size = luaL_checkinteger(L, 3);
+			break;
 		}
 		default: {
 			luaL_error(L, "client manager write error:unknow lua type:%s", lua_typename(L,vt));

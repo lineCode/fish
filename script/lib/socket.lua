@@ -44,15 +44,13 @@ end
 
 function _M.Connect(addr)
 	local session = co.GenSession()
-
 	local connector = fish.Connect(addr, function (fd, reason)
-		co.Wakeup(fd, reason)
+		co.Wakeup(session, fd, reason)
 	end)
 
 	if not connector then
 		return false, "error"
 	end
-
 	local fd, reason = co.Wait(session)
 	if not fd then
 		return false, reason

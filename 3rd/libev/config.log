@@ -619,7 +619,7 @@ configure:12011: $? = 0
 configure:12011: result: yes
 configure:12011: checking for kqueue
 configure:12011: gcc -o conftest -g -O3   conftest.c  >&5
-/tmp/ccyPQmxi.o: In function `main':
+/tmp/cczyIGEz.o: In function `main':
 /usr/fuqianjiang/fish/3rd/libev/conftest.c:65: undefined reference to `kqueue'
 collect2: error: ld returned 1 exit status
 configure:12011: $? = 1
@@ -695,7 +695,7 @@ configure: failed program was:
 configure:12011: result: no
 configure:12011: checking for port_create
 configure:12011: gcc -o conftest -g -O3   conftest.c  >&5
-/tmp/ccm6eqKl.o: In function `main':
+/tmp/ccBoFoHC.o: In function `main':
 /usr/fuqianjiang/fish/3rd/libev/conftest.c:65: undefined reference to `port_create'
 collect2: error: ld returned 1 exit status
 configure:12011: $? = 1
@@ -798,7 +798,7 @@ configure:12233: gcc -o conftest -g -O3   conftest.c  >&5
 conftest.c:44:6: warning: conflicting types for built-in function 'floor' [enabled by default]
  char floor ();
       ^
-/tmp/ccG1QPUv.o: In function `main':
+/tmp/ccUhv5qX.o: In function `main':
 /usr/fuqianjiang/fish/3rd/libev/conftest.c:48: undefined reference to `floor'
 collect2: error: ld returned 1 exit status
 configure:12233: $? = 1

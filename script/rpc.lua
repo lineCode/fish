@@ -30,7 +30,7 @@ local function SendChannel(channel, method, args, callback)
 	end
 
 	local ptr, size = encode({method = method,session = session,args = args})
-	channel:Write(ptr, size)
+	channel:Write(2, ptr, size)
 end
 
 local function CallChannel(channel, method, args)
@@ -47,8 +47,8 @@ local function CallChannel(channel, method, args)
 end
 
 local function RetChannel(channel, session, ...)
-	local ptr,size = tencode({ret = true,session = session,args = {...}})
-	channel:Write(ptr,size)
+	local ptr,size = encode({ret = true,session = session,args = {...}})
+	channel:Write(2, ptr,size)
 end
 
 local function RunInCo(channel, session, moduleInst, funcInst, args)
@@ -85,7 +85,7 @@ function OnData(self, channel, data, size)
 	else
 		local moduleInst
 		local funcInst
-		local module, seq, func = string.format(message.method, "(.*)([:.])([%w_]+)$")
+		local module, seq, func = string.match(message.method, "(.*)([:.])([%w_]+)$")
 		if seq == ":" or seq == "." then
 			local moduleCtx = import.GetModule(module)
 			if not moduleCtx then
@@ -120,13 +120,14 @@ end
 
 function OnAcceptServer(self, fd, addr)
 	fish.Log("rpc", string.format("accept server:%s", addr))
-	socket.Bind(fd, self, "OnData", "OnClose", "OnError")
+	socket.Bind(fd, 2, self, "OnData", "OnClose", "OnError")
 end
 
 function Listen(self, addr, id, name)
 	assert(socket.Listen(addr, self, "OnAcceptServer"))
 	rpcId_ = id
 	rpcName_ = name
+	return true
 end
 
 function Connect(self, addr, id, name)
@@ -134,8 +135,7 @@ function Connect(self, addr, id, name)
 	if not fd then
 		return false, reason
 	end
-
-	local channel = socket.Bind(fd, self, "OnData", "OnClose", "OnError")
+	local channel = socket.Bind(fd, 2, self, "OnData", "OnClose", "OnError")
 	local result = CallChannel(channel, "rpc:Register", {id = id, name = name})
 	SetChannel(result.name, channel)
 	channelCtx_[result.id] = channel
@@ -144,7 +144,7 @@ function Connect(self, addr, id, name)
 end
 
 function Register(self, args, channel)
-	fish.Log("rpc", string.format("server:%d,%s register from %d,%d", args.id, args.name, rpcId_, rpcName_))
+	fish.Log("rpc", string.format("server:%d,%s register from %d,%s", args.id, args.name, rpcId_, rpcName_))
 
 	channelCtx_[args.id] = channel
 	SetChannel(args.name, channel)
