@@ -22,7 +22,7 @@ int AgentApp::Init(rapidjson::Document& config) {
 	std::string boot("agent");
 	ServerApp::Init(boot);
 
-	lua_->DoFile("client");
+	lua_->DoFile("../../script/client");
 	
 	if (!config.HasMember("clientAddr")) {
 		Util::Exit("no client addr");
