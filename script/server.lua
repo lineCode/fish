@@ -4,7 +4,7 @@ local common = require "lib.common"
 local import = require "lib.import"
 
 
-_G.Import = import.Import
+_G.import = import.Import
 
 table.print = common.Dump
 

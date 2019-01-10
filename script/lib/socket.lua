@@ -8,17 +8,17 @@ local _M = {}
 
 local function OnData(channel, data, size)
 	local ctx = channelCtx_[channel]
-	ctx.inst[ctx.onData](ctx.inst, data, size)
+	ctx.inst[ctx.onData](ctx.inst, channel, data, size)
 end
 
 local function OnClose(chanel)
 	local ctx = channelCtx_[channel]
-	ctx.inst[ctx.onClose](ctx.inst)
+	ctx.inst[ctx.onClose](ctx.inst, channel)
 end
 
 local function OnError(channel)
 	local ctx = channelCtx_[channel]
-	ctx.inst[ctx.onError](ctx.inst)
+	ctx.inst[ctx.onError](ctx.inst, channel)
 end
 
 
@@ -29,8 +29,8 @@ function meta:Close()
 	acceptorCtx_[self.acceptor_] = nil
 end
 
-function _M.Listen(ip, port, inst, method)
-	local acceptor = fish.Listen(ip, port, function (fd, addr)
+function _M.Listen(addr, inst, method)
+	local acceptor = fish.Listen(addr, function (fd, addr)
 		inst[method](inst, fd, addr)
 	end)
 
@@ -42,10 +42,10 @@ function _M.Listen(ip, port, inst, method)
 	end
 end
 
-function _M.Connect(ip, port)
+function _M.Connect(addr)
 	local session = co.GenSession()
 
-	local connector = fish.Connect(ip, port, function (fd, reason)
+	local connector = fish.Connect(addr, function (fd, reason)
 		co.Wakeup(fd, reason)
 	end)
 

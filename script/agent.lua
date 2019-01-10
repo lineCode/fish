@@ -1,8 +1,8 @@
-
+local rpc = Import "rpc"
 
 function Init(self)
 	print("agent init")
-
+	rpc:Connect({ip = "127.0.0.1", port = 1989}, 2, "agent")
 end
 
 function Fina()
