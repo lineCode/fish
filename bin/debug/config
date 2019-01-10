@@ -1,9 +1,16 @@
 {
-    	"boot": "login",
-    	"loggerAddr" : {"ip" : "127.0.0.1", "port" : 1989},
+	"boot": "login",
 	"loggerPath" : "./",
+	"loggerAddr" : {
+		"ip" : "127.0.0.1", 
+		"port" : 3000
+	},
 	"clientAddr" : {
 		"ip" : "0.0.0.0",
 		"port" : 4000
+	}
+	"loginAddr" : {
+		"ip" : "0.0.0.0",
+		"port" : 5000
 	}
 }
