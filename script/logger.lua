@@ -5,7 +5,7 @@ local socket = require "lib.socket"
 local logger = {}
 
 function logger:OnAccept(fd, addr)
-	fish.Bind(fd, 2, logger, "OnData", "OnClose", "OnError")
+	socket.Bind(fd, 2, logger, "OnData", "OnClose", "OnError")
 end
 
 function logger:OnData(channel, data, size)
