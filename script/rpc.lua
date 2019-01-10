@@ -9,17 +9,33 @@ SessionCtx_ = SessionCtx_ or {}
 
 rpcId_ = rpcId_ or nil
 rpcName_ = rpcName_ or nil
+
 channelCtx_ = channelCtx_ or {}
+channelMap_ = channelMap_ or {}
 
 loginChannel_ = loginChannel_ or nil
 worldChannel_ = worldChannel_ or nil
 
-local function SetChannel(name, channel)
+local function AddChannel(id, name, channel)
 	if name == "login" then
 		loginChannel_ = channel
 	elseif name == "world" then
 		worldChannel_ = channel
 	end
+
+	channelMap_[id] = channel
+	channelCtx_[channel] = {id = id, name = name}
+end
+
+local function RemoveChannel(channel)
+	local ctx = channelCtx_[channel]
+	channelCtx_[channel] = nil
+	channelMap_[ctx.id] = nil
+	if channel == loginChannel_ then
+		loginChannel_ = nil
+	elseif channel == worldChannel_ then
+		worldChannel_ = nil
+	end 
 end
 
 local function SendChannel(channel, method, args, callback)
@@ -116,11 +132,15 @@ function OnData(self, channel, data, size)
 end
 
 function OnClose(self, channel)
-	fish.Log("rpc", "server close")
+	local ctx = channelCtx_[channel]
+	RemoveChannel(channel)
+	fish.Log("rpc", string.format("channel:%d,%s close", ctx.id, ctx.name))
 end
 
 function OnError(self, channel)
-	fish.Log("rpc", "server error")
+	local ctx = channelCtx_[channel]
+	RemoveChannel(channel)
+	fish.Log("rpc", string.format("channel:%d,%s error", ctx.id, ctx.name))
 end
 
 function OnAcceptServer(self, fd, addr)
@@ -142,37 +162,33 @@ function Connect(self, addr, id, name, timeout)
 	end
 	local channel = socket.Bind(fd, 2, self, "OnData", "OnClose", "OnError")
 	local result = CallChannel(channel, "rpc:Register", {id = id, name = name}, timeout)
-	SetChannel(result.name, channel)
-	channelCtx_[result.id] = channel
-
+	AddChannel(result.id, result.name, channel)
 	return channel
 end
 
 function Register(self, args, channel)
 	fish.Log("rpc", string.format("server:%d,%s register from %d,%s", args.id, args.name, rpcId_, rpcName_))
-
-	channelCtx_[args.id] = channel
-	SetChannel(args.name, channel)
+	AddChannel(args.id, args.name, channel)
 	return {id = rpcId_, name = rpcName_}
 end
 
 function SendAgent(self, id, method, args, callback)
-	local channel = channelCtx_[id]
+	local channel = channelMap_[id]
 	SendChannel(channel, method, args, callback)
 end
 
 function CallAgent(self, id, method, args)
-	local channel = channelCtx_[id]
+	local channel = channelMap_[id]
 	return CallChannel(channel, method, args)
 end
 
 function SendScene(self, id, method, args, callback)
-	local channel = channelCtx_[id]
+	local channel = channelMap_[id]
 	SendChannel(channel, method, args, callback)
 end
 
 function CallScene(self, id, method, args)
-	local channel = channelCtx_[id]
+	local channel = channelMap_[id]
 	return CallChannel(channel, method, args)
 end
 
