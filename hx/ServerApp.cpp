@@ -36,7 +36,7 @@ int ServerApp::Init(std::string& boot) {
 	lua_->Require("json", luaopen_rapidjson);
 	lua_->Require("lfs", luaopen_lfs);
 	
-	lua_->DoFile("../../script/server.lua");
+	lua_->DoFile("server.lua");
 	
 	OOLUA::Script& script = lua_->GetScript();
 	if (!script.call("ServerInit", boot)) {

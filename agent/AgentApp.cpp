@@ -19,10 +19,10 @@ AgentApp::~AgentApp(void) {
 int AgentApp::Init(rapidjson::Document& config) {
 	LOG_ERROR(fmt::format("AgentApp start"));
 
-	std::string boot("../../script/agent.lua");
+	std::string boot("agent.lua");
 	ServerApp::Init(boot);
 
-	lua_->DoFile("../../script/client.lua");
+	lua_->DoFile("client.lua");
 	
 	if (!config.HasMember("clientAddr")) {
 		Util::Exit("no client addr");

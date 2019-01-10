@@ -10,7 +10,7 @@ LoggerApp::~LoggerApp(void) {
 
 int LoggerApp::Init() {
 	LOG_ERROR(fmt::format("LoggerApp start"));
-	std::string boot("../../script/logger.lua");
+	std::string boot("logger.lua");
 	ServerApp::Init(boot);
 	return 0;
 }
