@@ -23,7 +23,7 @@ end
 
 function Init(self)
 	print("logger init")
-	socket.Listen({ip = "127.0.0.1", port = 1989}, logger, "OnAccept")
+	socket.Listen({ip = config.loggerAddr.ip, port = config.loggerAddr.port}, logger, "OnAccept")
 end
 
 function Fina()
