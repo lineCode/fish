@@ -22,7 +22,7 @@ function _M.Import(file)
 
 	ctx.env = setmetatable({},{__index = _G,__pairs = function (self) return env_pairs,self end})
 
-	local loader,err = loadfile(file, "text", ctx.env)
+	local loader,err = loadfile("../../script/"..file, "text", ctx.env)
 	if not loader then
 		error(err)
 	end
