@@ -34,9 +34,11 @@ local function SendChannel(channel, method, args, callback)
 end
 
 local function CallChannel(channel, method, args)
-	SendChannel(channel, method, args)
-	
 	local session = co.GenSession()
+
+	local ptr, size = encode({method = method,session = session,args = args})
+	channel:Write(2, ptr, size)
+	
 	SessionCtx_[session] = {}
 
 	local ok,value = co.Wait(session)
