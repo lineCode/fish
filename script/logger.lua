@@ -10,7 +10,7 @@ end
 
 function logger:OnData(channel, data, size)
 	local file, log = util.ParseLoggerMessage(data, size)
-	fish.Log(file, log)
+	fish.Log(file, "@lua:"..log.."\r\n")
 end
 
 function logger:OnClose(channel)
