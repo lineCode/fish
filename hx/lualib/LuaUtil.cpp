@@ -1,6 +1,6 @@
 ﻿#include "LuaUtil.h"
 #include "ServerApp.h"
-#include "util/MemoryStream.h"
+#include "util/StreamReader.h"
 #include "util/linenoise.hpp"
 
 int LuaUtil::Register(lua_State* L) {
@@ -29,12 +29,12 @@ int LuaUtil::ParseLoggerMessage(lua_State* L) {
 	char* data = (char*)lua_touserdata(L, 1);
 	int size = luaL_checkinteger(L, 2);
 
-	MemoryStream ms(data, size);
+	StreamReader reader(data, size);
 
 	int32_t type;
 	std::string file;
 
-	ms >> type >> file;
+	reader >> type >> file;
 
 	lua_pushinteger(L, type);
 	lua_pushlstring(L, file.c_str(), file.length());
@@ -42,15 +42,13 @@ int LuaUtil::ParseLoggerMessage(lua_State* L) {
 	int numArgs;
 	if (type == 0) {
 		std::string log;
-		ms >> log;
-
+		reader >> log;
 		lua_pushlstring(L, log.c_str(), log.length());
 		numArgs = 3;
 	}  else {
 		size_t size;
-		ms >> size;
-		char* data = (char*)malloc(size);
-		ms.CopyWithSize(data, size);
+		reader >> size;
+		reader.Read(size);
 		lua_pushlightuserdata(L, data);
 		lua_pushinteger(L, size);
 		numArgs = 4;

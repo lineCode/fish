@@ -72,12 +72,6 @@
     <ClInclude Include="util\MemoryStream.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="util\MessageReader.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="util\MessageWriter.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="util\MiniHeap.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -162,6 +156,12 @@
     <ClInclude Include="util\linenoise.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="util\StreamWriter.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="util\StreamReader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="network\Channel.cpp">
@@ -201,12 +201,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="util\MemoryStream.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="util\MessageReader.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="util\MessageWriter.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="util\MiniHeap.cpp">
@@ -276,6 +270,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="..\3rd\luafilesystem\src\lfs.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="util\StreamWriter.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="util\StreamReader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

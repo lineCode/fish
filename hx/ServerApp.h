@@ -4,8 +4,6 @@
 //#include "boost/function.hpp"
 #include "network/EventPoller.h"
 #include "util/MemoryStream.h"
-#include "util/MessageWriter.h"
-#include "util/MessageReader.h"
 #include "util/ObjectPool.h"
 #include "network/Channel.h"
 #include "lualib/LuaFish.h"

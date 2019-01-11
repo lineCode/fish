@@ -122,13 +122,13 @@
     <ClInclude Include="util\List.h" />
     <ClInclude Include="util\LuaAllocator.h" />
     <ClInclude Include="util\MemoryStream.h" />
-    <ClInclude Include="util\MessageReader.h" />
-    <ClInclude Include="util\MessageWriter.h" />
     <ClInclude Include="util\MiniHeap.h" />
     <ClInclude Include="util\MiniheapT.h" />
     <ClInclude Include="util\ObjectPool.h" />
     <ClInclude Include="util\PoolObject.h" />
     <ClInclude Include="util\Singleton.h" />
+    <ClInclude Include="util\StreamReader.h" />
+    <ClInclude Include="util\StreamWriter.h" />
     <ClInclude Include="util\Util.h" />
     <ClInclude Include="util\ZeroPack.h" />
   </ItemGroup>
@@ -166,9 +166,9 @@
     <ClCompile Include="util\format.cc" />
     <ClCompile Include="util\LuaAllocator.cpp" />
     <ClCompile Include="util\MemoryStream.cpp" />
-    <ClCompile Include="util\MessageReader.cpp" />
-    <ClCompile Include="util\MessageWriter.cpp" />
     <ClCompile Include="util\MiniHeap.cpp" />
+    <ClCompile Include="util\StreamReader.cpp" />
+    <ClCompile Include="util\StreamWriter.cpp" />
     <ClCompile Include="util\Util.cpp" />
     <ClCompile Include="util\ZeroPack.cpp" />
   </ItemGroup>
