@@ -10,7 +10,7 @@ _G.config = json.load("./config")
 _G.RPC = Import "rpc"
 
 local log = require "lib.log"
-_G.RUNTIME_LOG = log:Create("runtime")
+_G.RUNTIME_LOG = log:Create("runtime", 3)
 
 local ServerInst = nil
 
