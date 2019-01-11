@@ -48,8 +48,8 @@ int LuaUtil::ParseLoggerMessage(lua_State* L) {
 	}  else {
 		size_t size;
 		reader >> size;
-		reader.Read(size);
-		lua_pushlightuserdata(L, data);
+		void* ud = reader.Read(size);
+		lua_pushlightuserdata(L, ud);
 		lua_pushinteger(L, size);
 		numArgs = 4;
 	}

@@ -4,11 +4,11 @@
 
 InitializeHandlers gInitializeHandlers;
 
-void DefaultHandler(Network::Channel* channel, MessageHelper::MessageReader& reader) {
+void DefaultHandler(Network::Channel* channel, StreamReader& reader) {
 	LOG_ERROR(fmt::format("error message handler"));
 }
 
-int DispatchHandler(int cmd, Network::Channel* channel, MessageHelper::MessageReader& reader) {
+int DispatchHandler(int cmd, Network::Channel* channel, StreamReader& reader) {
 	HandlerTable[cmd](channel, reader);
 	return 0;
 }

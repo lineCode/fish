@@ -4,18 +4,18 @@
 #include "logger/Logger.h"
 #include "util/format.h"
 #include "network/Channel.h"
-#include "util/MessageReader.h"
+#include "util/StreamReader.h"
 
 #define CMD_AUTH (1)
 #define CMD_MAX (1024)
 
-typedef void(*HandlerFunc)( Network::Channel* channel, MessageHelper::MessageReader& reader );
+typedef void(*HandlerFunc)( Network::Channel* channel, StreamReader& reader );
 
 static HandlerFunc HandlerTable[CMD_MAX];
 
-void DefaultHandler(Network::Channel* channel, MessageHelper::MessageReader& reader);
+void DefaultHandler(Network::Channel* channel, StreamReader& reader);
 
-int DispatchHandler(int cmd, Network::Channel* channel, MessageHelper::MessageReader& reader);
+int DispatchHandler(int cmd, Network::Channel* channel, StreamReader& reader);
 
 struct InitializeHandlers {
 	InitializeHandlers();
@@ -26,7 +26,7 @@ struct RegisterHandler {
 };
 
 #define REGISTER_HANDLER(cmd,channel,reader) \
-	static void handler##cmd(Network::Channel* channel, MessageHelper::MessageReader& reader); \
+	static void handler##cmd(Network::Channel* channel, StreamReader& reader); \
 	static RegisterHandler register##cmd(cmd, handler##cmd); \
-	static void handler##cmd(Network::Channel* channel, MessageHelper::MessageReader& reader)
+	static void handler##cmd(Network::Channel* channel, StreamReader& reader)
 #endif

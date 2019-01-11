@@ -41,17 +41,18 @@ public:
 	}
 
 	char* Read(size_t size) {
-		if (Length() < size) {
+		if (Length() < (int)size) {
 			return NULL;
 		}
+		int off = offset_;
 		offset_ += size;
-		return data_;
+		return &data_[off];
 	}
 
 private:
+	char* data_;
 	int offset_;
 	int size_;
-	char* data_;
 };
 
 #endif

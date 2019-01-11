@@ -1,6 +1,8 @@
 ﻿#ifndef STREAM_WRITER_H
 #define STREAM_WRITER_H
 #include <stdint.h>
+#include <stdlib.h>
+#include <string.h>
 #include <string>
 #include <vector>
 
