@@ -110,7 +110,7 @@ function OnData(self, channel, data, size)
 		if seq == ":" or seq == "." then
 			local moduleCtx = import.GetModule(module)
 			if not moduleCtx then
-				fish.Log("runtime", string.format("server no such module:%s",module))
+				RUNTIME_LOG:ERROR_FM(string.format("server no such module:%s",module))
 				return
 			end
 
@@ -123,7 +123,7 @@ function OnData(self, channel, data, size)
 		end
 
 		if not funcInst then
-			fish.Log("runtime", string.format("server no such method:%s", func))
+			RUNTIME_LOG:ERROR_FM(string.format("server no such method:%s", func))
 			return
 		end
 
@@ -134,17 +134,17 @@ end
 function OnClose(self, channel)
 	local ctx = channelCtx_[channel]
 	RemoveChannel(channel)
-	fish.Log("rpc", string.format("channel:%d,%s close", ctx.id, ctx.name))
+	RUNTIME_LOG:ERROR_FM(string.format("channel:%d,%s close", ctx.id, ctx.name))
 end
 
 function OnError(self, channel)
 	local ctx = channelCtx_[channel]
 	RemoveChannel(channel)
-	fish.Log("rpc", string.format("channel:%d,%s error", ctx.id, ctx.name))
+	RUNTIME_LOG:ERROR_FM(string.format("channel:%d,%s error", ctx.id, ctx.name))
 end
 
 function OnAcceptServer(self, fd, addr)
-	fish.Log("rpc", string.format("accept server:%s", addr))
+	RUNTIME_LOG:ERROR_FM(string.format("accept server:%s", addr))
 	socket.Bind(fd, 2, self, "OnData", "OnClose", "OnError")
 end
 
@@ -167,7 +167,7 @@ function Connect(self, addr, id, name, timeout)
 end
 
 function Register(self, args, channel)
-	fish.Log("rpc", string.format("server:%d,%s register from %d,%s", args.id, args.name, rpcId_, rpcName_))
+	RUNTIME_LOG:ERROR_FM(string.format("server:%d,%s register from %d,%s", args.id, args.name, rpcId_, rpcName_))
 	AddChannel(args.id, args.name, channel)
 	return {id = rpcId_, name = rpcName_}
 end

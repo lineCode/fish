@@ -44,7 +44,7 @@ local function CoMonitor(co,ok,state,session)
 			assert(state == CO_STATE.eEXIT)
 		end
 	else
-		fish.Log("runtime", debug.traceback(co,tostring(state)))
+		RUNTIME_LOG:ERROR(debug.traceback(co,tostring(state)))
 	end
 end
 
@@ -59,7 +59,7 @@ function _M.Wakeup(session,...)
 	if co then
 		CoMonitor(co,CoResume(co,...))
 	else
-		fish.Log("runtime", string.format("error wakeup:session:%s not found",session))
+		RUNTIME_LOG:ERROR(string.format("error wakeup:session:%s not found",session))
 	end
 end
 

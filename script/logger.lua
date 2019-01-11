@@ -9,8 +9,34 @@ function logger:OnAccept(fd, addr)
 end
 
 function logger:OnData(channel, data, size)
-	local file, log = util.ParseLoggerMessage(data, size)
-	fish.Log(file, "@lua:"..log.."\r\n")
+	local type, file, data, size = util.ParseLoggerMessage(data, size)
+	if type == 0 then
+		fish.WriteLog(file, data)
+	else
+		local info = fish.UnPack(data, size)
+		
+		local tag = args.tag
+		local source = args.source
+		local line = args.line
+		
+		local log
+		local fm = args.fm
+		if fm then
+			log = strFmt(fm,table.unpack(args.log))
+		else
+			log = table.concat(args.log,"\t")
+		end
+
+		local content
+		if source then
+			content = strFmt("[%s][%s %s:%d] %s\r\n",tag,osData("%Y-%m-%d %H:%M:%S",args.time),source,line,log)
+		else
+			content = strFmt("[%s][%s] %s\r\n",tag,osData("%Y-%m-%d %H:%M:%S",args.time),log)
+		end
+
+		fish.WriteLog(file, content)
+	end
+	
 end
 
 function logger:OnClose(channel)
