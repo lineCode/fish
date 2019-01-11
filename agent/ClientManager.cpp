@@ -202,6 +202,20 @@ uint32_t ClientManager::GetWarnFlow() {
 	return warnFlow_;
 }
 
+uint8_t* ClientManager::AllocBuffer(size_t size) {
+	if (size > DEFAULT_BUFF_SIZE) {
+		return (uint8_t*)malloc(size);
+	}
+	return buffer_;
+}
+
+void ClientManager::FreeBuffer(uint8_t* buffer) {
+	if (buffer == buffer_) {
+		return;
+	}
+	free((void*)buffer);
+}
+
 int ClientManager::Register(lua_State* L) {
 	luaL_checkversion(L);
 
@@ -299,3 +313,4 @@ int ClientManager::LCloseClient(lua_State* L) {
 	CLIENT_MGR->CloseClient(vid);
 	return 0;
 }
+

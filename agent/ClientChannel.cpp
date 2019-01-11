@@ -54,12 +54,12 @@ void ClientChannel::HandleRead() {
 				return;
 			}
 
-			uint8_t* data = (uint8_t*)malloc(need_);
+			uint8_t* data = CLIENT_MGR->AllocBuffer(need_);
 			reader_->ReadData((char*)data, need_);
 
 			if (Util::MessageDecrypt(&seed_, data, need_) < 0) {
 				LOG_ERROR(fmt::format("client:{} message decrypt error", vid_));
-				free(data);
+				CLIENT_MGR->FreeBuffer(data);
 				OnClientError(true);
 				return;
 			}
@@ -71,7 +71,7 @@ void ClientChannel::HandleRead() {
 				LOG_ERROR(fmt::format("OnClientData error:{}", OOLUA::get_last_error(script)));
 			}
 			
-			free(data);
+			CLIENT_MGR->FreeBuffer(data);
 
 			need_ = 0;
 			lastMsgTime_ = APP->Now();

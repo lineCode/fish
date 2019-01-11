@@ -7,6 +7,8 @@
 #include "lua.hpp"
 #include <vector>
 
+#define DEFAULT_BUFF_SIZE (64 * 1024)
+
 class ClientChannel;
 
 class ClientManager : public Singleton<ClientManager> {
@@ -50,6 +52,10 @@ public:
 
 	uint32_t GetWarnFlow();
 
+	uint8_t* AllocBuffer(size_t size);
+
+	void FreeBuffer(uint8_t* buffer);
+
 	static int Register(lua_State* L);
 
 	static int LStop(lua_State* L);
@@ -76,6 +82,8 @@ private:
 	uint32_t maxFreq_;
 	uint32_t maxAlive_;
 	uint32_t warnFlow_;
+
+	uint8_t buffer_[DEFAULT_BUFF_SIZE];
 };
 
 #define CLIENT_MGR ClientManager::GetSingleton()
