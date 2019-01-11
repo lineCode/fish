@@ -37,7 +37,7 @@ void LoggerHost::RuntimeLog(std::string& log) {
 	}
 }
 
-void LoggerHost::LuaLog(const char* file, std::string& log) {
+void LoggerHost::WriteLog(const char* file, std::string& log) {
 	FILE* F = NULL;
 	std::map<std::string, FILE*>::iterator iter = FILEMgr_.find(file);
 	if (iter == FILEMgr_.end()) {
@@ -52,7 +52,9 @@ void LoggerHost::LuaLog(const char* file, std::string& log) {
 	if (show_) {
 		fwrite(log.c_str(), log.length() , 1, stderr);
 	}
+}
 
+void LoggerHost::WriteLog(const char* file, void* data, size_t size) {
 }
 
 

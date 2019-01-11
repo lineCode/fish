@@ -218,7 +218,8 @@ int LuaFish::Register(lua_State* L) {
 
 	luaL_Reg methods[] = {
 		{ "Stop", LuaFish::Stop },
-		{ "Log", LuaFish::Log },
+		{ "WriteLog", LuaFish::WriteLog },
+		{ "SendLog", LuaFish::SendLog },
 		{ "Now", LuaFish::Now },
 		{ "Timestamp", LuaFish::Timestamp},
 		{ "Dump", LuaFish::Dump},
@@ -251,10 +252,18 @@ int LuaFish::Stop(lua_State* L) {
 	return 0;
 }
 
-int LuaFish::Log(lua_State* L) {
+int LuaFish::WriteLog(lua_State* L) {
 	const char* file = luaL_checkstring(L, 1);
 	const char* log = luaL_checkstring(L, 2);
-	Logger::GetSingleton()->LuaLog(file, log);
+	LOGGER->WriteLog(file, log);
+	return 0;
+}
+
+int LuaFish::SendLog(lua_State* L) {
+	const char* file = luaL_checkstring(L, 1);
+	void* ud = lua_touserdata(L, 2);
+	size_t size = luaL_checkinteger(L, 3);
+	LOGGER->WriteLog(file, ud, size);
 	return 0;
 }
 

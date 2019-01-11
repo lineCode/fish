@@ -15,7 +15,9 @@ public:
 
 	virtual void RuntimeLog(std::string& log) = 0;
 
-	virtual void LuaLog(const char* file, std::string& log) = 0;
+	virtual void WriteLog(const char* file, std::string& log) = 0;
+
+	virtual void WriteLog(const char* file, void* data, size_t size) = 0;
 };
 
 #endif

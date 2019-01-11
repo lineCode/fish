@@ -52,7 +52,9 @@ public:
 
 	static int Stop(lua_State* L);
 
-	static int Log(lua_State* L);
+	static int WriteLog(lua_State* L);
+
+	static int SendLog(lua_State* L);
 
 	static int Now(lua_State* L);
 

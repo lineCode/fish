@@ -25,7 +25,9 @@ public:
 
 	void RuntimeLog(const char* file,int line,Loglevel level,const char* content);
 
-	void LuaLog(const char* file, const char* content);
+	void WriteLog(const char* file, const char* content);
+
+	void WriteLog(const char* file, void* data, size_t size);
 
 	static void SetLogLevel(Loglevel level);
 	
@@ -39,13 +41,15 @@ private:
 	LoggerInterface* interface_;
 };
 
-#define LOG_DEBUG(x) 	Logger::GetSingleton()->RuntimeLog(__FILE__,__LINE__,Logger::eDebug,(x).c_str())
+#define LOGGER 			Logger::GetSingleton()
 
-#define LOG_INFO(x) 	Logger::GetSingleton()->RuntimeLog(__FILE__,__LINE__,Logger::eInfo,(x).c_str())
+#define LOG_DEBUG(x) 	LOGGER->RuntimeLog(__FILE__,__LINE__,Logger::eDebug,(x).c_str())
 
-#define LOG_WARN(x) 	Logger::GetSingleton()->RuntimeLog(__FILE__,__LINE__,Logger::eWarn,(x).c_str())
+#define LOG_INFO(x) 	LOGGER->RuntimeLog(__FILE__,__LINE__,Logger::eInfo,(x).c_str())
 
-#define LOG_ERROR(x) 	Logger::GetSingleton()->RuntimeLog(__FILE__,__LINE__,Logger::eError,(x).c_str())
+#define LOG_WARN(x) 	LOGGER->RuntimeLog(__FILE__,__LINE__,Logger::eWarn,(x).c_str())
+
+#define LOG_ERROR(x) 	LOGGER->RuntimeLog(__FILE__,__LINE__,Logger::eError,(x).c_str())
 
 
 #endif

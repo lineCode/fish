@@ -27,10 +27,15 @@ void Logger::RuntimeLog(const char* file,int line,Loglevel level,const char* con
 	interface_->RuntimeLog(log);
 }
 
-void Logger::LuaLog(const char* file, const char* content) {
+void Logger::WriteLog(const char* file, const char* content) {
 	std::lock_guard<std::mutex> guard(mutex_);
 	std::string log(content);
-	interface_->LuaLog(file, log);
+	interface_->WriteLog(file, log);
+}
+
+void Logger::WriteLog(const char* file, void* data, size_t size) {
+	std::lock_guard<std::mutex> guard(mutex_);
+	interface_->WriteLog(file, data, size);
 }
 
 void Logger::SetLogLevel(Loglevel level) {

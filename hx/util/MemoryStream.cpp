@@ -1,4 +1,4 @@
-#include "MemoryStream.h"
+﻿#include "MemoryStream.h"
 #include <stdint.h>
 
 const char MemoryStream::kCRLF[] = "\r\n";
@@ -241,9 +241,11 @@ void MemoryStream::Reset() {
 	readOffset_ = writeOffset_ = 0;
 }
 
-char* MemoryStream::Peek(int pos) {
-	assert((size_t)pos < data_.size());
-	return &data_[pos];
+char* MemoryStream::Peek(size_t size) {
+	if ( size < Length() ) {
+		return NULL;
+	}
+	return &data_[readOffset_];
 }
 
 void MemoryStream::RetrieveUntil(const char* endc) {

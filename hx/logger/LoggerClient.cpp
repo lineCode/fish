@@ -41,9 +41,25 @@ void LoggerClient::RuntimeLog(std::string& log) {
 	}
 }
 
-void LoggerClient::LuaLog(const char* file, std::string& log) {
+void LoggerClient::WriteLog(const char* file, std::string& log) {
 	MemoryStream ms;
-	ms << file << log;
+	ms << (int32_t)0 << file << log;
+	if (channel_) {
+		size_t size;
+		char* message = Util::MakeMessage(ms, &size);
+		channel_->Write(message, size);
+	} else {
+		cached_.push_back(ms);
+	}
+}
+
+void LoggerClient::WriteLog(const char* file, void* data, size_t size) {
+	MemoryStream ms;
+	ms << (int32_t)1 << file << size;
+	ms.Append((const char*)data, size);
+
+	free(data);
+
 	if (channel_) {
 		size_t size;
 		char* message = Util::MakeMessage(ms, &size);

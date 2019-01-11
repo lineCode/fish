@@ -100,7 +100,7 @@ public:
 	void Clear();
 	void Reset();
 
-	char* Peek(int pos);
+	char* Peek(size_t size);
 	void RetrieveUntil(const char* endc);
 
 	const char* FindCRLF();
@@ -111,8 +111,7 @@ public:
 
 	void CopyAll(char*& ptr,int & size);
 	void CopyWithSize(char* ptr,int size);
-	
-private:
+
 	template<typename T>
 	void Append(T value) {
 		Append((const uint8_t *)&value, sizeof( value ));

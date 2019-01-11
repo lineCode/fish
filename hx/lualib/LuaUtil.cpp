@@ -31,15 +31,32 @@ int LuaUtil::ParseLoggerMessage(lua_State* L) {
 
 	MemoryStream ms(data, size);
 
+	int32_t type;
 	std::string file;
-	std::string log;
 
-	ms >> file >> log;
+	ms >> type >> file;
 
+	lua_pushinteger(L, type);
 	lua_pushlstring(L, file.c_str(), file.length());
-	lua_pushlstring(L, log.c_str(), log.length());
 
-	return 2;
+	int numArgs;
+	if (type == 0) {
+		std::string log;
+		ms >> log;
+
+		lua_pushlstring(L, log.c_str(), log.length());
+		numArgs = 3;
+	}  else {
+		size_t size;
+		ms >> size;
+		char* data = ms.Peek(size);
+
+		lua_pushlightuserdata(L, data);
+		lua_pushinteger(L, size);
+		numArgs = 4;
+	}
+
+	return 3;
 }
 
 static lua_State* gL = NULL;

@@ -17,7 +17,9 @@ public:
 
 	virtual void RuntimeLog(std::string& log);
 
-	virtual void LuaLog(const char* file, std::string& log);
+	virtual void WriteLog(const char* file, std::string& log);
+
+	virtual void WriteLog(const char* file, void* data, size_t size);
 
 	void OnChannelClose(void* userdata);
 
