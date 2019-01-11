@@ -2,159 +2,128 @@
 #include "ZeroPack.h"
 #include "ServerApp.h"
 
+MessageWriter::MessageWriter(int size) : offset_(0), size_(size) {
+	data_ = (char*)malloc(size);
+}
 
-namespace MessageHelper
-{
-	MessageWriter::MessageWriter(int size):_offset(0),_size(size)
-	{
-		_data = (char*)malloc(size);
-	}
+MessageWriter::~MessageWriter(void) {
+	free((void*)data_);
+}
 
-	MessageWriter::~MessageWriter(void)
-	{
-		free((void*)_data);
-	}
+MessageWriter& MessageWriter::operator<<(bool value) {
+	uint8_t type = TYPE_BOOL;
+	Append(&type, (uint8_t*)&value, sizeof(bool));
+	return *this;
+}
 
-	MessageWriter& MessageWriter::operator<<(bool value) 
-	{
-		uint8_t type = TYPE_BOOL;
-		append(&type, (uint8_t*)&value, sizeof( bool ));
-		return *this;
-	}
+MessageWriter& MessageWriter::operator<<(uint8_t value) {
+	uint8_t type = TYPE_UINT8;
+	Append(&type, (uint8_t*)&value, sizeof(uint8_t));
+	return *this;
+}
 
-	MessageWriter& MessageWriter::operator<<(uint8_t value) 
-	{
-		uint8_t type = TYPE_UINT8;
-		append(&type, (uint8_t*)&value, sizeof( uint8_t ));
-		return *this;
-	}
+MessageWriter& MessageWriter::operator<<(uint16_t value) {
+	uint8_t type = TYPE_UINT16;
+	Append(&type, (uint8_t*)&value, sizeof(uint16_t));
+	return *this;
+}
 
-	MessageWriter& MessageWriter::operator<<(uint16_t value)
-	{
-		uint8_t type = TYPE_UINT16;
-		append(&type, (uint8_t*)&value, sizeof( uint16_t ));
-		return *this;
-	}
+MessageWriter& MessageWriter::operator<<(uint32_t value) {
+	uint8_t type = TYPE_UINT32;
+	Append(&type, (uint8_t*)&value, sizeof(uint32_t));
+	return *this;
+}
 
-	MessageWriter& MessageWriter::operator<<(uint32_t value)
-	{
-		uint8_t type = TYPE_UINT32;
-		append(&type, (uint8_t*)&value, sizeof( uint32_t ));
-		return *this;
-	}
+MessageWriter& MessageWriter::operator<<(uint64_t value) {
+	uint8_t type = TYPE_UINT64;
+	Append(&type, (uint8_t*)&value, sizeof(uint64_t));
+	return *this;
+}
 
-	MessageWriter& MessageWriter::operator<<( uint64_t value )
-	{
-		uint8_t type = TYPE_UINT64;
-		append(&type, (uint8_t*)&value, sizeof( uint64_t ));
-		return *this;
-	}
+MessageWriter& MessageWriter::operator<<(int8_t value) {
+	uint8_t type = TYPE_INT8;
+	Append(&type, (uint8_t*)&value, sizeof(float ));
+	return *this;
+}
 
-	MessageWriter& MessageWriter::operator<<( int8_t value )
-	{
-		uint8_t type = TYPE_INT8;
-		append(&type, (uint8_t*)&value, sizeof( float ));
-		return *this;
-	}
+MessageWriter& MessageWriter::operator<<(int16_t value) {
+	uint8_t type = TYPE_INT16;
+	Append(&type, (uint8_t*)&value, sizeof(int16_t));
+	return *this;
+}
 
-	MessageWriter& MessageWriter::operator<<( int16_t value )
-	{
-		uint8_t type = TYPE_INT16;
-		append(&type, (uint8_t*)&value, sizeof( int16_t ));
-		return *this;
-	}
+MessageWriter& MessageWriter::operator<<(int32_t value) {
+	uint8_t type = TYPE_INT32;
+	Append(&type, (uint8_t*)&value, sizeof(int32_t));
+	return *this;
+}
 
-	MessageWriter& MessageWriter::operator<<( int32_t value )
-	{
-		uint8_t type = TYPE_INT32;
-		append(&type, (uint8_t*)&value, sizeof( int32_t ));
-		return *this;
-	}
+MessageWriter& MessageWriter::operator<<(int64_t value) {
+	uint8_t type = TYPE_INT64;
+	Append(&type, (uint8_t*)&value, sizeof(int64_t));
+	return *this;
+}
 
-	MessageWriter& MessageWriter::operator<<( int64_t value )
-	{
-		uint8_t type = TYPE_INT64;
-		append(&type, (uint8_t*)&value, sizeof( int64_t ));
-		return *this;
-	}
+MessageWriter& MessageWriter::operator<<(float value) {
+	uint8_t type = TYPE_FLOAT;
+	Append(&type, (uint8_t*)&value, sizeof(float));
+	return *this;
+}
 
-	MessageWriter& MessageWriter::operator<<(float value)
-	{
-		uint8_t type = TYPE_FLOAT;
-		append(&type, (uint8_t*)&value, sizeof( float ));
-		return *this;
-	}
+MessageWriter& MessageWriter::operator<<(double value) {
+	uint8_t type = TYPE_DOUBLE;
+	Append(&type, (uint8_t*)&value, sizeof(double));
+	return *this;
+}
 
-	MessageWriter& MessageWriter::operator<<(double value)
-	{
-		uint8_t type = TYPE_DOUBLE;
-		append(&type, (uint8_t*)&value, sizeof( double ));
-		return *this;
-	}
+MessageWriter& MessageWriter::operator<<(const std::string& str) {
+	Append((char*)str.c_str(), str.length());
+	return *this;
+}
 
-	MessageWriter& MessageWriter::operator<<(const std::string& str)
-	{
-		append((char*)str.c_str(),str.length());
-		return *this;
-	}
+MessageWriter& MessageWriter::operator<<(const char *str) {
+	Append((char*)str, strlen(str));
+	return *this;
+}
 
-	MessageWriter& MessageWriter::operator<<(const char *str) 
-	{
-		append((char*)str,strlen(str));
-		return *this;
-	}
+char* MessageWriter::Data() {
+	return data_;
+}
 
-	MessageWriter& MessageWriter::AppendString(const char* str,int size)
-	{
-		append((char*)str,size);
-		return *this;
-	}
+void MessageWriter::Reset() {
+	offset_ = 0;
+}
 
-	char* MessageWriter::Data()
-	{
-		return _data;
-	}
+int MessageWriter::Length() {
+	return offset_;
+}
 
-	void MessageWriter::Reset()
-	{
-		_offset = 0;
-	}
-
-	int MessageWriter::Length()
-	{
-		return _offset;
-	}
-
-	void MessageWriter::reserve(int cnt)
-	{
-		int size = _size;
-		int need = _offset + cnt;
-		if (size < need)
-		{
-			while(size < need)
-				size = size * 2;
-			_size = size;
-			_data = (char*)realloc(_data,size);
+void MessageWriter::Reserve(int cnt) {
+	int size = size_;
+	int need = offset_ + cnt;
+	if (size < need) {
+		while (size < need) {
+			size = size * 2;
 		}
+		size_ = size;
+		data_ = (char*)realloc(data_, size);
 	}
+}
 
-	void MessageWriter::append(uint8_t* type, uint8_t* val, int cnt)
-	{
-		reserve(cnt + 1);
-		_data[_offset] = *type;
-		_offset += 1;
-		memcpy((void*)&_data[_offset],val,cnt);
-		_offset += cnt;
-	}
+void MessageWriter::Append(uint8_t* type, uint8_t* val, int cnt) {
+	Reserve(cnt + 1);
+	data_[offset_] = *type;
+	offset_ += 1;
+	memcpy((void*)&data_[offset_], val, cnt);
+	offset_ += cnt;
+}
 
-	void MessageWriter::append(char* str,int size)
-	{
-		reserve(size + 3);
-		_data[_offset] = TYPE_STRING;
-		_offset += 1;
-		memcpy(&_data[_offset],&size,2);
-		_offset += 2;
-		memcpy(&_data[_offset],str,size);
-		_offset += size;
-	}
+void MessageWriter::Append(char* str, int size) {
+	Reserve(size + 3);
+	data_[offset_] = TYPE_STRING;
+	offset_ += 1;
+	memcpy(&data_[offset_], &size, 2);
+	offset_ += 2;
+	memcpy(&data_[offset_], str, size);
+	offset_ += size;
 }

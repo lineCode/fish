@@ -4,43 +4,41 @@
 #include <string>
 #include <vector>
 
-namespace MessageHelper
-{
-	class MessageWriter
-	{
-	public:
-		MessageWriter(int size = 64);
-		~MessageWriter();
 
-		MessageWriter& operator<<(bool value);
-		MessageWriter& operator<<(uint8_t value);
-		MessageWriter& operator<<(uint16_t value);
-		MessageWriter& operator<<(uint32_t value);
-		MessageWriter& operator<<(uint64_t value);
-		MessageWriter& operator<<(int8_t value);
-		MessageWriter& operator<<(int16_t value);
-		MessageWriter& operator<<(int32_t value);
-		MessageWriter& operator<<(int64_t value);
-		MessageWriter& operator<<(float value);
-		MessageWriter& operator<<(double value);
-		MessageWriter& operator<<(const std::string& str);
-		MessageWriter& operator<<(const char *str);
+class MessageWriter {
+public:
+	MessageWriter(int size = 64);
+	~MessageWriter();
 
-		MessageWriter& AppendString(const char* str,int size);
-		
-		char* Data();
-		void Reset();
-		int Length();
+	MessageWriter& operator<<(bool value);
+	MessageWriter& operator<<(uint8_t value);
+	MessageWriter& operator<<(uint16_t value);
+	MessageWriter& operator<<(uint32_t value);
+	MessageWriter& operator<<(uint64_t value);
+	MessageWriter& operator<<(int8_t value);
+	MessageWriter& operator<<(int16_t value);
+	MessageWriter& operator<<(int32_t value);
+	MessageWriter& operator<<(int64_t value);
+	MessageWriter& operator<<(float value);
+	MessageWriter& operator<<(double value);
+	MessageWriter& operator<<(const std::string& str);
+	MessageWriter& operator<<(const char *str);
 
-		void reserve(int cnt);
-		void append(uint8_t* type, uint8_t* val, int size);
-		void append(char* str,int size);
+	void Append(uint8_t* type, uint8_t* val, int size);
+	void Append(char* str, int size);
 
-		char* _data;
-		int _offset;
-		int _size;
-	};
-}
+	char* Data();
+	void Reset();
+	int Length();
+
+private:
+	void Reserve(int cnt);
+
+private:
+	char* data_;
+	int offset_;
+	int size_;
+};
 
 
 #endif

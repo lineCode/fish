@@ -10,7 +10,7 @@ MemoryStream::MemoryStream(size_t size):readOffset_(0),writeOffset_(0) {
 MemoryStream::MemoryStream(char* buffer,int size) {
 	readOffset_ = 0;
 	writeOffset_ = size;
-	data_.assign(buffer,buffer+size);
+	data_.assign(buffer, buffer + size);
 }
 
 MemoryStream::~MemoryStream() {
