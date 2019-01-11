@@ -90,10 +90,6 @@ char* MessageWriter::Data() {
 	return data_;
 }
 
-void MessageWriter::Reset() {
-	offset_ = 0;
-}
-
 int MessageWriter::Length() {
 	return offset_;
 }

@@ -28,7 +28,6 @@ public:
 	void Append(char* str, int size);
 
 	char* Data();
-	void Reset();
 	int Length();
 
 private:
