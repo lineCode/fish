@@ -3,11 +3,11 @@ local timer = require "lib.timer"
 local common = require "lib.common"
 local import = require "lib.import"
 
-_G.Import = import.Import
-
 table.print = common.Dump
 
+_G.Import = import.Import
 _G.config = json.load("./config")
+_G.RPC = Import "rpc"
 
 
 local ServerInst = nil
