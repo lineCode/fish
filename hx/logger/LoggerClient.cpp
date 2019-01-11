@@ -31,7 +31,7 @@ LoggerClient::~LoggerClient(void) {
 
 void LoggerClient::RuntimeLog(std::string& log) {
 	MemoryStream ms;
-	ms << "runtime" << log;
+	ms << (int32_t)0 <<  "runtime" << log;
 	if (channel_) {
 		size_t size;
 		char* message = Util::MakeMessage(ms, &size);

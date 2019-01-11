@@ -29,7 +29,7 @@ function _M:Create(name, depth)
 	end
 
 	local ctx = setmetatable({},{__index = self})
-	ctx.logLevel = env.logLevel or kLOG_LV_DEBUG
+	ctx.logLevel = loggerLevel_
 	ctx.name = name
 	ctx.depth = depth
 

@@ -49,14 +49,14 @@ int LuaUtil::ParseLoggerMessage(lua_State* L) {
 	}  else {
 		size_t size;
 		ms >> size;
-		char* data = ms.Peek(size);
-
+		char* data = (char*)malloc(size);
+		ms.CopyWithSize(data, size);
 		lua_pushlightuserdata(L, data);
 		lua_pushinteger(L, size);
 		numArgs = 4;
 	}
 
-	return 3;
+	return numArgs;
 }
 
 static lua_State* gL = NULL;

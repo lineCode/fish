@@ -15,23 +15,23 @@ function logger:OnData(channel, data, size)
 	else
 		local info = fish.UnPack(data, size)
 		
-		local tag = args.tag
-		local source = args.source
-		local line = args.line
+		local tag = info.tag
+		local source = info.source
+		local line = info.line
 		
 		local log
-		local fm = args.fm
+		local fm = info.fm
 		if fm then
-			log = strFmt(fm,table.unpack(args.log))
+			log = string.format(fm,table.unpack(info.log))
 		else
-			log = table.concat(args.log,"\t")
+			log = table.concat(info.log,"\t")
 		end
 
 		local content
 		if source then
-			content = strFmt("[%s][%s %s:%d] %s\r\n",tag,osData("%Y-%m-%d %H:%M:%S",args.time),source,line,log)
+			content = string.format("[%s][%s %s:%d] %s\r\n",tag,os.date("%Y-%m-%d %H:%M:%S",info.time),source,line,log)
 		else
-			content = strFmt("[%s][%s] %s\r\n",tag,osData("%Y-%m-%d %H:%M:%S",args.time),log)
+			content = string.format("[%s][%s] %s\r\n",tag,os.date("%Y-%m-%d %H:%M:%S",info.time),log)
 		end
 
 		fish.WriteLog(file, content)
