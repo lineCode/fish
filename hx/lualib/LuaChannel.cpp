@@ -43,14 +43,13 @@ void LuaChannel::HandleRead() {
 				need_ = header[0] | header[1] << 8 | header[2] << 16 | header[3] << 24;
 			}
 			need_ -= header_;
-		} else {
-			if (reader_->total_ < (int)need_) {
-				break;
-			}
-
 			if (need_ > MAX_MESSAGE_SIZE) {
 				Close();
 				LOG_ERROR(fmt::format("HandleRead error:message size more than {}mb", MAX_MESSAGE_SIZE/(1024*1024)));
+				break;
+			}
+		} else {
+			if (reader_->total_ < (int)need_) {
 				break;
 			}
 
