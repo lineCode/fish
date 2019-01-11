@@ -1,6 +1,8 @@
 ﻿#include "LuaChannel.h"
 #include "logger/Logger.h"
 
+#define MAX_MESSAGE_SIZE (16*1024*1024)
+
 LuaChannel::LuaChannel(Network::EventPoller* poller,int fd, LuaFish* lua, uint32_t header) : Network::Channel(poller, fd) {
 	lua_ = lua;
 	header_ = header;
@@ -43,6 +45,12 @@ void LuaChannel::HandleRead() {
 			need_ -= header_;
 		} else {
 			if (reader_->total_ < (int)need_) {
+				break;
+			}
+
+			if (need_ > MAX_MESSAGE_SIZE) {
+				Close();
+				LOG_ERROR(fmt::format("HandleRead error:message size more than {}mb", MAX_MESSAGE_SIZE/(1024*1024)));
 				break;
 			}
 
