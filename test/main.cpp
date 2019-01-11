@@ -27,7 +27,7 @@ struct TestC : public TestA{
 	}
 };
 int main() {
-
+	void* ptr = malloc(7);
 	TestA* a = new TestA(1);
 	TestB* b = new TestB();
 
@@ -36,6 +36,6 @@ int main() {
 	PoolObject<TestA>::Dump();
 	PoolObject<TestB>::Dump();
 	//PoolObject<TestC>::Dump();
-	std::priority_queue
+
 	return 0;
 }
