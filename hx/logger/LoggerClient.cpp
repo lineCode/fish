@@ -30,15 +30,7 @@ LoggerClient::~LoggerClient(void) {
 }
 
 void LoggerClient::RuntimeLog(std::string& log) {
-	MemoryStream ms;
-	ms << (int32_t)0 <<  "runtime" << log;
-	if (channel_) {
-		size_t size;
-		char* message = Util::MakeMessage(ms, &size);
-		channel_->Write(message, size);
-	} else {
-		cached_.push_back(ms);
-	}
+	WriteLog("runtime", log);
 }
 
 void LoggerClient::WriteLog(const char* file, std::string& log) {
