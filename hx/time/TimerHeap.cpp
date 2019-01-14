@@ -2,7 +2,7 @@
 #include "Timestamp.h"
 
 TimerHeap::TimerHeap():Super() {
-	now_ = TimeStamp() * 1000 / StampPersecond();
+	now_ = TimeStamp();
 }
 
 TimerHeap::~TimerHeap(void) {
