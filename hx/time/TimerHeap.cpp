@@ -26,7 +26,7 @@ int TimerHeap::DoCompare(TimeoutHandler* left,TimeoutHandler* right) {
 }
 
 int TimerHeap::Update(uint64_t now) {
-	now_ = now * 1000 / StampPersecond();
+	now_ = now;
 	TimeoutHandler* handler = NULL;
 	while (true) {
 		this->Pop(handler);
