@@ -1,6 +1,7 @@
 ﻿#ifndef TIMESTAMP_H
 #define TIMESTAMP_H
 #include <stdint.h>
+#include <time.h>
 
 uint64_t Now();
 
