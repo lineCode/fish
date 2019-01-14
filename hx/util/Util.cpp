@@ -49,6 +49,10 @@ namespace Util {
 		return MakeMessage(data.Data(), data.Length(), outSize);
 	}
 
+	char* MakeMessage(StreamWriter& writer, size_t* outSize) {
+		return MakeMessage(writer.Data(), writer.Length(), outSize);
+	}
+
 	uint16_t CheckSum(uint16_t* addr,size_t size) {
 		uint32_t sum = 0;
 	    while(size > 1) {

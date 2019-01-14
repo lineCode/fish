@@ -6,7 +6,7 @@
 #include "network/EventPoller.h"
 #include "LoggerChannel.h"
 #include "time/Timer.h"
-#include "util/MemoryStream.h"
+#include "util/StreamWriter.h"
 #include <vector>
 
 class LoggerClient : public LoggerInterface {
@@ -30,6 +30,6 @@ private:
 	LoggerChannel* channel_;
 	Timer* timer_;
 	Network::EventPoller* poller_;
-	std::vector<MemoryStream> cached_;
+	std::vector<StreamWriter> cached_;
 };
 #endif

@@ -4,6 +4,7 @@
 #include "document.h"
 #include <string>
 #include "util/MemoryStream.h"
+#include "util/StreamWriter.h"
 
 namespace Util {
 	void Exit(std::string reason);
@@ -13,6 +14,7 @@ namespace Util {
 	char* MakeMessage(char* data, size_t size, size_t* outSize);
 	char* MakeMessage(std::string& data, size_t* outSize);
 	char* MakeMessage(MemoryStream& data, size_t* outSize);
+	char* MakeMessage(StreamWriter& writer, size_t* outSize);
 	
 	uint16_t CheckSum(uint16_t* addr,size_t size);
 

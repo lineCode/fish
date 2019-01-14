@@ -34,30 +34,30 @@ void LoggerClient::RuntimeLog(std::string& log) {
 }
 
 void LoggerClient::WriteLog(const char* file, std::string& log) {
-	MemoryStream ms;
-	ms << (int32_t)0 << file << log;
+	StreamWriter writer;
+	writer << (int32_t)0 << file << log;
 	if (channel_) {
 		size_t size;
-		char* message = Util::MakeMessage(ms, &size);
+		char* message = Util::MakeMessage(writer, &size);
 		channel_->Write(message, size);
 	} else {
-		cached_.push_back(ms);
+		cached_.push_back(writer);
 	}
 }
 
 void LoggerClient::WriteLog(const char* file, void* data, size_t size) {
-	MemoryStream ms;
-	ms << (int32_t)1 << file << size;
-	ms.Append((const char*)data, size);
+	StreamWriter writer;
+	writer << (int32_t)1 << file << size;
+	writer.Append((const char*)data, size);
 
 	free(data);
 
 	if (channel_) {
 		size_t size;
-		char* message = Util::MakeMessage(ms, &size);
+		char* message = Util::MakeMessage(writer, &size);
 		channel_->Write(message, size);
 	} else {
-		cached_.push_back(ms);
+		cached_.push_back(writer);
 	}
 }
 
@@ -80,11 +80,11 @@ void LoggerClient::OnUpdate(Timer* timer, void* userdata) {
 	channel_ = new LoggerChannel(poller_, fd);
 	channel_->SetCloseCallback(std::bind(&LoggerClient::OnChannelClose, this, std::placeholders::_1));
 
-	std::vector<MemoryStream>::iterator iter = cached_.begin();
+	std::vector<StreamWriter>::iterator iter = cached_.begin();
 	for(;iter != cached_.end();iter++) {
-		MemoryStream& ms = *iter;
+		StreamWriter& writer = *iter;
 		size_t size;
-		char* message = Util::MakeMessage(ms, &size);
+		char* message = Util::MakeMessage(writer, &size);
 		channel_->Write(message, size);
 	}
 	cached_.clear();
