@@ -55,7 +55,7 @@ int TimerWheelMgr::Register(TimeoutHandler* handler,int ti) {
 	}
 	
 	if ( lastTime_ == 0 ) {
-		lastTime_ = TimeStamp() * 1000 / StampPersecond();
+		lastTime_ = TimeStamp();
 	}
 		
 	handler->timeout_ = ti;
@@ -87,7 +87,7 @@ int TimerWheelMgr::Register(TimeoutHandler* handler,int ti) {
 
 int TimerWheelMgr::Update(uint64_t now)
 {
-	now = now * 1000 / StampPersecond();
+	now = now;
 	if ( lastTime_ == 0 )
 		lastTime_ = now;
 	
