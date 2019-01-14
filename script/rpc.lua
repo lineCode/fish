@@ -195,22 +195,12 @@ function Register(self, args, channel)
 	return {id = rpcId_, name = rpcName_}
 end
 
-function SendAgent(self, id, method, args, callback)
+function Send(self, id, method, args, callback)
 	local channel = channelMap_[id]
 	SendChannel(channel, method, args, callback)
 end
 
-function CallAgent(self, id, method, args)
-	local channel = channelMap_[id]
-	return CallChannel(channel, method, args)
-end
-
-function SendScene(self, id, method, args, callback)
-	local channel = channelMap_[id]
-	SendChannel(channel, method, args, callback)
-end
-
-function CallScene(self, id, method, args)
+function Call(self, id, method, args)
 	local channel = channelMap_[id]
 	return CallChannel(channel, method, args)
 end
