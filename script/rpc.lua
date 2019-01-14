@@ -166,13 +166,13 @@ function OnError(self, channel)
 	RUNTIME_LOG:ERROR_FM(string.format("channel:%d,%s error", ctx.id, ctx.name))
 end
 
-function OnAcceptServer(self, fd, addr)
+function OnAccept(self, fd, addr)
 	RUNTIME_LOG:ERROR_FM(string.format("accept server:%s", addr))
 	socket.Bind(fd, 2, self, "OnData", "OnClose", "OnError")
 end
 
 function Listen(self, addr, id, name)
-	assert(socket.Listen(addr, self, "OnAcceptServer"))
+	assert(socket.Listen(addr, self, "OnAccept"))
 	rpcId_ = id
 	rpcName_ = name
 	return true
