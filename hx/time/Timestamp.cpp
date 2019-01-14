@@ -56,12 +56,16 @@ uint64_t TimeStamp() {
 
 int GetTimeZone() {
 	if (G_TIMEZONE == 0xffffffff) {
+#ifdef _WIN32
+		TIME_ZONE_INFORMATION tmp;
+		GetTimeZoneInformation(&tmp);
+		G_TIMEZONE = tmp.Bias/(-60);
+#else
 		time_t now = time(NULL);
-
 		struct tm local = { 0 };
 		LOCALTIME(now, local);
-
 		G_TIMEZONE = local.tm_gmtoff / 3600;
+#endif
 	}
 	return G_TIMEZONE;
 }
