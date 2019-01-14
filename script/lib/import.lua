@@ -44,7 +44,11 @@ function _M.Reload(file)
 		return
 	end
 
-	loadfile(file, nil, ctx.env)
+	local loader,err = loadfile(ctx.path, "text", ctx.env)
+	if not loader then
+		error(err)
+	end
+	loader()
 
 	if ctx.env["__init__"] then
 		ctx.env["__init__"](ctx.env)

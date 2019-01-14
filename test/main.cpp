@@ -1,41 +1,12 @@
-﻿#include "Allocator.h"
-#include "PoolObject.h"
-
-struct TestA : public PoolObject<TestA> {
-	int a;
-	TestA(int a) {
-		a = a;
-	}
-	static std::string GetClassName() {
-		return std::string("TestA");
-	}
-};
-
-struct TestB : public PoolObject<TestB> {
-	int a;
-	int b;
-	static std::string GetClassName() {
-		return std::string("TestB");
-	}
-};
-
-struct TestC : public TestA{
-	int b;
-
-	static std::string GetClassName() {
-		return std::string("TestC");
-	}
-};
+﻿#include "time/Timestamp.h"
+#include <iostream>
+#include <time.h>
 int main() {
-	void* ptr = malloc(7);
-	TestA* a = new TestA(1);
-	TestB* b = new TestB();
 
+	std::cout << Now() << ":" << TimeStamp() << std::endl;
+	std::cout << GetTimeZone() << std::endl;
 
-
-	PoolObject<TestA>::Dump();
-	PoolObject<TestB>::Dump();
-	//PoolObject<TestC>::Dump();
-
+	char tmp[64];
+	strftime(tmp, sizeof( tmp ), "%Y-%m-%d %H:%M:%S", Now());
 	return 0;
 }

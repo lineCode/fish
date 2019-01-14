@@ -1,10 +1,9 @@
 local co = require "lib.co"
-local rpc = Import "rpc"
 
 function Init(self)
 	RUNTIME_LOG:ERROR("agent init")
 	co.Fork(function ()
-		assert(rpc:Connect({ip = config.loginAddr.ip, port = config.loginAddr.port}, 2, "agent", 5))
+		assert(RPC:Connect({ip = config.loginAddr.ip, port = config.loginAddr.port}, 2, "agent", 5))
 		RUNTIME_LOG:ERROR("register ok")
 	end)
 end

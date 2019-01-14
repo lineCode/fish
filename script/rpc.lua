@@ -1,11 +1,9 @@
-local socket = require "lib.socket"
 local co = require "lib.co"
+local socket = require "lib.socket"
 local import = require "lib.import"
 
 local encode = fish.Pack
 local decode = fish.UnPack
-
-SessionCtx_ = SessionCtx_ or {}
 
 rpcId_ = rpcId_ or nil
 rpcName_ = rpcName_ or nil
@@ -24,7 +22,7 @@ local function AddChannel(id, name, channel)
 	end
 
 	channelMap_[id] = channel
-	channelCtx_[channel] = {id = id, name = name}
+	channelCtx_[channel] = {id = id, name = name, sessionCtx = {}}
 end
 
 local function RemoveChannel(channel)
@@ -35,14 +33,29 @@ local function RemoveChannel(channel)
 		loginChannel_ = nil
 	elseif channel == worldChannel_ then
 		worldChannel_ = nil
-	end 
+	end
+
+	local sessionList = {}
+	for session,callback in pairs(ctx.sessionCtx) do
+		if callback == false then
+			table.insert(sessionList,session)
+		end
+	end
+
+	for _,session in ipairs(sessionList) do
+		co.Wakeup(session, false, "bad channel")
+	end
 end
+
 
 local function SendChannel(channel, method, args, callback)
 	local session = 0
 	if callback then
 		session = co.GenSession()
-		SessionCtx_[session] = callback 
+		local ctx = channelCtx_[channel]
+		if ctx then
+			ctx.sessionCtx[session] = callback
+		end
 	end
 
 	local ptr, size = encode({method = method,session = session,args = args})
@@ -51,6 +64,11 @@ end
 
 local function CallChannel(channel, method, args, timeout)
 	local session = co.GenSession()
+
+	local ctx = channelCtx_[channel]
+	if ctx then
+		ctx.sessionCtx[session] = false
+	end
 
 	local ptr, size = encode({method = method,session = session,args = args})
 	channel:Write(2, ptr, size)
@@ -94,12 +112,17 @@ end
 function OnData(self, channel, data, size)
 	local message = decode(data, size)
 	if message.ret then
-		local callback = SessionCtx_[message.session]
+		local callback
+		local ctx = channelCtx_[channel]
+		if ctx then
+			callback = ctx.sessionCtx[message.session]
+			ctx.sessionCtx[message.session] = nil
+		end
+
 		if callback then
 			if message.args[1] then
 				co.Fork(callback, table.unpack(message.args, 2))
 			end
-			SessionCtx_[message.session] = nil
 		else
 			co.Wakeup(message.session, table.unpack(message.args))
 		end
