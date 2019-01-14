@@ -20,8 +20,8 @@ local loggerCtx = {}
 local _M = {}
 
 function _M:Create(name, depth)
-	name = name or "unknown"
-	depth = depth or 4
+	assert(name)
+	depth = depth or 3
 
 	local logger = loggerCtx[name]
 	if logger then
