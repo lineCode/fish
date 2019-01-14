@@ -1,8 +1,8 @@
 ﻿#include "Timestamp.h"
+#include <time.h>
 
 #if defined (WIN32)
 #include <windows.h>
-#include <time.h>
 #define LOCALTIME(ts,tm) localtime_s(&tm, &ts);
 #else
 #include <sys/time.h>
