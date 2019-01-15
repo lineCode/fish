@@ -17,7 +17,7 @@ all:$(TARGET)
 	$(CC) $(CFLAG) $(INCLUDE) -c $< -o $@
 
 $(TARGET):$(OBJ) $(STATIC_LIBS)
-	$(CC) -o $@ $^ -Wl,-E -lm -ldl -lrt -lpthread 
+	$(CC) -o $@ $^ -Wl,-E -lm -ldl -lrt -lpthread -lunwind
 
 clean:
 	rm -f *.o $(TARGET)
