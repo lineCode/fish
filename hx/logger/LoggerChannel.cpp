@@ -2,11 +2,9 @@
 #include "network/EventPoller.h"
 #include "network/Channel.h"
 LoggerChannel::LoggerChannel(Network::EventPoller* poller, int fd):Network::Channel(poller,fd) {
-
 }
 
 LoggerChannel::~LoggerChannel() {
-
 }
 
 void LoggerChannel::HandleClose() {

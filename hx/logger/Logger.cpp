@@ -18,7 +18,6 @@ Logger::~Logger(void) {
 	delete interface_;
 }
 
-
 void Logger::WriteLog(const char* file, const char* source, int line, Loggerlevel level, uint64_t time, const char* content) {
 	if (level < Logger::level_) {
 		return;
@@ -32,7 +31,7 @@ void Logger::WriteLog(const char* file, void* data, size_t size) {
 	interface_->WriteLog(file, data, size);
 }
 
-void Logger::SetLogLevel(Loggerlevel level) {
+void Logger::SetLoggerLevel(Loggerlevel level) {
 	Logger::level_ = level;
 }
 

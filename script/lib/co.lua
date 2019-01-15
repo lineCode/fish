@@ -2,6 +2,7 @@
 
 local _M = {}
 
+local CoCreate = coroutine.create
 local CoRunning = coroutine.running
 local CoYield = coroutine.yield
 local CoResume = coroutine.resume
@@ -21,7 +22,7 @@ local mainCo_ = CoRunning()
 local function CoCreate(func)
 	local co = table.remove(coPool_)
 	if co == nil then
-		co = coroutine.create(function(...)
+		co = CoCreate(function(...)
 			func(...)
 			while true do
 				func = nil

@@ -28,7 +28,7 @@ public:
 
 	void WriteLog(const char* file, void* data, size_t size);
 
-	static void SetLogLevel(Loggerlevel level);
+	static void SetLoggerLevel(Loggerlevel level);
 	
 	static Loggerlevel GetLoggerLevel();
 

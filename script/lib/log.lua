@@ -6,13 +6,6 @@ local kLOG_LV_WARN 		= 2
 local kLOG_LV_INFO 		= 1
 local kLOG_LV_DEBUG 	= 0
 
-local eLOG_TAG = {
-	[kLOG_LV_ERROR] 	= "E",
-	[kLOG_LV_WARN] 		= "W",
-	[kLOG_LV_INFO] 		= "I",
-	[kLOG_LV_DEBUG] 	= "D",
-}
-
 local loggerLevel_ = config.loggerLevel or kLOG_LV_DEBUG
 
 local loggerCtx = {}
