@@ -1,12 +1,9 @@
-﻿#include "time/Timestamp.h"
+﻿#include <unordered_map>
 #include <iostream>
-#include <time.h>
 int main() {
-
-	std::cout << Now() << ":" << TimeStamp() << std::endl;
-	std::cout << GetTimeZone() << std::endl;
-
-	char tmp[64];
-	strftime(tmp, sizeof( tmp ), "%Y-%m-%d %H:%M:%S", Now());
+	std::unordered_map<const char*, int> tbl;
+	tbl["a"] = 1;
+	tbl["b"] = 1;
+	
 	return 0;
 }

@@ -23,8 +23,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test", "test\test.vcxproj",
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "agent", "agent\agent.vcxproj", "{5CD44988-EB3C-43A5-9ECE-183573F115F2}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libtcmalloc_minimal", "3rd\gperftools-2.7\vsprojects\libtcmalloc_minimal\libtcmalloc_minimal.vcxproj", "{55E2B3AE-3CA1-4DB6-97F7-0A044D6F446F}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -105,14 +103,6 @@ Global
 		{5CD44988-EB3C-43A5-9ECE-183573F115F2}.Release|Win32.Build.0 = Release|Win32
 		{5CD44988-EB3C-43A5-9ECE-183573F115F2}.RelWithDebInfo|Win32.ActiveCfg = Release|Win32
 		{5CD44988-EB3C-43A5-9ECE-183573F115F2}.RelWithDebInfo|Win32.Build.0 = Release|Win32
-		{55E2B3AE-3CA1-4DB6-97F7-0A044D6F446F}.Debug|Win32.ActiveCfg = Debug|Win32
-		{55E2B3AE-3CA1-4DB6-97F7-0A044D6F446F}.Debug|Win32.Build.0 = Debug|Win32
-		{55E2B3AE-3CA1-4DB6-97F7-0A044D6F446F}.MinSizeRel|Win32.ActiveCfg = Release|Win32
-		{55E2B3AE-3CA1-4DB6-97F7-0A044D6F446F}.MinSizeRel|Win32.Build.0 = Release|Win32
-		{55E2B3AE-3CA1-4DB6-97F7-0A044D6F446F}.Release|Win32.ActiveCfg = Release|Win32
-		{55E2B3AE-3CA1-4DB6-97F7-0A044D6F446F}.Release|Win32.Build.0 = Release|Win32
-		{55E2B3AE-3CA1-4DB6-97F7-0A044D6F446F}.RelWithDebInfo|Win32.ActiveCfg = Release|Win32
-		{55E2B3AE-3CA1-4DB6-97F7-0A044D6F446F}.RelWithDebInfo|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -122,6 +112,5 @@ Global
 		{676123CA-0CE1-4882-A1E1-2F543AE9CAF5} = {03061C9A-394E-4356-BAA6-F37A09361BA6}
 		{AEEA9244-83D2-4430-8973-6D91D89AAFAA} = {03061C9A-394E-4356-BAA6-F37A09361BA6}
 		{BB1DD034-48FF-46AA-A2E1-E451F4154E40} = {03061C9A-394E-4356-BAA6-F37A09361BA6}
-		{55E2B3AE-3CA1-4DB6-97F7-0A044D6F446F} = {03061C9A-394E-4356-BAA6-F37A09361BA6}
 	EndGlobalSection
 EndGlobal
