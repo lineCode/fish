@@ -14,6 +14,11 @@ LIBEV_STATICLIB := $(BIN_PATH)/libev.a
 LIBEV_LIB ?= libev.a
 LIBEV_INC ?= ./3rd/libev
 
+TCMALLOC_STATICLIB := $(BIN_PATH)/libtcmalloc.a
+TCMALLOC_LIB ?= libtcmalloc.a
+TCMALLOC_INC ?= ./3rd/gperftools-2.7/src
+TCMALLOC_PATH ?= ./3rd/gperftools-2.7
+
 HX_STATICLIB := $(BIN_PATH)/libhx.a
 HX_LIB ?= libhx.a
 HX_INC ?= ./hx
@@ -31,7 +36,7 @@ LIBS_DIR := $(BIN_PATH)
 
 CCFLAG="CC=g++"
 
-all: $(LUA_STATICLIB) $(OOLUA_STATICLIB) $(LIBEV_STATICLIB) $(HX_STATICLIB) $(FISH) $(LOGGER) $(AGENT)
+all: $(LUA_STATICLIB) $(OOLUA_STATICLIB) $(LIBEV_STATICLIB) $(TCMALLOC_STATICLIB) $(HX_STATICLIB) $(FISH) $(LOGGER) $(AGENT)
 
 $(LUA_STATICLIB) :
 	cd $(LUA_INC)&& $(MAKE) linux
@@ -45,19 +50,23 @@ $(LIBEV_STATICLIB) :
 	cd $(LIBEV_INC) && ./configure && $(MAKE)
 	mv $(LIBEV_INC)/.libs/libev.a $(LIBS_DIR)
 
+$(TCMALLOC_STATICLIB) :
+	cd $(TCMALLOC_PATH) && ./configure && $(MAKE)
+	mv $(TCMALLOC_PATH)/.libs/libtcmalloc.a $(LIBS_DIR)
+
 $(HX_STATICLIB) :
 	cd $(HX_INC) && $(MAKE) $(CCFLAG) 
 	mv $(HX_INC)/$(HX_LIB) $(LIBS_DIR)
  
-$(FISH) : $(LUA_STATICLIB) $(OOLUA_STATICLIB) $(LIBEV_STATICLIB) $(HX_STATICLIB)
+$(FISH) : $(LUA_STATICLIB) $(OOLUA_STATICLIB) $(LIBEV_STATICLIB) $(TCMALLOC_STATICLIB) $(HX_STATICLIB)
 	cd $(FISH_INC) && $(MAKE) $(CCFLAG)
 	mv $(FISH_INC)/fish $(LIBS_DIR)
 
-$(AGENT) : $(LUA_STATICLIB) $(OOLUA_STATICLIB) $(LIBEV_STATICLIB) $(HX_STATICLIB)
+$(AGENT) : $(LUA_STATICLIB) $(OOLUA_STATICLIB) $(LIBEV_STATICLIB) $(TCMALLOC_STATICLIB) $(HX_STATICLIB)
 	cd $(AGENT_INC) && $(MAKE) $(CCFLAG) 
 	mv $(AGENT_INC)/agent $(LIBS_DIR) 
 
-$(LOGGER) : $(LUA_STATICLIB) $(OOLUA_STATICLIB) $(LIBEV_STATICLIB) $(HX_STATICLIB)
+$(LOGGER) : $(LUA_STATICLIB) $(OOLUA_STATICLIB) $(LIBEV_STATICLIB) $(TCMALLOC_STATICLIB) $(HX_STATICLIB)
 	cd $(LOGGER_INC) && $(MAKE) $(CCFLAG) 
 	mv $(LOGGER_INC)/logger $(LIBS_DIR) 
 
@@ -72,6 +81,7 @@ cleanall:
 	rm -rf $(LIBS_DIR)/$(LUA_LIB) && cd $(LUA_INC) && make clean
 	rm -rf $(LIBS_DIR)/$(OOLUA_LIB) && cd $(OOLUA_PATH) && make clean
 	rm -rf $(LIBS_DIR)/$(LIBEV_LIB) && cd $(LIBEV_INC) && make clean
+	rm -rf $(LIBS_DIR)/$(TCMALLOC_LIB) && cd $(TCMALLOC_PATH) && make clean
 
 cleanhx:
 	rm -rf $(FISH) $(FISH_INC)/*o
