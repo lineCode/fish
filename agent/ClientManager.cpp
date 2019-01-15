@@ -253,32 +253,38 @@ int ClientManager::LStop(lua_State* L) {
 	return 0;
 }
 
-int ClientManager::LSendClient(lua_State* L) {
-	int vid = luaL_checkinteger(L, 1);
-	int vt = lua_type(L, 2);
-
+char* GetBuffer(lua_State* L, int index, size_t* size) {
 	char* data = NULL;
-	size_t size;
+	int vt = lua_type(L, index);
 	switch(vt) {
 		case LUA_TSTRING: {
-			const char* tmp = lua_tolstring(L, 2, &size);
-			data = (char*)malloc(size);
-			memcpy(data, tmp, size);
+			const char* str = lua_tolstring(L, index, size);
+			data = (char*)malloc(*size);
+			memcpy(data, str, *size);
 			break;
 		}
 		case LUA_TLIGHTUSERDATA: {
-			data = (char*)lua_touserdata(L, 2);
-			size = luaL_checkinteger(L, 3);
+			data = (char*)lua_touserdata(L, index);
+			*size = luaL_checkinteger(L, index+1);
 			break;	
 		}
 		default: {
-			luaL_error(L, "client manager write error:unknow lua type:%s", lua_typename(L,vt));
+			luaL_error(L, "client manager get buffer error:unknow lua type:%s", lua_typename(L,vt));
 		}
 	}
 
-	if (size <= 0) {
-		return 0;
+	if (*size <= 0) {
+		return NULL;
 	}
+
+	return data;
+}
+
+int ClientManager::LSendClient(lua_State* L) {
+	int vid = luaL_checkinteger(L, 1);
+
+	size_t size;
+	char* data = GetBuffer(L, 2, &size);
 
 	CLIENT_MGR->SendClient(vid, data, size);
 	return 0;
@@ -286,29 +292,9 @@ int ClientManager::LSendClient(lua_State* L) {
 
 int ClientManager::LBroadcastClient(lua_State* L) {
 	luaL_checktype(L, 1, LUA_TTABLE);
-	int vt = lua_type(L, 2);
-	char* data = NULL;
-	size_t size;
-	switch(vt) {
-		case LUA_TSTRING: {
-			const char* str = lua_tolstring(L, 2, &size);
-			data = (char*)malloc(size);
-			memcpy(data, str, size);
-			break;
-		}
-		case LUA_TLIGHTUSERDATA: {
-			data = (char*)lua_touserdata(L, 2);
-			size = luaL_checkinteger(L, 3);
-			break;
-		}
-		default: {
-			luaL_error(L, "client manager write error:unknow lua type:%s", lua_typename(L,vt));
-		}
-	}
 
-	if (size <= 0) {
-		return 0;
-	}
+	size_t size;
+	char* data = GetBuffer(L, 2, &size);
 
 	std::vector<int> vids;
 	lua_pushnil(L);
