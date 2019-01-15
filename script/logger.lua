@@ -33,8 +33,7 @@ function logger:OnData(channel, data, size)
 			content = table.concat(info.log,"\t")
 		end
 	end
-
-	fish.WriteLog(file, source, line, level, time, content)
+	fish.WriteLog(file, source or "-", line or "0", level, time, content)
 	
 end
 

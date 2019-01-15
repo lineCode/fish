@@ -35,7 +35,7 @@ void LoggerHost::WriteLog(const char* file, const char* source, int line, int le
 	LocalTime((time_t)time, &stm);
 
 	std::string date = fmt::format("{}-{}-{} {}:{}:{}", stm.tm_year+1900, stm.tm_mon+1, stm.tm_mday, stm.tm_hour, stm.tm_min, stm.tm_sec);
-	std::string log = fmt::format("[{}][{} @{}:{}] {}", kLOG_TAG[level], date, source, line, content);
+	std::string log = fmt::format("[{}][{} @{}:{}] {}\r\n", kLOG_TAG[level], date, source, line, content);
 
 	fwrite(log.c_str(), log.length() , 1, F);
 	if (show_) {
