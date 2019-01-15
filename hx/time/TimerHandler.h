@@ -1,7 +1,6 @@
 ﻿#ifndef TIMERHANDLER_H
 #define TIMERHANDLER_H
-
-#include "Typedef.h"
+#include <stdint.h>
 
 class TimeoutHandler {
 	friend class TimerWheelMgr;

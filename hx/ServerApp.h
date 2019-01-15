@@ -1,7 +1,7 @@
 ﻿#ifndef SERVERAPP_H
 #define SERVERAPP_H
 
-//#include "boost/function.hpp"
+
 #include "network/EventPoller.h"
 #include "util/MemoryStream.h"
 #include "util/ObjectPool.h"
@@ -9,7 +9,7 @@
 #include "lualib/LuaFish.h"
 #include "time/Timer.h"
 #include "TaskQueue.h"
-#include "Typedef.h"
+
 
 class ServerApp {
 public:

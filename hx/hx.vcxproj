@@ -115,7 +115,6 @@
     <ClInclude Include="time\TimerHeap.h" />
     <ClInclude Include="time\TimerWheel.h" />
     <ClInclude Include="time\Timestamp.h" />
-    <ClInclude Include="Typedef.h" />
     <ClInclude Include="util\Allocator.h" />
     <ClInclude Include="util\format.h" />
     <ClInclude Include="util\linenoise.hpp" />

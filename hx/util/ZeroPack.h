@@ -1,11 +1,9 @@
-#ifndef ZEROPACKER_H
+﻿#ifndef ZEROPACKER_H
 #define ZEROPACKER_H
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-#include "../Typedef.h"
 
 
 int Zeropack(void * srcv, int srcsz, void * bufferv, int bufsz);

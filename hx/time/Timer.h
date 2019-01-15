@@ -2,7 +2,6 @@
 #define TIMER_H
 #include <functional>
 #include "util/ObjectPool.h"
-#include "Typedef.h"
 #include "network/EventPoller.h"
 
 class Timer {

@@ -1,6 +1,5 @@
 ﻿#ifndef STREAM_READER_H
 #define STREAM_READER_H
-#include "Typedef.h"
 #include <stdint.h>
 #include <string>
 #include <assert.h>
