@@ -1,7 +1,7 @@
-#ifndef LOGGER_HOST_H
+﻿#ifndef LOGGER_HOST_H
 #define LOGGER_HOST_H
 
-#include <map>
+#include <unordered_map>
 #include "LoggerInterface.h"
 
 class LoggerHost : public LoggerInterface {
@@ -14,7 +14,7 @@ public:
 	virtual void WriteLog(const char* file, void* data, size_t size);
 
 private:
-	std::map<std::string, FILE*> FILEMgr_;
+	std::unordered_map<const char*, FILE*> fileCtx_;
 	FILE* runtime_;
 	std::string path_;
 	bool show_;

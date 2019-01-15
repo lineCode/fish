@@ -11,8 +11,8 @@ LoggerHost::LoggerHost(const char* path, bool show) : path_(path) {
 }
 
 LoggerHost::~LoggerHost(void) {
-	std::map<std::string, FILE*>::iterator iter;
-	for(iter = FILEMgr_.begin();iter != FILEMgr_.end();iter++) {
+	std::unordered_map<const char*, FILE*>::iterator iter;
+	for ( iter = fileCtx_.begin(); iter != fileCtx_.end(); iter++ ) {
 		FILE* F = iter->second;
 		fflush(F);
 		fclose(F);
@@ -21,12 +21,12 @@ LoggerHost::~LoggerHost(void) {
 
 void LoggerHost::WriteLog(const char* file, const char* source, int line, int level, uint64_t time, const char* content) {
 	FILE* F = NULL;
-	std::map<std::string, FILE*>::iterator iter = FILEMgr_.find(file);
-	if (iter == FILEMgr_.end()) {
+	std::unordered_map<const char*, FILE*>::iterator iter = fileCtx_.find(file);
+	if ( iter == fileCtx_.end() ) {
 		std::string path = fmt::format("{}/{}.log", path_, file);
 		F = fopen(path.c_str(),"w");
 		assert(F != NULL);
-		FILEMgr_[file] = F;
+		fileCtx_[file] = F;
 	} else {
 		F = iter->second;
 	}
