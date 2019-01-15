@@ -15,8 +15,8 @@ local CO_STATE = {
 }
 
 local kMAX_SESSION = math.pow(2,32)
-local Session_ = 1
-local MainCo_ = CoRunning()
+local session_ = 1
+local mainCo_ = CoRunning()
 
 local function CoCreate(func)
 	local co = table.remove(coPool_)
@@ -65,7 +65,7 @@ end
 
 function _M.Wait(session)
 	local co = CoRunning()
-	if co == MainCo_ then
+	if co == mainCo_ then
 		error("cannot wait in main co,wait op should run in fork")
 	end
 	return CoYield(CO_STATE.eWAIT,session)
@@ -80,11 +80,11 @@ function _M.Sleep(time)
 end
 
 function _M.GenSession()
-	if Session_ >= kMAX_SESSION then
-		Session_ = 1
+	if session_ >= kMAX_SESSION then
+		session_ = 1
 	end
-	local session = Session_
-	Session_ = Session_ + 1
+	local session = session_
+	session_ = session_ + 1
 	return session
 end
 
