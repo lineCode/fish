@@ -40,7 +40,7 @@ end
 
 local function GetDebugInfo(logger)
 	local info = debug.getinfo(logger.depth,"lS")
-	return info.source,info.currentline
+	return info.short_src,info.currentline
 end
 
 local function Flush(logger,fm,logLevel,...)
