@@ -114,10 +114,12 @@ void ClientChannel::OnUpdate(Timer* timer, void* userdata) {
 void ClientChannel::OnClientError(bool close) {
 	if (close) {
 		Close(true);
-	}
-	CLIENT_MGR->DeleteClient(vid_);
-	CLIENT_MGR->MarkClientDead(this);
+	} else {
+		CLIENT_MGR->DeleteClient(vid_);
+		CLIENT_MGR->MarkClientDead(this);
 
+	}
+	
 	OOLUA::Script& script = APP->Lua()->GetScript();
 	if ( !script.call("OnClientError", vid_) ) {
 		LOG_ERROR(fmt::format("OnClientError error:{}", OOLUA::get_last_error(script)));
