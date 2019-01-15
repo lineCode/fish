@@ -14,7 +14,7 @@ public:
 	virtual void WriteLog(const char* file, void* data, size_t size);
 
 private:
-	std::unordered_map<const char*, FILE*> fileCtx_;
+	std::unordered_map<std::string, FILE*> fileCtx_;
 	FILE* runtime_;
 	std::string path_;
 	bool show_;

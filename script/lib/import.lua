@@ -38,6 +38,9 @@ function _M.Import(file)
 		ctx.env["__init__"](ctx.env)
 	end
 
+	local attr = lfs.attributes(path)
+	ctx.change = attr.change
+
 	_ScriptCtx[file] = ctx
 	return ctx.env
 end
@@ -52,6 +55,15 @@ function _M.Reload(file)
 
 	if ctx.env["__reload__"] then
 		ctx.env["__reload__"](ctx.env)
+	end
+end
+
+function _M.AutoReload()
+	for file,ctx in pairs(_ScriptCtx) do
+		local attr = lfs.attributes(ctx.path)
+		if attr.change ~= ctx.change then
+			_M.Reload(file)
+		end
 	end
 end
 
