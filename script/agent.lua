@@ -5,11 +5,14 @@ function Init(self)
 	RUNTIME_LOG:ERROR("agent init")
 	assert(RPC:Connect({ip = config.loginAddr.ip, port = config.loginAddr.port}, 2, "agent", 5))
 	RUNTIME_LOG:ERROR("register ok")
-
-	for i = 1,1024 do
-		local result = RPC:CallLogin("login:Fuck", {fuck = "mrq"})
-	end
-
+	
+	fish.StartTimer(1,1,function ()
+		co.Fork(function ()
+			for i = 1,10240 do
+				local result = RPC:CallLogin("login:Fuck", {fuck = "mrq"})
+			end
+		end)
+	end)
 end
 
 function Fina()

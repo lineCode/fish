@@ -14,6 +14,5 @@ function Update(now)
 end
 
 function Fuck(self,args)
-	table.print(args,"Fuck")
 	return {a = 1, b = 2}
 end
