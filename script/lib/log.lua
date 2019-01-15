@@ -45,7 +45,7 @@ end
 
 local function Flush(logger,fm,logLevel,...)
 	local message = {
-		tag = eLOG_TAG[logLevel],
+		level = logLevel,
 		time = os.time(),
 		fm = fm,
 		log = {...},
