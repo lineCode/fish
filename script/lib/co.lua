@@ -22,7 +22,7 @@ local mainCo_ = CoRunning()
 local function CoCreate(func)
 	local co = table.remove(coPool_)
 	if co == nil then
-		co = CoCreate(function(...)
+		co = coroutine.create(function(...)
 			func(...)
 			while true do
 				func = nil
