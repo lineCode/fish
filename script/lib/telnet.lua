@@ -14,18 +14,19 @@ function telnet:OnData(channel)
 	local data = channelData_[channel]
 	data = data..channel:Read()
 	local start, over, str = data:find("(.+)\r\n")
-	if start then
-		local list = common.Split(str," ")
-		local method = list[1]
-		local func = inst_[method]
-		if func then
-			func(inst_,table.unpack(list,2))
-		end
-		data = data:sub(over+1)
+	if not start then
 		channelData_[channel] = data
-	else
-		channelData_[channel] = data
+		return
 	end
+
+	local list = common.Split(str," ")
+	local method = list[1]
+	local func = inst_[method]
+	if func then
+		func(inst_,table.unpack(list,2))
+	end
+	data = data:sub(over+1)
+	channelData_[channel] = data
 end
 
 function telnet:OnClose(channel)
