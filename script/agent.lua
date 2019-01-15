@@ -3,15 +3,13 @@ local common = require "lib.common"
 
 function Init(self)
 	RUNTIME_LOG:ERROR("agent init")
---[[	assert(RPC:Connect({ip = config.loginAddr.ip, port = config.loginAddr.port}, 2, "agent", 5))
+	assert(RPC:Connect({ip = config.loginAddr.ip, port = config.loginAddr.port}, 2, "agent", 5))
 	RUNTIME_LOG:ERROR("register ok")
-	common.TimeDiff("test",function ()
+
 	for i = 1,1024 do
 		local result = RPC:CallLogin("login:Fuck", {fuck = "mrq"})
---		table.print(result)
 	end
-	
-end)]]
+
 end
 
 function Fina()
