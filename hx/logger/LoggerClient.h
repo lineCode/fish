@@ -1,4 +1,4 @@
-#ifndef LOGGER_CLIENT_H
+﻿#ifndef LOGGER_CLIENT_H
 #define LOGGER_CLIENT_H
 
 #include "LoggerInterface.h"
@@ -15,9 +15,7 @@ public:
 
 	virtual ~LoggerClient();
 
-	virtual void RuntimeLog(std::string& log);
-
-	virtual void WriteLog(const char* file, std::string& log);
+	virtual void WriteLog(const char* file, const char* source, int line, int level, uint64_t time, const char* content);
 
 	virtual void WriteLog(const char* file, void* data, size_t size);
 

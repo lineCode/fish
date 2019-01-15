@@ -3,13 +3,13 @@
 
 #if defined (WIN32)
 #include <windows.h>
-#define LOCALTIME(ts,tm) localtime_s(&tm, &ts);
+#define LOCALTIME(ts,tm) localtime_s(tm, ts);
 #else
 #include <sys/time.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#define LOCALTIME(ts,tm) localtime_r(&ts, &tm);
+#define LOCALTIME(ts,tm) localtime_r(ts, tm);
 #endif
 
 #define DAY_TIME_FAST
@@ -63,7 +63,7 @@ int GetTimeZone() {
 #else
 		time_t now = time(NULL);
 		struct tm local = { 0 };
-		LOCALTIME(now, local);
+		LOCALTIME(&now, &local);
 		G_TIMEZONE = local.tm_gmtoff / 3600;
 #endif
 	}
@@ -79,7 +79,7 @@ time_t GetTodayStart(time_t ts) {
 	return ts - (ts + GetTimeZone() * 3600) % 86400;
 #else
 	struct tm local = { 0 };
-	LOCALTIME(ts, local);
+	LOCALTIME(&ts, &local);
 	local.tm_hour = local.tm_min = local.tm_sec = 0;
 	return mktime(&local);
 #endif
@@ -92,7 +92,7 @@ time_t GetTodayOver(time_t ts) {
 time_t GetWeekStart(time_t ts) {
 	time_t weekTime = GetTodayStart(ts);
 	struct tm local = { 0 };
-	LOCALTIME(weekTime, local);
+	LOCALTIME(&weekTime, &local);
 
 	if (local.tm_wday == 0) {
 		weekTime -= 6 * 24 * 3600;
@@ -113,7 +113,7 @@ time_t GetMonthStart(time_t ts) {
 	}
 
 	struct tm local = { 0 };
-	LOCALTIME(ts, local);
+	LOCALTIME(&ts, &local);
 	local.tm_mday = 1;
 	local.tm_hour = local.tm_min = local.tm_sec = 0;
 	return mktime(&local);
@@ -125,7 +125,7 @@ time_t GetMonthOver(time_t ts) {
 	}
 
 	struct tm local = { 0 };
-	LOCALTIME(ts, local);
+	LOCALTIME(&ts, &local);
 	local.tm_mday = local.tm_hour = local.tm_min = local.tm_sec = 0;
 
 	if (local.tm_mon == 11) {
@@ -160,4 +160,8 @@ time_t GetDayTime(time_t ts, int hour, int min, int sec) {
 
 time_t GetDayTimeWithSec(time_t ts, int sec) {
 	return GetDayTime(ts, 0, 0, sec);
+}
+
+void LocalTime(time_t time, struct tm* tm) {
+	LOCALTIME(&time, tm);
 }

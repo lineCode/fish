@@ -1,6 +1,9 @@
-#include "LoggerHost.h"
+﻿#include "LoggerHost.h"
 #include "util/format.h"
+#include "time/Timestamp.h"
 #include <assert.h>
+
+static const char kLOG_TAG[] = { 'D', 'I', 'W', 'E'};
 
 LoggerHost::LoggerHost(const char* path, bool show) : path_(path) {
 	runtime_ = NULL;
@@ -16,11 +19,7 @@ LoggerHost::~LoggerHost(void) {
 	}
 }
 
-void LoggerHost::RuntimeLog(std::string& log) {
-	WriteLog("runtime", log);
-}
-
-void LoggerHost::WriteLog(const char* file, std::string& log) {
+void LoggerHost::WriteLog(const char* file, const char* source, int line, int level, uint64_t time, const char* content) {
 	FILE* F = NULL;
 	std::map<std::string, FILE*>::iterator iter = FILEMgr_.find(file);
 	if (iter == FILEMgr_.end()) {
@@ -31,6 +30,13 @@ void LoggerHost::WriteLog(const char* file, std::string& log) {
 	} else {
 		F = iter->second;
 	}
+
+	struct tm stm;
+	LocalTime((time_t)time, &stm);
+
+	std::string date = fmt::format("{}-{}-{} {}:{}:{}", stm.tm_year+1900, stm.tm_mon+1, stm.tm_mday, stm.tm_hour, stm.tm_min, stm.tm_sec);
+	std::string log = fmt::format("[{}][{} @{}:{}] {}", kLOG_TAG[level], date, source, line, content);
+
 	fwrite(log.c_str(), log.length() , 1, F);
 	if (show_) {
 		fwrite(log.c_str(), log.length() , 1, stderr);

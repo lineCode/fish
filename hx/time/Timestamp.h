@@ -30,4 +30,7 @@ int GetDiffWeek(time_t ts0, time_t ts1);
 time_t GetDayTime(time_t ts, int hour, int min, int sec);
 
 time_t GetDayTimeWithSec(time_t ts, int sec);
+
+void LocalTime(time_t time, struct tm* tm);
+
 #endif

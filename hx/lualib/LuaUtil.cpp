@@ -41,10 +41,17 @@ int LuaUtil::ParseLoggerMessage(lua_State* L) {
 
 	int numArgs;
 	if (type == 0) {
-		std::string log;
-		reader >> log;
-		lua_pushlstring(L, log.c_str(), log.length());
-		numArgs = 3;
+		std::string source;
+		std::string content;
+		int line, level;
+		uint64_t time;
+		reader >> source >> line >> level >> time >> content;
+		lua_pushlstring(L, source.c_str(), source.length());
+		lua_pushinteger(L, line);
+		lua_pushinteger(L, level);
+		lua_pushinteger(L, time);
+		lua_pushlstring(L, content.c_str(), content.length());
+		numArgs = 7;
 	}  else {
 		size_t size;
 		reader >> size;

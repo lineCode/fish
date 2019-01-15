@@ -9,33 +9,32 @@ function logger:OnAccept(fd, addr)
 end
 
 function logger:OnData(channel, data, size)
-	local type, file, data, size = util.ParseLoggerMessage(data, size)
+	local source
+	local line
+	local level
+	local time
+	local content
+	local type, file, source, line, level, time, content = util.ParseLoggerMessage(data, size)
 	if type == 0 then
-		fish.WriteLog(file, data)
+		fish.WriteLog(file, source, line, level, time, content)
 	else
-		local info = fish.UnPack(data, size)
+		local info = fish.UnPack(source, line)
 		
 		local tag = info.tag
-		local source = info.source
-		local line = info.line
+		source = info.source
+		line = info.line
+		level = info.level
+		time = info.time
 		
-		local log
 		local fm = info.fm
 		if fm then
-			log = string.format(fm,table.unpack(info.log))
+			content = string.format(fm,table.unpack(info.log))
 		else
-			log = table.concat(info.log,"\t")
+			content = table.concat(info.log,"\t")
 		end
-
-		local content
-		if source then
-			content = string.format("[%s][%s %s:%d] %s\r\n",tag,os.date("%Y-%m-%d %H:%M:%S",info.time),source,line,log)
-		else
-			content = string.format("[%s][%s] %s\r\n",tag,os.date("%Y-%m-%d %H:%M:%S",info.time),log)
-		end
-
-		fish.WriteLog(file, content)
 	end
+
+	fish.WriteLog(file, source, line, level, time, content)
 	
 end
 

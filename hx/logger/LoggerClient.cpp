@@ -2,6 +2,7 @@
 #include "network/Connector.h"
 #include "util/format.h"
 #include "util/Util.h"
+#include "logger/Logger.h"
 #include <iostream>
 #include <assert.h>
 
@@ -29,13 +30,9 @@ LoggerClient::~LoggerClient(void) {
 	}
 }
 
-void LoggerClient::RuntimeLog(std::string& log) {
-	WriteLog("runtime", log);
-}
-
-void LoggerClient::WriteLog(const char* file, std::string& log) {
+void LoggerClient::WriteLog(const char* file, const char* source, int line, int level, uint64_t time, const char* content) {
 	StreamWriter writer;
-	writer << (int32_t)0 << file << log;
+	writer << (int32_t)0 << file << source << line << level << time << content;
 	if (channel_) {
 		size_t size;
 		char* message = Util::MakeMessage(writer, &size);

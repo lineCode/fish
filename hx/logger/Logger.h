@@ -4,6 +4,7 @@
 #include <mutex>
 #include <string>
 #include "util/Singleton.h"
+#include "time/Timestamp.h"
 #include "logger/LoggerInterface.h"
 #include "ServerApp.h"
 
@@ -12,8 +13,8 @@ class ServerApp;
 
 class Logger : public Singleton<Logger> {
 public:
-	enum Loglevel {
-		eDebug,
+	enum Loggerlevel {
+		eDebug = 0,
 		eInfo,
 		eWarn,
 		eError,
@@ -23,18 +24,16 @@ public:
 
 	~Logger(void);
 
-	void RuntimeLog(const char* file,int line,Loglevel level,const char* content);
-
-	void WriteLog(const char* file, const char* content);
+	void WriteLog(const char* file, const char* source, int line, Loggerlevel level, uint64_t time, const char* content);
 
 	void WriteLog(const char* file, void* data, size_t size);
 
-	static void SetLogLevel(Loglevel level);
+	static void SetLogLevel(Loggerlevel level);
 	
-	static Loglevel LogLevel();
+	static Loggerlevel GetLoggerLevel();
 
 private:
-	static Loglevel level_;
+	static Loggerlevel level_;
 
 	std::mutex mutex_;
 
@@ -43,13 +42,13 @@ private:
 
 #define LOGGER 			Logger::GetSingleton()
 
-#define LOG_DEBUG(x) 	LOGGER->RuntimeLog(__FILE__,__LINE__,Logger::eDebug,(x).c_str())
+#define LOG_DEBUG(x) 	LOGGER->WriteLog("runtime",__FILE__,__LINE__,Logger::eDebug,::Now(),(x).c_str())
 
-#define LOG_INFO(x) 	LOGGER->RuntimeLog(__FILE__,__LINE__,Logger::eInfo,(x).c_str())
+#define LOG_INFO(x) 	LOGGER->WriteLog("runtime",__FILE__,__LINE__,Logger::eInfo,::Now(),(x).c_str())
 
-#define LOG_WARN(x) 	LOGGER->RuntimeLog(__FILE__,__LINE__,Logger::eWarn,(x).c_str())
+#define LOG_WARN(x) 	LOGGER->WriteLog("runtime",__FILE__,__LINE__,Logger::eWarn,::Now(),(x).c_str())
 
-#define LOG_ERROR(x) 	LOGGER->RuntimeLog(__FILE__,__LINE__,Logger::eError,(x).c_str())
+#define LOG_ERROR(x) 	LOGGER->WriteLog("runtime",__FILE__,__LINE__,Logger::eError,::Now(),(x).c_str())
 
 
 #endif
