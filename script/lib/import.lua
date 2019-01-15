@@ -2,7 +2,7 @@ local util = require "util"
 
 local _M = {}
 
-local _ScriptCtx = {}
+local scriptCtx_ = {}
 
 local function EnvPairs(self,key)
 	local key,value = next(self,key)
@@ -21,7 +21,7 @@ local function LoadFile(path, env)
 end
 
 function _M.Import(file)
-	local ctx = _ScriptCtx[file]
+	local ctx = scriptCtx_[file]
 	if ctx then
 		return ctx.env
 	end
@@ -41,12 +41,12 @@ function _M.Import(file)
 	local attr = lfs.attributes(path)
 	ctx.change = attr.change
 
-	_ScriptCtx[file] = ctx
+	scriptCtx_[file] = ctx
 	return ctx.env
 end
 
 function _M.Reload(file)
-	local ctx = _ScriptCtx[file]
+	local ctx = scriptCtx_[file]
 	if not ctx then
 		return
 	end
@@ -59,7 +59,7 @@ function _M.Reload(file)
 end
 
 function _M.AutoReload()
-	for file,ctx in pairs(_ScriptCtx) do
+	for file,ctx in pairs(scriptCtx_) do
 		local attr = lfs.attributes(ctx.path)
 		if attr.change ~= ctx.change then
 			_M.Reload(file)
@@ -68,11 +68,11 @@ function _M.AutoReload()
 end
 
 function _M.GetScriptCtx()
-	return _ScriptCtx
+	return scriptCtx_
 end
 
 function _M.GetModule(file)
-	local ctx = _ScriptCtx[file]
+	local ctx = scriptCtx_[file]
 	if ctx then
 		return ctx.env
 	end
