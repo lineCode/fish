@@ -19,8 +19,7 @@ function logger:OnData(channel, data, size)
 		fish.WriteLog(file, source, line, level, time, content)
 	else
 		local info = fish.UnPack(source, line)
-		
-		local tag = info.tag
+
 		source = info.source
 		line = info.line
 		level = info.level
