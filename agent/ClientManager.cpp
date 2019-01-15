@@ -146,7 +146,7 @@ int ClientManager::BroadcastClient(std::vector<int>& vids, char* data, size_t si
 		return SendClient(vids[0], data, size);
 	}
 
-	uint32_t* reference = (uint32_t*)malloc(sizeof(uint32_t) * vids.size());
+	uint32_t* reference = (uint32_t*)malloc(sizeof(uint32_t));
 	*reference = vids.size();
 
 	bool noChannel = true;
