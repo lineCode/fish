@@ -4,12 +4,20 @@ local _M = {}
 
 local _ScriptCtx = {}
 
-local function env_pairs(self,key)
+local function EnvPairs(self,key)
 	local key,value = next(self,key)
 	if key == "__name" or key == "__timer" then
 		return next(self,key)
 	end
 	return key,value
+end
+
+local function LoadFile(path, env)
+	local loader,err = loadfile(path, "text", env)
+	if not loader then
+		error(err)
+	end
+	loader()
 end
 
 function _M.Import(file)
@@ -22,13 +30,9 @@ function _M.Import(file)
 
 	local ctx = {}
 	ctx.path = path
-	ctx.env = setmetatable({},{__index = _G,__pairs = function (self) return env_pairs,self end})
+	ctx.env = setmetatable({},{__index = _G,__pairs = function (self) return EnvPairs,self end})
 	
-	local loader,err = loadfile(path, "text", ctx.env)
-	if not loader then
-		error(err)
-	end
-	loader()
+	LoadFile(ctx.path, ctx.env)
 
 	if ctx.env["__init__"] then
 		ctx.env["__init__"](ctx.env)
@@ -44,15 +48,7 @@ function _M.Reload(file)
 		return
 	end
 
-	local loader,err = loadfile(ctx.path, "text", ctx.env)
-	if not loader then
-		error(err)
-	end
-	loader()
-
-	if ctx.env["__init__"] then
-		ctx.env["__init__"](ctx.env)
-	end
+	LoadFile(ctx.path, ctx.env)
 
 	if ctx.env["__reload__"] then
 		ctx.env["__reload__"](ctx.env)
