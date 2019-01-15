@@ -71,6 +71,14 @@ function _M.Wait(session)
 	return CoYield(CO_STATE.eWAIT,session)
 end
 
+function _M.Sleep(time)
+	local session = _M.GenSession()
+	fish.StartTimer(time, 0, function ()
+		_M.Wakeup(session)
+	end)
+	_M.Wait(session)
+end
+
 function _M.GenSession()
 	if Session_ >= kMAX_SESSION then
 		Session_ = 1
