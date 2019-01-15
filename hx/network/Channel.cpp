@@ -116,12 +116,12 @@ namespace Network {
 		state_ = eInvalid;
 	}
 
-	int Channel::Write(char* data, int size) {
+	int Channel::Write(char* data, int size, uint32_t* reference) {
+		writer_->Append(data, size, reference);
+		
 		if (!IsAlive()) {
 			return -1;
 		}
-
-		writer_->Append(data, size);
 
 		if (!wio_.is_active()) {
 			int result = writer_->Write(fd_);
@@ -139,9 +139,6 @@ namespace Network {
 	}
 	
 	int Channel::Write(std::string& data) {
-		if (!IsAlive()) {
-			return -1;
-		}
 		if (data.length() == 0) {
 			return -1;
 		}
@@ -149,11 +146,11 @@ namespace Network {
 		int size = data.length();
 		char* str = (char*)malloc(size);
 		memcpy(str, data.c_str(), size);
-		return Write(str, size);
+		return Write(str, size, NULL);
 	}
 
 	int Channel::Write(MemoryStream& stream) {
 		char* data = (char*)malloc(stream.Length());
-		return Write(data, stream.Length());
+		return Write(data, stream.Length(), NULL);
 	}
 }

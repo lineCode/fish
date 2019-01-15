@@ -1,4 +1,4 @@
-#include "LoggerClient.h"
+﻿#include "LoggerClient.h"
 #include "network/Connector.h"
 #include "util/format.h"
 #include "util/Util.h"
@@ -39,7 +39,7 @@ void LoggerClient::WriteLog(const char* file, std::string& log) {
 	if (channel_) {
 		size_t size;
 		char* message = Util::MakeMessage(writer, &size);
-		channel_->Write(message, size);
+		channel_->Write(message, size, NULL);
 	} else {
 		cached_.push_back(writer);
 	}
@@ -55,7 +55,7 @@ void LoggerClient::WriteLog(const char* file, void* data, size_t size) {
 	if (channel_) {
 		size_t size;
 		char* message = Util::MakeMessage(writer, &size);
-		channel_->Write(message, size);
+		channel_->Write(message, size, NULL);
 	} else {
 		cached_.push_back(writer);
 	}
@@ -85,7 +85,7 @@ void LoggerClient::OnUpdate(Timer* timer, void* userdata) {
 		StreamWriter& writer = *iter;
 		size_t size;
 		char* message = Util::MakeMessage(writer, &size);
-		channel_->Write(message, size);
+		channel_->Write(message, size, NULL);
 	}
 	cached_.clear();
 }

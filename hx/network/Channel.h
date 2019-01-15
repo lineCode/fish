@@ -1,5 +1,6 @@
 ﻿#ifndef CHANNEL_H
 #define CHANNEL_H
+#include <stdint.h>
 #include <vector>
 #include <map>
 #include <queue>
@@ -36,7 +37,7 @@ namespace Network {
 		virtual void HandleClose();
 		virtual void HandleError();
 
-		virtual int Write(char* data,int size);
+		virtual int Write(char* data,int size, uint32_t* reference);
 		virtual int Write(std::string& data);
 		virtual int Write(MemoryStream& stream);
 

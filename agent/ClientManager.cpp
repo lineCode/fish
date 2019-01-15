@@ -138,7 +138,7 @@ int ClientManager::SendClient(int vid, char* data, size_t size) {
 		LOG_ERROR(fmt::format("no such client:{}", vid));
 		return -1;
 	}
-	return channel->Write(data, size);
+	return channel->Write(data, size, NULL);
 }
 
 int ClientManager::BroadcastClient(std::vector<int>& vids, char* data, size_t size) {
@@ -146,13 +146,28 @@ int ClientManager::BroadcastClient(std::vector<int>& vids, char* data, size_t si
 		return SendClient(vids[0], data, size);
 	}
 
+	uint32_t* reference = (uint32_t*)malloc(sizeof(uint32_t) * vids.size());
+	*reference = vids.size();
+
+	bool noChannel = true;
 	for ( size_t i = 0; i < vids.size();i++ ) {
 		int vid = vids[i];
-		char* message = (char*)malloc(size);
-		memcpy(message, data, size);
-		SendClient(vid, message, size);
+		ClientChannel* channel = GetClient(vid);
+		if ( !channel ) {
+			LOG_ERROR(fmt::format("no such client:{}", vid));
+			(*reference)--;
+		} else {
+			channel->Write(data, size, reference);
+			noChannel = false;
+		}
 	}
-	free(data);
+
+	if (noChannel) {
+		assert(*reference == 0);
+		free(data);
+		free(reference);
+	}
+
 	return 0;
 }
 
@@ -276,7 +291,9 @@ int ClientManager::LBroadcastClient(lua_State* L) {
 	size_t size;
 	switch(vt) {
 		case LUA_TSTRING: {
-			data = (char*)lua_tolstring(L, 2, &size);
+			const char* str = lua_tolstring(L, 2, &size);
+			data = (char*)malloc(size);
+			memcpy(data, str, size);
 			break;
 		}
 		case LUA_TLIGHTUSERDATA: {
@@ -293,17 +310,15 @@ int ClientManager::LBroadcastClient(lua_State* L) {
 		return 0;
 	}
 
+	std::vector<int> vids;
 	lua_pushnil(L);
 	while (lua_next(L, 1) != 0) {
 		int vid = luaL_checkinteger(L, -1);
-		char* tmp = (char*)malloc(size);
-		CLIENT_MGR->SendClient(vid, tmp, size);
+		vids.push_back(vid);
 		lua_pop(L, 1);
 	}
 
-	if (vt == LUA_TLIGHTUSERDATA) {
-		free(data);
-	}
+	CLIENT_MGR->BroadcastClient(vids, data, size);
 
 	return 0;
 }

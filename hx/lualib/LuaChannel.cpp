@@ -206,7 +206,7 @@ int LuaChannel::LWrite(lua_State* L) {
 		luaL_error(L, "channel:%p write error:error header size:%d", channel, header);
 	}
 
-	int status = channel->Write(content, (int)size);
+	int status = channel->Write(content, (int)size, NULL);
 
 	lua_pushboolean(L, status == 0);
 	return 1;

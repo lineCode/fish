@@ -3,7 +3,7 @@
 
 namespace Network {
 
-WriterBuffer::WriterBuffer():size_(0),offset_(0),data_(NULL),next_(NULL) {
+WriterBuffer::WriterBuffer():size_(0),offset_(0),data_(NULL),reference_(NULL),next_(NULL) {
 }
 
 WriterBuffer::~WriterBuffer() {
@@ -34,7 +34,14 @@ Writer::Writer() {
 Writer::~Writer() {
 	WriterBuffer* wb = NULL;
 	while ((wb = head_) != NULL) {
-		free(wb->data_);
+		if (!wb->reference_) {
+			free(wb->data_);
+		} else {
+			if ((--(*wb->reference_)) == 0) {
+				free(wb->data_);
+				free(wb->reference_);
+			}
+		}
 		head_ = wb->next_;
 		delete wb;
 	}
@@ -89,7 +96,15 @@ void Writer::RemoveFront() {
 	if (head_ == NULL) {
 		tail_ = NULL;
 	}
-	free(wb->data_);
+	if (!wb->reference_) {
+		free(wb->data_);
+	} else {
+		if ((--(*wb->reference_)) == 0) {
+			free(wb->data_);
+			free(wb->reference_);
+		}
+	}
+	
 	FreeBuffer(wb);
 }
 
@@ -99,10 +114,11 @@ void Writer::FreeBuffer(WriterBuffer* buffer) {
 	freelist_ = buffer;
 }
 
-void Writer::Append(void* data,int size) {
+void Writer::Append(void* data,int size,uint32_t* reference) {
 	WriterBuffer* wb = AllocBuffer();
 	wb->data_ = data;
 	wb->size_ = size;
+	wb->reference_ = reference;
 
 	if (tail_ == NULL) {
 		assert(head_ == NULL);
