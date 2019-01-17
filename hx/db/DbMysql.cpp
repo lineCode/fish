@@ -6,7 +6,7 @@ DbMysql::DbMysql(std::string ip, int port, std::string user, std::string passwd)
 }
 
 DbMysql::~DbMysql() {
-
+	Detach();
 }
 
 bool DbMysql::Attach(std::string dbName) {
@@ -40,25 +40,24 @@ bool DbMysql::Detach() {
 	return true;
 }
 
-bool DbMysql::Query(const char* cmd, size_t size, MemoryStream& stream) {
+bool DbMysql::Execute(const char* sql, size_t size, MemoryStream& stream) {
 	if (!mysql_) {
 		LOG_ERROR(std::string("query failed:mysql not init"));
 		return false;
 	}
 
-	int result = mysql_real_query(mysql_, cmd, size);
-	if (result != 0) {
-		LOG_ERROR(fmt::format("query failed:{} {}({})", cmd, mysql_errno(mysql_), mysql_error(mysql_)));
+	if (mysql_real_query(mysql_, sql, size) != 0) {
+		LOG_ERROR(fmt::format("query failed:{} {}({})", sql, mysql_errno(mysql_), mysql_error(mysql_)));
 		return false;
 	}
 
-	MYSQL_RES* res = mysql_store_result(mysql_);
-	if (res) {
-		uint32_t nrows = (uint32_t)mysql_num_rows(res);
-		uint32_t nfields = (uint32_t)mysql_num_fields(res);
+	MYSQL_RES* result = mysql_store_result(mysql_);
+	if (result) {
+		uint32_t nrows = (uint32_t)mysql_num_rows(result);
+		uint32_t nfields = (uint32_t)mysql_num_fields(result);
 
 		stream << nfields;
-		MYSQL_FIELD* fields = mysql_fetch_fields(res);
+		MYSQL_FIELD* fields = mysql_fetch_fields(result);
 		for(int i = 0;i < nfields;i++) {
 			stream << fields[i].name << fields[i].type;
 		}
@@ -66,12 +65,13 @@ bool DbMysql::Query(const char* cmd, size_t size, MemoryStream& stream) {
 		stream << nrows;
 		
 		MYSQL_ROW arow;
-		while((arow = mysql_fetch_row(res)) != NULL) {
-			unsigned long* lengths = mysql_fetch_lengths(res);
+		while((arow = mysql_fetch_row(result)) != NULL) {
+			uint32_t* lengths = (uint32_t*)mysql_fetch_lengths(result);
 			for (uint32_t i = 0;i < nfields;i++) {
 				if (arow[i] == NULL) {
-					stream << "null";
+					stream << (uint32_t)0;
 				} else {
+					stream << lengths[i];
 					stream.Append((const char*)arow[i], lengths[i]);
 				}
 			}
@@ -82,12 +82,22 @@ bool DbMysql::Query(const char* cmd, size_t size, MemoryStream& stream) {
 		stream << (uint32_t)mysql_->affected_rows;
 	}
 
-}
-
-bool DbMysql::Execute(const char* cmd, size_t size, MemoryStream& stream) {
-	return false;
+	mysql_free_result(result);
 }
 
 bool DbMysql::GetTableFields(const char* tableName, MemoryStream& stream) {
-	return false;
+	MYSQL_RES* result = mysql_list_fields(mysql_, tableName, NULL);
+	if (!result) {
+		LOG_ERROR(fmt::format("GetTableFields failed:{} {}({})", tableName, mysql_errno(mysql_), mysql_error(mysql_)));
+		return false;
+	}
+
+	MYSQL_FIELD* fields = mysql_fetch_fields(result);
+	uint32_t nfields = mysql_num_fields(result);
+
+	stream << nfields;
+	for(int i = 0;i < nfields;i++) {
+		stream << fields[i].name << fields[i].type;
+	}
+	return true;
 }

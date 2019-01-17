@@ -13,7 +13,6 @@ public:
 	bool Attach(std::string dbName);
 	bool Detach();
 
-	bool Query(const char* cmd, size_t size, MemoryStream& stream);
 	bool Execute(const char* cmd, size_t size, MemoryStream& stream);
 
 	bool GetTableFields(const char* tableName, MemoryStream& stream);

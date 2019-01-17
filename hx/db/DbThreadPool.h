@@ -12,12 +12,12 @@
 
 
 
-class DbTask {
+class ThreadTask {
 
 public:
-	typedef std::shared_ptr<DbTask> Ptr;
-	virtual void Do() = 0;	
-	virtual ~DbTask() {}
+	typedef std::shared_ptr<ThreadTask> Ptr;
+	virtual void ThreadDo() = 0;	
+	virtual ~ThreadTask() {}
 };
 
 
@@ -30,13 +30,13 @@ class DbThreadPool {
 
 		TaskQueue():closed(false),watting(0){}
 
-		void PostTask(const DbTask::Ptr &task);
+		void PostTask(const ThreadTask::Ptr &task);
 
 		void Close();
 
-		DbTask::Ptr Get();
+		ThreadTask::Ptr Get();
 
-		bool Get(std::list<DbTask::Ptr> &out);
+		bool Get(std::list<ThreadTask::Ptr> &out);
 
 	private:
 		TaskQueue(const TaskQueue&);
@@ -45,7 +45,7 @@ class DbThreadPool {
 		int  watting;
 		std::mutex mtx;
 		std::condition_variable_any cv;
-		std::list<DbTask::Ptr> tasks;
+		std::list<ThreadTask::Ptr> tasks;
 	};
 
 public:
@@ -56,7 +56,7 @@ public:
 
 	bool Init(int threadCount = 0);
 
-	void PostTask(const DbTask::Ptr &task) {
+	void PostTask(const ThreadTask::Ptr &task) {
 		queue_.PostTask(task);
 	}
 

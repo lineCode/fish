@@ -69,9 +69,9 @@ int ServerApp::Run() {
 void ServerApp::OnUpate(Timer* timer, void* userdata) {
 	queue_->Prepare();
 
-	Task* task = NULL;
+	MainTask* task = NULL;
 	while ((task = queue_->Pop()) != NULL)  {
-		task->Do();
+		task->MainDo();
 	}
 
 	now_ = ::TimeStamp() / 1000;

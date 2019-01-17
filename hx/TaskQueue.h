@@ -5,10 +5,10 @@
 #include <atomic>
 #include <queue>
 
-class Task {
+class MainTask {
 public:
-	virtual void Do() = 0;	
-	virtual ~Task() {}
+	virtual void MainDo() = 0;	
+	virtual ~MainTask() {}
 };
 
 class TaskQueue {
@@ -27,16 +27,16 @@ public:
 		writer_++;
 	}
 
-	void Push(Task* task) {
+	void Push(MainTask* task) {
 		std::lock_guard<std::mutex> guard(mutex_);
-		std::queue<Task*>* queue = &queue_[writer_ % 2];
+		std::queue<MainTask*>* queue = &queue_[writer_ % 2];
 		queue->push(task);
 	}
 
-	Task* Pop() {
-		std::queue<Task*>* queue = &queue_[reader_ % 2];
+	MainTask* Pop() {
+		std::queue<MainTask*>* queue = &queue_[reader_ % 2];
 		if (!queue->empty()) {
-			Task* task = queue->front();
+			MainTask* task = queue->front();
 			queue->pop();
 			return task;
 		}
@@ -44,7 +44,7 @@ public:
 	}
 
 private:
-	std::queue<Task*> queue_[2];
+	std::queue<MainTask*> queue_[2];
 	std::mutex mutex_;
 	uint64_t reader_;
 	uint64_t writer_;
