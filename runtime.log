@@ -1,0 +1,1 @@
+[E][2019-1-17 17:48:2 @db/DbMysql.cpp:51] query failed:insert into user (name,level) ('mrq',1) 1064(You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''mrq',1)' at line 1)

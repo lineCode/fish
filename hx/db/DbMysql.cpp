@@ -16,7 +16,7 @@ bool DbMysql::Attach(std::string dbName) {
 		return false;
 	}
 
-	dbName_ = dbName_;
+	dbName_ = dbName;
 
 	if ( mysql_real_connect(mysql_, ip_.c_str(), user_.c_str(), passwd_.c_str(), dbName_.c_str(), port_, NULL, 0) ) {
 		if ( mysql_select_db(mysql_, dbName_.c_str()) != 0 ) {
@@ -53,9 +53,30 @@ bool DbMysql::Query(const char* cmd, size_t size, MemoryStream& stream) {
 	}
 
 	MYSQL_RES* res = mysql_store_result(mysql_);
-	if (result) {
+	if (res) {
 		uint32_t nrows = (uint32_t)mysql_num_rows(res);
 		uint32_t nfields = (uint32_t)mysql_num_fields(res);
+
+		stream << nfields;
+		MYSQL_FIELD* fields = mysql_fetch_fields(res);
+		for(int i = 0;i < nfields;i++) {
+			stream << fields[i].name << fields[i].type;
+		}
+
+		stream << nrows;
+		
+		MYSQL_ROW arow;
+		while((arow = mysql_fetch_row(res)) != NULL) {
+			unsigned long* lengths = mysql_fetch_lengths(res);
+			for (uint32_t i = 0;i < nfields;i++) {
+				if (arow[i] == NULL) {
+					stream << "null";
+				} else {
+					stream.Append((const char*)arow[i], lengths[i]);
+				}
+			}
+
+		}		
 
 	} else {
 		stream << (uint32_t)mysql_->affected_rows;
