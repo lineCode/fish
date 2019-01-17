@@ -39,7 +39,7 @@ LIBS_DIR := $(BIN_PATH)
 
 CCFLAG="CC=g++"
 
-all: $(LUA_STATICLIB) $(OOLUA_STATICLIB) $(LIBEV_STATICLIB) $(TCMALLOC_STATICLIB) $(HX_STATICLIB) $(FISH) $(LOGGER) $(AGENT)
+all: $(LUA_STATICLIB) $(OOLUA_STATICLIB) $(LIBEV_STATICLIB) $(TCMALLOC_STATICLIB) $(HX_STATICLIB) $(FISH) $(LOGGER) $(AGENT) $(TEST)
 
 $(LUA_STATICLIB) :
 	cd $(LUA_INC)&& $(MAKE) linux
@@ -73,17 +73,20 @@ $(LOGGER) : $(LUA_STATICLIB) $(OOLUA_STATICLIB) $(LIBEV_STATICLIB) $(TCMALLOC_ST
 	cd $(LOGGER_INC) && $(MAKE) $(CCFLAG) 
 	mv $(LOGGER_INC)/logger $(LIBS_DIR) 
 
+$(TEST) : $(LUA_STATICLIB) $(OOLUA_STATICLIB) $(LIBEV_STATICLIB) $(TCMALLOC_STATICLIB) $(HX_STATICLIB)
+	cd $(TEST_INC) && $(MAKE)
+	mv $(TEST_INC)/test $(LIBS_DIR) 
+
 leak :
 	$(MAKE) $(ALL) CCFLAG="CC=clang" 
 
 test : $(TEST)
-	cd $(TEST_INC) && $(MAKE)
-	mv $(TEST_INC)/test $(LIBS_DIR) 
 
 cleanall:
 	rm -rf $(FISH) $(FISH_INC)/*o
 	rm -rf $(AGENT) $(AGENT_INC)/*o
 	rm -rf $(LOGGER) $(LOGGER_INC)/*o
+	rm -rf $(TEST) $(TEST_INC)/*o
 	rm -rf $(LIBS_DIR)/$(HX_LIB) && cd $(HX_INC) && make clean
 	rm -rf $(LIBS_DIR)/$(LUA_LIB) && cd $(LUA_INC) && make clean
 	rm -rf $(LIBS_DIR)/$(OOLUA_LIB) && cd $(OOLUA_PATH) && make clean
@@ -94,14 +97,16 @@ cleanhx:
 	rm -rf $(FISH) $(FISH_INC)/*o
 	rm -rf $(AGENT) $(AGENT_INC)/*o
 	rm -rf $(LOGGER) $(LOGGER_INC)/*o
+	rm -rf $(TEST) $(TEST_INC)/*o
 	rm -rf $(LIBS_DIR)/$(HX_LIB) && cd $(HX_INC) && make clean
 
 clean:
 	rm -rf $(FISH) $(FISH_INC)/*o
 	rm -rf $(AGENT) $(AGENT_INC)/*o
 	rm -rf $(LOGGER) $(LOGGER_INC)/*o
+	rm -rf $(TEST) $(TEST_INC)/*o
 
 cleantest:
-	rm -rf test $(TEST_INC)/*o
+	rm -rf $(TEST) $(TEST_INC)/*o
 	
 	
