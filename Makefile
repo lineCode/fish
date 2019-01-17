@@ -32,6 +32,9 @@ LOGGER_INC ?= ./logger
 AGENT := $(BIN_PATH)/agent
 AGENT_INC ?= ./agent
 
+TEST := $(BIN_PATH)/test
+TEST_INC ?= ./test
+
 LIBS_DIR := $(BIN_PATH)
 
 CCFLAG="CC=g++"
@@ -73,6 +76,10 @@ $(LOGGER) : $(LUA_STATICLIB) $(OOLUA_STATICLIB) $(LIBEV_STATICLIB) $(TCMALLOC_ST
 leak :
 	$(MAKE) $(ALL) CCFLAG="CC=clang" 
 
+test : $(TEST)
+	cd $(TEST_INC) && $(MAKE)
+	mv $(TEST_INC)/test $(LIBS_DIR) 
+
 cleanall:
 	rm -rf $(FISH) $(FISH_INC)/*o
 	rm -rf $(AGENT) $(AGENT_INC)/*o
@@ -93,5 +100,8 @@ clean:
 	rm -rf $(FISH) $(FISH_INC)/*o
 	rm -rf $(AGENT) $(AGENT_INC)/*o
 	rm -rf $(LOGGER) $(LOGGER_INC)/*o
+
+cleantest:
+	rm -rf test $(TEST_INC)/*o
 	
 	
