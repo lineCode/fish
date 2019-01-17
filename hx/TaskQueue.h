@@ -1,8 +1,9 @@
-#ifndef MESSAGE_QUEUE_H
+﻿#ifndef MESSAGE_QUEUE_H
 #define MESSAGE_QUEUE_H
 
 #include <mutex>
 #include <atomic>
+#include <queue>
 
 class Task {
 public:

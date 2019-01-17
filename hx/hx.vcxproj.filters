@@ -159,6 +159,12 @@
     <ClInclude Include="util\StreamReader.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="db\DbMysql.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="db\DbThreadPool.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="network\Channel.cpp">
@@ -273,6 +279,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="util\StreamReader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="db\DbMysql.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="db\DbThreadPool.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
