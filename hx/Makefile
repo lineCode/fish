@@ -35,6 +35,7 @@ clean:
 	rm -f util/*.o
 	rm -f thread/*.o
 	rm -f logger/*.o
+	rm -f db/*.o
 	rm -f ../3rd/http-parser/*.o
 	rm -f ../3rd/luafilesystem/src/*.o
 	rm -f *.o 

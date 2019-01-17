@@ -1,7 +1,7 @@
 CFLAG = -g -std=c++11  -fPIC -Wall -fno-omit-frame-pointer -fno-strict-aliasing -Wno-unused-local-typedefs -Wno-unused-variable 
 
 INCLUDE = -I. -I../3rd -I../hx -I../3rd/libev -I../3rd/lua/src -I../3rd/oolua/include -I../3rd/rapidjson -I../3rd/http-parser
-TARGET = ./fish
+TARGET = ./test
 
 DIRS = $(shell find . -maxdepth 3 -type d)
 SRC = $(foreach dir,$(DIRS),$(wildcard $(dir)/*.cpp))
@@ -15,7 +15,7 @@ all:$(TARGET)
 	$(CC) $(CFLAG) $(INCLUDE) -c $< -o $@ 
 
 $(TARGET):$(OBJ) $(STATIC_LIBS)
-	$(CC) -o $@ $^ -lm -ldl -lrt -lpthread -lstdc++ -lunwind
+	$(CC) -o $@ $^ -lm -ldl -lrt -lpthread -lstdc++ -lunwind -lmysqlclient
 
 clean:
 	rm -f *.o $(TARGET)
