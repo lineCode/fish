@@ -58,7 +58,7 @@ bool DbMysql::Query(const char* cmd, size_t size, MemoryStream& stream) {
 		uint32_t nfields = (uint32_t)mysql_num_fields(res);
 
 	} else {
-		stream << mysql_->affected_rows;
+		stream << (uint32_t)mysql_->affected_rows;
 	}
 
 }
