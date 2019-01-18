@@ -1,5 +1,5 @@
 #include "DbTask.h"
-
+#include "DbApp.h"
 
 DbQueryTask::DbQueryTask(const char* sql, size_t size) {
 	sql_ = strdup(sql);
