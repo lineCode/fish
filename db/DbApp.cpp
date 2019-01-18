@@ -57,7 +57,7 @@ int DbApp::Fina() {
 }
 
 DbThreadPool* DbApp::GetThreadPool() {
-	return DbThreadPool;
+	return dbThreadPool_;
 }
 
 int DbApp::Register(lua_State* L) {
@@ -81,7 +81,7 @@ int DbApp::LQuery(lua_State* L) {
 	luaL_checktype(L, 2, LUA_TFUNCTION);
 	int reference = luaL_ref(L, LUA_REGISTRYINDEX);
 
-	DbTask::Ptr task(new DbQueryTask(sql, size));
+	DbTask::Ptr task(new DbQueryTask(reference, sql, size));
 	APP->GetThreadPool()->PostTask(task);
 
 	return 0;
@@ -93,7 +93,7 @@ int DbApp::LExecute(lua_State* L) {
 	luaL_checktype(L, 2, LUA_TFUNCTION);
 	int reference = luaL_ref(L, LUA_REGISTRYINDEX);
 
-	DbTask::Ptr task(new DbRawSqlTask(sql, size));
+	DbTask::Ptr task(new DbRawSqlTask(reference, sql, size));
 	APP->GetThreadPool()->PostTask(task);
 
 	return 0;
