@@ -94,6 +94,8 @@ Network::EventPoller* ServerApp::Poller() {
 	return poller_;
 }
 
-
+TaskQueue* ServerApp::GetQueue() {
+	return queue_;
+}
 
 

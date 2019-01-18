@@ -8,16 +8,16 @@
 #include <memory>
 #include <mutex>
 #include <atomic>
+#include <DbMysql.h>
+#include "TaskQueue.h"
 
 
-
-
-class ThreadTask {
+class DbTask : public MainTask {
 
 public:
-	typedef std::shared_ptr<ThreadTask> Ptr;
+	typedef std::shared_ptr<DbTask> Ptr;
 	virtual void ThreadDo() = 0;	
-	virtual ~ThreadTask() {}
+	virtual ~DbTask() {}
 };
 
 
@@ -30,14 +30,11 @@ class DbThreadPool {
 
 		TaskQueue():closed(false),watting(0){}
 
-		void PostTask(const ThreadTask::Ptr &task);
+		void PostTask(const DbTask::Ptr &task);
 
 		void Close();
 
-		ThreadTask::Ptr Get();
-
-		bool Get(std::list<ThreadTask::Ptr> &out);
-
+		DbTask::Ptr Get();
 	private:
 		TaskQueue(const TaskQueue&);
 		TaskQueue& operator = (const TaskQueue&);
@@ -45,18 +42,18 @@ class DbThreadPool {
 		int  watting;
 		std::mutex mtx;
 		std::condition_variable_any cv;
-		std::list<ThreadTask::Ptr> tasks;
+		std::list<DbTask::Ptr> tasks;
 	};
 
 public:
 
-	DbThreadPool(){}
+	DbThreadPool();
 
 	~DbThreadPool();
 
-	bool Init(int threadCount = 0);
+	bool Init(int threadCount = 0, std::string ip, int port, std::string user, std::string pwd);
 
-	void PostTask(const ThreadTask::Ptr &task) {
+	void PostTask(const DbTask::Ptr &task) {
 		queue_.PostTask(task);
 	}
 
@@ -66,13 +63,14 @@ public:
 
 private:
 
-	static void threadFunc(DbThreadPool::TaskQueue *queue_);
+	static void threadFunc(DbThreadPool::TaskQueue *queue_, DbMysql* db);
 
 	DbThreadPool(const DbThreadPool&);
 	DbThreadPool& operator = (const DbThreadPool&);	
 
 	TaskQueue queue_;
 	std::vector<std::thread> threads_;
+	std::vector<DbMysql*> dbs_;
 };
 
 

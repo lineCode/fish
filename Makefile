@@ -32,6 +32,9 @@ LOGGER_INC ?= ./logger
 AGENT := $(BIN_PATH)/agent
 AGENT_INC ?= ./agent
 
+DB := $(BIN_PATH)/db
+DB_INC ?= ./db
+
 TEST := $(BIN_PATH)/test
 TEST_INC ?= ./test
 
@@ -73,6 +76,10 @@ $(LOGGER) : $(LUA_STATICLIB) $(OOLUA_STATICLIB) $(LIBEV_STATICLIB) $(TCMALLOC_ST
 	cd $(LOGGER_INC) && $(MAKE) $(CCFLAG) 
 	mv $(LOGGER_INC)/logger $(LIBS_DIR) 
 
+$(DB) : $(LUA_STATICLIB) $(OOLUA_STATICLIB) $(LIBEV_STATICLIB) $(TCMALLOC_STATICLIB) $(HX_STATICLIB)
+	cd $(DB_INC) && $(MAKE) $(CCFLAG) 
+	mv $(DB_INC)/db $(LIBS_DIR) 
+
 $(TEST) : $(LUA_STATICLIB) $(OOLUA_STATICLIB) $(LIBEV_STATICLIB) $(TCMALLOC_STATICLIB) $(HX_STATICLIB)
 	cd $(TEST_INC) && $(MAKE)
 	mv $(TEST_INC)/test $(LIBS_DIR) 
@@ -86,6 +93,7 @@ cleanall:
 	rm -rf $(FISH) $(FISH_INC)/*o
 	rm -rf $(AGENT) $(AGENT_INC)/*o
 	rm -rf $(LOGGER) $(LOGGER_INC)/*o
+	rm -rf $(DB) $(DB_INC)/*o
 	rm -rf $(TEST) $(TEST_INC)/*o
 	rm -rf $(LIBS_DIR)/$(HX_LIB) && cd $(HX_INC) && make clean
 	rm -rf $(LIBS_DIR)/$(LUA_LIB) && cd $(LUA_INC) && make clean
@@ -97,6 +105,7 @@ cleanhx:
 	rm -rf $(FISH) $(FISH_INC)/*o
 	rm -rf $(AGENT) $(AGENT_INC)/*o
 	rm -rf $(LOGGER) $(LOGGER_INC)/*o
+	rm -rf $(DB) $(DB_INC)/*o
 	rm -rf $(TEST) $(TEST_INC)/*o
 	rm -rf $(LIBS_DIR)/$(HX_LIB) && cd $(HX_INC) && make clean
 
@@ -104,6 +113,7 @@ clean:
 	rm -rf $(FISH) $(FISH_INC)/*o
 	rm -rf $(AGENT) $(AGENT_INC)/*o
 	rm -rf $(LOGGER) $(LOGGER_INC)/*o
+	rm -rf $(DB) $(DB_INC)/*o
 	rm -rf $(TEST) $(TEST_INC)/*o
 
 cleantest:

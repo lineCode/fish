@@ -33,6 +33,8 @@ public:
 
 	virtual Network::EventPoller* Poller();
 
+	virtual TaskQueue* GetQueue();
+
 protected:
 	Network::EventPoller* poller_;
 	LuaFish* lua_;

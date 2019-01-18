@@ -2,28 +2,14 @@
 #include "DbTask.h"
 #include <stdio.h>
 
-void DbThreadPool::threadFunc(DbThreadPool::TaskQueue *queue_) {
-	std::list<DbTask::Ptr> local_tasks;
+void DbThreadPool::threadFunc(DbThreadPool::TaskQueue *queue_, DbMysql* db) {
 	for(;;) {
-		if(!queue_->Get(local_tasks)) {
+		DbTask::Ptr task = Get();
+		if(!task) {
 			return;
 		}
-		for( ; !local_tasks.empty() ; ) {
-			const DbTask::Ptr &task = local_tasks.front();
-			task->ThreadDo();
-			local_tasks.pop_front();
-		}
+		task->ThreadDo(db);
 	}
-
-/*
-	for(;;) {
-		DbTask::Ptr task = queue_->Get();
-		if(task == nullptr) {
-			return;
-		}
-		task->Do();
-	}
-*/
 }
 
 void DbThreadPool::TaskQueue::Close() {
@@ -31,29 +17,6 @@ void DbThreadPool::TaskQueue::Close() {
 	if(!this->closed) {
 		this->closed = true;
 		this->cv.notify_all();
-	}
-}
-
-bool DbThreadPool::TaskQueue::Get(std::list<DbTask::Ptr> &out) {
-	std::lock_guard<std::mutex> guard(this->mtx);
-	for( ; ;) {
-		if(this->closed) {
-			if(this->tasks.empty()) {
-				return false;
-			} else {
-				this->tasks.swap(out);
-				return true;
-			}
-		} else {
-			if(this->tasks.empty()) {
-				++this->watting;
-				this->cv.wait(this->mtx);
-				--this->watting;
-			} else {
-				this->tasks.swap(out);
-				return true;
-			}	
-		}
 	}
 }
 
@@ -95,7 +58,7 @@ void DbThreadPool::TaskQueue::PostTask(const DbTask::Ptr &task) {
 	}
 }
 
-bool DbThreadPool::Init(int threadCount) {
+bool DbThreadPool::Init(int threadCount = 0, std::string ip, int port, std::string user, std::string pwd) {
 
 	bool expected = false;
 	if(threadCount <= 0) {
@@ -103,10 +66,18 @@ bool DbThreadPool::Init(int threadCount) {
 	}
 
 	for(auto i = 0; i < threadCount; ++i) {
-		threads_.push_back(std::thread(threadFunc,&queue_));
+		DbMysql* db = new DbMysql(ip, port, user, pwd);
+		dbs.push_back(db);
+	}
+
+	for(auto i = 0; i < threadCount; ++i) {
+		threads_.push_back(std::thread(threadFunc,&queue_, dbs[i]));
 	}
 
 	return true;
+}
+
+DbThreadPool::DbThreadPool() {
 }
 
 DbThreadPool::~DbThreadPool() {
@@ -114,6 +85,11 @@ DbThreadPool::~DbThreadPool() {
 	size_t i = 0;
 	for( ; i < threads_.size(); ++i) {
 		threads_[i].join();
-	}	
+	}
+
+	for( i = 0; i < dbs.size(); ++i) {
+		DbMysql* db = dbs[i];
+		delete db;
+	}
 }
 
