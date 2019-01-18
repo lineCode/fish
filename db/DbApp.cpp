@@ -1,5 +1,6 @@
 #include "DbApp.h"
 #include "logger/Logger.h"
+#include "DbTask.h"
 
 template <>
 DbApp* Singleton<DbApp>::singleton_ = 0;
@@ -55,6 +56,10 @@ int DbApp::Fina() {
 	return 0;
 }
 
+DbThreadPool* DbApp::GetThreadPool() {
+	return DbThreadPool;
+}
+
 int DbApp::Register(lua_State* L) {
 	luaL_checkversion(L);
 
@@ -71,7 +76,25 @@ int DbApp::Register(lua_State* L) {
 }
 
 int DbApp::LQuery(lua_State* L) {
+	size_t size;
+	const char* sql = luaL_checklstring(L, 1, &size);
+	luaL_checktype(L, 2, LUA_TFUNCTION);
+	int reference = luaL_ref(L, LUA_REGISTRYINDEX);
+
+	DbTask::Ptr task(new DbQueryTask(sql, size));
+	APP->GetThreadPool()->PostTask(task);
+
+	return 0;
 }
 
 int DbApp::LExecute(lua_State* L) {
+	size_t size;
+	const char* sql = luaL_checklstring(L, 1, &size);
+	luaL_checktype(L, 2, LUA_TFUNCTION);
+	int reference = luaL_ref(L, LUA_REGISTRYINDEX);
+
+	DbTask::Ptr task(new DbRawSqlTask(sql, size));
+	APP->GetThreadPool()->PostTask(task);
+
+	return 0;
 }

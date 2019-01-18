@@ -1,9 +1,10 @@
 #include "DbTask.h"
 #include "DbApp.h"
 
-DbQueryTask::DbQueryTask(const char* sql, size_t size) {
+DbQueryTask::DbQueryTask(int reference, const char* sql, size_t size) {
 	sql_ = strdup(sql);
 	size_ = size;
+	reference_ = reference;
 }
 
 DbQueryTask::~DbQueryTask() {
@@ -21,9 +22,10 @@ void DbQueryTask::MainDo() {
 
 }
 
-DbRawSqlTask::DbRawSqlTask(const char* sql, size_t size) {
+DbRawSqlTask::DbRawSqlTask(int reference, const char* sql, size_t size) {
 	sql_ = strdup(sql);
 	size_ = size;
+	reference_ = reference;
 }
 
 DbRawSqlTask::~DbRawSqlTask() {

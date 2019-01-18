@@ -23,6 +23,8 @@ public:
 
 	virtual int Fina();
 
+	virtual DbThreadPool* GetThreadPool();
+
 	static int Register(lua_State* L);
 
 	static int LQuery(lua_State* L);

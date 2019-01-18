@@ -5,7 +5,7 @@
 
 class DbQueryTask : public DbTask {
 public:
-	DbQueryTask(const char* sql, size_t size);
+	DbQueryTask(int reference, const char* sql, size_t size);
 	virtual ~DbQueryTask();
 
 	virtual void ThreadDo(DbMysql* db);
@@ -15,11 +15,12 @@ private:
 	MemoryStream result_;
 	char* sql_;
 	size_t size_;
+	int reference_;
 };
 
 class DbRawSqlTask : public DbTask {
 public:
-	DbRawSqlTask(const char* sql, size_t size);
+	DbRawSqlTask(int reference, const char* sql, size_t size);
 	virtual ~DbRawSqlTask();
 
 	virtual void ThreadDo(DbMysql* db);
@@ -29,6 +30,7 @@ private:
 	MemoryStream result_;
 	char* sql_;
 	size_t size_;
+	int reference_;
 };
 
 #endif
