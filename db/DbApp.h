@@ -17,7 +17,7 @@ public:
 
 	~DbApp(void);
 
-	virtual int Init();
+	virtual int Init(rapidjson::Document& config);
 
 	virtual int Fina();
 
