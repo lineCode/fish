@@ -13,6 +13,8 @@ int DbApp::Init(rapidjson::Document& config) {
 	std::string boot("db");
 	ServerApp::Init(boot);
 
+	lua_->Require("db", DbApp::Register);
+
 	dbThreadPool_ = new DbThreadPool();
 
 	int dbThreadCount = 4;
@@ -44,8 +46,29 @@ int DbApp::Init(rapidjson::Document& config) {
 	return 0;
 }
 
-
 int DbApp::Fina() {
 	delete dbThreadPool_;
 	dbThreadPool_ = NULL;
+	return 0;
+}
+
+int DbApp::Register(lua_State* L) {
+	luaL_checkversion(L);
+
+	luaL_Reg methods[] = {
+		{ "Query", DbApp::LQuery },
+		{ "Execute", DbApp::LExecute },
+		{ NULL, NULL },
+	};
+
+	luaL_newlibtable(L, methods);
+	luaL_setfuncs(L, methods, 0);
+
+	return 1;
+}
+
+int DbApp::LQuery(lua_State* L) {
+}
+
+int DbApp::LExecute(lua_State* L) {
 }
