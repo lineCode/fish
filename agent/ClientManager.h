@@ -55,16 +55,6 @@ public:
 	uint8_t* AllocBuffer(size_t size);
 
 	void FreeBuffer(uint8_t* buffer);
-
-	static int Register(lua_State* L);
-
-	static int LStop(lua_State* L);
-
-	static int LSendClient(lua_State* L);
-
-	static int LBroadcastClient(lua_State* L);
-
-	static int LCloseClient(lua_State* L);
 private:
 	uint8_t serverId_;
 

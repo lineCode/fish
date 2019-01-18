@@ -14,6 +14,7 @@ DbQueryTask::~DbQueryTask() {
 
 void DbQueryTask::ThreadDo(DbMysql* db) {
 	db->Execute(sql_, size_, result_);
+	APP->GetQueue()->Push(this);
 }
 
 void DbQueryTask::MainDo() {
@@ -33,6 +34,7 @@ DbRawSqlTask::~DbRawSqlTask() {
 
 void DbRawSqlTask::ThreadDo(DbMysql* db) {
 	db->Execute(sql_, size_, result_);
+	APP->GetQueue()->Push(this);
 }
 
 void DbRawSqlTask::MainDo() {
