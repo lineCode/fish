@@ -9,6 +9,7 @@
 #include "network/Acceptor.h"
 #include "network/Address.h"
 #include "db/DbThreadPool.h"
+#include "document.h" 
 
 class DbApp : public ServerApp
 {
