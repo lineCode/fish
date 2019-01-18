@@ -24,7 +24,7 @@ DbTask* DbThreadPool::TaskQueue::Get() {
 	for( ; ;) {
 		if(this->closed) {
 			if(this->tasks.empty()) {
-				return nullptr;
+				return NULL;
 			} else {
 				DbTask* task = this->tasks.front();
 				this->tasks.pop_front();

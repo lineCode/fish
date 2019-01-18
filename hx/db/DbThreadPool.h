@@ -32,7 +32,7 @@ class DbThreadPool {
 
 		void Close();
 
-		DbTask::Ptr Get();
+		DbTask* Get();
 	private:
 		TaskQueue(const TaskQueue&);
 		TaskQueue& operator = (const TaskQueue&);
