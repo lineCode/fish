@@ -8,7 +8,7 @@ DbQueryTask::DbQueryTask(const char* sql, size_t size) {
 
 DbQueryTask::~DbQueryTask() {
 	if (sql_) {
-		free(sql_)
+		free(sql_);
 	}
 }
 
@@ -27,7 +27,7 @@ DbRawSqlTask::DbRawSqlTask(const char* sql, size_t size) {
 
 DbRawSqlTask::~DbRawSqlTask() {
 	if (sql_) {
-		free(sql_)
+		free(sql_);
 	}
 }
 

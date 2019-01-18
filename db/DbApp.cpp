@@ -1,6 +1,9 @@
 #include "DbApp.h"
 #include "logger/Logger.h"
 
+template <>
+DbApp* Singleton<DbApp>::singleton_ = 0;
+
 DbApp::DbApp(Network::EventPoller* poller) : ServerApp(poller) {
 	dbThreadPool_ = NULL;
 }
