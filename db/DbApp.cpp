@@ -14,8 +14,6 @@ DbApp::~DbApp(void) {
 
 int DbApp::Init(rapidjson::Document& config) {
 	LOG_ERROR(fmt::format("DbApp start"));
-	std::string boot("db");
-	ServerApp::Init(boot);
 
 	lua_->Require("db", DbApp::Register);
 
@@ -47,6 +45,8 @@ int DbApp::Init(rapidjson::Document& config) {
 	}
 
 	dbThreadPool_->Init(dbThreadCount, dbIp, dbPort, dbUser, dbPwd);
+	std::string boot("db");
+	ServerApp::Init(boot);
 	return 0;
 }
 

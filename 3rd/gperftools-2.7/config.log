@@ -2376,7 +2376,7 @@ conftest.c: In function 'main':
 conftest.c:71:12: warning: initialization makes pointer from integer without a cast [enabled by default]
  void *sp = __builtin_stack_pointer()
             ^
-/tmp/ccNcnCrb.o: In function `main':
+/tmp/ccHJztBg.o: In function `main':
 /usr/fuqianjiang/fish/3rd/gperftools-2.7/conftest.c:71: undefined reference to `__builtin_stack_pointer'
 collect2: error: ld returned 1 exit status
 configure:18860: $? = 1
@@ -2565,7 +2565,7 @@ configure: failed program was:
 configure:19275: result: no
 configure:19178: checking whether pthreads work without any flags
 configure:19266: gcc -o conftest -g -O2    conftest.c   >&5
-/tmp/ccCH8nSv.o: In function `main':
+/tmp/ccmZkjuD.o: In function `main':
 /usr/fuqianjiang/fish/3rd/gperftools-2.7/conftest.c:75: undefined reference to `pthread_join'
 /usr/fuqianjiang/fish/3rd/gperftools-2.7/conftest.c:76: undefined reference to `__pthread_register_cancel'
 /usr/fuqianjiang/fish/3rd/gperftools-2.7/conftest.c:77: undefined reference to `pthread_create'
@@ -2933,7 +2933,7 @@ configure:19467: $? = 0
 configure:19474: result: yes
 configure:19562: checking whether what we have so far is sufficient with -nostdlib
 configure:19580: gcc -o conftest -nostdlib -shared -fPIC -Wl,-z,defs -g -O2 -pthread   conftest.c   -lc >&5
-/tmp/ccCRdxMO.o: In function `main':
+/tmp/ccZziAH2.o: In function `main':
 /usr/fuqianjiang/fish/3rd/gperftools-2.7/conftest.c:75: undefined reference to `pthread_join'
 /usr/fuqianjiang/fish/3rd/gperftools-2.7/conftest.c:76: undefined reference to `__pthread_register_cancel'
 /usr/fuqianjiang/fish/3rd/gperftools-2.7/conftest.c:77: undefined reference to `pthread_create'
@@ -3028,7 +3028,7 @@ configure:19613: $? = 0
 configure:19622: result: yes
 configure:19669: checking whether pthread symbols are available in C++ without including pthread.h
 configure:19688: g++ -o conftest -g -O2   conftest.cpp  >&5
-/tmp/ccCqv1IX.o: In function `main':
+/tmp/ccJrXZHa.o: In function `main':
 /usr/fuqianjiang/fish/3rd/gperftools-2.7/conftest.cpp:80: undefined reference to `pthread_join'
 collect2: error: ld returned 1 exit status
 configure:19688: $? = 1

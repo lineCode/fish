@@ -1,10 +1,13 @@
 
-
 local co = require "lib.co"
 local common = require "lib.common"
 
 function Init(self)
 	RUNTIME_LOG:ERROR("db init")
+	db.Query("select * from user",function ()
+		
+		
+	end)
 end
 
 function Fina()
