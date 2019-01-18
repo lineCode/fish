@@ -1,1 +1,9 @@
-[E][2019-1-17 17:44:22 @db/DbMysql.cpp:51] query failed:insert into user (name,level) (mrq,1) 1064(You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'mrq,1)' at line 1)
+[E][2019-1-18 14:7:38 @LoggerApp.cpp:12] LoggerApp start
+[E][2019-1-18 14:7:48 @DbApp.cpp:12] DbApp start
+[E][2019-1-18 14:7:48 @DbApp.cpp:12] DbApp start
+[E][2019-1-18 14:8:5 @../../script/db.lua:7] db init
+[I][2019-1-18 14:8:5 @-:0] server init:db
+[E][2019-1-18 14:11:4 @DbApp.cpp:12] DbApp start
+[E][2019-1-18 14:11:4 @DbApp.cpp:12] DbApp start
+[E][2019-1-18 14:11:7 @../../script/db.lua:7] db init
+[I][2019-1-18 14:11:7 @-:0] server init:db

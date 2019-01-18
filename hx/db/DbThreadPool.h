@@ -8,7 +8,7 @@
 #include <memory>
 #include <mutex>
 #include <atomic>
-#include <DbMysql.h>
+#include "DbMysql.h"
 #include "TaskQueue.h"
 
 
@@ -16,7 +16,7 @@ class DbTask : public MainTask {
 
 public:
 	typedef std::shared_ptr<DbTask> Ptr;
-	virtual void ThreadDo() = 0;	
+	virtual void ThreadDo(DbMysql* db) = 0;	
 	virtual ~DbTask() {}
 };
 
@@ -51,7 +51,7 @@ public:
 
 	~DbThreadPool();
 
-	bool Init(int threadCount = 0, std::string ip, int port, std::string user, std::string pwd);
+	bool Init(int threadCount, std::string ip, int port, std::string user, std::string pwd);
 
 	void PostTask(const DbTask::Ptr &task) {
 		queue_.PostTask(task);

@@ -1,10 +1,9 @@
 #include "DbThreadPool.h"
-#include "DbTask.h"
 #include <stdio.h>
 
-void DbThreadPool::threadFunc(DbThreadPool::TaskQueue *queue_, DbMysql* db) {
+void DbThreadPool::threadFunc(DbThreadPool::TaskQueue *queue, DbMysql* db) {
 	for(;;) {
-		DbTask::Ptr task = Get();
+		DbTask::Ptr task = queue->Get();
 		if(!task) {
 			return;
 		}
@@ -58,7 +57,7 @@ void DbThreadPool::TaskQueue::PostTask(const DbTask::Ptr &task) {
 	}
 }
 
-bool DbThreadPool::Init(int threadCount = 0, std::string ip, int port, std::string user, std::string pwd) {
+bool DbThreadPool::Init(int threadCount, std::string ip, int port, std::string user, std::string pwd) {
 
 	bool expected = false;
 	if(threadCount <= 0) {
@@ -67,11 +66,12 @@ bool DbThreadPool::Init(int threadCount = 0, std::string ip, int port, std::stri
 
 	for(auto i = 0; i < threadCount; ++i) {
 		DbMysql* db = new DbMysql(ip, port, user, pwd);
-		dbs.push_back(db);
+		db->Attach("test");
+		dbs_.push_back(db);
 	}
 
 	for(auto i = 0; i < threadCount; ++i) {
-		threads_.push_back(std::thread(threadFunc,&queue_, dbs[i]));
+		threads_.push_back(std::thread(threadFunc,&queue_, dbs_[i]));
 	}
 
 	return true;
@@ -87,8 +87,8 @@ DbThreadPool::~DbThreadPool() {
 		threads_[i].join();
 	}
 
-	for( i = 0; i < dbs.size(); ++i) {
-		DbMysql* db = dbs[i];
+	for( i = 0; i < dbs_.size(); ++i) {
+		DbMysql* db = dbs_[i];
 		delete db;
 	}
 }

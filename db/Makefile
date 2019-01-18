@@ -17,7 +17,7 @@ all:$(TARGET)
 	$(CC) $(CFLAG) $(INCLUDE) -c $< -o $@
 
 $(TARGET):$(OBJ) $(STATIC_LIBS)
-	$(CC) -o $@ $^ -Wl,-E -lm -ldl -lrt -lpthread -lunwind
+	$(CC) -o $@ $^ -Wl,-E -lm -ldl -lrt -lpthread -lunwind -L/usr/local/mysql/lib/ -lmysqlclient
 
 clean:
 	rm -f *.o $(TARGET)
