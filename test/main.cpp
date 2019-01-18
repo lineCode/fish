@@ -21,11 +21,11 @@ int main() {
 	MemoryStream stream;
 	/*for (int i = 1;i < 1024;i++) {
 		std::string sql = fmt::format("insert into user (name,level) values ('{}',{})","mrq",i);
-		db->Query(sql.c_str(),sql.size(), stream);
+		db->Execute(sql.c_str(),sql.size(), stream);
 
 	}*/
 
 	const char* sql = "select * from user";
-	db->Query(sql, strlen(sql),stream);
+	db->Execute(sql, strlen(sql),stream);
 	return 0;
 }

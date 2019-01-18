@@ -1,4 +1,5 @@
 #include "DbThreadPool.h"
+#include "DbTask.h"
 #include <stdio.h>
 
 void DbThreadPool::threadFunc(DbThreadPool::TaskQueue *queue_) {
@@ -9,7 +10,7 @@ void DbThreadPool::threadFunc(DbThreadPool::TaskQueue *queue_) {
 		}
 		for( ; !local_tasks.empty() ; ) {
 			const DbTask::Ptr &task = local_tasks.front();
-			task->Do();
+			task->ThreadDo();
 			local_tasks.pop_front();
 		}
 	}
