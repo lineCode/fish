@@ -13,9 +13,7 @@
 
 
 class DbTask : public MainTask {
-
 public:
-	typedef std::shared_ptr<DbTask> Ptr;
 	virtual void ThreadDo(DbMysql* db) = 0;	
 	virtual ~DbTask() {}
 };
@@ -30,7 +28,7 @@ class DbThreadPool {
 
 		TaskQueue():closed(false),watting(0){}
 
-		void PostTask(const DbTask::Ptr &task);
+		void PostTask(DbTask* task);
 
 		void Close();
 
@@ -42,7 +40,7 @@ class DbThreadPool {
 		int  watting;
 		std::mutex mtx;
 		std::condition_variable_any cv;
-		std::list<DbTask::Ptr> tasks;
+		std::list<DbTask*> tasks;
 	};
 
 public:
@@ -53,7 +51,7 @@ public:
 
 	bool Init(int threadCount, std::string ip, int port, std::string user, std::string pwd);
 
-	void PostTask(const DbTask::Ptr &task) {
+	void PostTask(DbTask* task) {
 		queue_.PostTask(task);
 	}
 

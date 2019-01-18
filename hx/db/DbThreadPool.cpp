@@ -3,7 +3,7 @@
 
 void DbThreadPool::threadFunc(DbThreadPool::TaskQueue *queue, DbMysql* db) {
 	for(;;) {
-		DbTask::Ptr task = queue->Get();
+		DbTask* task = queue->Get();
 		if(!task) {
 			return;
 		}
@@ -19,14 +19,14 @@ void DbThreadPool::TaskQueue::Close() {
 	}
 }
 
-DbTask::Ptr DbThreadPool::TaskQueue::Get() {
+DbTask* DbThreadPool::TaskQueue::Get() {
 	std::lock_guard<std::mutex> guard(this->mtx);
 	for( ; ;) {
 		if(this->closed) {
 			if(this->tasks.empty()) {
 				return nullptr;
 			} else {
-				DbTask::Ptr &task = this->tasks.front();
+				DbTask* task = this->tasks.front();
 				this->tasks.pop_front();
 				return task;
 			}
@@ -37,7 +37,7 @@ DbTask::Ptr DbThreadPool::TaskQueue::Get() {
 				this->cv.wait(this->mtx);
 				--this->watting;	
 			} else {
-				DbTask::Ptr task = this->tasks.front();
+				DbTask* task = this->tasks.front();
 				this->tasks.pop_front();
 				return task;
 			}	
@@ -46,7 +46,7 @@ DbTask::Ptr DbThreadPool::TaskQueue::Get() {
 }
 
 
-void DbThreadPool::TaskQueue::PostTask(const DbTask::Ptr &task) {
+void DbThreadPool::TaskQueue::PostTask(DbTask* task) {
 	std::lock_guard<std::mutex> guard(this->mtx);
 	if(this->closed) {
 		return;
