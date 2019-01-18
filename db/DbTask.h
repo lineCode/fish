@@ -1,5 +1,7 @@
 #ifndef DB_TASK_H
 #define DB_TASK_H
+#include "db/DbThreadPool.h"
+#include <stdint.h>
 
 class DbQueryTask : public DbTask {
 public:
