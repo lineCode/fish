@@ -1,5 +1,6 @@
 #include "DbTask.h"
 #include "DbApp.h"
+#include "logger/Logger.h"
 
 DbQueryTask::DbQueryTask(int reference, const char* sql, size_t size) {
 	sql_ = strdup(sql);
@@ -36,7 +37,7 @@ void DbQueryTask::MainDo() {
 	uint32_t nrows;
 	result_ >> nrows;
 
-	lua_State* L = APP->GetLua()->GetScript().state();
+	lua_State* L = APP->Lua()->GetScript().state();
 	lua_createtable(L, nrows, 0);
 
 	for(int i = 0;i < nrows;i++) {
@@ -83,7 +84,7 @@ void DbQueryTask::MainDo() {
 			}
 
 			std::string& name = names[j];
-			lua_setfield(L, name.c_str(), name.length());
+			lua_setfield(L, -2, name.c_str());
 		}
 
 		lua_rawseti(L, -2, i + 1);
@@ -111,7 +112,7 @@ void DbRawSqlTask::MainDo() {
 	uint32_t affectedRows;
 	result_ >> affectedRows;
 
-	lua_State* L = APP->GetLua()->GetScript().state();
+	lua_State* L = APP->Lua()->GetScript().state();
 	lua_rawgeti(L, LUA_REGISTRYINDEX, reference_);
 	lua_pushinteger(L, affectedRows);
 
