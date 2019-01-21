@@ -19,36 +19,35 @@ int DbApp::Init(rapidjson::Document& config) {
 
 	dbThreadPool_ = new DbThreadPool();
 
-	int dbThreadCount = 4;
-	if (config.HasMember("dbThreadCount")) {
-		dbThreadCount = config["dbThreadCount"].GetInt();
-	}
+	int threadCount = 4;
+	const char* ip = "127.0.0.1";
+	int port = 3306;
+	const char* user = "root";
+	const char* pwd = "12345678";
+	const char* name = "mrq";
 
-	const char* dbIp = "127.0.0.1";
-	int dbPort = 3306;
-	const char* dbUser = "root";
-	const char* dbPwd = "123456";
-	const char* dbName = "mrq";
 	if (config.HasMember("db")) {
-		if (config["db"].HasMember("ip")) {
-			dbIp = config["db"]["ip"].GetString();
+		if (config["db"].HasMember("threadCount")) {
+			threadCount = config["db"]["threadCount"].GetInt();
 		}
-	
+		if (config["db"].HasMember("ip")) {
+			ip = config["db"]["ip"].GetString();
+		}
 		if (config["db"].HasMember("port")) {
-			dbPort = config["db"]["port"].GetInt();
+			port = config["db"]["port"].GetInt();
 		}
 		if (config["db"].HasMember("user")) {
-			dbUser = config["db"]["user"].GetString();
+			user = config["db"]["user"].GetString();
 		}
 		if (config["db"].HasMember("pwd")) {
-			dbPwd = config["db"]["pwd"].GetString();
+			pwd = config["db"]["pwd"].GetString();
 		}	
 		if (config["db"].HasMember("name")) {
-			dbName = config["db"]["name"].GetString();
+			name = config["db"]["name"].GetString();
 		}
 	}
 
-	dbThreadPool_->Init(dbThreadCount, dbIp, dbPort, dbUser, dbPwd, dbName);
+	dbThreadPool_->Init(threadCount, ip, port, user, pwd, name);
 
 	std::string boot("db");
 	ServerApp::Init(boot);
