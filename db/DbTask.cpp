@@ -26,7 +26,7 @@ void DbQueryTask::MainDo() {
 	std::vector<std::string> names;
 	std::vector<uint32_t> types;
 
-	for (int i = 0;i < nfields;i++) {
+	for (uint32_t i = 0;i < nfields;i++) {
 		std::string name;
 		uint32_t type;
 		result_ >> name >> type;
@@ -41,15 +41,18 @@ void DbQueryTask::MainDo() {
 	lua_rawgeti(L, LUA_REGISTRYINDEX, reference_);
 	lua_createtable(L, nrows, 0);
 
-	for(int i = 0;i < nrows;i++) {
+	for(uint32_t i = 0;i < nrows;i++) {
 		lua_createtable(L, nfields, 0);
-		for(int j = 0;j < nfields;j++) {
+		for(uint32_t j = 0;j < nfields;j++) {
 			uint32_t length;
 			result_ >> length;
-			length += 1;
+			if (length == 0) {
+				continue;
+			}
+
 			int offset = result_.ReadOffset();
 			char* data = result_.Peek(length);
-			result_.ReadOffset(offset+length);
+			result_.ReadOffset(offset+length+1);
 
 			uint32_t type = types[j];
 
@@ -68,21 +71,19 @@ void DbQueryTask::MainDo() {
 				case MYSQL_TYPE_DECIMAL: case MYSQL_TYPE_FLOAT: case MYSQL_TYPE_DOUBLE: {
 					lua_Number val = atof(data);
 					lua_pushnumber(L, val);
+					break;
 				}
-				// case MYSQL_TYPE_DATE: case MYSQL_TYPE_NEWDATE:
-				// 	return "date";
-				// case MYSQL_TYPE_DATETIME:
-				// 	return "datetime";
-				// case MYSQL_TYPE_TIME:
-				// 	return "time";
-				// case MYSQL_TYPE_TIMESTAMP:
-				// 	return "timestamp";
-				// case MYSQL_TYPE_ENUM: case MYSQL_TYPE_SET:
-				// 	return "set";
-				// case MYSQL_TYPE_NULL:
-				// 	return "null";
+				case MYSQL_TYPE_DATE: case MYSQL_TYPE_NEWDATE: case MYSQL_TYPE_DATETIME:
+				case MYSQL_TYPE_TIME: case MYSQL_TYPE_TIMESTAMP: {
+					lua_pushlstring(L, data, length);
+					break;
+				}
+				case MYSQL_TYPE_NULL: {
+					continue;
+					break;
+				}
 				default: {
-					lua_pushlstring(L, data, length-1);
+					lua_pushlstring(L, data, length);
 					break;
 				}
 			}
