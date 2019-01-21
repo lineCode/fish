@@ -38,6 +38,7 @@ void DbQueryTask::MainDo() {
 	result_ >> nrows;
 
 	lua_State* L = APP->Lua()->GetScript().state();
+	lua_rawgeti(L, LUA_REGISTRYINDEX, reference_);
 	lua_createtable(L, nrows, 0);
 
 	for(int i = 0;i < nrows;i++) {
@@ -45,6 +46,7 @@ void DbQueryTask::MainDo() {
 		for(int j = 0;j < nfields;j++) {
 			uint32_t length;
 			result_ >> length;
+			length += 1;
 			int offset = result_.ReadOffset();
 			char* data = result_.Peek(length);
 			result_.ReadOffset(offset+length);
@@ -59,11 +61,13 @@ void DbQueryTask::MainDo() {
 				}
 				case MYSQL_TYPE_SHORT: case MYSQL_TYPE_LONG: case MYSQL_TYPE_LONGLONG:
 				case MYSQL_TYPE_INT24: case MYSQL_TYPE_TINY: case MYSQL_TYPE_YEAR: {
-				
+					lua_Integer val = atol(data);
+					lua_pushinteger(L, val);	
 					break;
 				}
 				case MYSQL_TYPE_DECIMAL: case MYSQL_TYPE_FLOAT: case MYSQL_TYPE_DOUBLE: {
-
+					lua_Number val = atof(data);
+					lua_pushnumber(L, val);
 				}
 				// case MYSQL_TYPE_DATE: case MYSQL_TYPE_NEWDATE:
 				// 	return "date";
@@ -78,7 +82,7 @@ void DbQueryTask::MainDo() {
 				// case MYSQL_TYPE_NULL:
 				// 	return "null";
 				default: {
-					lua_pushlstring(L, data, length);
+					lua_pushlstring(L, data, length-1);
 					break;
 				}
 			}
@@ -88,6 +92,9 @@ void DbQueryTask::MainDo() {
 		}
 
 		lua_rawseti(L, -2, i + 1);
+	}
+	if (LUA_OK != lua_pcall(L, 1, 0, 0)) {
+		LOG_ERROR(fmt::format("dbtask error"));
 	}
 }
 

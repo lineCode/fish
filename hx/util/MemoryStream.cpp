@@ -242,7 +242,7 @@ void MemoryStream::Reset() {
 }
 
 char* MemoryStream::Peek(size_t size) {
-	if ( size < Length() ) {
+	if ( size > Length() ) {
 		return NULL;
 	}
 	return &data_[readOffset_];

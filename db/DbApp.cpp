@@ -39,7 +39,7 @@ int DbApp::Init(rapidjson::Document& config) {
 		dbUser = config["dbUser"].GetString();
 	}
 
-	const char* dbPwd = "123456";
+	const char* dbPwd = "198932100";
 	if (config.HasMember("dbPwd")) {
 		dbPwd = config["dbPwd"].GetString();
 	}

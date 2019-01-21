@@ -66,13 +66,14 @@ bool DbMysql::Execute(const char* sql, size_t size, MemoryStream& stream) {
 		
 		MYSQL_ROW arow;
 		while((arow = mysql_fetch_row(result)) != NULL) {
-			uint32_t* lengths = (uint32_t*)mysql_fetch_lengths(result);
+			unsigned long* lengths = (unsigned long*)mysql_fetch_lengths(result);
 			for (uint32_t i = 0;i < nfields;i++) {
 				if (arow[i] == NULL) {
 					stream << (uint32_t)0;
 				} else {
-					stream << lengths[i];
+					stream << (uint32_t)lengths[i];
 					stream.Append((const char*)arow[i], lengths[i]);
+					stream << false;
 				}
 			}
 
