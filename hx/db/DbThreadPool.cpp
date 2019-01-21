@@ -57,7 +57,7 @@ void DbThreadPool::TaskQueue::PostTask(DbTask* task) {
 	}
 }
 
-bool DbThreadPool::Init(int threadCount, std::string ip, int port, std::string user, std::string pwd) {
+bool DbThreadPool::Init(int threadCount, std::string ip, int port, std::string user, std::string pwd, std::string name) {
 
 	bool expected = false;
 	if(threadCount <= 0) {
@@ -66,7 +66,7 @@ bool DbThreadPool::Init(int threadCount, std::string ip, int port, std::string u
 
 	for(auto i = 0; i < threadCount; ++i) {
 		DbMysql* db = new DbMysql(ip, port, user, pwd);
-		db->Attach("test");
+		db->Attach(name);
 		dbs_.push_back(db);
 	}
 

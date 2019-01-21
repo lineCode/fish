@@ -49,7 +49,7 @@ public:
 
 	~DbThreadPool();
 
-	bool Init(int threadCount, std::string ip, int port, std::string user, std::string pwd);
+	bool Init(int threadCount, std::string ip, int port, std::string user, std::string pwd, std::string name);
 
 	void PostTask(DbTask* task) {
 		queue_.PostTask(task);
