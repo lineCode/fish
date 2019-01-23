@@ -12,7 +12,7 @@ FishApp::FishApp(Network::EventPoller* poller) : ServerApp(poller) {
 FishApp::~FishApp(void) {
 }
 
-int FishApp::Init(std::string& boot) {
+int FishApp::Init(std::string boot) {
 	LOG_ERROR(std::string("FishApp start"));
 	ServerApp::Init(boot);
 	return 0;

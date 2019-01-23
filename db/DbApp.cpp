@@ -49,8 +49,7 @@ int DbApp::Init(rapidjson::Document& config) {
 
 	dbThreadPool_->Init(threadCount, ip, port, user, pwd, name);
 
-	std::string boot("db");
-	ServerApp::Init(boot);
+	ServerApp::Init("db");
 	return 0;
 }
 

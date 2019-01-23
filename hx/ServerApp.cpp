@@ -21,7 +21,7 @@ ServerApp::~ServerApp() {
 	delete timer_;
 }
 
-int ServerApp::Init(std::string& boot) {
+int ServerApp::Init(std::string boot) {
 	using namespace std::placeholders;
 
 	timer_->SetCallback(std::bind(&ServerApp::OnUpate, this, _1, _2));

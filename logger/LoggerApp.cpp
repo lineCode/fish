@@ -10,8 +10,7 @@ LoggerApp::~LoggerApp(void) {
 
 int LoggerApp::Init() {
 	LOG_ERROR(fmt::format("LoggerApp start"));
-	std::string boot("logger");
-	ServerApp::Init(boot);
+	ServerApp::Init("logger");
 	return 0;
 }
 

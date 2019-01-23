@@ -19,8 +19,7 @@ AgentApp::~AgentApp(void) {
 int AgentApp::Init(rapidjson::Document& config) {
 	LOG_ERROR(fmt::format("AgentApp start"));
 
-	std::string boot("agent");
-	ServerApp::Init(boot);
+	ServerApp::Init("agent");
 
 	if (!config.HasMember("clientAddr")) {
 		Util::Exit("no client addr");

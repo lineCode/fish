@@ -17,7 +17,7 @@ public:
 
 	virtual ~ServerApp(void);
 
-	virtual int Init(std::string& boot);
+	virtual int Init(std::string boot);
 
 	virtual int Fina();
 
