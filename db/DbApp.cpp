@@ -20,8 +20,8 @@ int DbApp::Init(rapidjson::Document& config) {
 	dbThreadPool_ = new DbThreadPool();
 
 	int threadCount = 4;
-	const char* ip = "127.0.0.1";
 	int port = 3306;
+	const char* ip = "127.0.0.1";
 	const char* user = "root";
 	const char* pwd = "12345678";
 	const char* name = "mrq";

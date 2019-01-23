@@ -42,7 +42,7 @@ void DbQueryTask::MainDo() {
 	lua_createtable(L, rowCount, 0);
 
 	for(uint32_t i = 0;i < rowCount;i++) {
-		lua_createtable(L, fieldCount, 0);
+		lua_createtable(L, 0, fieldCount);
 		for(uint32_t j = 0;j < fieldCount;j++) {
 			uint32_t length;
 			result_ >> length;
