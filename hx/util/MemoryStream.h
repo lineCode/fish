@@ -47,59 +47,238 @@ public:
 	MemoryStream(char* buffer,int size);
 	~MemoryStream();
 
-	inline MemoryStream& operator<<(bool value);
-	inline MemoryStream& operator<<(uint8_t value);
-	inline MemoryStream& operator<<(uint16_t value);
-	inline MemoryStream& operator<<(uint32_t value);
-	inline MemoryStream& operator<<(uint64_t value);
-	inline MemoryStream& operator<<(int8_t value);
-	inline MemoryStream& operator<<(int16_t value);
-	inline MemoryStream& operator<<(int32_t value);
-	inline MemoryStream& operator<<(int64_t value);
-	inline MemoryStream& operator<<(float value);
-	inline MemoryStream& operator<<(double value);
-	inline MemoryStream& operator<<(const std::string& value);
-	inline MemoryStream& operator<<(const char *str);
-	inline MemoryStream& operator<<(MemoryStream& ms);
+	MemoryStream& operator<<(bool value) {
+		Append<bool>(value);
+		return *this;
+	}
 
-	inline MemoryStream& operator>>(bool& value);
-	inline MemoryStream& operator>>(uint8_t& value);
-	inline MemoryStream& operator>>(uint16_t& value);
-	inline MemoryStream& operator>>(uint32_t& value);
-	inline MemoryStream& operator>>(uint64_t& value);
-	inline MemoryStream& operator>>(int8_t& value);
-	inline MemoryStream& operator>>(int16_t& value);
-	inline MemoryStream& operator>>(int32_t& value);
-	inline MemoryStream& operator>>(int64_t& value);
-	inline MemoryStream& operator>>(float& value);
-	inline MemoryStream& operator>>(double& value);
-	inline MemoryStream& operator>>(std::string& value);
-	inline MemoryStream& operator>>(char *value);
+	MemoryStream& operator<<(uint8_t value) {
+		Append<uint8_t>(value);
+		return *this;
+	}
 
-	inline char* Data();
+	MemoryStream& operator<<(uint16_t value) {
+		Append<uint16_t>(value);
+		return *this;
+	}
 
-	inline char* Begin();
-	const char* Begin() const;
+	MemoryStream& operator<<(uint32_t value) {
+		Append<uint32_t>(value);
+		return *this;
+	}
 
-	inline char* End();
-	inline const char* End() const;
+	MemoryStream& operator<<(uint64_t value) {
+		Append<uint64_t>(value);
+		return *this;
+	}
 
-	inline int ReadOffset();
-	inline void ReadOffset(int offset);
+	MemoryStream& operator<<(int8_t value) {
+		Append<int8_t>(value);
+		return *this;
+	}
 
-	inline int WriteOffset();
-	inline void WriteOffset(int offset);
+	MemoryStream& operator<<(int16_t value) {
+		Append<int16_t>(value);
+		return *this;
+	}
 
-	inline size_t Length();
-	inline size_t Size();
+	MemoryStream& operator<<(int32_t value) {
+		Append<int32_t>(value);
+		return *this;
+	}
 
-	void Resize(size_t size);
-	void Reserve(size_t size);
+	MemoryStream& operator<<(int64_t value) {
+		Append<int64_t>(value);
+		return *this;
+	}
 
-	inline void Clear();
-	inline void Reset();
+	MemoryStream& operator<<(float value) {
+		Append<float>(value);
+		return *this;
+	}
 
-	inline char* Peek(size_t size);
+	MemoryStream& operator<<(double value) {
+		Append<double>(value);
+		return *this;
+	}
+
+	MemoryStream& operator<<(const std::string& value) {
+		Append((const uint8_t *)value.c_str(), value.length());
+		Append((uint8_t)0);
+		return *this;
+	}
+
+	MemoryStream& operator<<(const char *str) {
+		Append((uint8_t const *)str, str ? strlen(str) : 0);
+		Append((uint8_t)0);
+		return *this;
+	}
+
+	MemoryStream& operator<<(MemoryStream& ms) {
+		Append(ms.Begin(),ms.Length());
+		Append((uint8_t)0);
+		return *this;
+	}
+
+	MemoryStream& operator>>(bool &value) {
+		value = Read<char>() > 0 ? true : false;
+		return *this;
+	}
+
+	MemoryStream& operator>>(uint8_t &value) {
+		value = Read<uint8_t>();
+		return *this;
+	}
+
+	MemoryStream& operator>>(uint16_t &value) {
+		value = Read<uint16_t>();
+		return *this;
+	}
+
+	MemoryStream& operator>>(uint32_t &value) {
+		value = Read<uint32_t>();
+		return *this;
+	}
+
+	MemoryStream& operator>>(uint64_t &value) {
+		value = Read<uint64_t>();
+		return *this;
+	}
+
+	MemoryStream& operator>>(int8_t &value) {
+		value = Read<int8_t>();
+		return *this;
+	}
+
+	MemoryStream& operator>>(int16_t &value) {
+		value = Read<int16_t>();
+		return *this;
+	}
+
+	MemoryStream& operator>>(int32_t &value) {
+		value = Read<int32_t>();
+		return *this;
+	}
+
+	MemoryStream& operator>>(int64_t &value) {
+		value = Read<int64_t>();
+		return *this;
+	}
+
+	MemoryStream& operator>>(float &value) {
+		value = Read<float>();
+		return *this;
+	}
+
+	MemoryStream& operator>>(double &value) 
+	{
+		value = Read<double>();
+		return *this;
+	}
+
+	MemoryStream& operator>>(std::string& value) {
+		value.clear();
+		while (Length() > 0) {
+			char c = Read<char>();
+			if (c == 0) {
+				break;
+			}
+			value += c;
+		}
+		return *this;
+	}
+
+	MemoryStream& operator>>(char *value) {
+		while (Length() > 0) {
+			char c = Read<char>();
+			if (c == 0) {
+				break;
+			}
+			*(value++) = c;
+		}
+
+		*value = '\0';
+		return *this;
+	}
+
+	char* Data() {
+		return &data_[0];
+	}
+
+	char* Begin() { 
+		if (readOffset_ >= writeOffset_)
+			return NULL;
+		return &data_[readOffset_]; 
+	}
+
+	const char* Begin() const { 
+		if (readOffset_ >= writeOffset_)
+			return NULL;
+		return &data_[readOffset_]; 
+
+	}
+
+	char* End() { 
+		return &data_[writeOffset_]; 
+	}
+
+	const char* End() const { 
+		return &data_[writeOffset_]; 
+	}
+
+	int ReadOffset() { 
+		return readOffset_; 
+	}
+
+	void ReadOffset(int pos) {
+		if(pos < 0)
+			pos = 0;
+		readOffset_ = pos;
+	}
+
+	int WriteOffset() { 
+		return writeOffset_; 
+	}
+
+	void WriteOffset(int pos) {
+		if(pos < 0)
+			pos = 0;
+		writeOffset_ = pos;
+	}
+
+	size_t Length() {
+		return ReadOffset() >= WriteOffset() ? 0 : WriteOffset() - ReadOffset();
+	}
+
+	size_t Size() {
+		return data_.size();
+	}
+
+	void Resize(size_t newsize) {
+		data_.resize(newsize);
+	}
+
+	void Reserve(size_t ressize) {
+		if (ressize > Size())
+			data_.reserve(ressize);
+	}
+
+	void Clear() {
+		data_.clear();
+		readOffset_ = writeOffset_ = 0;
+	}
+
+	void Reset() {
+		readOffset_ = writeOffset_ = 0;
+	}
+
+	char* Peek(size_t size) {
+		if ( size > Length() ) {
+			return NULL;
+		}
+		return &data_[readOffset_];
+	}
+
 	void RetrieveUntil(const char* endc);
 
 	const char* FindCRLF();
