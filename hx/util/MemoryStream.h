@@ -47,59 +47,59 @@ public:
 	MemoryStream(char* buffer,int size);
 	~MemoryStream();
 
-	MemoryStream& operator<<(bool value);
-	MemoryStream& operator<<(uint8_t value);
-	MemoryStream& operator<<(uint16_t value);
-	MemoryStream& operator<<(uint32_t value);
-	MemoryStream& operator<<(uint64_t value);
-	MemoryStream& operator<<(int8_t value);
-	MemoryStream& operator<<(int16_t value);
-	MemoryStream& operator<<(int32_t value);
-	MemoryStream& operator<<(int64_t value);
-	MemoryStream& operator<<(float value);
-	MemoryStream& operator<<(double value);
-	MemoryStream& operator<<(const std::string& value);
-	MemoryStream& operator<<(const char *str);
-	MemoryStream& operator<<(MemoryStream& ms);
+	inline MemoryStream& operator<<(bool value);
+	inline MemoryStream& operator<<(uint8_t value);
+	inline MemoryStream& operator<<(uint16_t value);
+	inline MemoryStream& operator<<(uint32_t value);
+	inline MemoryStream& operator<<(uint64_t value);
+	inline MemoryStream& operator<<(int8_t value);
+	inline MemoryStream& operator<<(int16_t value);
+	inline MemoryStream& operator<<(int32_t value);
+	inline MemoryStream& operator<<(int64_t value);
+	inline MemoryStream& operator<<(float value);
+	inline MemoryStream& operator<<(double value);
+	inline MemoryStream& operator<<(const std::string& value);
+	inline MemoryStream& operator<<(const char *str);
+	inline MemoryStream& operator<<(MemoryStream& ms);
 
-	MemoryStream& operator>>(bool& value);
-	MemoryStream& operator>>(uint8_t& value);
-	MemoryStream& operator>>(uint16_t& value);
-	MemoryStream& operator>>(uint32_t& value);
-	MemoryStream& operator>>(uint64_t& value);
-	MemoryStream& operator>>(int8_t& value);
-	MemoryStream& operator>>(int16_t& value);
-	MemoryStream& operator>>(int32_t& value);
-	MemoryStream& operator>>(int64_t& value);
-	MemoryStream& operator>>(float& value);
-	MemoryStream& operator>>(double& value);
-	MemoryStream& operator>>(std::string& value);
-	MemoryStream& operator>>(char *value);
+	inline MemoryStream& operator>>(bool& value);
+	inline MemoryStream& operator>>(uint8_t& value);
+	inline MemoryStream& operator>>(uint16_t& value);
+	inline MemoryStream& operator>>(uint32_t& value);
+	inline MemoryStream& operator>>(uint64_t& value);
+	inline MemoryStream& operator>>(int8_t& value);
+	inline MemoryStream& operator>>(int16_t& value);
+	inline MemoryStream& operator>>(int32_t& value);
+	inline MemoryStream& operator>>(int64_t& value);
+	inline MemoryStream& operator>>(float& value);
+	inline MemoryStream& operator>>(double& value);
+	inline MemoryStream& operator>>(std::string& value);
+	inline MemoryStream& operator>>(char *value);
 
-	char* Data();
+	inline char* Data();
 
-	char* Begin();
+	inline char* Begin();
 	const char* Begin() const;
 
-	char* End();
-	const char* End() const;
+	inline char* End();
+	inline const char* End() const;
 
-	int ReadOffset();
-	void ReadOffset(int offset);
+	inline int ReadOffset();
+	inline void ReadOffset(int offset);
 
-	int WriteOffset();
-	void WriteOffset(int offset);
+	inline int WriteOffset();
+	inline void WriteOffset(int offset);
 
-	size_t Length();
-	size_t Size();
+	inline size_t Length();
+	inline size_t Size();
 
 	void Resize(size_t size);
 	void Reserve(size_t size);
 
-	void Clear();
-	void Reset();
+	inline void Clear();
+	inline void Reset();
 
-	char* Peek(size_t size);
+	inline char* Peek(size_t size);
 	void RetrieveUntil(const char* endc);
 
 	const char* FindCRLF();
