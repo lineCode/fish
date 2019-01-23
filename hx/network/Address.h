@@ -141,7 +141,7 @@ public:
 		if ( this->addrType == SOCK_ADDR_IPV4 ) {
 			char ip[INET6_ADDRSTRLEN] = { 0 };
 			char ret[INET6_ADDRSTRLEN] = { 0 };
-			short port = ntohs(this->sockaddr.in.sin_port);
+			ushort port = ntohs(this->sockaddr.in.sin_port);
 #ifndef _WIN32
 			if ( NULL == ::inet_ntop(this->family, (const char*)&this->sockaddr.in.sin_addr, ip, sizeof( ip )) ){
 #else
