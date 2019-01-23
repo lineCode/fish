@@ -30,6 +30,7 @@ bool DbMysql::Attach(std::string dbName) {
 		return false;
 	}
 
+	return true;
 }
 
 bool DbMysql::Detach() {
@@ -58,7 +59,7 @@ bool DbMysql::Execute(const char* sql, size_t size, MemoryStream& stream) {
 
 		stream << nfields;
 		MYSQL_FIELD* fields = mysql_fetch_fields(result);
-		for(int i = 0;i < nfields;i++) {
+		for(uint32_t i = 0;i < nfields;i++) {
 			stream << fields[i].name << fields[i].type;
 		}
 
@@ -84,6 +85,8 @@ bool DbMysql::Execute(const char* sql, size_t size, MemoryStream& stream) {
 	}
 
 	mysql_free_result(result);
+
+	return true;
 }
 
 bool DbMysql::GetTableFields(const char* tableName, MemoryStream& stream) {
@@ -97,7 +100,7 @@ bool DbMysql::GetTableFields(const char* tableName, MemoryStream& stream) {
 	uint32_t nfields = mysql_num_fields(result);
 
 	stream << nfields;
-	for(int i = 0;i < nfields;i++) {
+	for(uint32_t i = 0;i < nfields;i++) {
 		stream << fields[i].name << fields[i].type;
 	}
 	return true;
