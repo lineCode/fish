@@ -1,5 +1,6 @@
 #include "DbThreadPool.h"
 #include "util/Util.h"
+#include "util/format.h"
 #include <stdio.h>
 
 void DbThreadPool::threadFunc(DbThreadPool::TaskQueue *queue, DbMysql* db) {
@@ -59,8 +60,6 @@ void DbThreadPool::TaskQueue::PostTask(DbTask* task) {
 }
 
 bool DbThreadPool::Init(int threadCount, std::string ip, int port, std::string user, std::string pwd, std::string name) {
-
-	bool expected = false;
 	if(threadCount <= 0) {
 		threadCount = 1;
 	}
@@ -68,7 +67,7 @@ bool DbThreadPool::Init(int threadCount, std::string ip, int port, std::string u
 	for(auto i = 0; i < threadCount; ++i) {
 		DbMysql* db = new DbMysql(ip, port, user, pwd);
 		if (db->Attach(name) == false) {
-			Util:Exit(fmt::format("attach db:{} error", name));
+			Util::Exit(fmt::format("attach db:{} error", name));
 		}
 		dbs_.push_back(db);
 	}
