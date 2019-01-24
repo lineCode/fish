@@ -4,34 +4,37 @@
 #include "time/Timer.h"
 #include "network/Channel.h"
 
-class ClientChannel : public Network::Channel {
-public:
-	typedef Network::Channel Super;
+namespace Network {
+	class ClientChannel : public Network::Channel {
+	public:
+		typedef Network::Channel Super;
 
-public:
-	ClientChannel(Network::EventPoller* poller, int fd, int vid);
+	public:
+		ClientChannel(Network::EventPoller* poller, int fd, int vid);
 
-	~ClientChannel();
+		~ClientChannel();
 
-	virtual void HandleRead();
+		virtual void HandleRead();
 
-	virtual void HandleClose();
-	
-	virtual void HandleError();
+		virtual void HandleClose();
 
-	void OnUpdate(Timer* timer, void* userdata);
+		virtual void HandleError();
 
-	void OnClientError(bool close = false);
+		void OnUpdate(Timer* timer, void* userdata);
 
-	int GetVid();
+		void OnClientError(bool close = false);
 
-private:
-	int vid_;
-	uint32_t freq_;
-	uint32_t need_;
-	uint16_t seed_;
-	uint64_t lastMsgTime_;
-	Timer* timer_;
-};
+		int GetVid();
+
+	private:
+		int vid_;
+		uint32_t freq_;
+		uint32_t need_;
+		uint16_t seed_;
+		uint64_t lastMsgTime_;
+		Timer* timer_;
+	};
+}
+
 
 #endif
