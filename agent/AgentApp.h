@@ -23,16 +23,6 @@ public:
 
 	virtual int Init(rapidjson::Document& config);
 
-	static int Register(lua_State* L);
-
-	static int LStop(lua_State* L);
-
-	static int LSendClient(lua_State* L);
-
-	static int LBroadcastClient(lua_State* L);
-
-	static int LCloseClient(lua_State* L);
-
 private:
 	ClientManager* clientMgr_;
 };
