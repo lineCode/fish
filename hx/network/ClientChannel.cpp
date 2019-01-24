@@ -2,7 +2,6 @@
 #include "ClientManager.h"
 #include "logger/Logger.h"
 #include "util/Util.h"
-#include "AgentApp.h"
 
 #define HEADER_SIZE 2
 #define MAX_MESSAGE_SIZE 1024 * 16
@@ -19,7 +18,7 @@ ClientChannel::ClientChannel(Network::EventPoller* poller, int fd, int vid) : Su
 	timer_->SetCallback(std::bind(&ClientChannel::OnUpdate, this, _1, _2));
 	timer_->Start(poller, 1, 1);
 
-	OOLUA::Script& script = APP->Lua()->GetScript();
+	OOLUA::Script& script = CLIENT_MGR->GetApp()->Lua()->GetScript();
 	if ( !script.call("OnClientEnter", vid_) ) {
 		LOG_ERROR(fmt::format("OnClientEnter error:{}", OOLUA::get_last_error(script)));
 	}
@@ -66,7 +65,7 @@ void ClientChannel::HandleRead() {
 
 			uint16_t msgId = data[2] | data[3] << 8;
 
-			OOLUA::Script& script = APP->Lua()->GetScript();
+			OOLUA::Script& script = CLIENT_MGR->GetApp()->Lua()->GetScript();
 			if ( !script.call("OnClientData", vid_, msgId, &data[4], need_ - 4) ) {
 				LOG_ERROR(fmt::format("OnClientData error:{}", OOLUA::get_last_error(script)));
 			}
@@ -74,7 +73,7 @@ void ClientChannel::HandleRead() {
 			CLIENT_MGR->FreeBuffer(data);
 
 			need_ = 0;
-			lastMsgTime_ = APP->Now();
+			lastMsgTime_ = CLIENT_MGR->GetApp()->Now();
 			freq_++;
 		}
 	}
@@ -100,7 +99,7 @@ void ClientChannel::OnUpdate(Timer* timer, void* userdata) {
 		error = true;
 	} else {
 		freq_ = 0;
-		if (lastMsgTime_ != 0 && APP->Now() - lastMsgTime_ > CLIENT_MGR->GetMaxAlive()) {
+		if ( lastMsgTime_ != 0 && CLIENT_MGR->GetApp()->Now() - lastMsgTime_ > CLIENT_MGR->GetMaxAlive() ) {
 			LOG_ERROR(fmt::format("client:{} time out", vid_));
 			error = true;
 		}
@@ -120,7 +119,7 @@ void ClientChannel::OnClientError(bool close) {
 
 	}
 	
-	OOLUA::Script& script = APP->Lua()->GetScript();
+	OOLUA::Script& script = CLIENT_MGR->GetApp()->Lua()->GetScript();
 	if ( !script.call("OnClientError", vid_) ) {
 		LOG_ERROR(fmt::format("OnClientError error:{}", OOLUA::get_last_error(script)));
 	}

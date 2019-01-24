@@ -4,6 +4,7 @@
 #include "util/Singleton.h"
 #include "time/Timer.h"
 #include "network/Acceptor.h"
+#include "ServerApp.h"
 #include "lua.hpp"
 #include <vector>
 
@@ -11,83 +12,89 @@
 
 class ClientChannel;
 
-class ClientManager : public Singleton<ClientManager> {
-public:
-	ClientManager(uint32_t maxClient, uint8_t serverId);
+namespace Network {
+	class ClientManager : public Singleton<ClientManager> {
+	public:
+		ClientManager(ServerApp* app, uint32_t maxClient, uint8_t serverId);
 
-	~ClientManager();
+		~ClientManager();
 
-	void OnClientAccept(int fd, Network::Addr& addr);
+		void OnClientAccept(int fd, Network::Addr& addr);
 
-	void MarkClientDead(ClientChannel* channel);
+		void MarkClientDead(ClientChannel* channel);
 
-	void OnCheck();
+		void OnCheck();
 
-	int AllocVid();
+		int AllocVid();
 
-	ClientChannel* GetClient(int vid);
+		ClientChannel* GetClient(int vid);
 
-	void BindClient(int vid, ClientChannel* channel);
+		void BindClient(int vid, ClientChannel* channel);
 
-	void DeleteClient(int vid);
+		void DeleteClient(int vid);
 
-	int SendClient(int vid, char* data, size_t size);
+		int SendClient(int vid, char* data, size_t size);
 
-	int BroadcastClient(std::vector<int>& vids, char* data, size_t size);
+		int BroadcastClient(std::vector<int>& vids, char* data, size_t size);
 
-	int CloseClient(int vid);
+		int CloseClient(int vid);
 
-	int Start(Network::Addr& addr);
+		int Start(Network::Addr& addr);
 
-	int Stop();
+		int Stop();
 
-	void SetMaxFreq(uint32_t freq);
+		void SetMaxFreq(uint32_t freq);
 
-	uint32_t GetMaxFreq();
+		uint32_t GetMaxFreq();
 
-	void SetMaxAlive(uint32_t alive);
+		void SetMaxAlive(uint32_t alive);
 
-	uint32_t GetMaxAlive();
+		uint32_t GetMaxAlive();
 
-	void SetWarnFlow(uint32_t flow);	
+		void SetWarnFlow(uint32_t flow);
 
-	uint32_t GetWarnFlow();
+		uint32_t GetWarnFlow();
 
-	uint8_t* AllocBuffer(size_t size);
+		ServerApp* GetApp();
 
-	void FreeBuffer(uint8_t* buffer);
+		uint8_t* AllocBuffer(size_t size);
 
-	static int Register(lua_State* L);
+		void FreeBuffer(uint8_t* buffer);
 
-	static int LStop(lua_State* L);
+		static int Register(lua_State* L);
 
-	static int LSendClient(lua_State* L);
+		static int LStop(lua_State* L);
 
-	static int LBroadcastClient(lua_State* L);
+		static int LSendClient(lua_State* L);
 
-	static int LCloseClient(lua_State* L);
-	
-private:
-	uint8_t serverId_;
+		static int LBroadcastClient(lua_State* L);
 
-	uint32_t maxClient_;
-	uint32_t allocStep_;
-	uint32_t size_;
-	
-	ClientChannel** clientSlots_;
+		static int LCloseClient(lua_State* L);
 
-	Network::Acceptor* acceptor_;
-	ev::check check_;
+	private:
+		ServerApp* app_;
 
-	std::vector<ClientChannel*> deadClients_;
+		uint8_t serverId_;
 
-	uint32_t maxFreq_;
-	uint32_t maxAlive_;
-	uint32_t warnFlow_;
+		uint32_t maxClient_;
+		uint32_t allocStep_;
+		uint32_t size_;
 
-	uint8_t buffer_[DEFAULT_BUFF_SIZE];
-};
+		ClientChannel** clientSlots_;
 
-#define CLIENT_MGR ClientManager::GetSingleton()
+		Network::Acceptor* acceptor_;
+		ev::check check_;
+
+		std::vector<ClientChannel*> deadClients_;
+
+		uint32_t maxFreq_;
+		uint32_t maxAlive_;
+		uint32_t warnFlow_;
+
+		uint8_t buffer_[DEFAULT_BUFF_SIZE];
+	};
+}
+
+#define CLIENT_MGR Network::ClientManager::GetSingleton()
 
 #endif

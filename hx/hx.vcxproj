@@ -101,6 +101,8 @@
     <ClInclude Include="network\Acceptor.h" />
     <ClInclude Include="network\Address.h" />
     <ClInclude Include="network\Channel.h" />
+    <ClInclude Include="network\ClientChannel.h" />
+    <ClInclude Include="network\ClientManager.h" />
     <ClInclude Include="network\Connector.h" />
     <ClInclude Include="network\EventPoller.h" />
     <ClInclude Include="network\HttpChannel.h" />
@@ -154,6 +156,8 @@
     <ClCompile Include="lualib\LuaZeropack.cpp" />
     <ClCompile Include="network\Acceptor.cpp" />
     <ClCompile Include="network\Channel.cpp" />
+    <ClCompile Include="network\ClientChannel.cpp" />
+    <ClCompile Include="network\ClientManager.cpp" />
     <ClCompile Include="network\Connector.cpp" />
     <ClCompile Include="network\EventPoller.cpp" />
     <ClCompile Include="network\HttpChannel.cpp" />
