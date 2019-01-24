@@ -27,7 +27,7 @@ namespace Network {
 		clientSlots_ = (ClientChannel**)malloc(sizeof( *clientSlots_ ) * maxClient);
 		memset(clientSlots_, 0, sizeof( *clientSlots_ ) * maxClient);
 
-		acceptor_ = new Network::Acceptor(app_->Poller());
+		acceptor_ = new Acceptor(app_->Poller());
 		acceptor_->SetCallback(std::bind(&ClientManager::OnClientAccept, this, _1, _2));
 
 		check_.set(app_->Poller()->GetLoop());
@@ -47,9 +47,9 @@ namespace Network {
 		check_.stop();
 	}
 
-	void ClientManager::OnClientAccept(int fd, Network::Addr& addr) {
+	void ClientManager::OnClientAccept(int fd, Addr& addr) {
 		if ( size_ >= maxClient_ ) {
-			Network::SocketClose(fd);
+			SocketClose(fd);
 			LOG_INFO(fmt::format("the number of client has limited:{}", size_));
 			return;
 		}
@@ -190,7 +190,7 @@ namespace Network {
 		return 0;
 	}
 
-	int ClientManager::Start(Network::Addr& addr) {
+	int ClientManager::Start(Addr& addr) {
 		return acceptor_->Listen(addr);
 	}
 

@@ -10,16 +10,17 @@
 
 #define DEFAULT_BUFF_SIZE (64 * 1024)
 
-class ClientChannel;
+
 
 namespace Network {
+	class ClientChannel;
 	class ClientManager : public Singleton<ClientManager> {
 	public:
 		ClientManager(ServerApp* app, uint32_t maxClient, uint8_t serverId);
 
 		~ClientManager();
 
-		void OnClientAccept(int fd, Network::Addr& addr);
+		void OnClientAccept(int fd, Addr& addr);
 
 		void MarkClientDead(ClientChannel* channel);
 
@@ -39,7 +40,7 @@ namespace Network {
 
 		int CloseClient(int vid);
 
-		int Start(Network::Addr& addr);
+		int Start(Addr& addr);
 
 		int Stop();
 
@@ -82,7 +83,7 @@ namespace Network {
 
 		ClientChannel** clientSlots_;
 
-		Network::Acceptor* acceptor_;
+		Acceptor* acceptor_;
 		ev::check check_;
 
 		std::vector<ClientChannel*> deadClients_;

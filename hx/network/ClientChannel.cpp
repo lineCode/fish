@@ -7,7 +7,7 @@
 #define MAX_MESSAGE_SIZE 1024 * 16
 
 namespace Network {
-	ClientChannel::ClientChannel(Network::EventPoller* poller, int fd, int vid) : Super(poller, fd) {
+	ClientChannel::ClientChannel(EventPoller* poller, int fd, int vid) : Super(poller, fd) {
 		vid_ = vid;
 		freq_ = 0;
 		need_ = 0;

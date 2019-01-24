@@ -5,12 +5,12 @@
 #include "network/Channel.h"
 
 namespace Network {
-	class ClientChannel : public Network::Channel {
+	class ClientChannel : public Channel {
 	public:
-		typedef Network::Channel Super;
+		typedef Channel Super;
 
 	public:
-		ClientChannel(Network::EventPoller* poller, int fd, int vid);
+		ClientChannel(EventPoller* poller, int fd, int vid);
 
 		~ClientChannel();
 
