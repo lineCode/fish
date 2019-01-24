@@ -18,4 +18,4 @@ $(TARGET):$(OBJ) $(STATIC_LIBS)
 	$(CC) -o $@ $^ -lm -ldl -lrt -lpthread -lstdc++ -lunwind
 
 clean:
-	rm -f *.o $(TARGET)
+	rm -rf $(OBJ) $(TARGET)

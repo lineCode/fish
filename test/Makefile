@@ -18,4 +18,4 @@ $(TARGET):$(OBJ) $(STATIC_LIBS)
 	$(CC) -o $@ $^ -lm -ldl -lrt -lpthread -lstdc++ -lunwind -L/usr/lib64/mysql/ -lmysqlclient
 
 clean:
-	rm -f *.o $(TARGET)
+	rm -rf $(OBJ) $(TARGET)

@@ -90,31 +90,22 @@ leak :
 test : $(TEST)
 
 cleanall:
-	rm -rf $(FISH) $(FISH_INC)/*o
-	rm -rf $(AGENT) $(AGENT_INC)/*o
-	rm -rf $(LOGGER) $(LOGGER_INC)/*o
-	rm -rf $(DB) $(DB_INC)/*o
-	rm -rf $(TEST) $(TEST_INC)/*o
-	rm -rf $(LIBS_DIR)/$(HX_LIB) && cd $(HX_INC) && make clean
+	make cleanhx
 	rm -rf $(LIBS_DIR)/$(LUA_LIB) && cd $(LUA_INC) && make clean
 	rm -rf $(LIBS_DIR)/$(OOLUA_LIB) && cd $(OOLUA_PATH) && make clean
 	rm -rf $(LIBS_DIR)/$(LIBEV_LIB) && cd $(LIBEV_INC) && make clean
 	rm -rf $(LIBS_DIR)/$(TCMALLOC_LIB) && cd $(TCMALLOC_PATH) && make clean
 
 cleanhx:
-	rm -rf $(FISH) $(FISH_INC)/*o
-	rm -rf $(AGENT) $(AGENT_INC)/*o
-	rm -rf $(LOGGER) $(LOGGER_INC)/*o
-	rm -rf $(DB) $(DB_INC)/*o
-	rm -rf $(TEST) $(TEST_INC)/*o
+	make clean
 	rm -rf $(LIBS_DIR)/$(HX_LIB) && cd $(HX_INC) && make clean
 
 clean:
-	rm -rf $(FISH) $(FISH_INC)/*o
-	rm -rf $(AGENT) $(AGENT_INC)/*o
-	rm -rf $(LOGGER) $(LOGGER_INC)/*o
-	rm -rf $(DB) $(DB_INC)/*o
-	rm -rf $(TEST) $(TEST_INC)/*o
+	rm -rf $(FISH) && cd $(FISH_INC) && make clean
+	rm -rf $(AGENT) && cd $(AGENT_INC) && make clean
+	rm -rf $(LOGGER) && cd $(LOGGER_INC) && make clean
+	rm -rf $(DB) && cd $(DB_INC) && make clean
+	rm -rf $(TEST) && cd $(TEST_INC) && make clean
 
 cleantest:
 	rm -rf $(TEST) $(TEST_INC)/*o

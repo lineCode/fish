@@ -28,15 +28,5 @@ $(TARGET):$(OBJ)
 	$(AR) cq $@ $^
 
 clean:
-	rm -f lualib/*.o
-	rm -f lualib/json/*.o
-	rm -f network/*.o
-	rm -f time/*.o
-	rm -f util/*.o
-	rm -f thread/*.o
-	rm -f logger/*.o
-	rm -f db/*.o
-	rm -f ../3rd/http-parser/*.o
-	rm -f ../3rd/luafilesystem/src/*.o
-	rm -f *.o 
-	rm -f $(TARGET)
+	rm -rf $(OBJ)
+	rm -rf $(TARGET)
