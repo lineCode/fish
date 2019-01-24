@@ -52,7 +52,7 @@ int AgentApp::Init(rapidjson::Document& config) {
 		Util::Exit(fmt::format("client manager start:{} error", addr.ToStr()));
 	}
 
-	lua_->Require("clientMgr", Network::ClientManager::Register);
+	
 
 	return 0;
 }

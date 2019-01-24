@@ -37,6 +37,8 @@ namespace Network {
 		maxFreq_ = 100;
 		maxAlive_ = 60 * 3;
 		warnFlow_ = 1024 * 16;
+
+		app->Lua()->Require("clientMgr", Register);
 	}
 
 	ClientManager::~ClientManager() {
