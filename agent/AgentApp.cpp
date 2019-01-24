@@ -30,7 +30,7 @@ int AgentApp::Init(rapidjson::Document& config) {
 		maxClient = config["maxClient"].GetInt();
 	}
 
-	clientMgr_ = new ClientManager(maxClient, 1);
+	clientMgr_ = new Network::ClientManager(this, maxClient, 1);
 
 	if (config.HasMember("maxFreq")) {
 		clientMgr_->SetMaxFreq(config["maxFreq"].GetInt());
@@ -52,7 +52,7 @@ int AgentApp::Init(rapidjson::Document& config) {
 		Util::Exit(fmt::format("client manager start:{} error", addr.ToStr()));
 	}
 
-	lua_->Require("agent", AgentApp::Register);
+	lua_->Require("clientMgr", Network::ClientManager::Register);
 
 	return 0;
 }

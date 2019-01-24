@@ -10,8 +10,8 @@
 #include "network/Connector.h"
 #include "network/Address.h"
 #include "network/HttpChannel.h"
+#include "network/ClientManager.h"
 #include "util/Singleton.h"
-#include "ClientManager.h"
 #include "document.h" 
 
 
@@ -24,7 +24,7 @@ public:
 	virtual int Init(rapidjson::Document& config);
 
 private:
-	ClientManager* clientMgr_;
+	Network::ClientManager* clientMgr_;
 };
 
 #define APP AgentApp::GetSingleton()
