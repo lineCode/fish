@@ -268,18 +268,18 @@ namespace Network {
 		int vt = lua_type(L, index);
 		switch ( vt ) {
 			case LUA_TSTRING: {
-								  const char* str = lua_tolstring(L, index, size);
-								  data = (char*)malloc(*size);
-								  memcpy(data, str, *size);
-								  break;
+				const char* str = lua_tolstring(L, index, size);
+				data = (char*)malloc(*size);
+				memcpy(data, str, *size);
+				break;
 			}
 			case LUA_TLIGHTUSERDATA: {
-										 data = (char*)lua_touserdata(L, index);
-										 *size = luaL_checkinteger(L, index + 1);
-										 break;
+				data = (char*)lua_touserdata(L, index);
+				*size = luaL_checkinteger(L, index + 1);
+				break;
 			}
 			default: {
-						 luaL_error(L, "client manager get buffer error:unknow lua type:%s", lua_typename(L, vt));
+				luaL_error(L, "client manager get buffer error:unknow lua type:%s", lua_typename(L, vt));
 			}
 		}
 
