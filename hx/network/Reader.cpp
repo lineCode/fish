@@ -26,32 +26,31 @@ namespace Network {
 
 	int Reader::Read(int fd) {
 		int total = 0;
-		for(;;) {
-			ReaderBuffer* buffer = NextBuffer();
-			int left = buffer->size_ - buffer->wpos_;
-			int len = Network::SocketRead(fd,buffer->data_ + buffer->wpos_,left);
-			if (len > 0) {
-				buffer->wpos_ += len;
-				total_ += len;
-				total += len;
-				if (len < left) {
-					size_ /= 2;
-					if (size_ < defaultSize_) {
-						size_ = defaultSize_;
-					}
-					break;
-				} else {
-					size_ *= 2;
-					if (size_ > MAX_BUFFER_SIZE) {
-						size_ = MAX_BUFFER_SIZE;
-					}
+	
+		ReaderBuffer* buffer = NextBuffer();
+		int left = buffer->size_ - buffer->wpos_;
+		int len = Network::SocketRead(fd,buffer->data_ + buffer->wpos_,left);
+		if (len > 0) {
+			buffer->wpos_ += len;
+			total_ += len;
+			total += len;
+			if (len < left) {
+				size_ /= 2;
+				if (size_ < defaultSize_) {
+					size_ = defaultSize_;
 				}
-			} else if (len == 0) {
-				break;
 			} else {
-				return -1;
+				size_ *= 2;
+				if (size_ > MAX_BUFFER_SIZE) {
+					size_ = MAX_BUFFER_SIZE;
+				}
 			}
+		} else if (len == 0) {
+			break;
+		} else {
+			return -1;
 		}
+
 		return total;
 	}
 
