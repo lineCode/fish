@@ -41,6 +41,7 @@ namespace Network {
 		int	total_;
 
 	private:
+		int defaultSize_;
 		int	size_;
 		ReaderBuffer* head_;
 		ReaderBuffer* tail_;

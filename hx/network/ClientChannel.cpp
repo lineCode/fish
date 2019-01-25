@@ -25,7 +25,6 @@ namespace Network {
 		}
 	}
 
-
 	ClientChannel::~ClientChannel() {
 		timer_->Cancel();
 		Timer::ReclaimTimer(timer_);

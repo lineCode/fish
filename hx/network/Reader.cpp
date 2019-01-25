@@ -2,8 +2,11 @@
 #include "Network.h"
 #include "../util/MemoryStream.h"
 
+#define MAX_BUFFER_SIZE (1024 * 1024)
+
 namespace Network {
 	Reader::Reader(int size) {
+		defaultSize_ = size;
 		size_ = size;
 		total_ = 0;
 		head_ = tail_ = freelist_ = NULL;
@@ -32,7 +35,16 @@ namespace Network {
 				total_ += len;
 				total += len;
 				if (len < left) {
+					size_ /= 2;
+					if (size_ < defaultSize_) {
+						size_ = defaultSize_;
+					}
 					break;
+				} else {
+					size_ *= 2;
+					if (size_ > MAX_BUFFER_SIZE) {
+						size_ = MAX_BUFFER_SIZE;
+					}
 				}
 			} else if (len == 0) {
 				break;
