@@ -46,7 +46,7 @@ namespace Network {
 				}
 			}
 		} else if (len == 0) {
-			break;
+			return 0;
 		} else {
 			return -1;
 		}
