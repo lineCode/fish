@@ -7,6 +7,9 @@ public:
 	RingBuffer(uint32_t min, uint32_t max);
 	virtual ~RingBuffer();
 
+	char* Reserve(uint32_t size);
+
+	void Commit(uint32_t size);
 
 private:
 	char* buffer_;
