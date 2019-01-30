@@ -18,5 +18,6 @@ namespace Network {
 	private:
 
 		RingBuffer* buff_;
-	}
+	};
+}
 #endif
