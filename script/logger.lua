@@ -48,12 +48,14 @@ function Init(self)
 	print("logger init")
 	socket.Listen({ip = config.loggerAddr.ip, port = config.loggerAddr.port}, logger, "OnAccept")
 
-	fish.Listen({ip = "0.0.0.0", port = 1989}, function (fd,addr)
+	listener = fish.Listen({ip = "0.0.0.0", port = 1990}, function (fd,addr)
+		print(fd,addr)
 		fish.BindHttp(fd,function (request)
 			print(request:GetUrl())
 			table.print(request:GetHeader())
 		end)
 	end)
+	print(listener)
 end
 
 function Fina()
