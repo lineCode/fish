@@ -1,4 +1,8 @@
 #include "UdpReader.h"
+#include "network/Network.h"
+#ifndef WIN32
+#include <sys/socket.h>
+#endif
 
 namespace Network {
 	UdpReader::UdpReader() {
@@ -13,7 +17,7 @@ namespace Network {
 		int recv = 0;
 		while (true) {
 			uint32_t space;
-			char* input = buff_->PrePush(space);
+			char* input = buff_->PreWrite(space);
 			if (!input || space < 1600) {
 				break;
 			}
