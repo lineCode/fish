@@ -2,6 +2,7 @@
 #include "util/format.h"
 #include "logger/Logger.h"
 #include "network/TcpReader.h"
+#include "network/FastReader.h"
 #include "network/TcpWriter.h"
 #include <iostream>
 
@@ -40,7 +41,7 @@ HttpChannel::HttpChannel(Network::EventPoller* poller,int fd):Channel(poller,fd)
 	callback_ = nullptr;
 	userdata_ = nullptr;
 
-	SetReader(new TcpReader(1024));
+	SetReader(new FastReader(32));
 	SetWriter(new TcpWriter());
 }
 
