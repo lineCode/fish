@@ -86,6 +86,13 @@ namespace Network {
 		}
 	}
 
+	char* TcpReader::PeekData(int size) {
+		if (size > buff_->GetUsedSize()) {
+			return NULL;
+		}
+		return buff_->Read(size);
+	}
+	
 	int TcpReader::GetTotal() {
 		return total_;
 	}

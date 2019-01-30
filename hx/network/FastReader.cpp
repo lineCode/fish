@@ -1,4 +1,7 @@
 #include "FastReader.h"
+#include "Network.h"
+#include <stdlib.h>
+#include <string.h>
 
 namespace Network {
 
@@ -35,6 +38,13 @@ void FastReader::ReadData(char* data, int size) {
 	assert(size <= buff_->GetUsedSize());
 	char* output = buff_->Read(size);
 	memcpy(data, output, size);
+}
+
+char* FastReader::PeekData(int size) {
+	if (size > buff_->GetUsedSize()) {
+		return NULL;
+	}
+	return buff_->Read(size);
 }
 
 int FastReader::GetTotal() {

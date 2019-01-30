@@ -11,6 +11,7 @@ namespace Network {
 
 		virtual int  Read(int fd) = 0;
 		virtual void ReadData(char* data,int size) = 0;
+		virtual char* PeekData(int size) = 0;
 
 		virtual int GetTotal() = 0;
 	};
