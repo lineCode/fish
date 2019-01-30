@@ -25,6 +25,9 @@ int FastReader::Read(int fd) {
 		if (len > 0) {
 			total += len;
 			buff_->Commit(len);
+			if (len < space) {
+				break;
+			}
 		} else if ( len == 0 ) {
 			break;
 		} else {
