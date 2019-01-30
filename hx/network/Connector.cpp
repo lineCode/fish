@@ -71,7 +71,6 @@ namespace Network
 		} else {
 			callback_(w.fd, NULL, userdata_);
 		}
-		
 	}
 
 	void Connector::SetCallback(OnConnect callback) {

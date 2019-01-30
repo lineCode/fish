@@ -61,6 +61,10 @@ namespace Network {
 	}
 
 	void Acceptor::HandleConnection(ev::io &w, int revents) {
+		if (revents & EV_ERROR) {
+			return;
+		}
+		
 		Addr addr;
 		memset(&addr.sockaddr, 0, sizeof(addr.sockaddr)); 
 		int fd = SocketAccept(fd_, &addr);

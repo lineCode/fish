@@ -63,6 +63,10 @@ namespace Network {
 	}
 
 	void Channel::OnRead(ev::io &rio, int revents) {
+		if (revents & EV_ERROR) {
+			return;
+		}
+
 		assert(reader_ != NULL);
 
 		if (reader_->Read(fd_) < 0) {
@@ -75,6 +79,10 @@ namespace Network {
 	}
 
 	void Channel::OnWrite(ev::io &wio, int wevents) {
+		if (revents & EV_ERROR) {
+			return;
+		}
+		
 		if (state_ == eError || state_ == eInvalid)
 			return;
 		
