@@ -209,7 +209,7 @@ namespace Network {
 		return false;
 	}
 
-	int SocketUdpRead(int fd, char* data, int size, struct sockaddr_in* addr, socklen_t* addrlen) {
+	int SocketUdpRead(int fd, char* data, int size, struct sockaddr* addr, socklen_t* addrlen) {
 		int n = recvfrom(fd, data, size, 0, (sockaddr*)addr, addrlen);
 		if (n == 0) {
 			return ReadError;

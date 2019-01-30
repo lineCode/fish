@@ -44,7 +44,7 @@ namespace Network {
 	int SocketSetNonblocking(int fd,bool nonblocking);
 	bool SocketHasError(int fd);
 
-	int SocketUdpRead(int fd, char* data, int size, struct sockaddr_in* addr, socklen_t* addrlen);
+	int SocketUdpRead(int fd, char* data, int size, struct sockaddr* addr, socklen_t* addrlen);
 }
 
 
