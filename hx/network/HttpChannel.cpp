@@ -52,13 +52,10 @@ HttpChannel::~HttpChannel() {
 void HttpChannel::HandleRead() {
 	int total = reader_->GetTotal();
 
-	char* data = (char*)malloc(total);
-
-	reader_->ReadData(data, total);
+	char* data = reader_->ReadData(total);
 
 	http_parser_execute(&parser_, &ParserSetting, data, total);
 
-	free(data);
 
 	if (HTTP_PARSER_ERRNO(&parser_) != HPE_OK) {
 		LOG_ERROR(fmt::format("http parse error:{}", http_errno_name(HTTP_PARSER_ERRNO(&parser_))));
