@@ -11,9 +11,6 @@ namespace Network {
 
 		wio_.set(poller_->GetLoop());
 		wio_.set<Channel, &Channel::OnWrite>(this);
-
-		reader_ = new Reader();
-		writer_ = new Writer();
 	}
 
 	Channel::~Channel(void) {
@@ -62,6 +59,14 @@ namespace Network {
 			wio_.stop();
 	}
 
+	void Channel::SetReader(Reader* reader) {
+		reader_ = reader;
+	}
+
+	void Channel::SetWriter(Writer* writer) {
+		writer_ = writer;
+	}
+
 	void Channel::OnRead(ev::io &rio, int revents) {
 		if (revents & EV_ERROR) {
 			return;
@@ -79,10 +84,10 @@ namespace Network {
 	}
 
 	void Channel::OnWrite(ev::io &wio, int wevents) {
-		if (revents & EV_ERROR) {
+		if ( wevents & EV_ERROR ) {
 			return;
 		}
-		
+
 		if (state_ == eError || state_ == eInvalid)
 			return;
 		

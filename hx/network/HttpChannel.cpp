@@ -1,6 +1,8 @@
 ﻿#include "HttpChannel.h"
 #include "util/format.h"
 #include "logger/Logger.h"
+#include "network/TcpReader.h"
+#include "network/TcpWriter.h"
 #include <iostream>
 
 
@@ -37,6 +39,9 @@ HttpChannel::HttpChannel(Network::EventPoller* poller,int fd):Channel(poller,fd)
 	completed_ = false;
 	callback_ = nullptr;
 	userdata_ = nullptr;
+
+	SetReader(new TcpReader(1024));
+	SetWriter(new TcpWriter());
 }
 
 HttpChannel::~HttpChannel() {
@@ -44,7 +49,7 @@ HttpChannel::~HttpChannel() {
 }
 
 void HttpChannel::HandleRead() {
-	int total = reader_->GetLength();
+	int total = reader_->GetTotal();
 
 	char* data = (char*)malloc(total);
 

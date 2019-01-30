@@ -171,6 +171,15 @@
     <ClInclude Include="network\ClientChannel.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="util\RingBuffer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="network\TcpReader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="network\TcpWriter.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="network\Channel.cpp">
@@ -183,9 +192,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="network\Network.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="network\Reader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="ServerApp.cpp">
@@ -225,9 +231,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="network\Acceptor.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="network\Writer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="lualib\LuaChannel.cpp">
@@ -297,6 +300,15 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="network\ClientManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="util\RingBuffer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="network\TcpReader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="network\TcpWriter.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

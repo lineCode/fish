@@ -30,7 +30,7 @@ void LuaChannel::HandleRead() {
 	} 
 	while(IsAlive()) {
 		if (need_ == 0) {
-			if (reader_->total_ < (int)header_) {
+			if ( reader_->GetTotal() < (int)header_ ) {
 				break;
 			}
 			if (header_ == 2) {
@@ -49,7 +49,7 @@ void LuaChannel::HandleRead() {
 				break;
 			}
 		} else {
-			if (reader_->total_ < (int)need_) {
+			if (reader_->GetTotal() < (int)need_) {
 				break;
 			}
 
@@ -134,7 +134,7 @@ int LuaChannel::LRead(lua_State* L) {
 	LuaChannel* channel = (LuaChannel*)lua_touserdata(L, 1);
 	int size = luaL_optinteger(L, 2, 0);
 
-	int total = channel->reader_->total_;
+	int total = channel->reader_->GetTotal();
 	if (total == 0) {
 		return 0;
 	}

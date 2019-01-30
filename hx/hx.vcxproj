@@ -108,6 +108,8 @@
     <ClInclude Include="network\HttpChannel.h" />
     <ClInclude Include="network\Network.h" />
     <ClInclude Include="network\Reader.h" />
+    <ClInclude Include="network\TcpReader.h" />
+    <ClInclude Include="network\TcpWriter.h" />
     <ClInclude Include="network\Writer.h" />
     <ClInclude Include="ServerApp.h" />
     <ClInclude Include="TaskQueue.h" />
@@ -129,6 +131,7 @@
     <ClInclude Include="util\MiniheapT.h" />
     <ClInclude Include="util\ObjectPool.h" />
     <ClInclude Include="util\PoolObject.h" />
+    <ClInclude Include="util\RingBuffer.h" />
     <ClInclude Include="util\Singleton.h" />
     <ClInclude Include="util\StreamReader.h" />
     <ClInclude Include="util\StreamWriter.h" />
@@ -162,8 +165,8 @@
     <ClCompile Include="network\EventPoller.cpp" />
     <ClCompile Include="network\HttpChannel.cpp" />
     <ClCompile Include="network\Network.cpp" />
-    <ClCompile Include="network\Reader.cpp" />
-    <ClCompile Include="network\Writer.cpp" />
+    <ClCompile Include="network\TcpReader.cpp" />
+    <ClCompile Include="network\TcpWriter.cpp" />
     <ClCompile Include="ServerApp.cpp" />
     <ClCompile Include="time\Timer.cpp" />
     <ClCompile Include="time\TimerHeap.cpp" />
@@ -174,6 +177,7 @@
     <ClCompile Include="util\LuaAllocator.cpp" />
     <ClCompile Include="util\MemoryStream.cpp" />
     <ClCompile Include="util\MiniHeap.cpp" />
+    <ClCompile Include="util\RingBuffer.cpp" />
     <ClCompile Include="util\StreamReader.cpp" />
     <ClCompile Include="util\StreamWriter.cpp" />
     <ClCompile Include="util\Util.cpp" />

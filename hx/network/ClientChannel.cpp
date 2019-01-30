@@ -33,7 +33,7 @@ namespace Network {
 	void ClientChannel::HandleRead() {
 		while ( IsAlive() ) {
 			if ( need_ == 0 ) {
-				if ( reader_->total_ < HEADER_SIZE ) {
+				if ( reader_->GetTotal() < HEADER_SIZE ) {
 					return;
 				}
 
@@ -50,7 +50,7 @@ namespace Network {
 				}
 			}
 			else {
-				if ( reader_->total_ < (int)need_ ) {
+				if ( reader_->GetTotal() < (int)need_ ) {
 					return;
 				}
 
@@ -90,8 +90,8 @@ namespace Network {
 	}
 
 	void ClientChannel::OnUpdate(Timer* timer, void* userdata) {
-		if ( reader_->total_ > (int)CLIENT_MGR->GetWarnFlow() ) {
-			LOG_ERROR(fmt::format("client:{} more than {}kb need to send out", vid_, reader_->total_ / 1024));
+		if ( reader_->GetTotal() > (int)CLIENT_MGR->GetWarnFlow() ) {
+			LOG_ERROR(fmt::format("client:{} more than {}kb need to send out", vid_, reader_->GetTotal() / 1024));
 		}
 
 		bool error = false;

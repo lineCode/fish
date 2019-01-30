@@ -1,4 +1,7 @@
-#include "RingBuffer.h"
+﻿#include "RingBuffer.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 RingBuffer::RingBuffer(uint32_t min, uint32_t max) {
 	size_ = min;
@@ -24,7 +27,7 @@ char* RingBuffer::PreWrite(uint32_t& size) {
 		if (!Realloc()) {
 			return NULL;
 		}
-		sie = size_ - used_;
+		size = size_ - used_;
 	}
 
 	if (tail_ >= head_) {

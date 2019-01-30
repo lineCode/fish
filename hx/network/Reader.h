@@ -6,46 +6,13 @@
 namespace Network {
 	class Reader {
 	public:
-		struct ReaderBuffer {
-			int	rpos_;
-			int	wpos_;
-			int	size_;
-			char* data_;
-			ReaderBuffer* next_;
-
-			ReaderBuffer(int size):rpos_(0),wpos_(0),size_(size),next_(NULL)
-			{
-				data_ = (char*) malloc(size);
-			}
-
-			~ReaderBuffer()
-			{
-				free((void*)data_);
-			}
-		};
-
-	public:
-		Reader(int size = 64);
+		Reader();
 		virtual ~Reader();
 
-		virtual int  Read(int fd);
-		virtual void ReadData(char* data,int size);
+		virtual int  Read(int fd) = 0;
+		virtual void ReadData(char* data,int size) = 0;
 
-		virtual int GetLength();
-	private:
-		ReaderBuffer* NextBuffer();
-		ReaderBuffer* AllocBuffer();
-		void FreeHead();
-
-	public:
-		int	total_;
-
-	private:
-		int defaultSize_;
-		int	size_;
-		ReaderBuffer* head_;
-		ReaderBuffer* tail_;
-		ReaderBuffer* freelist_;
+		virtual int GetTotal() = 0;
 	};
 }
 

@@ -2,6 +2,8 @@
 #include "ClientChannel.h"
 #include "network/Network.h"
 #include "logger/Logger.h"
+#include "network/TcpReader.h"
+#include "network/TcpWriter.h"
 #include <stdlib.h>
 #include <string.h>
 
@@ -55,6 +57,8 @@ namespace Network {
 		}
 
 		ClientChannel* channel = new ClientChannel(app_->Poller(), fd, AllocVid());
+		channel->SetReader(new TcpReader(64));
+		channel->SetWriter(new TcpWriter());
 		BindClient(channel->GetVid(), channel);
 		channel->EnableRead();
 	}

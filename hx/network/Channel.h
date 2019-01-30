@@ -32,6 +32,9 @@ namespace Network {
 		virtual void EnableWrite();
 		virtual void DisableWrite();
 
+		virtual void SetReader(Reader* reader);
+		virtual void SetWriter(Writer* writer);
+
 		virtual void HandleRead();
 		virtual void HandleWrite();
 		virtual void HandleClose();
