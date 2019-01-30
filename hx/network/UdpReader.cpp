@@ -24,7 +24,7 @@ namespace Network {
 			struct sockaddr_in addr;
 			socklen_t addrlen = sizeof(addr);
 
-			int n = SocketUdpRead(fd, input, space, (sockaddr_in*)&addr, &addrlen);
+			int n = SocketUdpRead(fd, input, space, (struct sockaddr*)&addr, &addrlen);
 			if (n > 0) {
 				recv += n;
 				buff_->Commit(n);
