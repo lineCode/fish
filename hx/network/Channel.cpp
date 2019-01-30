@@ -6,6 +6,8 @@ namespace Network {
 	Channel::Channel(Network::EventPoller* poller, int fd) :poller_(poller), fd_(fd) {
 		state_ = eAlive;
 
+		SocketSetNonblocking(fd, true);
+
 		rio_.set(poller_->GetLoop());
 		rio_.set<Channel, &Channel::OnRead>(this);
 
