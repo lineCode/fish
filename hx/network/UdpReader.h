@@ -12,6 +12,7 @@ namespace Network {
 
 		virtual int  Read(int fd);
 		virtual void ReadData(char* data, int size);
+		virtual char* ReadData(int size);
 
 		virtual int GetTotal();
 

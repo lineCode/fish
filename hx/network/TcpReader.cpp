@@ -87,12 +87,9 @@ namespace Network {
 	}
 
 	char* TcpReader::ReadData(int size) {
-		if (size > buff_->GetUsedSize()) {
-			return NULL;
-		}
-		return buff_->Read(size);
+		return NULL;
 	}
-	
+
 	int TcpReader::GetTotal() {
 		return total_;
 	}

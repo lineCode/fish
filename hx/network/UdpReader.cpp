@@ -41,6 +41,10 @@ namespace Network {
 
 	}
 
+	char* TcpReader::ReadData(int size) {
+		return NULL;
+	}
+	
 	int UdpReader::GetTotal() {
 		return buff_->GetUsedSize();
 	}
