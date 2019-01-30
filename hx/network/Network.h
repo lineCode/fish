@@ -37,12 +37,14 @@ namespace Network {
 	int SocketBind(Addr& addr);
 	int SocketListen(int fd,int backlog);
 	int SocketConnect(Addr& addr,bool nonblock,bool& connected);
-	int SocketRead(int fd,char* data,int size);
-	int SocketWrite(int fd,const char* data,int size);
+	int SocketTcpRead(int fd,char* data,int size);
+	int SocketTcpWrite(int fd,const char* data,int size);
 	int SocketSetKeepalive(int fd ,bool keepalive);
 	int SocketSetNodelay(int fd,bool nodelay);
 	int SocketSetNonblocking(int fd,bool nonblocking);
 	bool SocketHasError(int fd);
+
+	int SocketUdpRead(int fd, char* data, int size, struct sockaddr_in* addr, socklen_t* addrlen);
 }
 
 

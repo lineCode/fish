@@ -29,7 +29,7 @@ namespace Network {
 		for ( ;; ) {
 			ReaderBuffer* buffer = NextBuffer();
 			int left = buffer->size_ - buffer->wpos_;
-			int len = Network::SocketRead(fd, buffer->data_ + buffer->wpos_, left);
+			int len = Network::SocketTcpRead(fd, buffer->data_ + buffer->wpos_, left);
 			if ( len > 0 ) {
 				buffer->wpos_ += len;
 				total_ += len;

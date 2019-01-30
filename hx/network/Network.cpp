@@ -119,7 +119,7 @@ namespace Network {
 #endif
 	}
 
-	int SocketRead(int fd,char* data,int size) {
+	int SocketTcpRead(int fd,char* data,int size) {
 #if defined( WIN32 )
 		int n = recv(fd,data,size,0);
 #else
@@ -154,7 +154,7 @@ namespace Network {
 		return n > 0 ? n : 0;
 	}
 
-	int SocketWrite(int fd,const char* data,int size) {
+	int SocketTcpWrite(int fd,const char* data,int size) {
 		int total = 0;
 		for (;;) {
 #if defined( WIN32 )
@@ -207,6 +207,37 @@ namespace Network {
 		if (code < 0 || error)
 			return true;
 		return false;
+	}
+
+	int SocketUdpRead(int fd, char* data, int size, struct sockaddr_in* addr, socklen_t* addrlen) {
+		int n = recvfrom(fd, data, size, 0, (sockaddr*)addr, addrlen);
+		if (n == 0) {
+			return ReadError;
+		} else if (n < 0) {
+#if defined( WIN32 )
+			int error =  WSAGetLastError();
+			switch(error) {
+			case WSAEINTR:
+				break;
+			case WSAEWOULDBLOCK:
+				break;
+			default:
+				return ReadError;
+				break;
+			}
+#else
+			switch(errno) {
+			case EINTR:
+				break;
+			case EAGAIN:
+				break;
+			default:
+				return ReadError;
+				break;
+			}
+#endif
+		}
+		return n > 0 ? n : 0;
 	}
 }
 

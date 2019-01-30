@@ -15,6 +15,10 @@ public:
 
 	bool Realloc();
 
+	uint32_t GetUsedSize() {
+		return used_;
+	}
+
 private:
 	char* buff_;
 	uint32_t size_;

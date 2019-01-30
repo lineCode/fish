@@ -56,7 +56,7 @@ namespace Network {
 	int TcpWriter::Write(int fd) {
 		WriterBuffer* wb = NULL;
 		while ( ( wb = Front() ) != NULL ) {
-			int n = Network::SocketWrite(fd, (const char*)wb->Begin(), wb->Writable());
+			int n = Network::SocketTcpWrite(fd, (const char*)wb->Begin(), wb->Writable());
 			if ( n >= 0 ) {
 				if ( n == wb->Writable() ) {
 					RemoveFront();
