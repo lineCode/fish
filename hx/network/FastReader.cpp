@@ -40,7 +40,7 @@ void FastReader::ReadData(char* data, int size) {
 	memcpy(data, output, size);
 }
 
-char* FastReader::PeekData(int size) {
+char* FastReader::ReadData(int size) {
 	if (size > buff_->GetUsedSize()) {
 		return NULL;
 	}
