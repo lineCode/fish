@@ -41,7 +41,7 @@ namespace Network {
 
 	}
 
-	char* TcpReader::ReadData(int size) {
+	char* UdpReader::ReadData(int size) {
 		return NULL;
 	}
 	
