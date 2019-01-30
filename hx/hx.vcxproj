@@ -110,6 +110,7 @@
     <ClInclude Include="network\Reader.h" />
     <ClInclude Include="network\TcpReader.h" />
     <ClInclude Include="network\TcpWriter.h" />
+    <ClInclude Include="network\UdpReader.h" />
     <ClInclude Include="network\Writer.h" />
     <ClInclude Include="ServerApp.h" />
     <ClInclude Include="TaskQueue.h" />
@@ -167,6 +168,7 @@
     <ClCompile Include="network\Network.cpp" />
     <ClCompile Include="network\TcpReader.cpp" />
     <ClCompile Include="network\TcpWriter.cpp" />
+    <ClCompile Include="network\UdpReader.cpp" />
     <ClCompile Include="ServerApp.cpp" />
     <ClCompile Include="time\Timer.cpp" />
     <ClCompile Include="time\TimerHeap.cpp" />

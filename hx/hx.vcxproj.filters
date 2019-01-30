@@ -180,6 +180,9 @@
     <ClInclude Include="network\TcpWriter.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="network\UdpReader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="network\Channel.cpp">
@@ -309,6 +312,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="network\TcpWriter.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="network\UdpReader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
