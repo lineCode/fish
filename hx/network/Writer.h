@@ -6,13 +6,13 @@ namespace Network {
 	class Writer {
 	public:
 
-		Writer();
+		Writer() {};
 
-		virtual ~Writer();
+		virtual ~Writer() {};
 
-		virtual int Write(int fd);
+		virtual int Write(int fd) = 0;
 
-		virtual void Append(void* data,int size, uint32_t* reference);
+		virtual void Append(void* data,int size, uint32_t* reference) = 0;
 	};
 };
 #endif

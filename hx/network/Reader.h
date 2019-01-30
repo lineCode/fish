@@ -6,8 +6,8 @@
 namespace Network {
 	class Reader {
 	public:
-		Reader();
-		virtual ~Reader();
+		Reader() {};
+		virtual ~Reader() {};
 
 		virtual int  Read(int fd) = 0;
 		virtual void ReadData(char* data,int size) = 0;
