@@ -7,16 +7,24 @@ public:
 	RingBuffer(uint32_t min, uint32_t max);
 	virtual ~RingBuffer();
 
-	char* Reserve(uint32_t size);
+	char* PreWrite(uint32_t& size);
 
 	void Commit(uint32_t size);
 
+	char* Read(uint32_t size);
+
+	bool Realloc();
+
 private:
-	char* buffer_;
+	char* buff_;
 	uint32_t size_;
 	uint32_t max_;
-	uint32_t readOffset_;
-	uint32_t writeOffset_;
+	uint32_t head_;
+	uint32_t tail_;
+	uint32_t used_;
+
+	char* cache_;
+	uint32_t cacheSize_;
 };
 
 #endif
