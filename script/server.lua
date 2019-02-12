@@ -1,8 +1,10 @@
+coroutine.resume = cocountor.resume
+coroutine.yield = cocountor.yield
+
 local co = require "lib.co"
 local timer = require "lib.timer"
 local common = require "lib.common"
 local import = require "lib.import"
-
 
 table.print = common.Dump
 
