@@ -57,7 +57,7 @@ namespace Network {
 		}
 
 		ClientChannel* channel = new ClientChannel(app_->Poller(), fd, AllocVid());
-		channel->SetReader(new TcpReader(64));
+		channel->SetReader(new TcpReader());
 		channel->SetWriter(new TcpWriter());
 		BindClient(channel->GetVid(), channel);
 		channel->EnableRead();
