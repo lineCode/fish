@@ -163,9 +163,4 @@ namespace Network {
 		memcpy(str, data.c_str(), size);
 		return Write(str, size, NULL);
 	}
-
-	int Channel::Write(MemoryStream& stream) {
-		char* data = (char*)malloc(stream.Length());
-		return Write(data, stream.Length(), NULL);
-	}
 }
