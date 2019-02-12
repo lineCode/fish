@@ -19,6 +19,7 @@ LoggerClient::LoggerClient(Network::Addr& addr, Network::EventPoller* poller):ad
 	channel_->SetReader(new Network::TcpReader(64));
 	channel_->SetWriter(new Network::TcpWriter());
 	channel_->SetCloseCallback(std::bind(&LoggerClient::OnChannelClose, this, std::placeholders::_1));
+	channel_->EnableRead();
 
 	timer_ = new Timer();
 	timer_->SetCallback(std::bind(&LoggerClient::OnUpdate, this, std::placeholders::_1, std::placeholders::_2));
@@ -82,7 +83,8 @@ void LoggerClient::OnUpdate(Timer* timer, void* userdata) {
 	channel_->SetReader(new Network::TcpReader(64));
 	channel_->SetWriter(new Network::TcpWriter());
 	channel_->SetCloseCallback(std::bind(&LoggerClient::OnChannelClose, this, std::placeholders::_1));
-
+	channel_->EnableRead();
+	
 	std::vector<StreamWriter>::iterator iter = cached_.begin();
 	for(;iter != cached_.end();iter++) {
 		StreamWriter& writer = *iter;
