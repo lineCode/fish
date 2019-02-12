@@ -14,8 +14,8 @@ LIBEV_STATICLIB := $(BIN_PATH)/libev.a
 LIBEV_LIB ?= libev.a
 LIBEV_INC ?= ./3rd/libev
 
-TCMALLOC_STATICLIB := $(BIN_PATH)/libtcmalloc.a
-TCMALLOC_LIB ?= libtcmalloc.a
+TCMALLOC_LIB ?= libtcmalloc_and_profiler.a
+TCMALLOC_STATICLIB := $(BIN_PATH)/$(TCMALLOC_LIB)
 TCMALLOC_INC ?= ./3rd/gperftools-2.7/src
 TCMALLOC_PATH ?= ./3rd/gperftools-2.7
 
@@ -58,7 +58,7 @@ $(LIBEV_STATICLIB) :
 
 $(TCMALLOC_STATICLIB) :
 	cd $(TCMALLOC_PATH) && ./configure && $(MAKE)
-	mv $(TCMALLOC_PATH)/.libs/libtcmalloc.a $(LIBS_DIR)
+	mv $(TCMALLOC_PATH)/.libs/$(TCMALLOC_LIB) $(LIBS_DIR)
 
 $(HX_STATICLIB) :
 	cd $(HX_INC) && $(MAKE) $(CCFLAG) 

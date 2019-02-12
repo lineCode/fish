@@ -323,18 +323,18 @@ int LuaFish::CPUProfilerStop(lua_State* L) {
 
 int LuaFish::HeapProfilerStart(lua_State* L) {
 	const char* prefix = luaL_checkstring(L, 1);
-	HeapProfilerStart(prefix);
+	::HeapProfilerStart(prefix);
 	return 0;
 }
 
 int LuaFish::HeapProfilerStop(lua_State* L) {
-	HeapProfilerStop();
+	::HeapProfilerStop();
 	return 0;
 }
 
 int LuaFish::HeapProfilerDump(lua_State* L) {
 	const char* reason = luaL_checkstring(L, 1);
-	HeapProfilerDump(reason);
+	::HeapProfilerDump(reason);
 	return 0;
 }
 
