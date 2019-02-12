@@ -16,8 +16,8 @@ LoggerClient::LoggerClient(Network::Addr& addr, Network::EventPoller* poller):ad
 	assert(fd > 0);
 
 	channel_ = new LoggerChannel(poller_, fd);
-	channel->SetReader(new TcpReader(64));
-	channel->SetWriter(new TcpWriter());
+	channel->SetReader(new Network::TcpReader(64));
+	channel->SetWriter(new Network::TcpWriter());
 	channel_->SetCloseCallback(std::bind(&LoggerClient::OnChannelClose, this, std::placeholders::_1));
 
 	timer_ = new Timer();
