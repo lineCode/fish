@@ -55,7 +55,7 @@ uint64_t TimeStamp() {
 }
 
 int GetTimeZone() {
-	if (G_TIMEZONE == 0xffffffff) {
+	if (G_TIMEZONE == (int)0xffffffff) {
 #ifdef _WIN32
 		TIME_ZONE_INFORMATION tmp;
 		GetTimeZoneInformation(&tmp);

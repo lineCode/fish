@@ -25,7 +25,7 @@ int FastReader::Read(int fd) {
 		if (len > 0) {
 			total += len;
 			buff_->Commit(len);
-			if (len < space) {
+			if (len < (int)space) {
 				break;
 			}
 		} else if ( len == 0 ) {
@@ -38,13 +38,13 @@ int FastReader::Read(int fd) {
 }
 
 void FastReader::ReadData(char* data, int size) {
-	assert(size <= buff_->GetUsedSize());
+	assert(size <= (int)buff_->GetUsedSize());
 	char* output = buff_->Read(size);
 	memcpy(data, output, size);
 }
 
 char* FastReader::ReadData(int size) {
-	if (size > buff_->GetUsedSize()) {
+	if (size > (int)buff_->GetUsedSize()) {
 		return NULL;
 	}
 	return buff_->Read(size);
