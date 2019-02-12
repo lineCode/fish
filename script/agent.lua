@@ -8,8 +8,10 @@ function Init(self)
 	
 	fish.StartTimer(1,1,function ()
 		co.Fork(function ()
-			for i = 1,10240 do
+			for i = 1,1024 do
+				cocountor.start()
 				local result = RPC:CallLogin("login:Fuck", {fuck = "mrq"})
+				print(cocountor.stop())
 			end
 		end)
 	end)
