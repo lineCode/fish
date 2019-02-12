@@ -13,6 +13,9 @@ namespace Network {
 
 		wio_.set(poller_->GetLoop());
 		wio_.set<Channel, &Channel::OnWrite>(this);
+
+		reader_ = NULL;
+		writer_ = NULL;
 	}
 
 	Channel::~Channel(void) {
