@@ -19,8 +19,8 @@ namespace Network {
 	}
 
 	Channel::~Channel(void) {
-		delete reader_;
-		delete writer_;
+		if (reader_) delete reader_;
+		if (writer_) delete writer_;
 	}
 	
 	bool Channel::IsAlive() {
