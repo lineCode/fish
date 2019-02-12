@@ -49,7 +49,7 @@ end
 
 
 local function SendChannel(channel, method, args, callback)
-	local session = 0
+	local session
 	if callback then
 		session = co.GenSession()
 		local ctx = channelCtx_[channel]
