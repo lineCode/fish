@@ -10,6 +10,12 @@
 #include "LuaChannel.h"
 #include "LuaHttpChannel.h"
 
+#include "tcmalloc.h"
+#include "heap-profiler.h"
+#include "profiler.h"
+#include "malloc_extension.h"
+
+
 using namespace std::placeholders;
 
 LuaFish::LuaFish(void) :script_() {
@@ -225,6 +231,8 @@ int LuaFish::Register(lua_State* L) {
 		{ "Now", LuaFish::Now },
 		{ "Timestamp", LuaFish::Timestamp},
 		{ "Dump", LuaFish::Dump},
+		{ "GetMemory", LuaFish::GetMemory},
+		{ "FreeMemory", LuaFish::FreeMemory},
 		{ "Pack", luaseri_pack},
 		{ "UnPack", luaseri_unpack},
 		{ "StartTimer", LuaFish::TimerStart},
@@ -287,6 +295,18 @@ int LuaFish::Timestamp(lua_State* L) {
 
 int LuaFish::Dump(lua_State* L) {
 	Timer::GetPool().Dump();
+	return 0;
+}
+
+int LuaFish::GetMemory(lua_State* L) {
+	size_t allocatedBytes;
+	MallocExtension::instance()->GetNumericProperty("generic.current_allocated_bytes", &allocatedBytes);
+	lua_pushinteger(L, allocatedBytes);
+	return 1;
+}
+
+int LuaFish::FreeMemory(lua_State* L) {
+	MallocExtension::instance()->ReleaseFreeMemory();
 	return 0;
 }
 
