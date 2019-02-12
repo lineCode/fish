@@ -4,11 +4,11 @@ LUA_STATICLIB := $(BIN_PATH)/liblua.a
 LUA_LIB ?= liblua.a
 LUA_INC ?= ./3rd/lua/src
 
-OOLUA_STATICLIB := $(BIN_PATH)/liboolua.a
 OOLUA_LIB ?= liboolua.a
+OOLUA_STATICLIB := $(BIN_PATH)/$(OOLUA_LIB)
 OOLUA_INC ?= ./3rd/oolua/include
 OOLUA_PATH ?= ./3rd/oolua
-OOLUA_LIB_PATH ?= ./3rd/oolua/bin/Debug
+OOLUA_LIB_PATH ?= ./3rd/oolua/bin/Release
 
 LIBEV_STATICLIB := $(BIN_PATH)/libev.a
 LIBEV_LIB ?= libev.a
@@ -49,8 +49,8 @@ $(LUA_STATICLIB) :
 	mv $(LUA_INC)/$(LUA_LIB) $(LIBS_DIR) 
 
 $(OOLUA_STATICLIB) :
-	cd $(OOLUA_PATH) && $(MAKE)
-	mv $(OOLUA_LIB_PATH)/liboolua_d.a $(LIBS_DIR)/$(OOLUA_LIB)
+	cd $(OOLUA_PATH) && $(MAKE) config=release
+	mv $(OOLUA_LIB_PATH)/$(OOLUA_LIB) $(LIBS_DIR)/$(OOLUA_LIB)
 
 $(LIBEV_STATICLIB) :
 	cd $(LIBEV_INC) && ./configure && $(MAKE)

@@ -46,7 +46,7 @@ ifeq ($(config),release)
   TARGETDIR  = bin/Release
   TARGET     = $(TARGETDIR)/liboolua.a
   DEFINES   += -DNDEBUG -DRELEASE -DPLATFORM_CHECKED -DUNIX_BUILD
-  INCLUDES  += -Iinclude/lua -Iinclude -I/usr/local/include -I/usr/include
+  INCLUDES  += -Iinclude/lua -Iinclude -I/usr/local/include -I/usr/include -I../lua/src
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -g -O2 -fPIC -Wall -W -Wall -ansi -pedantic -std=c++98
   CXXFLAGS  += $(CFLAGS) 
