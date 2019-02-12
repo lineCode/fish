@@ -66,6 +66,16 @@ public:
 
 	static int FreeMemory(lua_State* L);
 
+	static int CPUProfilerStart(lua_State* L);
+
+	static int CPUProfilerStop(lua_State* L);
+
+	static int HeapProfilerStart(lua_State* L);
+
+	static int HeapProfilerStop(lua_State* L);
+
+	static int HeapProfilerDump(lua_State* L);
+
 	static int TimerStart(lua_State* L);
 
 	static int TimerCancel(lua_State* L);

@@ -310,6 +310,34 @@ int LuaFish::FreeMemory(lua_State* L) {
 	return 0;
 }
 
+int LuaFish::CPUProfilerStart(lua_State* L) {
+	const char* name = luaL_checkstring(L, 1);
+	ProfilerStart(name);
+	return 0;
+}
+
+int LuaFish::CPUProfilerStop(lua_State* L) {
+	ProfilerStop();
+	return 0;
+}
+
+int LuaFish::HeapProfilerStart(lua_State* L) {
+	const char* prefix = luaL_checkstring(L, 1);
+	HeapProfilerStart(prefix);
+	return 0;
+}
+
+int LuaFish::HeapProfilerStop(lua_State* L) {
+	HeapProfilerStop();
+	return 0;
+}
+
+int LuaFish::HeapProfilerDump(lua_State* L) {
+	const char* reason = luaL_checkstring(L, 1);
+	HeapProfilerDump(reason);
+	return 0;
+}
+
 int LuaFish::TimerStart(lua_State* L) {
 	ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
 
