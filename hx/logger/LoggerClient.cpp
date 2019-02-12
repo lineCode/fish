@@ -1,5 +1,7 @@
 ﻿#include "LoggerClient.h"
 #include "network/Connector.h"
+#include "network/TcpReader.h"
+#include "network/TcpWriter.h"
 #include "util/format.h"
 #include "util/Util.h"
 #include "logger/Logger.h"
