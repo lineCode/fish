@@ -183,6 +183,9 @@
     <ClInclude Include="network\UdpReader.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="network\FastReader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="network\Channel.cpp">
@@ -315,6 +318,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="network\UdpReader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="lualib\LuaCoStats.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="network\FastReader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

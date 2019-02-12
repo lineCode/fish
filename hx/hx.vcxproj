@@ -105,6 +105,7 @@
     <ClInclude Include="network\ClientManager.h" />
     <ClInclude Include="network\Connector.h" />
     <ClInclude Include="network\EventPoller.h" />
+    <ClInclude Include="network\FastReader.h" />
     <ClInclude Include="network\HttpChannel.h" />
     <ClInclude Include="network\Network.h" />
     <ClInclude Include="network\Reader.h" />
@@ -154,6 +155,7 @@
     <ClCompile Include="lualib\json\values.cpp" />
     <ClCompile Include="lualib\lua-seri.c" />
     <ClCompile Include="lualib\LuaChannel.cpp" />
+    <ClCompile Include="lualib\LuaCoStats.cpp" />
     <ClCompile Include="lualib\LuaFish.cpp" />
     <ClCompile Include="lualib\LuaHttpChannel.cpp" />
     <ClCompile Include="lualib\LuaUtil.cpp" />
@@ -164,6 +166,7 @@
     <ClCompile Include="network\ClientManager.cpp" />
     <ClCompile Include="network\Connector.cpp" />
     <ClCompile Include="network\EventPoller.cpp" />
+    <ClCompile Include="network\FastReader.cpp" />
     <ClCompile Include="network\HttpChannel.cpp" />
     <ClCompile Include="network\Network.cpp" />
     <ClCompile Include="network\TcpReader.cpp" />

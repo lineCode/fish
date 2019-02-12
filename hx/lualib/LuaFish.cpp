@@ -10,10 +10,12 @@
 #include "LuaChannel.h"
 #include "LuaHttpChannel.h"
 
+#ifndef WIN32
 #include "tcmalloc.h"
 #include "heap-profiler.h"
 #include "profiler.h"
 #include "malloc_extension.h"
+#endif
 
 
 using namespace std::placeholders;
@@ -304,43 +306,71 @@ int LuaFish::Dump(lua_State* L) {
 }
 
 int LuaFish::GetMemory(lua_State* L) {
+#ifdef WIN32
+	return 0;
+#else
 	size_t allocatedBytes;
 	MallocExtension::instance()->GetNumericProperty("generic.current_allocated_bytes", &allocatedBytes);
 	lua_pushinteger(L, allocatedBytes);
 	return 1;
+#endif
 }
 
 int LuaFish::FreeMemory(lua_State* L) {
+#ifdef WIN32
+	return 0;
+#else
 	MallocExtension::instance()->ReleaseFreeMemory();
 	return 0;
+#endif
 }
 
 int LuaFish::CPUProfilerStart(lua_State* L) {
+#ifdef WIN32
+	return 0;
+#else
 	const char* name = luaL_checkstring(L, 1);
 	ProfilerStart(name);
 	return 0;
+#endif
 }
 
 int LuaFish::CPUProfilerStop(lua_State* L) {
+#ifdef WIN32
+	return 0;
+#else
 	ProfilerStop();
 	return 0;
+#endif
 }
 
 int LuaFish::HeapProfilerStart(lua_State* L) {
+#ifdef WIN32
+	return 0;
+#else
 	const char* prefix = luaL_checkstring(L, 1);
 	::HeapProfilerStart(prefix);
 	return 0;
+#endif
 }
 
 int LuaFish::HeapProfilerStop(lua_State* L) {
+#ifdef WIN32
+	return 0;
+#else
 	::HeapProfilerStop();
 	return 0;
+#endif
 }
 
 int LuaFish::HeapProfilerDump(lua_State* L) {
+#ifdef WIN32
+	return 0;
+#else
 	const char* reason = luaL_checkstring(L, 1);
 	::HeapProfilerDump(reason);
 	return 0;
+#endif
 }
 
 int LuaFish::TimerStart(lua_State* L) {
