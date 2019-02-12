@@ -7,7 +7,7 @@ DIRS = $(shell find . -maxdepth 3 -type d)
 SRC = $(foreach dir,$(DIRS),$(wildcard $(dir)/*.cpp))
 OBJ = $(patsubst %.cpp, %.o, $(SRC))
 
-STATIC_LIBS = ../bin/debug/libhx.a ../bin/debug/libev.a  ../bin/debug/libtcmalloc.a ../bin/debug/liboolua.a  ../bin/debug/liblua.a
+STATIC_LIBS = ../bin/debug/libhx.a ../bin/debug/libev.a  ../bin/debug/libtcmalloc_and_profiler.a ../bin/debug/liboolua.a  ../bin/debug/liblua.a
 
 all:$(TARGET) 
 
