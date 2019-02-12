@@ -92,7 +92,7 @@ test : $(TEST)
 cleanall:
 	make cleanhx
 	rm -rf $(LIBS_DIR)/$(LUA_LIB) && cd $(LUA_INC) && make clean
-	rm -rf $(LIBS_DIR)/$(OOLUA_LIB) && cd $(OOLUA_PATH) && make clean
+	rm -rf $(LIBS_DIR)/$(OOLUA_LIB) && cd $(OOLUA_PATH) && make clean config=release
 	rm -rf $(LIBS_DIR)/$(LIBEV_LIB) && cd $(LIBEV_INC) && make clean
 	rm -rf $(LIBS_DIR)/$(TCMALLOC_LIB) && cd $(TCMALLOC_PATH) && make clean
 
