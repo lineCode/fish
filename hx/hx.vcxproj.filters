@@ -114,7 +114,7 @@
     <ClInclude Include="logger\LoggerClient.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="logger\LoggerHost.h">
+    <ClInclude Include="logger\LoggerServer.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="logger\LoggerInterface.h">
@@ -257,7 +257,7 @@
     <ClCompile Include="logger\LoggerClient.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="logger\LoggerHost.cpp">
+    <ClCompile Include="logger\LoggerServer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="network\HttpChannel.cpp">

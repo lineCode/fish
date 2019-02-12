@@ -2,11 +2,11 @@
 #include <iostream>
 #include "util/MemoryStream.h"
 #include "logger/Logger.h"
-#include "logger/LoggerHost.h"
+#include "logger/LoggerServer.h"
 #include "db/DbMysql.h"
 
 int main() {
-	Logger* logger = new Logger(new LoggerHost("./"));
+	Logger* logger = new Logger(new LoggerServer("./"));
 	DbMysql* db = new DbMysql("127.0.0.1", 3306, "root", "198932100");
 	db->Attach("test");		
 	const char* createCmd = "\

@@ -87,7 +87,7 @@
     <ClInclude Include="logger\Logger.h" />
     <ClInclude Include="logger\LoggerChannel.h" />
     <ClInclude Include="logger\LoggerClient.h" />
-    <ClInclude Include="logger\LoggerHost.h" />
+    <ClInclude Include="logger\LoggerServer.h" />
     <ClInclude Include="logger\LoggerInterface.h" />
     <ClInclude Include="lualib\json\file.hpp" />
     <ClInclude Include="lualib\json\luax.hpp" />
@@ -148,7 +148,7 @@
     <ClCompile Include="logger\Logger.cpp" />
     <ClCompile Include="logger\LoggerChannel.cpp" />
     <ClCompile Include="logger\LoggerClient.cpp" />
-    <ClCompile Include="logger\LoggerHost.cpp" />
+    <ClCompile Include="logger\LoggerServer.cpp" />
     <ClCompile Include="lualib\json\Document.cpp" />
     <ClCompile Include="lualib\json\rapidjson.cpp" />
     <ClCompile Include="lualib\json\Schema.cpp" />

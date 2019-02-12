@@ -3,7 +3,7 @@
 #include "util/Util.h"
 #include "util/format.h"
 #include "logger/Logger.h"
-#include "logger/LoggerHost.h"
+#include "logger/LoggerServer.h"
 #include "document.h" 
 
 #ifdef _WIN32
@@ -29,7 +29,7 @@ int main(int argc, char *argv[]) {
 		loggerPath = config["loggerPath"].GetString();
 	} 
 
-	Logger* logger = new Logger(new LoggerHost(loggerPath));
+	Logger* logger = new Logger(new LoggerServer(loggerPath));
 
 	{
 		LoggerApp app(poller);
