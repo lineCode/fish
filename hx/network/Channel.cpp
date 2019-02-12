@@ -153,7 +153,7 @@ namespace Network {
 		return 0;
 	}
 	
-	int Channel::Write(std::string& data) {
+	int Channel::Write(std::string& data, uint32_t* reference) {
 		if (data.length() == 0) {
 			return -1;
 		}
@@ -161,6 +161,6 @@ namespace Network {
 		int size = data.length();
 		char* str = (char*)malloc(size);
 		memcpy(str, data.c_str(), size);
-		return Write(str, size, NULL);
+		return Write(str, size, reference);
 	}
 }

@@ -41,7 +41,7 @@ namespace Network {
 		virtual void HandleError();
 
 		virtual int Write(char* data,int size, uint32_t* reference);
-		virtual int Write(std::string& data);
+		virtual int Write(std::string& data, uint32_t* reference);
 
 	private:
 		virtual void Clean();
