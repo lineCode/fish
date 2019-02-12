@@ -36,7 +36,7 @@ int ServerApp::Init(std::string boot) {
 	lua_->Require("util", LuaUtil::Register);
 	lua_->Require("json", luaopen_rapidjson);
 	lua_->Require("lfs", luaopen_lfs);
-	lua_->Require("coCountor", luaopen_cocountor_core);
+	lua_->Require("cocountor", luaopen_cocountor_core);
 	
 	lua_->DoFile("../../script/server.lua");
 	
