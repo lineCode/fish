@@ -1,5 +1,5 @@
-coroutine.resume = cocountor.resume
-coroutine.yield = cocountor.yield
+coroutine.resume = costats.resume
+coroutine.yield = costats.yield
 
 local co = require "lib.co"
 local timer = require "lib.timer"

@@ -6,7 +6,7 @@
 
 extern "C" int luaopen_rapidjson(lua_State* L);
 extern "C" int luaopen_lfs(lua_State* L);
-int luaopen_cocountor_core(lua_State* L);
+int luaopen_co_stats(lua_State* L);
 
 ServerApp::ServerApp(Network::EventPoller* poller) {
 	poller_ = poller;
@@ -36,7 +36,7 @@ int ServerApp::Init(std::string boot) {
 	lua_->Require("util", LuaUtil::Register);
 	lua_->Require("json", luaopen_rapidjson);
 	lua_->Require("lfs", luaopen_lfs);
-	lua_->Require("cocountor", luaopen_cocountor_core);
+	lua_->Require("costats", luaopen_co_stats);
 	
 	lua_->DoFile("../../script/server.lua");
 	

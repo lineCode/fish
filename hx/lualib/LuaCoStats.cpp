@@ -20,7 +20,7 @@ static inline double DiffTime(double start) {
 	return now - start;
 }
 
-static int CountorStart(lua_State *L) {
+static int StatsStart(lua_State *L) {
 	lua_pushthread(L);
 
 	lua_pushvalue(L, 1);	// push coroutine
@@ -41,7 +41,7 @@ static int CountorStart(lua_State *L) {
 	return 0;
 }
 
-static int CountorStop(lua_State *L) {
+static int StatsStop(lua_State *L) {
 	lua_pushthread(L);
 	lua_pushvalue(L, 1);	// push coroutine
 	lua_rawget(L, lua_upvalueindex(1));
@@ -49,9 +49,10 @@ static int CountorStop(lua_State *L) {
 		return luaL_error(L, "call profile.start() before profile.stop()");
 	} 
 	double ti = DiffTime(lua_tonumber(L, -1));
+
 	lua_pushvalue(L, 1);	// push coroutine
 	lua_rawget(L, lua_upvalueindex(2));
-	double total_time = lua_tonumber(L, -1);
+	double totalTime = lua_tonumber(L, -1);
 
 	lua_pushvalue(L, 1);	// push coroutine
 	lua_pushnil(L);
@@ -61,8 +62,8 @@ static int CountorStop(lua_State *L) {
 	lua_pushnil(L);
 	lua_rawset(L, lua_upvalueindex(2));
 
-	total_time += ti;
-	lua_pushnumber(L, total_time);
+	totalTime += ti;
+	lua_pushnumber(L, totalTime);
 
 	return 1;
 }
@@ -113,16 +114,16 @@ static int LuaYield(lua_State *L) {
 	return coYield(L);
 }
 
-int luaopen_cocountor_core(lua_State *L) {
+int luaopen_co_stats(lua_State *L) {
 	luaL_checkversion(L);
-	luaL_Reg l[] = {
-		{ "start", CountorStart },
-		{ "stop", CountorStop },
+	luaL_Reg methods[] = {
+		{ "start", StatsStart },
+		{ "stop", StatsStop },
 		{ "resume", LuaResume },
 		{ "yield", LuaYield },
 		{ NULL, NULL },
 	};
-	luaL_newlibtable(L,l);
+	luaL_newlibtable(L, methods);
 	lua_newtable(L);	// table thread->start time
 	lua_newtable(L);	// table thread->total time
 
@@ -135,32 +136,32 @@ int luaopen_cocountor_core(lua_State *L) {
 	lua_setmetatable(L, -3);
 
 	lua_pushnil(L);	// cfunction (coroutine.resume or coroutine.yield)
-	luaL_setfuncs(L,l,3);
+	luaL_setfuncs(L, methods, 3);
 
 	int libtable = lua_gettop(L);
 
 	lua_getglobal(L, "coroutine");
 	lua_getfield(L, -1, "resume");
 
-	lua_CFunction co_resume = lua_tocfunction(L, -1);
-	if (co_resume == NULL)
+	lua_CFunction coResume = lua_tocfunction(L, -1);
+	if (coResume == NULL)
 		return luaL_error(L, "Can't get coroutine.resume");
 	lua_pop(L,1);
 
 	lua_getfield(L, libtable, "resume");
-	lua_pushcfunction(L, co_resume);
+	lua_pushcfunction(L, coResume);
 	lua_setupvalue(L, -2, 3);
 	lua_pop(L,1);
 
 	lua_getfield(L, -1, "yield");
 
-	lua_CFunction co_yield = lua_tocfunction(L, -1);
-	if (co_yield == NULL)
+	lua_CFunction coYield = lua_tocfunction(L, -1);
+	if (coYield == NULL)
 		return luaL_error(L, "Can't get coroutine.yield");
 	lua_pop(L,1);
 
 	lua_getfield(L, libtable, "yield");
-	lua_pushcfunction(L, co_yield);
+	lua_pushcfunction(L, coYield);
 	lua_setupvalue(L, -2, 3);
 	lua_pop(L,1);
 
