@@ -152,7 +152,7 @@ void HttpChannel::Reply(uint32_t code, char* content, size_t size) {
 		message.append(content, size);
 	}
 
-	Write(message);
+	Write(message, NULL);
 }
 
 int HttpChannel::OnParseBegin(struct http_parser* parser) {
