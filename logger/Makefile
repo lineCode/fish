@@ -1,5 +1,5 @@
 #CC = g++ 
-CFLAG = -g -O3 -std=c++11 -fPIC -Wall -fno-strict-aliasing -Wno-unused-local-typedefs
+CFLAG = -g -std=c++11 -fPIC -Wall -fno-strict-aliasing -Wno-unused-local-typedefs
 
 #-fsanitize=address
 

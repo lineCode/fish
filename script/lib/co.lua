@@ -2,6 +2,10 @@
 
 local _M = {}
 
+coroutine.resume = cocountor.resume
+coroutine.yield = cocountor.yield
+
+
 local CoCreate = coroutine.create
 local CoRunning = coroutine.running
 local CoYield = coroutine.yield

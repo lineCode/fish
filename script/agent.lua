@@ -10,6 +10,7 @@ function Init(self)
 		co.Fork(function ()
 			for i = 1,1024 do
 				cocountor.start()
+				co.Sleep(1)
 				local result = RPC:CallLogin("login:Fuck", {fuck = "mrq"})
 				print(cocountor.stop())
 			end

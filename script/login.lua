@@ -20,5 +20,6 @@ function Update(now)
 end
 
 function Fuck(self,args)
+	co.Sleep(1)
 	return {a = 1, b = 2}
 end
