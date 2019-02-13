@@ -690,8 +690,8 @@ extern double fpconv_strtod(const char *s00, char **se);
 static inline void
 eat_number(lua_State* L, struct parser_context *parser) {
 	char* end = NULL;
-	// lua_Number number = strtod(parser->ptr, &end);
-	lua_Number number = fpconv_strtod(parser->ptr, &end);
+	lua_Number number = strtod(parser->ptr, &end);
+	// lua_Number number = fpconv_strtod(parser->ptr, &end);
 	lua_Integer integer = number;
 
 	if (parser->ptr == end || end >= parser->data + parser->size) {
