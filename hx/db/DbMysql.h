@@ -1,7 +1,7 @@
 ﻿#ifndef DB_MYSQL_H
 #define DB_MYSQL_H
 #define WIN32_LEAN_AND_MEAN
-#include "mysql.h"
+#include "mysql/mysql.h"
 #include <string>
 #include "util/MemoryStream.h"
 
