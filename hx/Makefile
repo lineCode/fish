@@ -29,7 +29,7 @@ DIRS = $(shell find . -maxdepth 3 -type d)
 SRC = $(foreach dir,$(DIRS),$(wildcard $(dir)/*.cpp $(dir)/*.cc $(dir)/*.c))
 SRC += ../3rd/http-parser/http_parser.c ../3rd/luafilesystem/src/lfs.c
 
-OBJ = $(patsubst %.c, %.o, $(patsubst %.cc, %.o, $(patsubst %.cpp,%.o,$(SRC))))
+OBJ = $(patsubst %.c, %.o, $(patsubst %.cc, %.o, $(patsubst %.cpp,%.o,$(filter-out ./util/pathfinder/wp/pathfinder.c,$(SRC)))))
 
 all:$(TARGET)
 
