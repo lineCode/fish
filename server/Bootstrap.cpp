@@ -30,15 +30,13 @@ void Bootstrap::Startup() {
 	int port = config_["loggerAddr"]["port"].GetInt();
 
 	Network::Addr addr = Network::Addr::MakeIP4Addr(ip, port);
-	LoggerInterface* loggerInterface = new LoggerClient(addr, poller);
-	
-	Logger* logger = new Logger(loggerInterface);
+	Logger* logger = new Logger(new LoggerClient(addr, poller));
 
 	const char* file = config_["boot"].GetString();
-	std::string boot(file);
+
 	{
 		FishApp app(poller);
-		app.Init(boot);
+		app.Init(file);
 		app.Run();
 		app.Fina();
 	}

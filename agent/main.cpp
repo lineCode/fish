@@ -32,9 +32,7 @@ int main(int argc, char *argv[]) {
 	int port = config["loggerAddr"]["port"].GetInt();
 
 	Network::Addr addr = Network::Addr::MakeIP4Addr(ip, port);
-	LoggerInterface* loggerInterface = new LoggerClient(addr, poller);
-
-	Logger* logger = new Logger(loggerInterface);
+	Logger* logger = new Logger(new LoggerClient(addr, poller));
 
 	{
 		AgentApp app(poller);
