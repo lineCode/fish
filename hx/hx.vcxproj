@@ -138,6 +138,7 @@
     <ClInclude Include="util\Singleton.h" />
     <ClInclude Include="util\StreamReader.h" />
     <ClInclude Include="util\StreamWriter.h" />
+    <ClInclude Include="util\utf8.h" />
     <ClInclude Include="util\Util.h" />
     <ClInclude Include="util\ZeroPack.h" />
   </ItemGroup>

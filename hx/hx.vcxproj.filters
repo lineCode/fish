@@ -189,6 +189,9 @@
     <ClInclude Include="util\convert.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="util\utf8.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="network\Channel.cpp">

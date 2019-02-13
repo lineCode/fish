@@ -18,7 +18,6 @@
     <None Include="ReadMe.txt" />
     <None Include="src\lua" />
     <None Include="src\luac" />
-    <None Include="src\Makefile" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\lapi.c">
@@ -117,6 +116,9 @@
     <ClCompile Include="src\lzio.c">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\lutf8lib.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\lapi.h">
@@ -192,6 +194,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\lzio.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lprefix.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

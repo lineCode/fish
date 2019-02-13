@@ -58,7 +58,7 @@ function Init(self)
 		inst:add(w)
 	end
 
-	table.print(inst:dump())
+	-- table.print(inst:dump())
 end
 
 function Fina()

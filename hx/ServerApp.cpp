@@ -7,6 +7,8 @@
 extern "C" int luaopen_rapidjson(lua_State* L);
 extern "C" int luaopen_lfs(lua_State* L);
 extern "C" int luaopen_trie(lua_State* L);
+extern "C" int luaopen_dump_core(lua_State* L);
+
 int luaopen_co_stats(lua_State* L);
 
 
@@ -40,6 +42,7 @@ int ServerApp::Init(std::string boot) {
 	lua_->Require("lfs", luaopen_lfs);
 	lua_->Require("costats", luaopen_co_stats);
 	lua_->Require("trie", luaopen_trie);
+	lua_->Require("dump", luaopen_dump_core);
 	
 	lua_->DoFile("../../script/server.lua");
 	

@@ -78,7 +78,6 @@
     <None Include="ReadMe.txt" />
     <None Include="src\lua" />
     <None Include="src\luac" />
-    <None Include="src\Makefile" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\lapi.c" />
@@ -111,6 +110,7 @@
     <ClCompile Include="src\ltablib.c" />
     <ClCompile Include="src\ltm.c" />
     <ClCompile Include="src\lundump.c" />
+    <ClCompile Include="src\lutf8lib.c" />
     <ClCompile Include="src\lvm.c" />
     <ClCompile Include="src\lzio.c" />
   </ItemGroup>
@@ -129,6 +129,7 @@
     <ClInclude Include="src\lobject.h" />
     <ClInclude Include="src\lopcodes.h" />
     <ClInclude Include="src\lparser.h" />
+    <ClInclude Include="src\lprefix.h" />
     <ClInclude Include="src\lstate.h" />
     <ClInclude Include="src\lstring.h" />
     <ClInclude Include="src\ltable.h" />
