@@ -48,7 +48,7 @@ set_mask(struct nav_mesh_mask* ctx, int mask, int enable) {
 	ctx->mask[mask] = enable;
 }
 
-inline double
+static inline double
 dot2dot(struct vector3* a, struct vector3* b) {
 	double dx = a->x - b->x;
 	double dz = a->z - b->z;
