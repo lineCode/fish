@@ -218,15 +218,6 @@ wb_string(struct write_block *wb, const char *str, int len) {
 
 static void pack_one(lua_State *L, struct write_block *b, int index, int depth);
 
-static int lua_isinteger(lua_State* L, int index) {
-	int32_t x = (int32_t)lua_tointeger(L, index);
-	lua_Number n = lua_tonumber(L, index);
-	if ((lua_Number)x == n) {
-		return 1;
-	}
-	return 0;
-}
-
 static int
 wb_table_array(lua_State *L, struct write_block * wb, int index, int depth) {
 	int array_size = lua_rawlen(L,index);
