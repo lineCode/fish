@@ -11,13 +11,24 @@ ifndef CXX
 endif
 
 ifeq ($(config),debug)
-	CXXFLAG = -g -std=c++11 -fPIC -Wall -fno-omit-frame-pointer -fpermissive -fno-strict-aliasing -Wno-unused-local-typedefs 
-	CFLAG = -g -fPIC -Wall -fno-strict-aliasing -Wno-unused-local-typedefs 
+	ifeq ($(CXX),clang)
+		CXXFLAG = -g -std=c++11 -fPIC -Wall -fno-omit-frame-pointer -fno-strict-aliasing -Wno-unused-variable -fsanitize=address
+		CFLAG = -g -fPIC -Wall -fno-strict-aliasing -fsanitize=address
+	else
+		CXXFLAG = -g -std=c++11 -fPIC -Wall -fno-omit-frame-pointer -fno-strict-aliasing -Wno-unused-local-typedefs -Wno-unused-variable 
+		CFLAG = -g -fPIC -Wall -fno-strict-aliasing -Wno-unused-local-typedefs 
+	endif
 endif
 
 ifeq ($(config),release)
-	CXXFLAG = -g -O3 -std=c++11 -fPIC -Wall -fno-omit-frame-pointer -fpermissive -fno-strict-aliasing -Wno-unused-local-typedefs 
-	CFLAG = -g -O3 -fPIC -Wall -fno-strict-aliasing -Wno-unused-local-typedefs 
+	ifeq ($(CXX),clang)
+		CXXFLAG = -g -std=c++11 -O3 -fPIC -Wall -fno-omit-frame-pointer -fno-strict-aliasing -Wno-unused-variable -fsanitize=address
+		CFLAG = -g -O3 -fPIC -Wall -fno-strict-aliasing -fsanitize=address
+	else
+
+		CXXFLAG = -g -std=c++11 -O3 -fPIC -Wall -fno-omit-frame-pointer -fno-strict-aliasing -Wno-unused-local-typedefs -Wno-unused-variable 
+		CFLAG = -g -O3 -fPIC -Wall -fno-strict-aliasing -Wno-unused-local-typedefs 
+	endif
 endif
 
 AR = ar

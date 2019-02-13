@@ -14,15 +14,15 @@ endif
 
 ifeq ($(config),debug)
 	ifeq ($(CXX),clang)
-		CXXFLAG = -g -std=c++11  -fPIC -Wall -fno-omit-frame-pointer -fno-strict-aliasing -Wno-unused-variable -fsanitize=address -fsanitize=leak
+		CXXFLAG = -g -std=c++11 -fPIC -Wall -fno-omit-frame-pointer -fno-strict-aliasing -Wno-unused-variable -fsanitize=address
 	else
-		CXXFLAG = -g -std=c++11  -fPIC -Wall -fno-omit-frame-pointer -fno-strict-aliasing -Wno-unused-local-typedefs -Wno-unused-variable 
+		CXXFLAG = -g -std=c++11 -fPIC -Wall -fno-omit-frame-pointer -fno-strict-aliasing -Wno-unused-local-typedefs -Wno-unused-variable 
 	endif
 endif
 
 ifeq ($(config),release)
 	ifeq ($(CXX),clang)
-		CXXFLAG = -g -std=c++11 -O3 -fPIC -Wall -fno-omit-frame-pointer -fno-strict-aliasing -Wno-unused-variable -fsanitize=address -fsanitize=leak
+		CXXFLAG = -g -std=c++11 -O3 -fPIC -Wall -fno-omit-frame-pointer -fno-strict-aliasing -Wno-unused-variable -fsanitize=address
 	else
 
 		CXXFLAG = -g -std=c++11 -O3 -fPIC -Wall -fno-omit-frame-pointer -fno-strict-aliasing -Wno-unused-local-typedefs -Wno-unused-variable 
