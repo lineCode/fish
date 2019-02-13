@@ -40,8 +40,16 @@ TEST_INC ?= ./test
 
 LIBS_DIR := $(BIN_PATH)
 
-CXX=g++ 
+CXX=g++
 CC=gcc
+
+export CC
+export CXX
+
+ifndef config
+	config=debug
+endif
+export config
 
 all: $(LUA_STATICLIB) $(OOLUA_STATICLIB) $(LIBEV_STATICLIB) $(TCMALLOC_STATICLIB) $(HX_STATICLIB) $(FISH) $(LOGGER) $(AGENT) $(DB) $(TEST)
 
