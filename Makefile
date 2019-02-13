@@ -40,7 +40,7 @@ TEST_INC ?= ./test
 
 LIBS_DIR := $(BIN_PATH)
 
-CCFLAG="CC=g++"
+CCFLAG="CXX=g++ CC=gcc"
 
 all: $(LUA_STATICLIB) $(OOLUA_STATICLIB) $(LIBEV_STATICLIB) $(TCMALLOC_STATICLIB) $(HX_STATICLIB) $(FISH) $(LOGGER) $(AGENT) $(DB) $(TEST)
 
@@ -85,7 +85,10 @@ $(TEST) : $(LUA_STATICLIB) $(OOLUA_STATICLIB) $(LIBEV_STATICLIB) $(TCMALLOC_STAT
 	mv $(TEST_INC)/test $(LIBS_DIR) 
 
 leak :
-	$(MAKE) $(ALL) CCFLAG="CC=clang" 
+	$(MAKE) $(ALL) CXX=clang CC=clang
+
+release :
+	$(MAKE) $(ALL) CXX=g++ CC=gcc config=release
 
 test : $(TEST)
 
