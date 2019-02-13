@@ -26,7 +26,7 @@ ifeq ($(config),debug)
   DEFINES   += -DDEBUG -D_DEBUG -DPLATFORM_CHECKED -DUNIX_BUILD
   INCLUDES  += -Iinclude/lua -Iinclude -I../lua/src
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES) 
-  CFLAGS    += $(CPPFLAGS) $(ARCH) -g -fPIC -Wall -W -Wall -ansi -pedantic -std=c++98
+  CFLAGS    += $(CPPFLAGS) $(ARCH) -g -fPIC -Wall -W -Wall -ansi -pedantic -std=c++11
   CXXFLAGS  += $(CFLAGS) -Wno-unused-local-typedefs
   LDFLAGS   += 
   LIBS      += 
@@ -48,7 +48,7 @@ ifeq ($(config),release)
   DEFINES   += -DNDEBUG -DRELEASE -DPLATFORM_CHECKED -DUNIX_BUILD
   INCLUDES  += -Iinclude/lua -Iinclude -I/usr/local/include -I/usr/include -I../lua/src
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
-  CFLAGS    += $(CPPFLAGS) $(ARCH) -g -O2 -fPIC -Wall -W -Wall -Wno-unused-local-typedefs -ansi -pedantic -std=c++98
+  CFLAGS    += $(CPPFLAGS) $(ARCH) -g -O2 -fPIC -Wall -W -Wall -Wno-unused-local-typedefs -ansi -pedantic -std=c++11
   CXXFLAGS  += $(CFLAGS) 
   LDFLAGS   += -s
   LIBS      += 
