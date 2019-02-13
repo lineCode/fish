@@ -326,5 +326,8 @@
     <ClCompile Include="network\FastReader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="lualib\lua-trie.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

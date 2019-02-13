@@ -42,7 +42,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <TargetExt>.lib</TargetExt>
-    <IncludePath>..\hx;..\3rd;..\3rd\libev;..\3rd\oolua\include;..\3rd\lua\src;..\3rd\rapidjson;..\3rd\mysql\include;..\3rd\http-parser;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <IncludePath>..\hx;..\3rd;..\3rd\libev;..\3rd\oolua\include;..\3rd\lua\src;..\3rd\rapidjson;..\3rd\mysql\include;..\3rd\http-parser;..\3rd\klib;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)build\$(ProjectName)\$(Configuration)\</IntDir>
   </PropertyGroup>
@@ -154,6 +154,7 @@
     <ClCompile Include="lualib\json\Schema.cpp" />
     <ClCompile Include="lualib\json\values.cpp" />
     <ClCompile Include="lualib\lua-seri.c" />
+    <ClCompile Include="lualib\lua-trie.c" />
     <ClCompile Include="lualib\LuaChannel.cpp" />
     <ClCompile Include="lualib\LuaCoStats.cpp" />
     <ClCompile Include="lualib\LuaFish.cpp" />
