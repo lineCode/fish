@@ -124,6 +124,7 @@
     <ClInclude Include="time\TimerWheel.h" />
     <ClInclude Include="time\Timestamp.h" />
     <ClInclude Include="util\Allocator.h" />
+    <ClInclude Include="util\convert.h" />
     <ClInclude Include="util\format.h" />
     <ClInclude Include="util\linenoise.hpp" />
     <ClInclude Include="util\List.h" />
@@ -153,6 +154,7 @@
     <ClCompile Include="lualib\json\rapidjson.cpp" />
     <ClCompile Include="lualib\json\Schema.cpp" />
     <ClCompile Include="lualib\json\values.cpp" />
+    <ClCompile Include="lualib\lua-dump.c" />
     <ClCompile Include="lualib\lua-seri.c" />
     <ClCompile Include="lualib\lua-trie.c" />
     <ClCompile Include="lualib\LuaChannel.cpp" />
@@ -179,6 +181,8 @@
     <ClCompile Include="time\TimerWheel.cpp" />
     <ClCompile Include="time\Timestamp.cpp" />
     <ClCompile Include="util\Allocator.cpp" />
+    <ClCompile Include="util\convert\dtoa.cpp" />
+    <ClCompile Include="util\convert\itoa.cpp" />
     <ClCompile Include="util\format.cc" />
     <ClCompile Include="util\LuaAllocator.cpp" />
     <ClCompile Include="util\MemoryStream.cpp" />

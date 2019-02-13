@@ -186,6 +186,9 @@
     <ClInclude Include="network\FastReader.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="util\convert.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="network\Channel.cpp">
@@ -327,6 +330,15 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="lualib\lua-trie.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="lualib\lua-dump.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="util\convert\itoa.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="util\convert\dtoa.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
