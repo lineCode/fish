@@ -14,7 +14,6 @@ LoggerServer::~LoggerServer(void) {
 	std::unordered_map<std::string, FILE*>::iterator iter;
 	for ( iter = fileCtx_.begin(); iter != fileCtx_.end(); iter++ ) {
 		FILE* F = iter->second;
-		fflush(F);
 		fclose(F);
 	}
 }
