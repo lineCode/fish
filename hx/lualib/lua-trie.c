@@ -152,72 +152,72 @@ word_filter(tree_t* root_tree, const char* source, size_t size, luaL_Buffer* buf
 
 		switch ( phase ) {
 			case PHASE_SEARCH: {
-								   tree = tree_get(tree->hash, utf8);
-								   if ( tree ) {
-									   phase = PHASE_MATCH;
-									   start = position - length;
-									   rollback = position;
-									   filter_length = 1;
-									   filter_slider = 1;
-									   founded = 0;
-									   if ( tree->tail ) {
-										   if ( !buffer ) {
-											   return -1;
-										   }
-										   founded = 1;
-									   }
-								   }
-								   else {
-									   tree = root_tree;
-									   if ( buffer ) {
-										   char word[8] = { 0 };
-										   utf8catcodepoint(word, utf8, 8);
-										   luaL_addlstring(buffer, word, length);
-									   }
-								   }
-								   break;
+				tree = tree_get(tree->hash, utf8);
+				if ( tree ) {
+				   phase = PHASE_MATCH;
+				   start = position - length;
+				   rollback = position;
+				   filter_length = 1;
+				   filter_slider = 1;
+				   founded = 0;
+				   if ( tree->tail ) {
+					   if ( !buffer ) {
+						   return -1;
+					   }
+					   founded = 1;
+				   }
+				}
+				else {
+				   tree = root_tree;
+				   if ( buffer ) {
+					   char word[8] = { 0 };
+					   utf8catcodepoint(word, utf8, 8);
+					   luaL_addlstring(buffer, word, length);
+				   }
+				}
+				break;
 			}
 			case PHASE_MATCH: {
-								  if ( length == 1 ) {
-									  if ( isspace(utf8) || iscntrl(utf8) || ispunct(utf8) ) {
-										  ++filter_slider;
-										  continue;
-									  }
-								  }
-								  tree = tree_get(tree->hash, utf8);
-								  if ( tree ) {
-									  ++filter_slider;
-									  if ( tree->tail ) {
-										  if ( !buffer ) {
-											  return -1;
-										  }
-										  filter_length = filter_slider;
-										  rollback = position;
-										  founded = 1;
-									  }
-								  }
-								  else {
-									  if ( founded == 1 ) {
-										  //匹配成功
-										  if ( !buffer ) {
-											  return -1;
-										  }
+				if ( length == 1 ) {
+				  if ( isspace(utf8) || iscntrl(utf8) || ispunct(utf8) ) {
+					  ++filter_slider;
+					  continue;
+				  }
+				}
+				tree = tree_get(tree->hash, utf8);
+				if ( tree ) {
+				  ++filter_slider;
+				  if ( tree->tail ) {
+					  if ( !buffer ) {
+						  return -1;
+					  }
+					  filter_length = filter_slider;
+					  rollback = position;
+					  founded = 1;
+				  }
+				}
+				else {
+				  if ( founded == 1 ) {
+					  //匹配成功
+					  if ( !buffer ) {
+						  return -1;
+					  }
 
-										  int i;
-										  for ( i = 0; i < filter_length; i++ ) {
-											  luaL_addchar(buffer, '*');
-										  }
-									  }
-									  else if ( buffer ) {
-										  //匹配失败
-										  luaL_addlstring(buffer, source + start, rollback - start);
-									  }
-									  //回滚
-									  position = rollback;
-									  tree = root_tree;
-									  phase = PHASE_SEARCH;
-								  }
-								  break;
+					  int i;
+					  for ( i = 0; i < filter_length; i++ ) {
+						  luaL_addchar(buffer, '*');
+					  }
+				  }
+				  else if ( buffer ) {
+					  //匹配失败
+					  luaL_addlstring(buffer, source + start, rollback - start);
+				  }
+				  //回滚
+				  position = rollback;
+				  tree = root_tree;
+				  phase = PHASE_SEARCH;
+				}
+				break;
 			}
 		}
 	}
@@ -421,7 +421,7 @@ lsplit(lua_State* L) {
 		char* next = utf8codepoint(word, &utf8);
 		size_t length = utf8codepointsize(utf8);
 		lua_pushlstring(L, word, length);
-		lua_seti(L, -2, index++);
+		lua_rawseti(L, -2, index++);
 		word = next;
 		i += length;
 	}
