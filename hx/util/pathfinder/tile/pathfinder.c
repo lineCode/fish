@@ -128,7 +128,8 @@ is_best_node(pathfinder_t* finder, int cx, int cz, int dx, int dz, int* dt_min, 
 static node_t*
 search_node(struct pathfinder* finder, int cx, int cz, int radius) {
 	int dt_min = -1;
-	int x_min, z_min;
+	int x_min = 0;
+	int z_min = 0;
 
 	node_t* list = NULL;
 	int i, j;
