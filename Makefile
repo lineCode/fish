@@ -66,7 +66,7 @@ $(LIBEV_STATICLIB) :
 	mv $(LIBEV_INC)/.libs/libev.a $(LIBS_DIR)
 
 $(TCMALLOC_STATICLIB) :
-	cd $(TCMALLOC_PATH) && ./configure && $(MAKE)
+	cd $(TCMALLOC_PATH) && ./configure && $(MAKE) CXX=g++
 	mv $(TCMALLOC_PATH)/.libs/$(TCMALLOC_LIB) $(LIBS_DIR)
 
 $(HX_STATICLIB) :
