@@ -52,8 +52,6 @@ int AgentApp::Init(rapidjson::Document& config) {
 		Util::Exit(fmt::format("client manager start:{} error", addr.ToStr()));
 	}
 
-	
-
 	return 0;
 }
 
