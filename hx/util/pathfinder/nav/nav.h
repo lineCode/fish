@@ -145,7 +145,6 @@ struct nav_mesh_context* load_mesh(double** v, int v_cnt, int** p, int p_cnt);
 void init_mesh(struct nav_mesh_context* ctx);
 void release_mesh(struct nav_mesh_context* ctx);
 
-struct nav_node* search_node(struct nav_mesh_context* mesh_ctx, double x, double y, double z);
 struct nav_path* astar_find(struct nav_mesh_context* mesh_ctx, struct vector3* pt_start, struct vector3* pt_over, search_dumper dumper, void* args);
 bool raycast(struct nav_mesh_context* ctx, struct vector3* pt_start, struct vector3* pt_over, struct vector3* result, search_dumper dumper, void* userdata);
 

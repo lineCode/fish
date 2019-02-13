@@ -148,7 +148,7 @@ inside_node(struct nav_mesh_context* mesh_ctx, int polyId, double x, double y, d
 	return inside_poly(mesh_ctx, nav_node->poly, nav_node->size, &vt);
 }
 
-struct nav_node*
+static struct nav_node*
 search_node(struct nav_mesh_context* ctx, double x, double y, double z) {
 	if ( x < ctx->lt.x || x > ctx->br.x )
 		return NULL;

@@ -125,7 +125,7 @@ is_best_node(pathfinder_t* finder, int cx, int cz, int dx, int dz, int* dt_min, 
 	return 0;
 }
 
-node_t*
+static node_t*
 search_node(struct pathfinder* finder, int cx, int cz, int radius) {
 	int dt_min = -1;
 	int x_min, z_min;
@@ -488,7 +488,7 @@ finder_find(pathfinder_t * finder, int x0, int z0, int x1, int z1, int smooth, f
 	return result;
 }
 
-int
+static int
 raycast(pathfinder_t* finder, int x0, int z0, int x1, int z1, int ignore, int* resultx, int* resultz, int* stopx, int* stopz, finder_dump dump, void* ud) {
 	float fx0 = x0 + 0.5f;
 	float fz0 = z0 + 0.5f;
@@ -586,7 +586,7 @@ swap(int* a, int *b) {
 }
 
 //breshenhamÖ±ÏßËã·¨
-int
+static int
 raycast_breshenham(pathfinder_t* finder, int x0, int z0, int x1, int z1, int ignore, int* resultx, int* resultz, int* stopx, int* stopz, finder_dump dump, void* ud) {
 	int rx = x0;
 	int rz = z0;
