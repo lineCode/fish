@@ -63,7 +63,16 @@
 
 #endif
 
+int g_breakout = 0;
 
+LUA_API void
+lua_checksig(lua_State *L) {
+  if (g_breakout == 1) {
+    g_breakout = 0;
+    lua_pushnil(L);
+    lua_error(L);
+  }
+}
 
 /*
 ** Try to convert a value to a float. The float case is already handled
@@ -1078,6 +1087,7 @@ void luaV_execute (lua_State *L) {
         vmbreak;
       }
       vmcase(OP_JMP) {
+        lua_checksig(L);
         dojump(ci, i, 0);
         vmbreak;
       }
@@ -1130,6 +1140,7 @@ void luaV_execute (lua_State *L) {
       vmcase(OP_CALL) {
         int b = GETARG_B(i);
         int nresults = GETARG_C(i) - 1;
+        lua_checksig(L);
         if (b != 0) L->top = ra+b;  /* else previous instruction set top */
         if (luaD_precall(L, ra, nresults)) {  /* C function? */
           if (nresults >= 0)
@@ -1144,6 +1155,7 @@ void luaV_execute (lua_State *L) {
       }
       vmcase(OP_TAILCALL) {
         int b = GETARG_B(i);
+        lua_checksig(L);
         if (b != 0) L->top = ra+b;  /* else previous instruction set top */
         lua_assert(GETARG_C(i) - 1 == LUA_MULTRET);
         if (luaD_precall(L, ra, LUA_MULTRET)) {  /* C function? */
@@ -1188,6 +1200,7 @@ void luaV_execute (lua_State *L) {
         }
       }
       vmcase(OP_FORLOOP) {
+        lua_checksig(L);
         if (ttisinteger(ra)) {  /* integer loop? */
           lua_Integer step = ivalue(ra + 2);
           lua_Integer idx = intop(+, ivalue(ra), step); /* increment index */
@@ -1254,6 +1267,7 @@ void luaV_execute (lua_State *L) {
       }
       vmcase(OP_TFORLOOP) {
         l_tforloop:
+        lua_checksig(L);
         if (!ttisnil(ra + 1)) {  /* continue loop? */
           setobjs2s(L, ra, ra + 1);  /* save control variable */
            ci->u.l.savedpc += GETARG_sBx(i);  /* jump back */

@@ -482,5 +482,6 @@ struct lua_Debug {
 * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ******************************************************************************/
 
+LUA_API int g_breakout;
 
 #endif

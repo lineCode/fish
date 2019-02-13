@@ -179,6 +179,12 @@ static FILE *tofile (lua_State *L) {
   return p->f;
 }
 
+static int f_tofd (lua_State *L) {
+  FILE * fp = tofile(L);
+  int fd = fileno(fp);
+  lua_pushinteger(L,fd);
+  return 1;
+}
 
 /*
 ** When creating file handles, always creates a 'closed' file handle
@@ -719,6 +725,7 @@ static const luaL_Reg flib[] = {
   {"seek", f_seek},
   {"setvbuf", f_setvbuf},
   {"write", f_write},
+  {"fd", f_tofd},
   {"__gc", f_gc},
   {"__tostring", f_tostring},
   {NULL, NULL}
