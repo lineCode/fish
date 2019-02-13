@@ -92,7 +92,7 @@ clear_node(node_t* node) {
 }
 
 static inline void
-heap_clear(struct mh_elt_t* elt) {
+heap_clear(mh_elt_t* elt) {
 	node_t *node = (node_t*)(elt);
 	clear_node(node);
 }
@@ -109,14 +109,14 @@ finder_reset(pathfinder_t* finder) {
 }
 
 static inline int
-less(struct mh_elt_t * left, struct mh_elt_t * right) {
+less(mh_elt_t * left, mh_elt_t * right) {
 	node_t *l = (node_t*)( left );
 	node_t *r = (node_t*)( right );
 	return l->F < r->F;
 }
 
 static inline int
-great(struct mh_elt_t * left, struct mh_elt_t * right) {
+great(mh_elt_t * left, mh_elt_t * right) {
 	node_t *l = (node_t*)( left );
 	node_t *r = (node_t*)( right );
 	return l->F > r->F;
