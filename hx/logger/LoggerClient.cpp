@@ -11,15 +11,7 @@
 LoggerClient::LoggerClient(Network::Addr& addr, Network::EventPoller* poller):addr_(addr) {
 	poller_ = poller;
 	
-	Network::Connector connector(poller_);
-	int fd = connector.Connect(addr_, false);
-	assert(fd > 0);
-
-	channel_ = new LoggerChannel(poller_, fd);
-	channel_->SetReader(new Network::TcpReader());
-	channel_->SetWriter(new Network::TcpWriter());
-	channel_->SetCloseCallback(std::bind(&LoggerClient::OnChannelClose, this, std::placeholders::_1));
-	channel_->EnableRead();
+	assert(Connect() == true);
 
 	timer_ = new Timer();
 	timer_->SetCallback(std::bind(&LoggerClient::OnUpdate, this, std::placeholders::_1, std::placeholders::_2));
@@ -27,12 +19,8 @@ LoggerClient::LoggerClient(Network::Addr& addr, Network::EventPoller* poller):ad
 }
 
 LoggerClient::~LoggerClient(void) {
-	if (channel_) {
-		delete channel_;
-	}
-	if (timer_) {
-		delete timer_;
-	}
+	if (channel_) delete channel_;
+	if (timer_) delete timer_;
 }
 
 void LoggerClient::WriteLog(const char* file, const char* source, int line, int level, uint64_t time, const char* content) {
@@ -73,17 +61,9 @@ void LoggerClient::OnUpdate(Timer* timer, void* userdata) {
 		return;
 	}
 
-	Network::Connector connector(poller_);
-	int fd = connector.Connect((const Network::Addr&)addr_, false);
-	if (fd < 0) {
+	if (Connect() == false) {
 		return;
 	}
-
-	channel_ = new LoggerChannel(poller_, fd);
-	channel_->SetReader(new Network::TcpReader());
-	channel_->SetWriter(new Network::TcpWriter());
-	channel_->SetCloseCallback(std::bind(&LoggerClient::OnChannelClose, this, std::placeholders::_1));
-	channel_->EnableRead();
 	
 	std::vector<StreamWriter>::iterator iter = cached_.begin();
 	for(;iter != cached_.end();iter++) {
@@ -95,3 +75,18 @@ void LoggerClient::OnUpdate(Timer* timer, void* userdata) {
 	cached_.clear();
 }
 
+bool LoggerClient::Connect() {
+	Network::Connector connector(poller_);
+	int fd = connector.Connect(addr_, false);
+	if (fd <= 0) {
+		return false;
+	}
+
+	channel_ = new LoggerChannel(poller_, fd);
+	channel_->SetReader(new Network::TcpReader());
+	channel_->SetWriter(new Network::TcpWriter());
+	channel_->SetCloseCallback(std::bind(&LoggerClient::OnChannelClose, this, std::placeholders::_1));
+	channel_->EnableRead();
+
+	return true;
+}

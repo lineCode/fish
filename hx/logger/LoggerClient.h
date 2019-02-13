@@ -24,6 +24,9 @@ public:
 	void OnUpdate(Timer* timer, void* userdata);
 
 private:
+	bool Connect();
+
+private:
 	Network::Addr addr_;
 	LoggerChannel* channel_;
 	Timer* timer_;
