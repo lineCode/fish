@@ -15,7 +15,7 @@ local CO_STATE = {
 	eWAIT = 2	
 }
 
-local kMAX_SESSION = math.pow(2,32)
+local kMAX_SESSION = math.maxinteger
 local session_ = 1
 local mainCo_ = CoRunning()
 
