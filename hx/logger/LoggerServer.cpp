@@ -19,16 +19,7 @@ LoggerServer::~LoggerServer(void) {
 }
 
 void LoggerServer::WriteLog(const char* file, const char* source, int line, int level, double time, const char* content) {
-	FILE* F = NULL;
-	FILEMap::iterator iter = fileCtx_.find(file);
-	if ( iter == fileCtx_.end() ) {
-		std::string path = fmt::format("{}{}.log", path_, file);
-		F = fopen(path.c_str(),"w");
-		assert(F != NULL);
-		fileCtx_[file] = F;
-	} else {
-		F = iter->second;
-	}
+	FILE* F = GetFILE(file);
 
 	struct tm stm;
 	LocalTime((time_t)time, &stm);
@@ -52,4 +43,16 @@ void LoggerServer::WriteLog(const char* file, const char* source, int line, int 
 void LoggerServer::WriteLog(const char* file, void* data, size_t size) {
 }
 
-
+FILE* LoggerServer::GetFILE(const char* file) {
+	FILE* F = NULL;
+	FILEMap::iterator iter = fileCtx_.find(file);
+	if ( iter == fileCtx_.end() ) {
+		std::string path = fmt::format("{}{}.log", path_, file);
+		F = fopen(path.c_str(),"w");
+		assert(F != NULL);
+		fileCtx_[file] = F;
+	} else {
+		F = iter->second;
+	}
+	return F;
+}
