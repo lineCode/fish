@@ -55,7 +55,7 @@ int TimerWheelMgr::Register(TimeoutHandler* handler,int ti) {
 	}
 	
 	if ( lastTime_ == 0 ) {
-		lastTime_ = (uint64_t)GetTimeMillis()();
+		lastTime_ = (uint64_t)GetTimeMillis();
 	}
 		
 	handler->timeout_ = ti;
