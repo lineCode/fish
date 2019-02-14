@@ -282,7 +282,7 @@ int LuaFish::WriteLog(lua_State* L) {
 	const char* source = luaL_checkstring(L, 2);
 	int line = luaL_checkinteger(L, 3);
 	int level = luaL_checkinteger(L, 4);
-	uint64_t time = luaL_checkinteger(L, 5);
+	double time = luaL_checknumber(L, 5);
 	const char* log = luaL_checkstring(L, 6);
 	LOGGER->WriteLog(file, source, line, (Logger::Loggerlevel)level, time, log);
 	return 0;

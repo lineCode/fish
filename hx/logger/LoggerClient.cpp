@@ -23,7 +23,7 @@ LoggerClient::~LoggerClient(void) {
 	if (timer_) delete timer_;
 }
 
-void LoggerClient::WriteLog(const char* file, const char* source, int line, int level, uint64_t time, const char* content) {
+void LoggerClient::WriteLog(const char* file, const char* source, int line, int level, double time, const char* content) {
 	StreamWriter writer;
 	writer << (int32_t)0 << file << source << line << level << time << content;
 	if (channel_) {

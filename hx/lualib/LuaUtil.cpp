@@ -44,12 +44,12 @@ int LuaUtil::ParseLoggerMessage(lua_State* L) {
 		std::string source;
 		std::string content;
 		int line, level;
-		uint64_t time;
+		double time;
 		reader >> source >> line >> level >> time >> content;
 		lua_pushlstring(L, source.c_str(), source.length());
 		lua_pushinteger(L, line);
 		lua_pushinteger(L, level);
-		lua_pushinteger(L, time);
+		lua_pushnumber(L, time);
 		lua_pushlstring(L, content.c_str(), content.length());
 		numArgs = 7;
 	}  else {

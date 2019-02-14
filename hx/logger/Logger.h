@@ -24,7 +24,7 @@ public:
 
 	~Logger(void);
 
-	void WriteLog(const char* file, const char* source, int line, Loggerlevel level, uint64_t time, const char* content);
+	void WriteLog(const char* file, const char* source, int line, Loggerlevel level, double time, const char* content);
 
 	void WriteLog(const char* file, void* data, size_t size);
 
@@ -42,13 +42,13 @@ private:
 
 #define LOGGER 			Logger::GetSingleton()
 
-#define LOG_DEBUG(x) 	LOGGER->WriteLog("runtime",__FILE__,__LINE__,Logger::eDebug,::Now(),(x).c_str())
+#define LOG_DEBUG(x) 	LOGGER->WriteLog("runtime",__FILE__,__LINE__,Logger::eDebug,GetTimeMillis() / 1000,(x).c_str())
 
-#define LOG_INFO(x) 	LOGGER->WriteLog("runtime",__FILE__,__LINE__,Logger::eInfo,::Now(),(x).c_str())
+#define LOG_INFO(x) 	LOGGER->WriteLog("runtime",__FILE__,__LINE__,Logger::eInfo,GetTimeMillis() / 1000,(x).c_str())
 
-#define LOG_WARN(x) 	LOGGER->WriteLog("runtime",__FILE__,__LINE__,Logger::eWarn,::Now(),(x).c_str())
+#define LOG_WARN(x) 	LOGGER->WriteLog("runtime",__FILE__,__LINE__,Logger::eWarn,GetTimeMillis() / 1000,(x).c_str())
 
-#define LOG_ERROR(x) 	LOGGER->WriteLog("runtime",__FILE__,__LINE__,Logger::eError,::Now(),(x).c_str())
+#define LOG_ERROR(x) 	LOGGER->WriteLog("runtime",__FILE__,__LINE__,Logger::eError,GetTimeMillis() / 1000,(x).c_str())
 
 
 #endif

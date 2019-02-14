@@ -18,7 +18,7 @@ LoggerServer::~LoggerServer(void) {
 	}
 }
 
-void LoggerServer::WriteLog(const char* file, const char* source, int line, int level, uint64_t time, const char* content) {
+void LoggerServer::WriteLog(const char* file, const char* source, int line, int level, double time, const char* content) {
 	FILE* F = NULL;
 	std::unordered_map<std::string, FILE*>::iterator iter = fileCtx_.find(file);
 	if ( iter == fileCtx_.end() ) {
@@ -33,7 +33,9 @@ void LoggerServer::WriteLog(const char* file, const char* source, int line, int 
 	struct tm stm;
 	LocalTime((time_t)time, &stm);
 
-	std::string date = fmt::format("{}-{}-{} {}:{}:{}", stm.tm_year+1900, stm.tm_mon+1, stm.tm_mday, stm.tm_hour, stm.tm_min, stm.tm_sec);
+	double decimal = time - (time_t)time;
+
+	std::string date = fmt::format("{}-{}-{} {}:{}:{}.{}", stm.tm_year+1900, stm.tm_mon+1, stm.tm_mday, stm.tm_hour, stm.tm_min, stm.tm_sec, decimal);
 	std::string log = fmt::format("[{}][{} @{}:{}] {}\r\n", kLOG_TAG[level], date, source, line, content);
 
 	fwrite(log.c_str(), log.length() , 1, F);
