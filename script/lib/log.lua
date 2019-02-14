@@ -51,13 +51,13 @@ if fish.GetAppName() == "logger" then
 		else
 			content = table.concat({...},"\t")
 		end
-		fish.WriteLog(logger.name, source or "-", line or "0", logLevel, os.time(), content)
+		fish.WriteLog(logger.name, source or "-", line or "0", logLevel, fish.Timestamp(), content)
 	end
 else
 	Flush = function(logger,fm,logLevel,...)
 		local message = {
 			level = logLevel,
-			time = os.time(),
+			time = fish.Timestamp(),
 			fm = fm,
 			log = {...},
 		}

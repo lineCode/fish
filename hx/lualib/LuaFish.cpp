@@ -303,8 +303,7 @@ int LuaFish::Now(lua_State* L) {
 }
 
 int LuaFish::Timestamp(lua_State* L) {
-	uint64_t now = TimeStamp();
-	lua_pushinteger(L, now);
+	lua_pushnumber(L, GetTimeMillis() / 1000);
 	return 1;
 }
 

@@ -50,10 +50,6 @@ uint64_t Now() {
 	return GetTimeMillis() / 1000;
 }
 
-uint64_t TimeStamp() {
-	return GetTimeMillis() * 1000;
-}
-
 int GetTimeZone() {
 	if (G_TIMEZONE == (int)0xffffffff) {
 #ifdef _WIN32

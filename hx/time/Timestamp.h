@@ -5,8 +5,6 @@
 
 uint64_t Now();
 
-uint64_t TimeStamp();
-
 double GetTimeMillis();
 
 int GetTimeZone();
