@@ -36,23 +36,43 @@ local function GetDebugInfo(logger)
 	return info.short_src,info.currentline
 end
 
-local function Flush(logger,fm,logLevel,...)
-	local message = {
-		level = logLevel,
-		time = os.time(),
-		fm = fm,
-		log = {...},
-	}
-	
-	if logLevel == kLOG_LV_ERROR then
-		local source,line = GetDebugInfo(logger)
-		message.source = source
-		message.line = line
-	end
+local Flush
+if fish.GetAppName() == "logger" then
+	Flush = function(logger,fm,logLevel,...)
+		local source
+		local line
+		if logLevel == kLOG_LV_ERROR then
+			source,line = GetDebugInfo(logger)
+		end
 
-	local ptr, size = fish.Pack(message)
-	fish.SendLog(logger.name, ptr, size)
+		local content
+		if fm then
+			content = string.format(fm, ...)
+		else
+			content = table.concat({...},"\t")
+		end
+		fish.WriteLog(logger.name, source or "-", line or "0", logLevel, os.time(), content)
+	end
+else
+	Flush = function(logger,fm,logLevel,...)
+		local message = {
+			level = logLevel,
+			time = os.time(),
+			fm = fm,
+			log = {...},
+		}
+		
+		if logLevel == kLOG_LV_ERROR then
+			local source,line = GetDebugInfo(logger)
+			message.source = source
+			message.line = line
+		end
+
+		local ptr, size = fish.Pack(message)
+		fish.SendLog(logger.name, ptr, size)
+	end
 end
+
 
 function _M:DEBUG(...)
 	if kLOG_LV_DEBUG < loggerLevel_ then
