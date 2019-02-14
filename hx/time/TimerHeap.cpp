@@ -2,7 +2,7 @@
 #include "Timestamp.h"
 
 TimerHeap::TimerHeap():Super() {
-	now_ = TimeStamp();
+	now_ = (uint64_t)GetTimeMillis();
 }
 
 TimerHeap::~TimerHeap(void) {
