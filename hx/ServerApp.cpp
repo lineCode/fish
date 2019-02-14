@@ -88,7 +88,7 @@ void ServerApp::OnUpate(Timer* timer, void* userdata) {
 		delete task;
 	}
 
-	now_ = ::TimeStamp() / 1000;
+	now_ = ::Now();
 	
 	OOLUA::Script& script = lua_->GetScript();
 	if (!script.call("ServerUpdate",now_)) {
