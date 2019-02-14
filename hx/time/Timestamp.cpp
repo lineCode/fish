@@ -165,7 +165,7 @@ void LocalTime(time_t time, struct tm* tm) {
 	LOCALTIME(&time, tm);
 #else
 	static __thread time_t cachedTime = 0;
-	static __thread tm cachedTm;
+	static __thread struct tm cachedTm;
 
 	if (cachedTime == 0 || time < cachedTime || time - cachedTime >= 86400) {
 		LOCALTIME(&time, &cachedTm);
@@ -175,7 +175,7 @@ void LocalTime(time_t time, struct tm* tm) {
 		cachedTime = mktime(&cachedTm);
 	}
 
-	time_t diff = time - cachedTime
+	time_t diff = time - cachedTime;
 	tm->tm_hour = diff / 3600;
 	tm->tm_min = (diff - 3600 * tm->tm_hour) / 60;
 	tm->tm_sec = diff - 3600 * tm->tm_hour - 60 * tm->tm_min;
