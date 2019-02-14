@@ -158,6 +158,26 @@ time_t GetDayTimeWithSec(time_t ts, int sec) {
 	return GetDayTime(ts, 0, 0, sec);
 }
 
+
+
 void LocalTime(time_t time, struct tm* tm) {
+#ifdef WIN32
 	LOCALTIME(&time, tm);
+#else
+	static __thread time_t cachedTime = 0;
+	static __thread tm cachedTm;
+
+	if (cachedTime == 0 || time < cachedTime || time - cachedTime >= 86400) {
+		LOCALTIME(&time, &cachedTm);
+		cachedTm.tm_hour = 0;
+		cachedTm.tm_min = 0;
+		cachedTm.tm_sec = 0;
+		cachedTime = mktime(&cachedTm);
+	}
+
+	time_t diff = time - cachedTime
+	tm->tm_hour = diff / 3600;
+	tm->tm_min = (diff - 3600 * tm->tm_hour) / 60;
+	tm->tm_sec = diff - 3600 * tm->tm_hour - 60 * tm->tm_min;
+#endif
 }
