@@ -38,10 +38,10 @@ end
 
 local Flush
 if fish.GetAppName() == "logger" then
-	Flush = function(logger,fm,logLevel,...)
+	Flush = function(logger, fm, level,...)
 		local source
 		local line
-		if logLevel == kLOG_LV_ERROR then
+		if level == kLOG_LV_ERROR then
 			source,line = GetDebugInfo(logger)
 		end
 
@@ -51,18 +51,18 @@ if fish.GetAppName() == "logger" then
 		else
 			content = table.concat({...},"\t")
 		end
-		fish.WriteLog(logger.name, source or "-", line or "0", logLevel, fish.Timestamp(), content)
+		fish.WriteLog(logger.name, source or "-", line or "0", level, fish.Timestamp(), content)
 	end
 else
-	Flush = function(logger,fm,logLevel,...)
+	Flush = function(logger,fm,level,...)
 		local message = {
-			level = logLevel,
+			level = level,
 			time = fish.Timestamp(),
 			fm = fm,
 			log = {...},
 		}
 		
-		if logLevel == kLOG_LV_ERROR then
+		if level == kLOG_LV_ERROR then
 			local source,line = GetDebugInfo(logger)
 			message.source = source
 			message.line = line
