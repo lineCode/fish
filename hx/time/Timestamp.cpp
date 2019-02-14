@@ -175,9 +175,12 @@ void LocalTime(time_t time, struct tm* tm) {
 		cachedTime = mktime(&cachedTm);
 	}
 
+	memcpy(tm, &cached, sizeof(struct tm));
+
 	time_t diff = time - cachedTime;
 	tm->tm_hour = diff / 3600;
 	tm->tm_min = (diff - 3600 * tm->tm_hour) / 60;
 	tm->tm_sec = diff - 3600 * tm->tm_hour - 60 * tm->tm_min;
+
 #endif
 }
