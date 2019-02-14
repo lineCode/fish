@@ -227,6 +227,7 @@ int LuaFish::Register(lua_State* L) {
 	luaL_checkversion(L);
 
 	luaL_Reg methods[] = {
+		{ "GetAppName", LuaFish::GetAppName },
 		{ "Stop", LuaFish::Stop },
 		{ "WriteLog", LuaFish::WriteLog },
 		{ "SendLog", LuaFish::SendLog },
@@ -260,6 +261,13 @@ int LuaFish::Register(lua_State* L) {
 	}
 	luaL_setfuncs(L, methods, 1);
 
+	return 1;
+}
+
+int LuaFish::GetAppName(lua_State* L) {
+	ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
+	std::string name = app->GetName();
+	lua_pushlstring(L, name.c_str(), name.size());
 	return 1;
 }
 

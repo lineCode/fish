@@ -20,6 +20,7 @@ ServerApp::ServerApp(Network::EventPoller* poller) {
 	timer_ = new Timer();
 	queue_ = new TaskQueue();
 	now_ = ::Now();
+	name_ = "";
 }
 
 ServerApp::~ServerApp() {

@@ -35,12 +35,21 @@ public:
 
 	virtual TaskQueue* GetQueue();
 
+	virtual void SetName(std::string name) {
+		name_ = name;
+	}
+
+	virtual std::string GetName() {
+		return name_;
+	}
+	
 protected:
 	Network::EventPoller* poller_;
 	LuaFish* lua_;
 	Timer* timer_;
 	TaskQueue* queue_;
 	uint64_t now_;
+	std::string name_;
 };
 
 #endif

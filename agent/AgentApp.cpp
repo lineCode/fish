@@ -19,6 +19,7 @@ AgentApp::~AgentApp(void) {
 int AgentApp::Init(rapidjson::Document& config) {
 	LOG_ERROR(fmt::format("AgentApp start"));
 
+	SetName("agent");
 	ServerApp::Init("agent");
 
 	if (!config.HasMember("clientAddr")) {

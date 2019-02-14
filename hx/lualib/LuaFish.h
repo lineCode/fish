@@ -50,6 +50,8 @@ public:
 
 	static int Register(lua_State* L);
 
+	static int GetAppName(lua_State* L);
+
 	static int Stop(lua_State* L);
 
 	static int WriteLog(lua_State* L);

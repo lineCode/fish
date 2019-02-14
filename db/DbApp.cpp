@@ -15,6 +15,8 @@ DbApp::~DbApp(void) {
 int DbApp::Init(rapidjson::Document& config) {
 	LOG_ERROR(fmt::format("DbApp start"));
 
+	SetName("db");
+
 	lua_->Require("db", DbApp::Register);
 
 	dbThreadPool_ = new DbThreadPool();
