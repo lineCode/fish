@@ -6,6 +6,8 @@
 
 class LoggerServer : public LoggerInterface {
 public:
+	typedef std::unordered_map<std::string, FILE*> FILEMap;
+public:
 	LoggerServer(const char* path, bool show = true);
 	virtual ~LoggerServer();
 
@@ -14,7 +16,7 @@ public:
 	virtual void WriteLog(const char* file, void* data, size_t size);
 
 private:
-	std::unordered_map<std::string, FILE*> fileCtx_;
+	FILEMap fileCtx_;
 	FILE* runtime_;
 	std::string path_;
 	bool show_;
