@@ -48,17 +48,9 @@ function Init(self)
 	print("logger init")
 	socket.Listen({ip = config.loggerAddr.ip, port = config.loggerAddr.port}, logger, "OnAccept")
 
-	local FILE = io.open("./filter.lua")
-	local content = FILE:read("*a")
-	FILE:close()
-	local info = load("return "..content)()
-
-	local inst = trie.create()
-	for _,w in pairs(info.ForBiddenCharInName) do
-		inst:add(w)
+	for i = 1, 1024*100 do
+		RUNTIME_LOG:ERROR("a b c fuck,asdfasdf2sdfdsfdsf")
 	end
-
-	-- table.print(inst:dump())
 end
 
 function Fina()

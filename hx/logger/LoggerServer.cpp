@@ -5,6 +5,10 @@
 
 static const char kLOG_TAG[] = { 'D', 'I', 'W', 'E'};
 
+#ifdef WIN32
+#define snprintf _snprintf
+#endif
+
 LoggerServer::LoggerServer(const char* path, bool show) : path_(path) {
 	runtime_ = NULL;
 	show_ = show;
@@ -26,18 +30,45 @@ void LoggerServer::WriteLog(const char* file, const char* source, int line, int 
 
 	uint64_t decimal = (time - (time_t)time) * 1000;
 
-	std::string date = fmt::format("{}-{}-{} {}:{}:{}", stm.tm_year+1900, stm.tm_mon+1, stm.tm_mday, stm.tm_hour, stm.tm_min, stm.tm_sec);
+	char date[64] = { 0 };
 	if (decimal != 0) {
-		date.append(fmt::format(".{}", decimal));
+		snprintf(date, 64, "%d-%d-%d %d:%d:%d.%d", stm.tm_year + 1900, stm.tm_mon + 1, stm.tm_mday, stm.tm_hour, stm.tm_min, stm.tm_sec, decimal);
+	} else {
+		snprintf(date, 64, "%d-%d-%d %d:%d:%d", stm.tm_year + 1900, stm.tm_mon + 1, stm.tm_mday, stm.tm_hour, stm.tm_min, stm.tm_sec);
 	}
 	
-	std::string log = fmt::format("[{}][{} @{}:{}] {}\r\n", kLOG_TAG[level], date, source, line, content);
+	char stack[512] = { 0 };
+	char* buff = stack;
+	int n = snprintf(buff, 512, "[%c][%s @%s:%d]", kLOG_TAG[level], date, source, line);
 
-	fwrite(log.c_str(), log.length() , 1, F);
-	fflush(F);
-	if (show_) {
-		fwrite(log.c_str(), log.length() , 1, stderr);
+	size_t len = strlen(content);
+	if ( n + len >= 512 ) {
+		buff = (char*)malloc(n + len);
 	}
+	memcpy(buff + n, content, len);
+
+	fwrite(buff, n + len, 1, F);
+	fflush(F);
+	if ( show_ ) {
+		fwrite(buff, n + len, 1, stderr);
+	}
+
+	if (buff != stack) {
+		free(buff);
+	}
+
+	//std::string date = fmt::format("{}-{}-{} {}:{}:{}", stm.tm_year+1900, stm.tm_mon+1, stm.tm_mday, stm.tm_hour, stm.tm_min, stm.tm_sec);
+	//if (decimal != 0) {
+	//	date.append(fmt::format(".{}", decimal));
+	//}
+	//
+	//std::string log = fmt::format("[{}][{} @{}:{}] {}\r\n", kLOG_TAG[level], date, source, line, content);
+
+	//fwrite(log.c_str(), log.length() , 1, F);
+	//fflush(F);
+	//if (show_) {
+	//	fwrite(log.c_str(), log.length() , 1, stderr);
+	//}
 }
 
 void LoggerServer::WriteLog(const char* file, void* data, size_t size) {
