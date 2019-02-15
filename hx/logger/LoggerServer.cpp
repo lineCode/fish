@@ -44,15 +44,16 @@ void LoggerServer::WriteLog(const char* file, const char* source, int line, int 
 	int n = snprintf(buff, 512, "[%c][%s @%s:%d]", kLOG_TAG[level], date, source, line);
 
 	size_t len = strlen(content);
-	if ( n + len >= 512 ) {
-		buff = (char*)malloc(n + len);
+	if ( n + len >= 510 ) {
+		buff = (char*)malloc(n + len + 2);
 	}
 	memcpy(buff + n, content, len);
+	memcpy(buff + n + len, "\r\n", 2);
 
-	fwrite(buff, n + len, 1, F);
+	fwrite(buff, n + len + 2, 1, F);
 	fflush(F);
 	if ( show_ ) {
-		fwrite(buff, n + len, 1, stderr);
+		fwrite(buff, n + len + 2, 1, stderr);
 	}
 
 	if (buff != stack) {
