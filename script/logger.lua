@@ -48,9 +48,12 @@ function Init(self)
 	print("logger init")
 	socket.Listen({ip = config.loggerAddr.ip, port = config.loggerAddr.port}, logger, "OnAccept")
 
-	for i = 1, 1024*100 do
-		RUNTIME_LOG:ERROR("a b c fuck,asdfasdf2sdfdsfdsf")
-	end
+	common.TimeDiff("test",function ()
+		for i = 1, 1024*100 do
+			RUNTIME_LOG:ERROR("a b c fuck,asdfasdf2sdfdsfdsf")
+		end
+	end)
+	
 end
 
 function Fina()
