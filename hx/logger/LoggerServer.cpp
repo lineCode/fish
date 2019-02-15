@@ -52,9 +52,9 @@ void LoggerServer::WriteLog(const char* file, const char* source, int line, int 
 
 	fwrite(buff, n + len + 2, 1, F);
 	fflush(F);
-	if ( show_ ) {
-		fwrite(buff, n + len + 2, 1, stderr);
-	}
+	// if ( show_ ) {
+	// 	fwrite(buff, n + len + 2, 1, stderr);
+	// }
 
 	if (buff != stack) {
 		free(buff);
