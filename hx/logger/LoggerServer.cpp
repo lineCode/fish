@@ -1,6 +1,8 @@
 ﻿#include "LoggerServer.h"
 #include "util/format.h"
 #include "time/Timestamp.h"
+#include <string.h>
+#include <stdlib.h>
 #include <assert.h>
 
 static const char kLOG_TAG[] = { 'D', 'I', 'W', 'E'};
@@ -32,7 +34,7 @@ void LoggerServer::WriteLog(const char* file, const char* source, int line, int 
 
 	char date[64] = { 0 };
 	if (decimal != 0) {
-		snprintf(date, 64, "%d-%d-%d %d:%d:%d.%d", stm.tm_year + 1900, stm.tm_mon + 1, stm.tm_mday, stm.tm_hour, stm.tm_min, stm.tm_sec, decimal);
+		snprintf(date, 64, "%d-%d-%d %d:%d:%d.%ld", stm.tm_year + 1900, stm.tm_mon + 1, stm.tm_mday, stm.tm_hour, stm.tm_min, stm.tm_sec, decimal);
 	} else {
 		snprintf(date, 64, "%d-%d-%d %d:%d:%d", stm.tm_year + 1900, stm.tm_mon + 1, stm.tm_mday, stm.tm_hour, stm.tm_min, stm.tm_sec);
 	}
