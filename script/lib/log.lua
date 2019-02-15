@@ -54,7 +54,7 @@ if fish.GetAppName() == "logger" then
 		fish.WriteLog(logger.name, source or "-", line or "0", level, fish.Timestamp(), content)
 	end
 else
-	Flush = function(logger,fm,level,...)
+	Flush = function(logger, fm, level,...)
 		local message = {
 			level = level,
 			time = fish.Timestamp(),

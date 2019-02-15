@@ -192,6 +192,18 @@
     <ClInclude Include="util\utf8.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="util\minheap-adapter.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="util\minheap-internal.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="util\pathfinder\nav\nav.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="util\pathfinder\tile\pathfinder.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="network\Channel.cpp">
@@ -342,6 +354,24 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="util\convert\dtoa.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="lualib\lua-nav.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="lualib\lua-pathfinder.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="util\pathfinder\nav\nav_finder.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="util\pathfinder\nav\nav_loader.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="util\pathfinder\nav\nav_tile.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="util\pathfinder\tile\pathfinder.c">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

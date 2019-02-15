@@ -130,9 +130,13 @@
     <ClInclude Include="util\List.h" />
     <ClInclude Include="util\LuaAllocator.h" />
     <ClInclude Include="util\MemoryStream.h" />
+    <ClInclude Include="util\minheap-adapter.h" />
+    <ClInclude Include="util\minheap-internal.h" />
     <ClInclude Include="util\MiniHeap.h" />
     <ClInclude Include="util\MiniheapT.h" />
     <ClInclude Include="util\ObjectPool.h" />
+    <ClInclude Include="util\pathfinder\nav\nav.h" />
+    <ClInclude Include="util\pathfinder\tile\pathfinder.h" />
     <ClInclude Include="util\PoolObject.h" />
     <ClInclude Include="util\RingBuffer.h" />
     <ClInclude Include="util\Singleton.h" />
@@ -156,6 +160,8 @@
     <ClCompile Include="lualib\json\Schema.cpp" />
     <ClCompile Include="lualib\json\values.cpp" />
     <ClCompile Include="lualib\lua-dump.c" />
+    <ClCompile Include="lualib\lua-nav.c" />
+    <ClCompile Include="lualib\lua-pathfinder.c" />
     <ClCompile Include="lualib\lua-seri.c" />
     <ClCompile Include="lualib\lua-trie.c" />
     <ClCompile Include="lualib\LuaChannel.cpp" />
@@ -188,6 +194,10 @@
     <ClCompile Include="util\LuaAllocator.cpp" />
     <ClCompile Include="util\MemoryStream.cpp" />
     <ClCompile Include="util\MiniHeap.cpp" />
+    <ClCompile Include="util\pathfinder\nav\nav_finder.c" />
+    <ClCompile Include="util\pathfinder\nav\nav_loader.c" />
+    <ClCompile Include="util\pathfinder\nav\nav_tile.c" />
+    <ClCompile Include="util\pathfinder\tile\pathfinder.c" />
     <ClCompile Include="util\RingBuffer.cpp" />
     <ClCompile Include="util\StreamReader.cpp" />
     <ClCompile Include="util\StreamWriter.cpp" />

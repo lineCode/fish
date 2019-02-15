@@ -16,6 +16,7 @@
 
 #ifdef WIN32
 #define inline __inline
+#define snprintf _snprintf
 #endif
 
 struct write_buffer {
