@@ -23,6 +23,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test", "test\test.vcxproj",
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "agent", "agent\agent.vcxproj", "{5CD44988-EB3C-43A5-9ECE-183573F115F2}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "db", "db\db.vcxproj", "{94720D4D-BE85-4E6C-AF59-F23F21DCDDC6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -103,6 +105,14 @@ Global
 		{5CD44988-EB3C-43A5-9ECE-183573F115F2}.Release|Win32.Build.0 = Release|Win32
 		{5CD44988-EB3C-43A5-9ECE-183573F115F2}.RelWithDebInfo|Win32.ActiveCfg = Release|Win32
 		{5CD44988-EB3C-43A5-9ECE-183573F115F2}.RelWithDebInfo|Win32.Build.0 = Release|Win32
+		{94720D4D-BE85-4E6C-AF59-F23F21DCDDC6}.Debug|Win32.ActiveCfg = Debug|Win32
+		{94720D4D-BE85-4E6C-AF59-F23F21DCDDC6}.Debug|Win32.Build.0 = Debug|Win32
+		{94720D4D-BE85-4E6C-AF59-F23F21DCDDC6}.MinSizeRel|Win32.ActiveCfg = Release|Win32
+		{94720D4D-BE85-4E6C-AF59-F23F21DCDDC6}.MinSizeRel|Win32.Build.0 = Release|Win32
+		{94720D4D-BE85-4E6C-AF59-F23F21DCDDC6}.Release|Win32.ActiveCfg = Release|Win32
+		{94720D4D-BE85-4E6C-AF59-F23F21DCDDC6}.Release|Win32.Build.0 = Release|Win32
+		{94720D4D-BE85-4E6C-AF59-F23F21DCDDC6}.RelWithDebInfo|Win32.ActiveCfg = Release|Win32
+		{94720D4D-BE85-4E6C-AF59-F23F21DCDDC6}.RelWithDebInfo|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

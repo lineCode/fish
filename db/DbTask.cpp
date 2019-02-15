@@ -1,7 +1,10 @@
-#include "DbTask.h"
+﻿#include "DbTask.h"
 #include "DbApp.h"
 #include "logger/Logger.h"
 
+#ifdef WIN32
+#define strdup _strdup
+#endif
 DbQueryTask::DbQueryTask(int reference, const char* sql, size_t size) {
 	sql_ = strdup(sql);
 	size_ = size;
