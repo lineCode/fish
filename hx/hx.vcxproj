@@ -162,6 +162,7 @@
     <ClCompile Include="lualib\lua-dump.c" />
     <ClCompile Include="lualib\lua-nav.c" />
     <ClCompile Include="lualib\lua-pathfinder.c" />
+    <ClCompile Include="lualib\lua-pto.c" />
     <ClCompile Include="lualib\lua-seri.c" />
     <ClCompile Include="lualib\lua-trie.c" />
     <ClCompile Include="lualib\LuaChannel.cpp" />

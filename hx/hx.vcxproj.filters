@@ -374,5 +374,8 @@
     <ClCompile Include="util\pathfinder\tile\pathfinder.c">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="lualib\lua-pto.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
