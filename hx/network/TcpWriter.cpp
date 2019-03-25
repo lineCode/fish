@@ -85,7 +85,7 @@ namespace Network {
 		}
 		else {
 			tail_->next_ = wb;
-			wb = tail_;
+			tail_ = wb;
 		}
 	}
 
