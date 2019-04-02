@@ -56,7 +56,6 @@ void HttpChannel::HandleRead() {
 
 	http_parser_execute(&parser_, &ParserSetting, data, total);
 
-
 	if (HTTP_PARSER_ERRNO(&parser_) != HPE_OK) {
 		LOG_ERROR(fmt::format("http parse error:{}", http_errno_name(HTTP_PARSER_ERRNO(&parser_))));
 		Close(true);
@@ -153,6 +152,7 @@ void HttpChannel::Reply(uint32_t code, char* content, size_t size) {
 	}
 
 	Write(message, NULL);
+	Close(false);
 }
 
 int HttpChannel::OnParseBegin(struct http_parser* parser) {
