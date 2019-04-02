@@ -41,7 +41,7 @@ HttpChannel::HttpChannel(Network::EventPoller* poller,int fd):Channel(poller,fd)
 	callback_ = nullptr;
 	userdata_ = nullptr;
 
-	SetReader(new FastReader(32));
+	SetReader(new FastReader(1024));
 	SetWriter(new TcpWriter());
 }
 

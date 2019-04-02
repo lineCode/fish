@@ -3,6 +3,7 @@
 #include "logger/Logger.h"
 #include "network/Acceptor.h"
 #include "network/Connector.h"
+#include "network/FastReader.h"
 #include "network/TcpReader.h"
 #include "network/TcpWriter.h"
 #include "util/MemoryStream.h"
@@ -535,7 +536,7 @@ int LuaFish::BindChannel(lua_State* L) {
     int reference = Ref(L, -1, LUA_TUSERDATA);
 
     LuaChannel* channel = new(ud) LuaChannel(app->Poller(), fd, app->Lua(), header);
-	channel->SetReader(new Network::TcpReader(1024));
+	channel->SetReader(new Network::FastReader(1024));
 	channel->SetWriter(new Network::TcpWriter());
 
     channel->SetReference(reference);
