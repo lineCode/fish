@@ -502,12 +502,11 @@ luaopen_trie(lua_State *L) {
 	lua_setfield(L, -2, "__gc");
 	lua_pop(L, 1);
 
-
-	const luaL_Reg l[] = {
+	const luaL_Reg export[] = {
 		{ "create", lcreate },
 		{ "split_utf8", lsplit },
 		{ NULL, NULL },
 	};
-	luaL_newlib(L, l);
+	luaL_newlib(L, export);
 	return 1;
 }

@@ -19,6 +19,8 @@ public:
 		return used_;
 	}
 
+	static char* GetCache(uint32_t size);
+
 private:
 	char* buff_;
 	uint32_t size_;
@@ -27,8 +29,8 @@ private:
 	uint32_t tail_;
 	uint32_t used_;
 
-	char* cache_;
-	uint32_t cacheSize_;
+	static char* cache_;
+	static uint32_t cacheSize_;
 };
 
 #endif

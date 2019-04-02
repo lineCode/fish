@@ -1,12 +1,15 @@
-#include "FastReader.h"
+﻿#include "FastReader.h"
 #include "Network.h"
 #include <stdlib.h>
 #include <string.h>
 
 namespace Network {
 
-FastReader::FastReader(int size) {
-	buff_ = new RingBuffer(size, 2048);
+FastReader::FastReader(int size, int max) {
+	if (max == 0 || max < size) {
+		max = size * 4;
+	}
+	buff_ = new RingBuffer(size, max);
 }
 
 FastReader::~FastReader() {

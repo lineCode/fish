@@ -3,15 +3,15 @@
 #include <stdlib.h>
 #include <string.h>
 
+char* RingBuffer::cache_ = NULL;
+uint32_t RingBuffer::cacheSize_ = 0;
+
 RingBuffer::RingBuffer(uint32_t min, uint32_t max) {
 	size_ = min;
 	max_ = max;
 	buff_ = (char*)malloc(size_);
 	head_ = tail_ = 0;
 	used_ = 0;
-
-	cache_ = NULL;
-	cacheSize_ = 0;
 }
 
 RingBuffer::~RingBuffer() {
@@ -51,18 +51,12 @@ char* RingBuffer::Read(uint32_t size) {
 
 	char* result = NULL;
 	if (size > size_ - head_) {
-		if (size > cacheSize_) {
-			if (cache_) {
-				free(cache_);
-			}
-			cache_ = (char*)malloc(size);
-			cacheSize_ = size;
-		}
+		char* cache = GetCache(size);
 
 		uint32_t len = size_ - head_;
-		memcpy(cache_, buff_ + head_, len);
-		memcpy(cache_ + len, buff_, size - len);
-		result = cache_;
+		memcpy(cache, buff_ + head_, len);
+		memcpy(cache + len, buff_, size - len);
+		result = cache;
 
 		head_ += size;
 	} else {
@@ -98,4 +92,18 @@ bool RingBuffer::Realloc() {
 	head_ = 0;
 	tail_ = used_;
 	return true;
+}
+
+char* RingBuffer::GetCache(uint32_t size) {
+	if (!cache_) {
+		cache_ = (char*)malloc(size);
+		cacheSize_ = size;
+		return cache_;
+	}
+
+	if ( size > cacheSize_ ) {
+		cache_ = (char*)realloc(cache_, size);
+		cacheSize_ = size;
+	}
+	return cache_;
 }

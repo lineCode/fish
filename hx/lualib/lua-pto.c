@@ -324,7 +324,7 @@ check_array(lua_State* L, writer_t* writer, field_t* f, int index, int vt) {
 	return array_size;
 }
 
-inline void
+inline static void
 pack_bool(lua_State* L, writer_t* writer, field_t* f, int index) {
 	int vt = lua_type(L, index);
 
@@ -353,7 +353,7 @@ pack_bool(lua_State* L, writer_t* writer, field_t* f, int index) {
 	}
 }
 
-inline void
+inline static void
 pack_short(lua_State* L, writer_t* writer, field_t* f, int index) {
 	int vt = lua_type(L, index);
 
@@ -382,7 +382,7 @@ pack_short(lua_State* L, writer_t* writer, field_t* f, int index) {
 	}
 }
 
-inline void
+inline static void
 pack_int(lua_State* L, writer_t* writer, field_t* f, int index) {
 	int vt = lua_type(L, index);
 
@@ -422,7 +422,7 @@ pack_int(lua_State* L, writer_t* writer, field_t* f, int index) {
 	}
 }
 
-inline void
+inline static void
 pack_float(lua_State* L, writer_t* writer, field_t* f, int index) {
 	int vt = lua_type(L, index);
 
@@ -451,7 +451,7 @@ pack_float(lua_State* L, writer_t* writer, field_t* f, int index) {
 	}
 }
 
-inline void
+inline static void
 pack_double(lua_State* L, writer_t* writer, field_t* f, int index) {
 	int vt = lua_type(L, index);
 	if ( f->array ) {
@@ -479,7 +479,7 @@ pack_double(lua_State* L, writer_t* writer, field_t* f, int index) {
 	}
 }
 
-inline void
+inline static void
 pack_string(lua_State* L, writer_t* writer, field_t* f, int index) {
 	int vt = lua_type(L, index);
 	if ( f->array ) {
@@ -521,7 +521,7 @@ pack_string(lua_State* L, writer_t* writer, field_t* f, int index) {
 
 static inline void pack_one(lua_State* L, writer_t* writer, field_t* f, int index, int depth);
 
-void
+inline static void
 pack_field(lua_State* L, writer_t* writer, field_t* parent, int index, int depth) {
 	depth++;
 	if ( depth > MAX_DEPTH ) {
@@ -608,7 +608,7 @@ pack_one(lua_State* L, writer_t* writer, field_t* f, int index, int depth) {
 	}
 }
 
-inline void
+inline static void
 unpack_bool(lua_State* L, reader_t* reader, field_t* f, int index) {
 	if ( f->array ) {
 		int array_size = read_ushort(L, reader);
@@ -628,7 +628,7 @@ unpack_bool(lua_State* L, reader_t* reader, field_t* f, int index) {
 	}
 }
 
-inline void
+inline static void
 unpack_short(lua_State* L, reader_t* reader, field_t* f, int index) {
 	if ( f->array ) {
 		int array_size = read_ushort(L, reader);
@@ -648,7 +648,7 @@ unpack_short(lua_State* L, reader_t* reader, field_t* f, int index) {
 	}
 }
 
-inline void
+inline static void
 unpack_int(lua_State* L, reader_t* reader, field_t* f, int index) {
 	if ( f->array ) {
 		int array_size = read_ushort(L, reader);
@@ -668,7 +668,7 @@ unpack_int(lua_State* L, reader_t* reader, field_t* f, int index) {
 	}
 }
 
-inline void
+inline static void
 unpack_float(lua_State* L, reader_t* reader, field_t* f, int index) {
 	if ( f->array ) {
 		int array_size = read_ushort(L, reader);
@@ -688,7 +688,7 @@ unpack_float(lua_State* L, reader_t* reader, field_t* f, int index) {
 	}
 }
 
-inline void
+inline static void
 unpack_double(lua_State* L, reader_t* reader, field_t* f, int index) {
 	if ( f->array ) {
 		int array_size = read_ushort(L, reader);
@@ -708,7 +708,7 @@ unpack_double(lua_State* L, reader_t* reader, field_t* f, int index) {
 	}
 }
 
-inline void
+inline static void
 unpack_string(lua_State* L, reader_t* reader, field_t* f, int index) {
 	if ( f->array ) {
 		int array_size = read_ushort(L, reader);

@@ -4,6 +4,7 @@
 #include <stdint.h>
 
 #include "network/Writer.h"
+#define NULL 0
 
 namespace Network {
 
