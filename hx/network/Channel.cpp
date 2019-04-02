@@ -80,7 +80,6 @@ namespace Network {
 		assert(reader_ != NULL);
 
 		if (reader_->Read(fd_) < 0) {
-			state_ = eError;
 			Clean();
 			this->HandleError();
 		} else  {
@@ -89,11 +88,11 @@ namespace Network {
 	}
 
 	void Channel::OnWrite(ev::io &wio, int wevents) {
-		if ( wevents & EV_ERROR ) {
+		if (wevents & EV_ERROR) {
 			return;
 		}
 
-		if (state_ == eError || state_ == eInvalid)
+		if (state_ == eInvalid)
 			return;
 		
 		int result = writer_->Write(fd_);
@@ -106,7 +105,6 @@ namespace Network {
 				HandleWrite();
 			}
 		} else if (result < 0) {
-			state_ = eError;
 			Clean();
 			HandleError();
 		}
@@ -144,7 +142,7 @@ namespace Network {
 		if (!wio_.is_active()) {
 			int result = writer_->Write(fd_);
 			if (result < 0) {
-				state_ = eError;
+				Clean();
 				this->HandleError();
 				return -1;
 			}

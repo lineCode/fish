@@ -119,7 +119,6 @@ namespace Network {
 		else {
 			CLIENT_MGR->DeleteClient(vid_);
 			CLIENT_MGR->MarkClientDead(this);
-
 		}
 
 		OOLUA::Script& script = CLIENT_MGR->GetApp()->Lua()->GetScript();

@@ -15,17 +15,32 @@ namespace Network {
 		uint32_t* reference_;
 		WriterBuffer* next_;
 
-		WriterBuffer();
+		WriterBuffer() {
+			Reset();
+		}
 
-		~WriterBuffer();
+		~WriterBuffer() {
+		}
 
-		void* Begin();
+		void* Begin() {
+			return (void*)( (char*)data_ + offset_ );
+		}
 
-		void Skip(int offset);
+		void Skip(int offset) {
+			offset_ += offset;
+		}
 
-		void Reset();
+		void Reset() {
+			data_ = NULL;
+			size_ = 0;
+			offset_ = 0;
+			reference_ = NULL;
+			next_ = NULL;
+		}
 
-		int Writable();
+		int Writable() {
+			return size_ - offset_;
+		}
 	};
 
 	class TcpWriter : public Writer {
@@ -40,13 +55,10 @@ namespace Network {
 		virtual void Append(void* data, int size, uint32_t* reference);
 
 	private:
-		bool Empty();
 
 		WriterBuffer* AllocBuffer();
 
-		WriterBuffer* Front();
-
-		void RemoveFront();
+		void Remove();
 
 		void FreeBuffer(WriterBuffer* buffer);
 

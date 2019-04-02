@@ -2,31 +2,6 @@
 #include "Network.h"
 
 namespace Network {
-
-	WriterBuffer::WriterBuffer() :size_(0), offset_(0), data_(NULL), reference_(NULL), next_(NULL) {
-	}
-
-	WriterBuffer::~WriterBuffer() {
-	}
-
-	void* WriterBuffer::Begin() {
-		return (void*)( (char*)data_ + offset_ );
-	}
-
-	void WriterBuffer::Skip(int offset) {
-		offset_ += offset;
-	}
-
-	void WriterBuffer::Reset() {
-		data_ = NULL;
-		size_ = 0;
-		offset_ = 0;
-		next_ = NULL;
-	}
-	int WriterBuffer::Writable() {
-		return size_ - offset_;
-	}
-
 	TcpWriter::TcpWriter() {
 		head_ = tail_ = freelist_ = NULL;
 	}
@@ -55,11 +30,11 @@ namespace Network {
 
 	int TcpWriter::Write(int fd) {
 		WriterBuffer* wb = NULL;
-		while ( ( wb = Front() ) != NULL ) {
+		while ( ( wb = head_ ) != NULL ) {
 			int n = Network::SocketTcpWrite(fd, (const char*)wb->Begin(), wb->Writable());
 			if ( n >= 0 ) {
 				if ( n == wb->Writable() ) {
-					RemoveFront();
+					Remove();
 				}
 				else {
 					wb->Skip(n);
@@ -89,10 +64,6 @@ namespace Network {
 		}
 	}
 
-	bool TcpWriter::Empty() {
-		return head_ == NULL;
-	}
-
 	WriterBuffer* TcpWriter::AllocBuffer() {
 		if ( freelist_ == NULL ) {
 			WriterBuffer* buffer = new WriterBuffer();
@@ -104,11 +75,7 @@ namespace Network {
 		return buffer;
 	}
 
-	WriterBuffer* TcpWriter::Front() {
-		return head_;
-	}
-
-	void TcpWriter::RemoveFront() {
+	void TcpWriter::Remove() {
 		assert(head_ != NULL);
 		WriterBuffer* wb = head_;
 		head_ = head_->next_;
