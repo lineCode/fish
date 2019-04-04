@@ -1,5 +1,5 @@
 local pto = require "pto"
-
+local trie = require "trie"
 
 local function GetTag( t )
     local str = type(t)
@@ -54,20 +54,40 @@ function Dump(data, prefix, depth, output, record)
     end
 end
 
+local PDemo = {
+     fields = {
+    {
+        type = 1,
+        array = true,
+        name = "a"
+    },
+    {
+        type = 5,
+        array = false,
+        name = "b"
+    },
+}
+}
+
 local PTest = {
 	fields = {
-	{
-		type = 1,
-		array = true,
-		name = "a"
-	},
-	{
-		type = 5,
-		array = false,
-		name = "b"
-	},
-	
-	}
+    	{
+    		type = 1,
+    		array = true,
+    		name = "a"
+    	},
+    	{
+    		type = 5,
+    		array = false,
+    		name = "b"
+    	},
+        {
+    	   type = 6,
+           array = false,
+           name = "c",
+           fields = PDemo.fields
+    	}
+    }   
 }
 
 
@@ -75,8 +95,13 @@ local ctx = pto.new()
 
 ctx:import(1, "test", PTest)
 
-local str = ctx:encode(1,{a = {1,1,"a",ddd = "11"}, b = "mrq",c = "Dsdf"})
+local str = ctx:encode(1,{a = {1,1,2,ddd = "11"}, b = "mrq",c = {a = {{},4},b = "hx"}})
 
 local result = ctx:decode(1, str)
 
 Dump(result)
+
+
+local ctx = trie.create()
+
+Dump(trie.split_utf8("我是"))

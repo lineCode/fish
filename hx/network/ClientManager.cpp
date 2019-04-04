@@ -249,10 +249,10 @@ namespace Network {
 		luaL_checkversion(L);
 
 		luaL_Reg methods[] = {
-			{ "Stop", ClientManager::LStop },
-			{ "Send", ClientManager::LSendClient },
-			{ "Broadcast", ClientManager::LBroadcastClient },
-			{ "Close", ClientManager::LCloseClient },
+			{ "Stop", ClientManager::LuaStop },
+			{ "Send", ClientManager::LuaSendClient },
+			{ "Broadcast", ClientManager::LuaBroadcastClient },
+			{ "Close", ClientManager::LuaCloseClient },
 			{ NULL, NULL },
 		};
 
@@ -262,7 +262,7 @@ namespace Network {
 		return 1;
 	}
 
-	int ClientManager::LStop(lua_State* L) {
+	int ClientManager::LuaStop(lua_State* L) {
 		CLIENT_MGR->Stop();
 		return 0;
 	}
@@ -294,7 +294,7 @@ namespace Network {
 		return data;
 	}
 
-	int ClientManager::LSendClient(lua_State* L) {
+	int ClientManager::LuaSendClient(lua_State* L) {
 		int vid = luaL_checkinteger(L, 1);
 
 		size_t size;
@@ -304,7 +304,7 @@ namespace Network {
 		return 0;
 	}
 
-	int ClientManager::LBroadcastClient(lua_State* L) {
+	int ClientManager::LuaBroadcastClient(lua_State* L) {
 		luaL_checktype(L, 1, LUA_TTABLE);
 
 		size_t size;
@@ -323,7 +323,7 @@ namespace Network {
 		return 0;
 	}
 
-	int ClientManager::LCloseClient(lua_State* L) {
+	int ClientManager::LuaCloseClient(lua_State* L) {
 		int vid = luaL_checkinteger(L, 1);
 		CLIENT_MGR->CloseClient(vid);
 		return 0;

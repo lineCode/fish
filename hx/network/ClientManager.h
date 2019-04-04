@@ -64,13 +64,13 @@ namespace Network {
 
 		static int Register(lua_State* L);
 
-		static int LStop(lua_State* L);
+		static int LuaStop(lua_State* L);
 
-		static int LSendClient(lua_State* L);
+		static int LuaSendClient(lua_State* L);
 
-		static int LBroadcastClient(lua_State* L);
+		static int LuaBroadcastClient(lua_State* L);
 
-		static int LCloseClient(lua_State* L);
+		static int LuaCloseClient(lua_State* L);
 
 	private:
 		ServerApp* app_;

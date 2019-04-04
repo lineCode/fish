@@ -9,30 +9,43 @@ rpcId_ = rpcId_ or nil
 rpcName_ = rpcName_ or nil
 
 channelCtx_ = channelCtx_ or {}
-channelMap_ = channelMap_ or {}
 
-loginChannel_ = loginChannel_ or nil
-worldChannel_ = worldChannel_ or nil
+agentMgrChannel_ = agentMgrChannel_ or nil
+sceneMgrChannel_ = sceneMgrChannel_ or nil
+
+loginChannelCtx_ = loginChannelCtx_ or {}
+agentChannelCtx_ = agentChannelCtx_ or {}
+sceneChannelCtx_ = sceneChannelCtx_ or {}
 
 local function AddChannel(id, name, channel)
-	if name == "login" then
-		loginChannel_ = channel
-	elseif name == "world" then
-		worldChannel_ = channel
+	if name == "agentMgr" then
+		agentMgrChannel_ = channel
+	elseif name == "sceneMgr" then
+		sceneMgrChannel_ = channel
+	elseif name == "login" then
+		loginChannelCtx_[id] = channel
+	elseif name == "agent" then
+		agentChannelCtx_[id] = channel
+	elseif name == "scene" then
+		sceneChannelCtx_[id] = channel
 	end
 
-	channelMap_[id] = channel
 	channelCtx_[channel] = {id = id, name = name, sessionCtx = {}}
 end
 
 local function RemoveChannel(channel)
 	local ctx = channelCtx_[channel]
 	channelCtx_[channel] = nil
-	channelMap_[ctx.id] = nil
-	if channel == loginChannel_ then
-		loginChannel_ = nil
-	elseif channel == worldChannel_ then
-		worldChannel_ = nil
+	if channel.name == "agentMgr" then
+		agentMgrChannel_ = nil
+	elseif channel.name == "sceneMgr" then
+		sceneMgrChannel_ = nil
+	elseif channel.name == "login" then
+		loginChannelCtx_[channel.id] = nil
+	elseif channel.name == "agent" then
+		agentChannelCtx_[channel.id] = nil
+	elseif channel.name == "scene" then
+		sceneChannelCtx_[channel.id] = nil
 	end
 
 	local sessionList = {}
@@ -195,28 +208,54 @@ function Register(self, args, channel)
 	return {id = rpcId_, name = rpcName_}
 end
 
-function Send(self, id, method, args, callback)
-	local channel = channelMap_[id]
-	SendChannel(channel, method, args, callback)
+function SendAgentMgr(self, method, args, callback)
+	if not agentMgrChannel_ then
+		error("not connect agent mgr")
+	end
+	SendChannel(agentMgrChannel_, method, args, callback)
 end
 
-function Call(self, id, method, args)
-	local channel = channelMap_[id]
-	return CallChannel(channel, method, args)
+function CallAgentMgr(self, method, args)
+	if not agentMgrChannel_ then
+		error("not connect agent mgr")
+	end
+	return CallChannel(agentMgrChannel_, method, args)
 end
 
-function SendLogin(self, method, args, callback)
+function SendSceneMgr(self, method, args, callback)
+	if not sceneMgrChannel_ then
+		error("not connect scene mgr")
+	end
+	SendChannel(sceneMgrChannel_, method, args, callback)
+end
+
+function CallSceneMgr(self, method, args)
+	if not sceneMgrChannel_ then
+		error("not connect scene mgr")
+	end
+	return CallChannel(sceneMgrChannel_, method, args)
+end
+
+function SendLogin(self, id, method, args, callback)
 	SendChannel(loginChannel_, method, args, callback)
 end
 
-function CallLogin(self, method, args)
+function CallLogin(self, id, method, args)
 	return CallChannel(loginChannel_, method, args)
 end
 
-function SendWorld(self, method, args, callback)
+function SendAgent(self, method, args, callback)
 	SendChannel(worldChannel_, method, args, callback)
 end
 
-function CallWorld(self, method, args)
+function CallAgent(self, method, args)
+	return CallChannel(worldChannel_, method, args)
+end
+
+function SendScene(self, method, args, callback)
+	SendChannel(worldChannel_, method, args, callback)
+end
+
+function CallScene(self, method, args)
 	return CallChannel(worldChannel_, method, args)
 end
