@@ -17,13 +17,13 @@ public:
 
 	void SetCallback(int callback);
 	
-	static int LGetUrl(lua_State* L);
-	static int LGetHeader(lua_State* L);
-	static int LGetContent(lua_State* L);
-	static int LSetReplyHeader(lua_State* L);
-	static int LReply(lua_State* L);
-	static int LClose(lua_State* L);
-	static int LRelease(lua_State* L);
+	static int LuaGetUrl(lua_State* L);
+	static int LuaGetHeader(lua_State* L);
+	static int LuaGetContent(lua_State* L);
+	static int LuaSetReplyHeader(lua_State* L);
+	static int LuaReply(lua_State* L);
+	static int LuaClose(lua_State* L);
+	static int LuaRelease(lua_State* L);
 private:
 	LuaFish* lua_;
 	int reference_;

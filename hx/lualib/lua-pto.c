@@ -825,7 +825,7 @@ get_protocol(lua_State* L, struct context* ctx) {
 }
 
 int
-lencode_protocol(lua_State* L) {
+lencode_pto(lua_State* L) {
 	struct context* ctx = lua_touserdata(L, 1);
 	protocol_t* pto = get_protocol(L, ctx);
 	luaL_checktype(L, 3, LUA_TTABLE);
@@ -851,7 +851,7 @@ lencode_protocol(lua_State* L) {
 }
 
 int
-ldecode_protocol(lua_State* L) {
+ldecode_pto(lua_State* L) {
 	struct context* ctx = lua_touserdata(L, 1);
 	protocol_t* pto = get_protocol(L, ctx);
 
@@ -911,7 +911,7 @@ str_alloc(struct context* ctx, const char* str, size_t size) {
 }
 
 protocol_t*
-create_protocol(struct context* ctx, int id, char* name, size_t size) {
+create_pto(struct context* ctx, int id, char* name, size_t size) {
 	protocol_t* pto = malloc(sizeof( *pto ));
 	memset(pto, 0, sizeof( *pto ));
 	pto->name = str_alloc(ctx, name, size);
@@ -1020,7 +1020,7 @@ import_field(lua_State* L, struct context* ctx, struct field_parent* parent, int
 }
 
 int
-limport_protocol(lua_State* L) {
+limport_pto(lua_State* L) {
 	struct context* ctx = lua_touserdata(L, 1);
 	int id = lua_tointeger(L, 2);
 	size_t size;
@@ -1033,7 +1033,7 @@ limport_protocol(lua_State* L) {
 
 	luaL_checkstack(L, MAX_DEPTH * 2 + 8, NULL);
 
-	protocol_t* pto = create_protocol(ctx, id, (char*)name, size + 1);
+	protocol_t* pto = create_pto(ctx, id, (char*)name, size + 1);
 	int depth = 0;
 	lua_getfield(L, -1, "fields");
 	if ( !lua_isnil(L, -1) ) {
@@ -1049,7 +1049,7 @@ limport_protocol(lua_State* L) {
 }
 
 int
-llist_protocol(lua_State* L) {
+llist_pto(lua_State* L) {
 	struct context* ctx = lua_touserdata(L, 1);
 	lua_newtable(L);
 	int i;
@@ -1086,7 +1086,7 @@ dump_nest(lua_State* L, field_t* parent) {
 }
 
 int
-ldump_protocol(lua_State* L) {
+ldump_pto(lua_State* L) {
 	struct context* ctx = lua_touserdata(L, 1);
 	protocol_t* pto = get_protocol(L, ctx);
 
@@ -1179,16 +1179,16 @@ lcontext_new(lua_State* L) {
 	lua_settop(ctx->L, 0);
 	lua_newtable(ctx->L);
 
-	if ( luaL_newmetatable(L, "meta_protocol") ) {
-		const luaL_Reg meta[] = {
-			{ "encode", lencode_protocol },
-			{ "decode", ldecode_protocol },
-			{ "import", limport_protocol },
-			{ "list", llist_protocol },
-			{ "dump", ldump_protocol },
+	if ( luaL_newmetatable(L, "meta_pto") ) {
+		const luaL_Reg method[] = {
+			{ "encode", lencode_pto },
+			{ "decode", ldecode_pto },
+			{ "import", limport_pto },
+			{ "list", llist_pto },
+			{ "dump", ldump_pto },
 			{ NULL, NULL },
 		};
-		luaL_newlib(L, meta);
+		luaL_newlib(L, method);
 		lua_setfield(L, -2, "__index");
 
 		lua_pushcfunction(L, lcontext_release);

@@ -1,5 +1,8 @@
 ﻿#include "LuaChannel.h"
 #include "logger/Logger.h"
+#include "network/FastReader.h"
+#include "network/TcpReader.h"
+#include "network/TcpWriter.h"
 
 #define MAX_MESSAGE_SIZE (16*1024*1024)
 
@@ -11,10 +14,21 @@ LuaChannel::LuaChannel(Network::EventPoller* poller,int fd, LuaFish* lua, uint32
 	dataReference_ = LUA_NOREF;
 	closeReference_ = LUA_NOREF;
 	errorReference_ = LUA_NOREF;
+
+	SetReader(new Network::FastReader(1024, 1024 * 1024));
+	SetWriter(new Network::TcpWriter());
 }
 
 LuaChannel::~LuaChannel() {
 
+}
+
+void LuaChannel::UnRefAll() {
+	lua_State* L = lua_->GetScript().state();
+	luaL_unref(L, LUA_REGISTRYINDEX, reference_);
+	luaL_unref(L, LUA_REGISTRYINDEX, dataReference_);
+	luaL_unref(L, LUA_REGISTRYINDEX, closeReference_);
+	luaL_unref(L, LUA_REGISTRYINDEX, errorReference_);
 }
 
 void LuaChannel::HandleRead() {
@@ -28,6 +42,7 @@ void LuaChannel::HandleRead() {
 		}
 		return;
 	} 
+
 	while(IsAlive()) {
 		if (need_ == 0) {
 			if ( reader_->GetTotal() < (int)header_ ) {
@@ -53,8 +68,7 @@ void LuaChannel::HandleRead() {
 				break;
 			}
 
-			char* data = (char*)malloc(need_);
-			reader_->ReadData(data, need_);
+			char* data = reader_->ReadData(need_);
 			
 			lua_rawgeti(L, LUA_REGISTRYINDEX, dataReference_);
 			lua_rawgeti(L, LUA_REGISTRYINDEX, reference_);
@@ -66,7 +80,6 @@ void LuaChannel::HandleRead() {
 			}
 
 			need_ = 0;
-			free(data);
 		}
 	}
 }
@@ -78,10 +91,7 @@ void LuaChannel::HandleClose() {
 	if (LUA_OK != lua_pcall(L, 1, 0, 0)) {
 		LOG_ERROR(fmt::format("HandleClose error:{}", lua_tostring(L, -1)));
 	}
-	luaL_unref(L, LUA_REGISTRYINDEX, reference_);
-	luaL_unref(L, LUA_REGISTRYINDEX, dataReference_);
-	luaL_unref(L, LUA_REGISTRYINDEX, closeReference_);
-	luaL_unref(L, LUA_REGISTRYINDEX, errorReference_);
+	UnRefAll();
 }
 
 void LuaChannel::HandleError() {
@@ -92,10 +102,7 @@ void LuaChannel::HandleError() {
 	if (LUA_OK != lua_pcall(L, 1, 0, 0)) {
 		LOG_ERROR(fmt::format("HandleError error:{}", lua_tostring(L, -1)));
 	}
-	luaL_unref(L, LUA_REGISTRYINDEX, reference_);
-	luaL_unref(L, LUA_REGISTRYINDEX, dataReference_);
-	luaL_unref(L, LUA_REGISTRYINDEX, closeReference_);
-	luaL_unref(L, LUA_REGISTRYINDEX, errorReference_);
+	UnRefAll();
 }
 
 void LuaChannel::SetReference(int reference) {
@@ -130,7 +137,7 @@ int LuaChannel::GetErrorReference() {
 	return errorReference_;
 }
 
-int LuaChannel::LRead(lua_State* L) {
+int LuaChannel::LuaRead(lua_State* L) {
 	LuaChannel* channel = (LuaChannel*)lua_touserdata(L, 1);
 	int size = luaL_optinteger(L, 2, 0);
 
@@ -151,7 +158,7 @@ int LuaChannel::LRead(lua_State* L) {
 	return 1;
 }
 
-int LuaChannel::LWrite(lua_State* L) {
+int LuaChannel::LuaWrite(lua_State* L) {
 	LuaChannel* channel = (LuaChannel*)lua_touserdata(L, 1);
 	int header = luaL_optinteger(L, 2, 0);
 	int vt = lua_type(L, 3);
@@ -212,14 +219,14 @@ int LuaChannel::LWrite(lua_State* L) {
 	return 1;
 }
 
-int LuaChannel::LClose(lua_State* L) {
+int LuaChannel::LuaClose(lua_State* L) {
 	LuaChannel* channel = (LuaChannel*)lua_touserdata(L, 1);
 	bool rightnow = luaL_optinteger(L, 2, 1);
 	channel->Close(rightnow);
 	return 0;
 }
 
-int LuaChannel::LRelease(lua_State* L) {
+int LuaChannel::LuaRelease(lua_State* L) {
 	LuaChannel* channel = (LuaChannel*)lua_touserdata(L, 1);
 	channel->~LuaChannel();
 	return 0;

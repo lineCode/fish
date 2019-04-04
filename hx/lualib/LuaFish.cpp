@@ -3,9 +3,6 @@
 #include "logger/Logger.h"
 #include "network/Acceptor.h"
 #include "network/Connector.h"
-#include "network/FastReader.h"
-#include "network/TcpReader.h"
-#include "network/TcpWriter.h"
 #include "util/MemoryStream.h"
 #include "time/Timestamp.h"
 #include "LuaChannel.h"
@@ -52,23 +49,23 @@ int LuaFish::Init(ServerApp* app) {
 	CreateMetaTable("metaConnector", metaConnector, LuaFish::ConnectorRelease);
 
     const luaL_Reg metaChannel[] = {
-        { "Read", LuaChannel::LRead },
-        { "Write", LuaChannel::LWrite },
-        { "Close", LuaChannel::LClose },
+        { "Read", LuaChannel::LuaRead },
+		{ "Write", LuaChannel::LuaWrite },
+		{ "Close", LuaChannel::LuaClose },
 		{ NULL, NULL },
     };
-    CreateMetaTable("metaChannel", metaChannel, LuaChannel::LRelease);
+	CreateMetaTable("metaChannel", metaChannel, LuaChannel::LuaRelease);
 
     const luaL_Reg metaHttpChannel[] = {
-        { "GetUrl", LuaHttpChannel::LGetUrl },
-        { "GetHeader", LuaHttpChannel::LGetHeader },
-        { "GetContent", LuaHttpChannel::LGetContent },
-        { "SetHeader", LuaHttpChannel::LSetReplyHeader },
-        { "Reply", LuaHttpChannel::LReply },
-        { "Close", LuaHttpChannel::LClose },
+		{ "GetUrl", LuaHttpChannel::LuaGetUrl },
+		{ "GetHeader", LuaHttpChannel::LuaGetHeader },
+		{ "GetContent", LuaHttpChannel::LuaGetContent },
+		{ "SetHeader", LuaHttpChannel::LuaSetReplyHeader },
+		{ "Reply", LuaHttpChannel::LuaReply },
+		{ "Close", LuaHttpChannel::LuaClose },
 		{ NULL, NULL },
     };
-    CreateMetaTable("metaHttpChannel", metaHttpChannel, LuaHttpChannel::LRelease);
+	CreateMetaTable("metaHttpChannel", metaHttpChannel, LuaHttpChannel::LuaRelease);
 	return 0;
 }
 
@@ -246,8 +243,8 @@ int LuaFish::Register(lua_State* L) {
 		{ "UnPack", luaseri_unpack},
 		{ "StartTimer", LuaFish::TimerStart},
 		{ "CancelTimer", LuaFish::TimerCancel},
-		{ "Listen", LuaFish::AcceptorListen},
-		{ "Connect", LuaFish::ConnectorConnect},
+		{ "Listen", LuaFish::Listen},
+		{ "Connect", LuaFish::Connect},
 		{ "Bind", LuaFish::BindChannel},
 		{ "BindHttp", LuaFish::BindHttpChannel },
 		{ NULL, NULL },
@@ -445,16 +442,16 @@ Network::Addr MakeAddr(lua_State* L, int index) {
 	return addr;
 }
 
-int LuaFish::AcceptorListen(lua_State* L) {
+int LuaFish::Listen(lua_State* L) {
 	ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
 	Network::Addr addr = MakeAddr(L, 1);
 	int callback = Ref(L, 2, LUA_TFUNCTION);
 
-	void* ud = lua_newuserdata(L, sizeof(Network::Acceptor));
+	void* userdata = lua_newuserdata(L, sizeof(Network::Acceptor));
 	luaL_newmetatable(L, "metaAcceptor");
     lua_setmetatable(L, -2);
 
-	Network::Acceptor* acceptor = new(ud) Network::Acceptor(app->Poller());
+	Network::Acceptor* acceptor = new(userdata)Network::Acceptor(app->Poller());
 
 	acceptor->SetCallback(std::bind(&LuaFish::OnAccept, app->Lua(), _1, _2, _3));
 	acceptor->SetUserdata((void*)(long)callback);
@@ -480,16 +477,16 @@ int LuaFish::AcceptorRelease(lua_State* L) {
 	return 0;
 }
 
-int LuaFish::ConnectorConnect(lua_State* L) {
+int LuaFish::Connect(lua_State* L) {
 	ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
 	Network::Addr addr = MakeAddr(L, 1);
 	int callback = Ref(L, 2, LUA_TFUNCTION);
 
-	void* ud = lua_newuserdata(L, sizeof(Network::Connector));
+	void* userdata = lua_newuserdata(L, sizeof( Network::Connector ));
 	luaL_newmetatable(L, "metaConnector");
     lua_setmetatable(L, -2);
 
-    Network::Connector* connector = new(ud) Network::Connector(app->Poller());
+	Network::Connector* connector = new(userdata)Network::Connector(app->Poller());
 
     connector->SetCallback(std::bind(&LuaFish::OnConnect, app->Lua(), _1, _2, _3));
 	connector->SetUserdata((void*)(long)callback);
@@ -527,7 +524,7 @@ int LuaFish::BindChannel(lua_State* L) {
 	int close = Ref(L, -1, LUA_TFUNCTION);
 	int data = Ref(L, -1, LUA_TFUNCTION);
 
-	void* ud = lua_newuserdata(L, sizeof(LuaChannel));
+	void* userdata = lua_newuserdata(L, sizeof( LuaChannel ));
 	luaL_newmetatable(L, "metaChannel");
     lua_setmetatable(L, -2);
 
@@ -535,9 +532,7 @@ int LuaFish::BindChannel(lua_State* L) {
 
     int reference = Ref(L, -1, LUA_TUSERDATA);
 
-    LuaChannel* channel = new(ud) LuaChannel(app->Poller(), fd, app->Lua(), header);
-	channel->SetReader(new Network::FastReader(1024));
-	channel->SetWriter(new Network::TcpWriter());
+	LuaChannel* channel = new(userdata)LuaChannel(app->Poller(), fd, app->Lua(), header);
 
     channel->SetReference(reference);
     channel->SetDataReference(data);
@@ -554,14 +549,14 @@ int LuaFish::BindHttpChannel(lua_State* L) {
 	int fd = luaL_checkinteger(L, 1);
 	int callback = Ref(L, 2, LUA_TFUNCTION);
 
-	void* ud = lua_newuserdata(L, sizeof( LuaHttpChannel ));
+	void* userdata = lua_newuserdata(L, sizeof( LuaHttpChannel ));
 	luaL_newmetatable(L, "metaHttpChannel");
 	lua_setmetatable(L, -2);
 
 	lua_pushvalue(L, -1);
 	int reference = Ref(L, -1, LUA_TUSERDATA);
 
-	LuaHttpChannel* channel = new(ud)LuaHttpChannel(app->Poller(), fd, app->Lua());
+	LuaHttpChannel* channel = new(userdata)LuaHttpChannel(app->Poller(), fd, app->Lua());
 
 	channel->SetReference(reference);
 	channel->SetCallback(callback);

@@ -82,13 +82,13 @@ public:
 
 	static int TimerCancel(lua_State* L);
 	
-	static int AcceptorListen(lua_State* L);
+	static int Listen(lua_State* L);
 
 	static int AcceptorClose(lua_State* L);
 
 	static int AcceptorRelease(lua_State* L);
 
-	static int ConnectorConnect(lua_State* L);
+	static int Connect(lua_State* L);
 
 	static int ConnectorClose(lua_State* L);
 

@@ -1,4 +1,4 @@
-#ifndef LUA_CHANNEL_H
+﻿#ifndef LUA_CHANNEL_H
 #define LUA_CHANNEL_H
 
 #include "network/Channel.h"
@@ -8,6 +8,8 @@ public:
 	LuaChannel(Network::EventPoller* poller,int fd, LuaFish* lua, uint32_t header);
 
 	virtual ~LuaChannel();
+
+	void UnRefAll();
 
 	virtual void HandleRead();
 	virtual void HandleClose();
@@ -25,10 +27,10 @@ public:
 	void SetErrorReference(int reference);
 	int GetErrorReference();
 	
-	static int LRead(lua_State* L);
-	static int LWrite(lua_State* L);
-	static int LClose(lua_State* L);
-	static int LRelease(lua_State* L);
+	static int LuaRead(lua_State* L);
+	static int LuaWrite(lua_State* L);
+	static int LuaClose(lua_State* L);
+	static int LuaRelease(lua_State* L);
 private:
 	LuaFish* lua_;
 	uint32_t header_;

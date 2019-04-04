@@ -47,14 +47,14 @@ void LuaHttpChannel::SetCallback(int callback) {
 	callback_ = callback;
 }
 
-int LuaHttpChannel::LGetUrl(lua_State* L) {
+int LuaHttpChannel::LuaGetUrl(lua_State* L) {
 	LuaHttpChannel* channel = (LuaHttpChannel*)lua_touserdata(L, 1);
 	std::string url = channel->GetUrl();
 	lua_pushlstring(L, url.c_str(), url.length());
 	return 1;
 }
 
-int LuaHttpChannel::LGetHeader(lua_State* L) {
+int LuaHttpChannel::LuaGetHeader(lua_State* L) {
 	LuaHttpChannel* channel = (LuaHttpChannel*)lua_touserdata(L, 1);
 	HttpChannel::HeadersMap& headers = channel->GetHeader();
 	HttpChannel::HeadersMap::iterator iter = headers.begin();
@@ -72,14 +72,14 @@ int LuaHttpChannel::LGetHeader(lua_State* L) {
 	return 1;
 }
 
-int LuaHttpChannel::LGetContent(lua_State* L) {
+int LuaHttpChannel::LuaGetContent(lua_State* L) {
 	LuaHttpChannel* channel = (LuaHttpChannel*)lua_touserdata(L, 1);
 	std::string content = channel->GetContent();
 	lua_pushlstring(L, content.c_str(), content.length());
 	return 1;
 }
 
-int LuaHttpChannel::LSetReplyHeader(lua_State* L) {
+int LuaHttpChannel::LuaSetReplyHeader(lua_State* L) {
 	LuaHttpChannel* channel = (LuaHttpChannel*)lua_touserdata(L, 1);
 	const char* field = luaL_checkstring(L, 2);
 	const char* value = luaL_checkstring(L, 3);
@@ -87,7 +87,7 @@ int LuaHttpChannel::LSetReplyHeader(lua_State* L) {
 	return 0;
 }
 
-int LuaHttpChannel::LReply(lua_State* L) {
+int LuaHttpChannel::LuaReply(lua_State* L) {
 	LuaHttpChannel* channel = (LuaHttpChannel*)lua_touserdata(L, 1);
 	int code = luaL_checkinteger(L, 2);
 	size_t size;
@@ -96,14 +96,14 @@ int LuaHttpChannel::LReply(lua_State* L) {
 	return 0;
 }
 
-int LuaHttpChannel::LClose(lua_State* L) {
+int LuaHttpChannel::LuaClose(lua_State* L) {
 	LuaHttpChannel* channel = (LuaHttpChannel*)lua_touserdata(L, 1);
 	bool rightnow = luaL_optinteger(L, 2, 1);
 	channel->Close(rightnow);
 	return 0;
 }
 
-int LuaHttpChannel::LRelease(lua_State* L) {
+int LuaHttpChannel::LuaRelease(lua_State* L) {
 	LuaHttpChannel* channel = (LuaHttpChannel*)lua_touserdata(L, 1);
 	channel->~LuaHttpChannel();
 	return 0;
