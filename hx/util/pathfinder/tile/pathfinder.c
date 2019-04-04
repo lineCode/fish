@@ -742,11 +742,11 @@ finder_random_in_circle(struct pathfinder * finder, int cx, int cz, int radius, 
 			int i;
 			for ( i = 0; i < 8; i++ ) {
 				node_t* node = find_node(finder, cx + range[i][0], cz + range[i][1]);
-				if (node && node->recorded == 0) {
-					node->recorded = 1;
-		
-					if (!isblock(finder, node))
+				if (node && !isblock(finder, node)) {
+					if (node->recorded == 0) {
+						node->recorded = 1;
 						node_index[index++] = node->index;
+					}
 				}
 			}
 		}
@@ -775,6 +775,7 @@ finder_random_in_circle(struct pathfinder * finder, int cx, int cz, int radius, 
 		node_t* node = &finder->node[node_index[i]];
 		node->recorded = 0;
 	}
+	
 	free(node_index);
 	return 0;
 }
