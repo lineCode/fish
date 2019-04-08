@@ -29,6 +29,8 @@ public:
 
 	virtual void OnStop();
 
+	virtual void OnLuaBreak();
+
 	virtual uint64_t Now();
 
 	virtual LuaFish* Lua();
@@ -54,8 +56,10 @@ protected:
 	std::string name_;
 	bool stop_;
 
-	ev::sig signalTERM_;
-	ev::sig signalINT_;
+#ifndef WIN32
+	ev::sig sigUSR1_;
+#endif
+	ev::sig sigTERM_;
 };
 
 #endif

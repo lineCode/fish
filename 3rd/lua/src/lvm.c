@@ -1,4 +1,4 @@
-/*
+﻿/*
 ** $Id: lvm.c,v 2.268 2016/02/05 19:59:14 roberto Exp $
 ** Lua virtual machine
 ** See Copyright Notice in lua.h
@@ -63,12 +63,12 @@
 
 #endif
 
-int g_breakout = 0;
+int LUA_BREAKOUT = 0;
 
 LUA_API void
 lua_checksig(lua_State *L) {
-  if (g_breakout == 1) {
-    g_breakout = 0;
+	if (LUA_BREAKOUT == 1) {
+	LUA_BREAKOUT = 0;
     lua_pushnil(L);
     lua_error(L);
   }

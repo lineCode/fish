@@ -24,13 +24,15 @@ ServerApp::ServerApp(Network::EventPoller* poller) {
 	name_ = "";
 	stop_ = false;
 
-	signalINT_.set(poller->GetLoop());
-	signalINT_.set<ServerApp, &ServerApp::OnStop>(this);
-	signalINT_.start(SIGINT);
+#ifndef WIN32
+	sigUSR1_.set(poller->GetLoop());
+	sigUSR1_.set<ServerApp, &ServerApp::OnLuaBreak>(this);
+	sigUSR1_.start(SIGUSR1);
+#endif
 
-	signalTERM_.set(poller->GetLoop());
-	signalTERM_.set<ServerApp, &ServerApp::OnStop>(this);
-	signalTERM_.start(SIGTERM);
+	sigTERM_.set(poller->GetLoop());
+	sigTERM_.set<ServerApp, &ServerApp::OnStop>(this);
+	sigTERM_.start(SIGTERM);
 }
 
 ServerApp::~ServerApp() {
@@ -117,6 +119,11 @@ void ServerApp::OnStop() {
 	if ( !script.call("ServerStop") ) {
 		LOG_ERROR(fmt::format("ServerStop error:{}", OOLUA::get_last_error(script)));
 	}
+}
+
+extern int LUA_BREAKOUT;
+void ServerApp::OnLuaBreak() {
+	LUA_BREAKOUT = 1;
 }
 
 uint64_t ServerApp::Now() {
