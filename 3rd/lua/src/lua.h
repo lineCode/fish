@@ -1,4 +1,4 @@
-/*
+﻿/*
 ** $Id: lua.h,v 1.332 2016/12/22 15:51:20 roberto Exp $
 ** Lua - A Scripting Language
 ** Lua.org, PUC-Rio, Brazil (http://www.lua.org)
@@ -482,6 +482,6 @@ struct lua_Debug {
 * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ******************************************************************************/
 
-LUA_API int g_breakout;
+LUA_API int LUA_BREAKOUT;
 
 #endif

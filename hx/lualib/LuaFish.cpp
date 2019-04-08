@@ -110,7 +110,6 @@ void LuaFish::Require(const char* module, int (*func)(lua_State*)) {
 	luaL_requiref(script_.state(), module, func, 1);
 }
 
-extern "C" int LUA_BREAKOUT;
 void LuaFish::Breakout() {
 	LUA_BREAKOUT = 1;
 }
