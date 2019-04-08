@@ -56,9 +56,6 @@ protected:
 	std::string name_;
 	bool stop_;
 
-#ifndef WIN32
-	ev::sig sigUSR1_;
-#endif
 	ev::sig sigTERM_;
 };
 

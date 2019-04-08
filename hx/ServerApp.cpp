@@ -24,12 +24,6 @@ ServerApp::ServerApp(Network::EventPoller* poller) {
 	name_ = "";
 	stop_ = false;
 
-#ifndef WIN32
-	sigUSR1_.set(poller->GetLoop());
-	sigUSR1_.set<ServerApp, &ServerApp::OnLuaBreak>(this);
-	sigUSR1_.start(SIGUSR1);
-#endif
-
 	sigTERM_.set(poller->GetLoop());
 	sigTERM_.set<ServerApp, &ServerApp::OnStop>(this);
 	sigTERM_.start(SIGTERM);
