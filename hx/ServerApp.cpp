@@ -22,6 +22,15 @@ ServerApp::ServerApp(Network::EventPoller* poller) {
 	queue_ = new TaskQueue();
 	now_ = ::Now();
 	name_ = "";
+	stop_ = false;
+
+	signalINT_.set(poller->GetLoop());
+	signalINT_.set<ServerApp, &ServerApp::OnStop>(this);
+	signalINT_.start(SIGINT);
+
+	signalTERM_.set(poller->GetLoop());
+	signalTERM_.set<ServerApp, &ServerApp::OnStop>(this);
+	signalTERM_.start(SIGTERM);
 }
 
 ServerApp::~ServerApp() {
@@ -95,6 +104,18 @@ void ServerApp::OnUpate(Timer* timer, void* userdata) {
 	OOLUA::Script& script = lua_->GetScript();
 	if (!script.call("ServerUpdate",now_)) {
 		LOG_ERROR(fmt::format("serverUpdate error:{}",OOLUA::get_last_error(script)));
+	}
+}
+
+void ServerApp::OnStop() {
+	if (stop_) {
+		return;
+	}
+	stop_ = true;
+
+	OOLUA::Script& script = lua_->GetScript();
+	if ( !script.call("ServerStop") ) {
+		LOG_ERROR(fmt::format("ServerStop error:{}", OOLUA::get_last_error(script)));
 	}
 }
 

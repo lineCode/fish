@@ -27,6 +27,8 @@ public:
 
 	virtual void OnUpate(Timer* timer, void* userdata);
 
+	virtual void OnStop();
+
 	virtual uint64_t Now();
 
 	virtual LuaFish* Lua();
@@ -50,6 +52,10 @@ protected:
 	TaskQueue* queue_;
 	uint64_t now_;
 	std::string name_;
+	bool stop_;
+
+	ev::sig signalTERM_;
+	ev::sig signalINT_;
 };
 
 #endif
