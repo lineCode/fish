@@ -1,32 +1,30 @@
 ﻿#include <unordered_map>
 #include <iostream>
 #include "oolua.h"
-#include "util/Vector3.h"
-using namespace std;
+#include "ServerApp.h"
+#include "logger/Logger.h"
+#include "logger/LoggerClient.h"
 
-extern "C" {
-#include "lua.h"
-#include "lauxlib.h"
-#include "lualib.h"
-}
+#ifdef _WIN32
+#include <WinSock2.h>
+#pragma comment(lib, "ws2_32.lib")
+#endif
 
-extern "C" int luaopen_pto(lua_State* L);
 
 int main(int argc,const char* argv[]) {
-	OOLUA::Script script;
+#if defined(_WIN32)
+	WSADATA wsa_data;
+	WSAStartup(0x0201, &wsa_data);
+#endif
 
-	//luaL_requiref(script.state(), "pto", luaopen_pto, 1);
+	Network::EventPoller* poller = new Network::EventPoller();
+	Network::Addr addr = Network::Addr::MakeIP4Addr("127.0.0.1", 1989);
+	Logger* logger = new Logger(new LoggerClient(addr, poller));
 
-	//if ( !script.run_file(argv[1]) ) {
-	//	cout << OOLUA::get_last_error(script) << endl;
-	//}
-
-	Vector3 v1(1, 2, 3);
-	Vector3 v2(4, 5, 6);
-
-	v1 += v2;
-
-	Vector3 v3 = v1 + v2;
-
+	
+	ServerApp app(poller);
+	app.Init("test");
+	app.Run();
+	app.Fina();
 	return 0;
 }

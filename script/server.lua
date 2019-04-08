@@ -33,3 +33,7 @@ end
 function ServerUpdate(now)
 	ServerInst:Update(now)
 end
+
+function ServerStop()
+
+end

@@ -59,8 +59,8 @@ void LuaChannel::HandleRead() {
 			}
 			need_ -= header_;
 			if (need_ > MAX_MESSAGE_SIZE) {
-				Close();
 				LOG_ERROR(fmt::format("HandleRead error:message size more than {}mb", MAX_MESSAGE_SIZE/(1024*1024)));
+				Close();
 				break;
 			}
 		} else {
