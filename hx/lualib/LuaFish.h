@@ -34,6 +34,8 @@ public:
 
 	void Require(const char* module,int (*func)(lua_State*));
 
+	void Breakout();
+	
 	void CreateMetaTable(const char* name, const luaL_Reg meta[], lua_CFunction gc);
 
 	uint64_t AllocTimer(Timer*& timer);

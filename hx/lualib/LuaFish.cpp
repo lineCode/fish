@@ -110,6 +110,11 @@ void LuaFish::Require(const char* module, int (*func)(lua_State*)) {
 	luaL_requiref(script_.state(), module, func, 1);
 }
 
+extern int LUA_BREAKOUT;
+void LuaFish::Breakout() {
+	LUA_BREAKOUT = 1;
+}
+
 void LuaFish::CreateMetaTable(const char* name, const luaL_Reg meta[], lua_CFunction gc) {
 	lua_State* L = script_.state();
 

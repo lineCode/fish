@@ -121,9 +121,9 @@ void ServerApp::OnStop() {
 	}
 }
 
-extern int LUA_BREAKOUT;
 void ServerApp::OnLuaBreak() {
-	LUA_BREAKOUT = 1;
+	LOG_ERROR(std::string("break out lua"));
+	lua_->Breakout();
 }
 
 uint64_t ServerApp::Now() {
