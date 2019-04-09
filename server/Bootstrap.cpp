@@ -4,7 +4,6 @@
 #include "network/EventPoller.h"
 #include "network/Address.h"
 #include "util/Util.h"
-#include "logger/LoggerApp.h"
 #include "logger/LoggerServer.h"
 #include "db/DbApp.h"
 #include "agent/AgentApp.h"
@@ -107,8 +106,8 @@ void Bootstrap::Startup(int argc, const char* argv[]) {
 }
 
 void Bootstrap::RunLogger(Network::EventPoller* poller) {
-	LoggerApp app(poller);
-	app.Init();
+	ServerApp app("logger", poller);
+	app.Init("logger");
 	app.Run();
 	app.Fina();
 }
@@ -126,7 +125,6 @@ void Bootstrap::RunLogin(Network::EventPoller* poller) {
 	app.Run();
 	app.Fina();
 }
-
 
 void Bootstrap::RunAgent(Network::EventPoller* poller) {
 	AgentApp app(poller);
