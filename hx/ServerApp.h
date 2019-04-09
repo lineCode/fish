@@ -13,7 +13,7 @@
 
 class ServerApp {
 public:
-	ServerApp(Network::EventPoller* poller);
+	ServerApp(std::string name, Network::EventPoller* poller);
 
 	virtual ~ServerApp(void);
 
@@ -38,10 +38,6 @@ public:
 	virtual Network::EventPoller* Poller();
 
 	virtual TaskQueue* GetQueue();
-
-	virtual void SetName(std::string name) {
-		name_ = name;
-	}
 
 	virtual std::string GetName() {
 		return name_;

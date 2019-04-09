@@ -1,0 +1,12 @@
+
+
+kSERVER_TYPE_OFFSET = 100
+
+kSERVER_TYPE = {
+	LOGIN = 1,
+	AGENT_MGR = 2,
+	AGENT = 3,
+	SCENE_MGR = 4,
+	SCENE = 5,
+	DB = 6
+}

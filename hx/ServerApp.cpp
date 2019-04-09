@@ -15,13 +15,13 @@ extern "C" int luaopen_pathfinder_core(lua_State* L);
 int luaopen_co_stats(lua_State* L);
 
 
-ServerApp::ServerApp(Network::EventPoller* poller) {
+ServerApp::ServerApp(std::string name, Network::EventPoller* poller) {
 	poller_ = poller;
 	lua_ = new LuaFish();
 	timer_ = new Timer();
 	queue_ = new TaskQueue();
 	now_ = ::Now();
-	name_ = "";
+	name_ = name;
 	stop_ = false;
 
 	sigTERM_.set(poller->GetLoop());

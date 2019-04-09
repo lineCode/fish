@@ -1,0 +1,14 @@
+﻿#ifndef COMMON_H
+
+enum eSERVER_TYPE {
+	LOG = 1,
+	DB,
+	LOGIN,
+	AGENT,
+	AGENT_MASTER,
+	SCENE,
+	SCENE_MASTER,
+	MAX
+};
+
+#endif

@@ -32,6 +32,9 @@ end
 
 function ServerUpdate(now)
 	ServerInst:Update(now)
+	while true do
+
+	end
 end
 
 function ServerStop()

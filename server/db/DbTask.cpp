@@ -19,7 +19,7 @@ DbQueryTask::~DbQueryTask() {
 
 void DbQueryTask::ThreadDo(DbMysql* db) {
 	db->Execute(sql_, size_, result_);
-	APP->GetQueue()->Push(this);
+	DB_APP->GetQueue()->Push(this);
 }
 
 void DbQueryTask::MainDo() {
@@ -40,7 +40,7 @@ void DbQueryTask::MainDo() {
 	uint32_t rowCount;
 	result_ >> rowCount;
 
-	lua_State* L = APP->Lua()->GetScript().state();
+	lua_State* L = DB_APP->Lua()->GetScript().state();
 	lua_rawgeti(L, LUA_REGISTRYINDEX, reference_);
 	lua_createtable(L, rowCount, 0);
 
@@ -118,14 +118,14 @@ DbRawSqlTask::~DbRawSqlTask() {
 
 void DbRawSqlTask::ThreadDo(DbMysql* db) {
 	db->Execute(sql_, size_, result_);
-	APP->GetQueue()->Push(this);
+	DB_APP->GetQueue()->Push(this);
 }
 
 void DbRawSqlTask::MainDo() {
 	uint32_t affectedRows;
 	result_ >> affectedRows;
 
-	lua_State* L = APP->Lua()->GetScript().state();
+	lua_State* L = DB_APP->Lua()->GetScript().state();
 	lua_rawgeti(L, LUA_REGISTRYINDEX, reference_);
 	lua_pushinteger(L, affectedRows);
 

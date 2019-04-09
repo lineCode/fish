@@ -148,4 +148,10 @@ namespace Util {
 	    }
 	    return 0;
 	}
+
+	void SetProcessName(const char* name) {
+#ifndef WIN32
+		prctl(PR_SET_NAME, name); 
+#endif
+	}
 };

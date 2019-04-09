@@ -5,17 +5,15 @@
 #pragma comment(lib, "ws2_32.lib")
 #endif
 
-int main(int argc, char *argv[])
+int main(int argc, const char *argv[])
 {
  #if defined(_WIN32)
  	WSADATA wsa_data;
  	WSAStartup(0x0201, &wsa_data);
  #endif
- 	assert(argc > 1);
- 	const char* config = argv[1];
 
- 	Bootstrap bootstrap(config);
- 	bootstrap.Startup();
+ 	Bootstrap bootstrap;
+ 	bootstrap.Startup(argc, argv);
 
 	return 0;
 }

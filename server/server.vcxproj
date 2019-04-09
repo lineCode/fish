@@ -41,7 +41,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\hx;..\3rd\libev;..\3rd\oolua\include;..\3rd\rapidjson;..\3rd\lua\src;..\3rd\http-parser;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <IncludePath>..\hx;..\3rd\libev;..\3rd\oolua\include;..\3rd\rapidjson;..\3rd\lua\src;..\3rd\http-parser;..\3rd\mysql\include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)bin\$(Configuration);$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)build\$(ProjectName)\$(Configuration)\</IntDir>
@@ -55,7 +55,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level2</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;_CRT_SECURE_NO_WARNINGS;__GNU_LIBRARY__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
@@ -83,15 +83,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="agent\AgentApp.cpp" />
     <ClCompile Include="Bootstrap.cpp" />
-    <ClCompile Include="FishApp.cpp" />
+    <ClCompile Include="db\DbApp.cpp" />
+    <ClCompile Include="db\DbTask.cpp" />
+    <ClCompile Include="getopt.c" />
+    <ClCompile Include="logger\LoggerApp.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MessageHandler.cpp" />
     <ClCompile Include="MessageRegister.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="agent\AgentApp.h" />
     <ClInclude Include="Bootstrap.h" />
-    <ClInclude Include="FishApp.h" />
+    <ClInclude Include="common.h" />
+    <ClInclude Include="db\DbApp.h" />
+    <ClInclude Include="db\DbTask.h" />
+    <ClInclude Include="getopt.h" />
+    <ClInclude Include="logger\LoggerApp.h" />
     <ClInclude Include="MessageDefine.h" />
     <ClInclude Include="MessageRegister.h" />
   </ItemGroup>

@@ -11,7 +11,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="getopt.c" />
     <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="getopt.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{61FDFD32-CE7D-4522-ACD3-5CD733041476}</ProjectGuid>

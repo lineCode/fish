@@ -2,15 +2,29 @@
 #define BOOTSTRAP_H
 #include "reader.h"
 #include "document.h"  
+#include "network/EventPoller.h"
 
 class Bootstrap
 {
 public:
-	Bootstrap(const char* file);
+	Bootstrap();
 	~Bootstrap(void);
 
-	void Startup();
+	void Startup(int argc, const char* argv[]);
 
+	void RunLogger(Network::EventPoller* poller);
+
+	void RunDb(Network::EventPoller* poller);
+
+	void RunLogin(Network::EventPoller* poller);
+
+	void RunAgent(Network::EventPoller* poller);
+
+	void RunAgentMaster(Network::EventPoller* poller);
+
+	void RunScene(Network::EventPoller* poller);
+
+	void RunSceneMaster(Network::EventPoller* poller);
 private:
 	rapidjson::Document config_;
 };
