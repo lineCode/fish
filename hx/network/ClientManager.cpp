@@ -68,11 +68,13 @@ namespace Network {
 	}
 
 	void ClientManager::OnCheck() {
-		for ( size_t i = 0; i < deadClients_.size(); i++ ) {
-			ClientChannel* channel = deadClients_[i];
-			delete channel;
+		if (deadClients_.size() > 0) {
+			for ( size_t i = 0; i < deadClients_.size(); i++ ) {
+				ClientChannel* channel = deadClients_[i];
+				delete channel;
+			}
+			deadClients_.clear();
 		}
-		deadClients_.clear();
 	}
 
 	int ClientManager::AllocVid() {
