@@ -1,10 +1,12 @@
 ﻿#include "MessageRegister.h"
 #include "MessageDefine.h"
+#include "MessageDefine.h"
 #include <iostream>
 
 
-REGISTER_HANDLER(CMD_LOGIN, channel, reader) {
+REGISTER_HANDLER(CMD_LOGIN) {
 
 }
 
-REGISTER_AGENT_HANDLER(1,ReqAuth)
+
+AGENT_CMD(REGISTER_AGENT_HANDLER)

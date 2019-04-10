@@ -25,6 +25,7 @@ public:
 	virtual int Init(rapidjson::Document& config);
 
 	virtual void ReqAuth(Network::Channel* channel, StreamReader& reader);
+	virtual void ReqEnter(Network::Channel* channel, StreamReader& reader);
 
 private:
 	Network::ClientManager* clientMgr_;

@@ -59,4 +59,8 @@ void AgentApp::ReqAuth(Network::Channel* channel, StreamReader& reader) {
 
 }
 
+void AgentApp::ReqEnter(Network::Channel* channel, StreamReader& reader) {
+
+}
+
 
