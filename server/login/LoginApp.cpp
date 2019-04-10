@@ -16,14 +16,10 @@ LoginApp::~LoginApp(void) {
 	delete clientMgr_;
 }
 
-int LoginApp::Init(rapidjson::Document& config) {
+int LoginApp::Init(const rapidjson::Value& config) {
 	LOG_ERROR(fmt::format("LoginApp start"));
 
 	ServerApp::Init("login");
-
-	if (!config.HasMember("clientAddr")) {
-		Util::Exit("no client addr");
-	}
 
 	int maxClient = 1000;
 	if (config.HasMember("maxClient")) {
@@ -44,8 +40,8 @@ int LoginApp::Init(rapidjson::Document& config) {
 		clientMgr_->SetWarnFlow(config["warnFlow"].GetInt());
 	}
 
-	const char* ip = config["clientAddr"]["ip"].GetString();
-	int port = config["clientAddr"]["port"].GetInt();
+	const char* ip = config["ip"].GetString();
+	int port = config["port"].GetInt();
 
 	Network::Addr addr = Network::Addr::MakeIP4Addr(ip, port);
 	if (clientMgr_->Start(addr) < 0) {

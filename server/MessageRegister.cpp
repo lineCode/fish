@@ -1,5 +1,6 @@
 ﻿#include "MessageRegister.h"
 #include <iostream>
+#include <assert.h>
 
 
 InitializeHandlers gInitializeHandlers;
@@ -20,6 +21,9 @@ InitializeHandlers::InitializeHandlers() {
 }
 
 RegisterHandler::RegisterHandler(int cmd, HandlerFunc func) {
+	if (cmd >= CMD_MAX) {
+		assert(false);
+	}
 	HandlerTable[cmd] = func;
 }
 

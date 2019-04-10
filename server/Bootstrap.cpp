@@ -7,6 +7,7 @@
 #include "logger/LoggerServer.h"
 //#include "db/DbApp.h"
 #include "agent/AgentApp.h"
+#include "login/LoginApp.h"
 #include "util/Util.h"
 #include "Common.h"
 #include <assert.h>
@@ -34,7 +35,7 @@ void Bootstrap::Startup(int argc, const char* argv[]) {
 	int appUid = -1;
 	char c;
 	while ((c = getopt(argc, (char*const*)argv, "c:s:i:")) != -1 ) {
-		switch ( c ) {
+		switch (c) {
 			case 'c':
 				if ( Util::LoadJson(config_, optarg) < 0 ) {
 					Util::Exit("parse config error");
@@ -42,7 +43,7 @@ void Bootstrap::Startup(int argc, const char* argv[]) {
 				break;
 			case 's':
 				appType = atoi(optarg);
-				if ( appType < APP_TYPE::eLOG || appType >= APP_TYPE::eMAX ) {
+				if (appType < APP_TYPE::eLOG || appType >= APP_TYPE::eMAX) {
 					Util::Exit(fmt::format("unknown server type:{}", appType));
 				}
 				break;
@@ -83,31 +84,31 @@ void Bootstrap::Startup(int argc, const char* argv[]) {
 
 	Logger* logger = NULL;
 	
-	if ( appType == APP_TYPE::eLOG ) {
-		const char* loggerPath = "./";
-		if ( loggerCfg.HasMember("path") ) {
-			loggerPath = loggerCfg["path"].GetString();
+	if (appType == APP_TYPE::eLOG) {
+		const char* path = "./";
+		if (loggerCfg.HasMember("path")) {
+			path = loggerCfg["path"].GetString();
 		}
-		logger = new Logger(new LoggerServer(loggerPath));
+		logger = new Logger(new LoggerServer(path));
 	} else {
 		if (!loggerCfg.HasMember("addr")) {
 			Util::Exit("logger addr not found");
 		}
 
-		const rapidjson::Value& loggerAddrCfg = loggerCfg["addr"];
+		const rapidjson::Value& addrCfg = loggerCfg["addr"];
 
-		if (loggerAddrCfg.HasMember("ip")) {
-			const char* ip = loggerAddrCfg["ip"].GetString();
-			int port = loggerAddrCfg["port"].GetInt();
+		if (addrCfg.HasMember("ip")) {
+			const char* ip = addrCfg["ip"].GetString();
+			int port = addrCfg["port"].GetInt();
 
 			Network::Addr addr = Network::Addr::MakeIP4Addr(ip, port);
 			logger = new Logger(new LoggerClient(addr, poller));
 
-		} else if (loggerAddrCfg.HasMember("ipc")) {
+		} else if (addrCfg.HasMember("ipc")) {
 #ifdef WIN32
 			Util::Exit("win32 not support ipc");
 #else
-			const char* ipc = loggerAddrCfg["ipc"].GetString();
+			const char* ipc = addrCfg["ipc"].GetString();
 			Network::Addr addr = Network::Addr::MakeUNIXAddr(ipc);
 			logger = new Logger(new LoggerClient(addr, poller));
 #endif
@@ -132,13 +133,20 @@ void Bootstrap::Startup(int argc, const char* argv[]) {
 			break;
 		}
 		case APP_TYPE::eLOGIN: {
-			app = new ServerApp("login", poller);
-			app->Init("login");
+			LoginApp* loginApp = new LoginApp(poller);
+			if (!config_.HasMember("loginClient")) {
+				Util::Exit("config loginClient not found");
+			}
+			loginApp->Init(config_["loginClient"]);
+			app = loginApp;
 			break;
 		}
 		case APP_TYPE::eAGENT: {
 			AgentApp* agentApp = new AgentApp(poller);
-			agentApp->Init(config_);
+			if (!config_.HasMember("agentClient")) {
+				Util::Exit("config agentClient not found");
+			}
+			agentApp->Init(config_["agentClient"]);
 			app = agentApp;
 			break;
 		}

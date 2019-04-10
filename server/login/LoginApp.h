@@ -21,7 +21,7 @@ public:
 
 	~LoginApp(void);
 
-	virtual int Init(rapidjson::Document& config);
+	virtual int Init(const rapidjson::Value& config);
 
 private:
 	Network::ClientManager* clientMgr_;

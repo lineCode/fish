@@ -22,7 +22,7 @@ public:
 
 	~AgentApp(void);
 
-	virtual int Init(rapidjson::Document& config);
+	virtual int Init(const rapidjson::Value& config);
 
 	virtual void ReqAuth(Network::Channel* channel, StreamReader& reader);
 	virtual void ReqEnter(Network::Channel* channel, StreamReader& reader);

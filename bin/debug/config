@@ -10,6 +10,22 @@
 			"ipc" : "logger.ipc"
 		}
 	},
+	"agentClient" : {
+		"ip" : "0.0.0.0",
+		"port" : 1989,
+		"maxClient" : 10000,
+		"maxFreq" : 100,
+		"maxAlive" : 30,
+		"warnFlow" : 1024
+	},
+	"loginClient" : {
+		"ip" : "0.0.0.0",
+		"port" : 1989,
+		"maxClient" : 10000,
+		"maxFreq" : 100,
+		"maxAlive" : 30,
+		"warnFlow" : 1024
+	},
 	"clientAddr" : {
 		"ip" : "0.0.0.0",
 		"port" : 4000
