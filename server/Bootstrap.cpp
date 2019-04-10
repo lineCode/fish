@@ -30,6 +30,7 @@ void Bootstrap::Startup(int argc, const char* argv[]) {
 	
 	int appType = -1;
 	int appId = - 1;
+	int appUid = -1;
 	char c;
 	while ((c = getopt(argc, (char*const*)argv, "c:s:i:")) != -1 ) {
 		switch ( c ) {
@@ -54,6 +55,8 @@ void Bootstrap::Startup(int argc, const char* argv[]) {
 	if ( appType == -1 || appId == -1 ) {
 		Util::Exit(std::string("error opt"));
 	}
+
+	appUid = appId * 100 + appType;
 
 	if (config_.HasMember("workDir")) {
 		const char* workDir = config_["workDir"].GetString();
@@ -110,7 +113,7 @@ void Bootstrap::Startup(int argc, const char* argv[]) {
 		}
 	}
 
-	LOG_INFO(fmt::format("starting server:{} ,type:{}, server id:{}, host id:{}", appName, appType, appId, hostId));
+	LOG_INFO(fmt::format("starting server:{} ,app type:{}, app id:{}, app uid:{}, host id:{}", appName, appType, appId, appUid, hostId));
 
 	ServerApp* app = NULL;
 
@@ -131,8 +134,9 @@ void Bootstrap::Startup(int argc, const char* argv[]) {
 			break;
 		}
 		case APP_TYPE::eAGENT: {
-			app = new AgentApp(poller);
-			app->Init("config_");
+			AgentApp* agentApp = new AgentApp(poller);
+			agentApp->Init(config_);
+			app = agentApp;
 			break;
 		}
 		case APP_TYPE::eAGENT_MASTER: {
