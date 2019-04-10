@@ -5,12 +5,18 @@
 #include "network/Address.h"
 #include "util/Util.h"
 #include "logger/LoggerServer.h"
-#include "db/DbApp.h"
+//#include "db/DbApp.h"
 #include "agent/AgentApp.h"
 
+#include "util/Util.h"
 #include "common.h"
 #include "getopt.h"
 #include <assert.h>
+
+#ifdef WIN32
+#include <direct.h>
+#define chdir _chdir
+#endif
 
 using namespace rapidjson;
 
@@ -22,17 +28,17 @@ Bootstrap::~Bootstrap(void) {
 
 void Bootstrap::Startup(int argc, const char* argv[]) {
 
-	int serverType;
-	int serverId;
+	int serverType = -1;
+	int serverId= - 1;
 	char c;
-	while ( ( c = getopt(argc, (char*const*)argv, "c:s:i:") ) != -1 ) {
+	while ((c = getopt(argc, (char*const*)argv, "c:s:i:")) != -1 ) {
 		switch ( c ) {
 			case 'c':
 				assert(Util::LoadJson(config_, optarg) == 0);
 				break;
 			case 's':
 				serverType = atoi(optarg);
-				if ( serverType < eSERVER_TYPE::LOG || serverType >= eSERVER_TYPE::MAX ) {
+				if ( serverType < SERVER_TYPE::eLOG || serverType >= SERVER_TYPE::eMAX ) {
 					Util::Exit(fmt::format("unknown server type:{}", serverType));
 				}
 				break;
@@ -42,57 +48,92 @@ void Bootstrap::Startup(int argc, const char* argv[]) {
 			default: {
 				Util::Exit(fmt::format("unknown opt:{}",  optarg));
 			}
-				
 		}
 	}
+
+	if ( serverType == -1 || serverId == -1 ) {
+		Util::Exit(std::string("error opt"));
+	}
+
+	if (config_.HasMember("workDir")) {
+		const char* workDir = config_["workDir"].GetString();
+		chdir(workDir);
+	}
+
+	int hostId = config_["hostId"].GetInt();
+	std::string appName = fmt::format("{}{:02}_{:04}", SERVER_TYPE_NAME[serverType], serverId, hostId);
+
+	Util::SetProcessName(appName.c_str());
+
+	if (!config_.HasMember("logger")) {
+		Util::Exit(std::string("config logger not found"));
+	}
+
+	const rapidjson::Value& loggerCfg = config_["logger"];
 
 	Network::EventPoller* poller = new Network::EventPoller();
 
 	Logger* logger = NULL;
-	if (serverType == eSERVER_TYPE::LOG) {
-		const char* loggerPath = NULL;
-		if ( config_.HasMember("loggerPath") ) {
-			loggerPath = config_["loggerPath"].GetString();
+	
+	if (serverType == SERVER_TYPE::eLOG) {
+		const char* loggerPath = "./";
+		if ( loggerCfg.HasMember("path") ) {
+			loggerPath = loggerCfg["path"].GetString();
 		}
 		logger = new Logger(new LoggerServer(loggerPath));
 	} else {
-		if (!config_.HasMember("loggerAddr")) {
+		if (!loggerCfg.HasMember("addr")) {
 			Util::Exit("logger addr not found");
 		}
 
-		const char* ip = config_["loggerAddr"]["ip"].GetString();
-		int port = config_["loggerAddr"]["port"].GetInt();
+		const rapidjson::Value& loggerAddrCfg = loggerCfg["addr"];
 
-		Network::Addr addr = Network::Addr::MakeIP4Addr(ip, port);
-		logger = new Logger(new LoggerClient(addr, poller));
+		if (loggerAddrCfg.HasMember("ip")) {
+			const char* ip = loggerAddrCfg["ip"].GetString();
+			int port = loggerAddrCfg["port"].GetInt();
+
+			Network::Addr addr = Network::Addr::MakeIP4Addr(ip, port);
+			logger = new Logger(new LoggerClient(addr, poller));
+
+		} else if (loggerAddrCfg.HasMember("ipc")) {
+#ifdef WIN32
+			Util::Exit("win32 not support ipc");
+#else
+			const char* ipc = loggerAddrCfg["ipc"].GetString();
+			Network::Addr addr = Network::Addr::MakeUNIXAddr(ipc);
+			logger = new Logger(new LoggerClient(addr, poller));
+#endif
+		} else {
+			Util::Exit("logger addr error");
+		}
 	}
 
 	switch (serverType) {
-		case eSERVER_TYPE::LOG: {
+		case SERVER_TYPE::eLOG: {
 			RunLogger(poller);
 			break;
 		}
-		case eSERVER_TYPE::DB: {
+		case SERVER_TYPE::eDB: {
 			RunDb(poller);
 			break;
 		}
-		case eSERVER_TYPE::LOGIN: {
+		case SERVER_TYPE::eLOGIN: {
 			RunLogin(poller);
 			break;
 		}
-		case eSERVER_TYPE::AGENT: {
+		case SERVER_TYPE::eAGENT: {
 			RunAgent(poller);
 			break;
 		}
-		case eSERVER_TYPE::AGENT_MASTER: {
+		case SERVER_TYPE::eAGENT_MASTER: {
 			RunAgentMaster(poller);
 			break;
 		}
-		case eSERVER_TYPE::SCENE: {
+		case SERVER_TYPE::eSCENE: {
 			RunScene(poller);
 			break;
 		}
-		case eSERVER_TYPE::SCENE_MASTER: {
+		case SERVER_TYPE::eSCENE_MASTER: {
 			RunSceneMaster(poller);
 			break;
 		}
@@ -113,10 +154,10 @@ void Bootstrap::RunLogger(Network::EventPoller* poller) {
 }
 
 void Bootstrap::RunDb(Network::EventPoller* poller) {
-	DbApp app(poller);
+	/*DbApp app(poller);
 	app.Init(config_);
 	app.Run();
-	app.Fina();
+	app.Fina();*/
 }
 
 void Bootstrap::RunLogin(Network::EventPoller* poller) {

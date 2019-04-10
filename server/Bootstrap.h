@@ -25,6 +25,7 @@ public:
 	void RunScene(Network::EventPoller* poller);
 
 	void RunSceneMaster(Network::EventPoller* poller);
+
 private:
 	rapidjson::Document config_;
 };

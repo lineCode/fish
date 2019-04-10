@@ -30,12 +30,6 @@
     <ClCompile Include="getopt.c">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="db\DbApp.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="db\DbTask.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="agent\AgentApp.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -54,12 +48,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="common.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="db\DbApp.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="db\DbTask.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="agent\AgentApp.h">

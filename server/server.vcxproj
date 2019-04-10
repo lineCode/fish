@@ -85,8 +85,6 @@
   <ItemGroup>
     <ClCompile Include="agent\AgentApp.cpp" />
     <ClCompile Include="Bootstrap.cpp" />
-    <ClCompile Include="db\DbApp.cpp" />
-    <ClCompile Include="db\DbTask.cpp" />
     <ClCompile Include="getopt.c" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MessageHandler.cpp" />
@@ -96,8 +94,6 @@
     <ClInclude Include="agent\AgentApp.h" />
     <ClInclude Include="Bootstrap.h" />
     <ClInclude Include="common.h" />
-    <ClInclude Include="db\DbApp.h" />
-    <ClInclude Include="db\DbTask.h" />
     <ClInclude Include="getopt.h" />
     <ClInclude Include="MessageDefine.h" />
     <ClInclude Include="MessageRegister.h" />

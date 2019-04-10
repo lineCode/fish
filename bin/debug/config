@@ -1,10 +1,14 @@
 {
+	"hostId" : 100,
+	"workDir" : "../../",
 	"boot": "login",
-	"loggerPath" : "./",
-	"loggerAddr" : {
-		"ip" : "127.0.0.1", 
-		"port" : 3000,
-		"file" : "logger.ipc"
+	"logger" : {
+		"path" : "./",
+		"addr" : {
+			"ip" : "127.0.0.1",
+			"port" : 3000,
+			"ipc" : "logger.ipc"
+		}
 	},
 	"clientAddr" : {
 		"ip" : "0.0.0.0",

@@ -38,5 +38,5 @@ function ServerUpdate(now)
 end
 
 function ServerStop()
-
+	ServerInst:Stop()
 end
