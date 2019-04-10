@@ -7,15 +7,16 @@
 #include "logger/LoggerServer.h"
 //#include "db/DbApp.h"
 #include "agent/AgentApp.h"
-
 #include "util/Util.h"
-#include "common.h"
-#include "getopt.h"
+#include "Common.h"
 #include <assert.h>
 
 #ifdef WIN32
+#include "getopt.h"
 #include <direct.h>
 #define chdir _chdir
+#else
+#include <unistd.h>
 #endif
 
 using namespace rapidjson;
@@ -35,7 +36,9 @@ void Bootstrap::Startup(int argc, const char* argv[]) {
 	while ((c = getopt(argc, (char*const*)argv, "c:s:i:")) != -1 ) {
 		switch ( c ) {
 			case 'c':
-				assert(Util::LoadJson(config_, optarg) == 0);
+				if ( Util::LoadJson(config_, optarg) < 0 ) {
+					Util::Exit("parse config error");
+				}
 				break;
 			case 's':
 				appType = atoi(optarg);
@@ -47,7 +50,7 @@ void Bootstrap::Startup(int argc, const char* argv[]) {
 				appId = atoi(optarg);
 				break;
 			default: {
-				Util::Exit(fmt::format("unknown opt:{}",  optarg));
+				Util::Exit(fmt::format("unknown opt:{}",  c));
 			}
 		}
 	}
@@ -161,6 +164,8 @@ void Bootstrap::Startup(int argc, const char* argv[]) {
 
 	LuaFish* lua = app->Lua();
 	lua->SetEnv("appId", appId);
+	lua->SetEnv("appUid", appUid);
+	lua->SetEnv("appType", appType);
 	lua->SetEnv("appName", appName.c_str());
 
 	app->Run();

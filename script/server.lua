@@ -15,6 +15,8 @@ _G.RPC = Import "rpc"
 local log = require "lib.log"
 _G.RUNTIME_LOG = log:Create("runtime")
 
+table.print(env)
+
 local ServerInst = nil
 
 function ServerInit(boot)

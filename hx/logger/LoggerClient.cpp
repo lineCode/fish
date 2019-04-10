@@ -11,7 +11,9 @@
 LoggerClient::LoggerClient(Network::Addr& addr, Network::EventPoller* poller):addr_(addr) {
 	poller_ = poller;
 	
-	assert(Connect() == true);
+	if ( !Connect() ) {
+		Util::Exit(fmt::format("connect to logger server:{} failed", addr_.ToStr()));
+	}
 
 	timer_ = new Timer();
 	timer_->SetCallback(std::bind(&LoggerClient::OnUpdate, this, std::placeholders::_1, std::placeholders::_2));
