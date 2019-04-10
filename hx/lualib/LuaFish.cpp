@@ -33,6 +33,9 @@ int LuaFish::Init(ServerApp* app) {
 	lua_State* L = script_.state();
 	luaL_openlibs(L);
 
+	lua_newtable(L);
+	lua_setglobal(L, "env");
+
 	lua_pushlightuserdata(L, app);
 	lua_setfield(L, LUA_REGISTRYINDEX, "app");
 
@@ -104,6 +107,22 @@ void LuaFish::SetPath(const char* path) {
 	
 	lua_pushstring(L, fullpath.c_str());
 	lua_setfield(L, -2, "path");
+}
+
+void LuaFish::SetEnv(const char* key, int value) {
+	lua_State* L = script_.state();
+	lua_getglobal(L, "env");
+	lua_pushstring(L, key);
+	lua_pushinteger(L, value);
+	lua_settable(L, -3);
+}
+
+void LuaFish::SetEnv(const char* key, const char* value) {
+	lua_State* L = script_.state();
+	lua_getglobal(L, "env");
+	lua_pushstring(L, key);
+	lua_pushstring(L, value);
+	lua_settable(L, -3);
 }
 
 void LuaFish::Require(const char* module, int (*func)(lua_State*)) {

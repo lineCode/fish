@@ -60,7 +60,7 @@ int ServerApp::Init(std::string boot) {
 	
 	OOLUA::Script& script = lua_->GetScript();
 	if (!script.call("ServerInit", boot)) {
-		LOG_ERROR(fmt::format("serverInit error:{}",OOLUA::get_last_error(script)));
+		LOG_ERROR(fmt::format("ServerInit error:{}",OOLUA::get_last_error(script)));
 		return -1;
 	}
 
@@ -70,7 +70,7 @@ int ServerApp::Init(std::string boot) {
 int ServerApp::Fina() {
 	OOLUA::Script& script = lua_->GetScript();
 	if (!script.call("ServerFina")) {
-		LOG_ERROR(fmt::format("serverFina error:{}",OOLUA::get_last_error(script)));
+		LOG_ERROR(fmt::format("ServerFina error:{}",OOLUA::get_last_error(script)));
 		return -1;
 	}
 	return 0;
@@ -99,7 +99,7 @@ void ServerApp::OnUpate(Timer* timer, void* userdata) {
 	
 	OOLUA::Script& script = lua_->GetScript();
 	if (!script.call("ServerUpdate",now_)) {
-		LOG_ERROR(fmt::format("serverUpdate error:{}",OOLUA::get_last_error(script)));
+		LOG_ERROR(fmt::format("ServerUpdate error:{}",OOLUA::get_last_error(script)));
 	}
 }
 

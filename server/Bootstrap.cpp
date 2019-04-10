@@ -28,8 +28,8 @@ Bootstrap::~Bootstrap(void) {
 
 void Bootstrap::Startup(int argc, const char* argv[]) {
 	
-	int serverType = -1;
-	int serverId = - 1;
+	int appType = -1;
+	int appId = - 1;
 	char c;
 	while ((c = getopt(argc, (char*const*)argv, "c:s:i:")) != -1 ) {
 		switch ( c ) {
@@ -37,13 +37,13 @@ void Bootstrap::Startup(int argc, const char* argv[]) {
 				assert(Util::LoadJson(config_, optarg) == 0);
 				break;
 			case 's':
-				serverType = atoi(optarg);
-				if ( serverType < SERVER_TYPE::eLOG || serverType >= SERVER_TYPE::eMAX ) {
-					Util::Exit(fmt::format("unknown server type:{}", serverType));
+				appType = atoi(optarg);
+				if ( appType < APP_TYPE::eLOG || appType >= APP_TYPE::eMAX ) {
+					Util::Exit(fmt::format("unknown server type:{}", appType));
 				}
 				break;
 			case 'i':
-				serverId = atoi(optarg);
+				appId = atoi(optarg);
 				break;
 			default: {
 				Util::Exit(fmt::format("unknown opt:{}",  optarg));
@@ -51,7 +51,7 @@ void Bootstrap::Startup(int argc, const char* argv[]) {
 		}
 	}
 
-	if ( serverType == -1 || serverId == -1 ) {
+	if ( appType == -1 || appId == -1 ) {
 		Util::Exit(std::string("error opt"));
 	}
 
@@ -61,9 +61,9 @@ void Bootstrap::Startup(int argc, const char* argv[]) {
 	}
 
 	int hostId = config_["hostId"].GetInt();
-	std::string serverTypeName = SERVER_TYPE_NAME[serverType];
+	std::string serverTypeName = SERVER_TYPE_NAME[appType];
 
-	std::string appName = fmt::format("{}{:02}_{:04}", serverTypeName, serverId, hostId);
+	std::string appName = fmt::format("{}{:02}_{:04}", serverTypeName, appId, hostId);
 
 	Util::SetProcessName(appName.c_str());
 
@@ -77,7 +77,7 @@ void Bootstrap::Startup(int argc, const char* argv[]) {
 
 	Logger* logger = NULL;
 	
-	if (serverType == SERVER_TYPE::eLOG) {
+	if ( appType == APP_TYPE::eLOG ) {
 		const char* loggerPath = "./";
 		if ( loggerCfg.HasMember("path") ) {
 			loggerPath = loggerCfg["path"].GetString();
@@ -110,91 +110,59 @@ void Bootstrap::Startup(int argc, const char* argv[]) {
 		}
 	}
 
-	LOG_INFO(fmt::format("starting server:{} ,type:{}, server id:{}, host id:{}", appName, serverType, serverId, hostId));
+	LOG_INFO(fmt::format("starting server:{} ,type:{}, server id:{}, host id:{}", appName, appType, appId, hostId));
 
-	switch (serverType) {
-		case SERVER_TYPE::eLOG: {
-			RunLogger(poller);
+	ServerApp* app = NULL;
+
+	switch ( appType ) {
+		case APP_TYPE::eLOG: {
+			app = new ServerApp("logger", poller);
+			app->Init("logger");
 			break;
 		}
-		case SERVER_TYPE::eDB: {
-			RunDb(poller);
+		case APP_TYPE::eDB: {
+			// app = new DbApp(poller);
+			// app->Init(config_);
 			break;
 		}
-		case SERVER_TYPE::eLOGIN: {
-			RunLogin(poller);
+		case APP_TYPE::eLOGIN: {
+			app = new ServerApp("login", poller);
+			app->Init("login");
 			break;
 		}
-		case SERVER_TYPE::eAGENT: {
-			RunAgent(poller);
+		case APP_TYPE::eAGENT: {
+			app = new AgentApp(poller);
+			app->Init("config_");
 			break;
 		}
-		case SERVER_TYPE::eAGENT_MASTER: {
-			RunAgentMaster(poller);
+		case APP_TYPE::eAGENT_MASTER: {
+			app = new ServerApp("agentmaster", poller);
+			app->Init("agentmaster");
 			break;
 		}
-		case SERVER_TYPE::eSCENE: {
-			RunScene(poller);
+		case APP_TYPE::eSCENE: {
+			app = new ServerApp("scene", poller);
+			app->Init("scene");
 			break;
 		}
-		case SERVER_TYPE::eSCENE_MASTER: {
-			RunSceneMaster(poller);
+		case APP_TYPE::eSCENE_MASTER: {
+			app = new ServerApp("scenemaster", poller);
+			app->Init("scenemaster");
 			break;
 		}
 		default: {
-			Util::Exit(fmt::format("unknown server type:{}",  serverType));
+			Util::Exit(fmt::format("unknown app type:{}",  appType));
 		}
 	}
 
+	LuaFish* lua = app->Lua();
+	lua->SetEnv("appId", appId);
+	lua->SetEnv("appName", appName.c_str());
+
+	app->Run();
+	app->Fina();
+
+	delete app;
 	delete logger;
 	delete poller;
-}
-
-void Bootstrap::RunLogger(Network::EventPoller* poller) {
-	ServerApp app("logger", poller);
-	app.Init("logger");
-	app.Run();
-	app.Fina();
-}
-
-void Bootstrap::RunDb(Network::EventPoller* poller) {
-	/*DbApp app(poller);
-	app.Init(config_);
-	app.Run();
-	app.Fina();*/
-}
-
-void Bootstrap::RunLogin(Network::EventPoller* poller) {
-	ServerApp app("login", poller);
-	app.Init("login");
-	app.Run();
-	app.Fina();
-}
-
-void Bootstrap::RunAgent(Network::EventPoller* poller) {
-	AgentApp app(poller);
-	app.Init(config_);
-	app.Run();
-	app.Fina();
-}
-
-void Bootstrap::RunAgentMaster(Network::EventPoller* poller) {
-	ServerApp app("agentmaster", poller);
-	app.Init("agentmaster");
-	app.Run();
-	app.Fina();
-}
-
-void Bootstrap::RunScene(Network::EventPoller* poller) {
-	ServerApp app("scene", poller);
-	app.Init("scene");
-	app.Run();
-	app.Fina();
-}
-
-void Bootstrap::RunSceneMaster(Network::EventPoller* poller) {
-	ServerApp app("scenemaster", poller);
-	app.Init("scenemaster");
-	app.Run();
-	app.Fina();
 }

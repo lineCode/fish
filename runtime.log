@@ -1,2 +1,2174 @@
-[I][2019-4-10 17:41:20.959 @e:\github\fish\server\bootstrap.cpp:113] starting server:log01_0100 ,type:1, server id:1, host id:100
-[I][2019-4-10 17:41:22.329 @e:\github\fish\server\bootstrap.cpp:114] test
+[I][2019-4-10 18:5:51.310 @e:\github\fish\server\bootstrap.cpp:113] starting server:log01_0100 ,type:1, server id:1, host id:100
+[E][2019-4-10 18:5:58.430 @e:\github\fish\hx\lualib\luafish.cpp:90] do file:../../script/server.lua error:cannot open ../../script/server.lua: No such file or directory
+[E][2019-4-10 18:5:58.436 @e:\github\fish\hx\serverapp.cpp:63] serverInit error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:27.985 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:27.987 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:27.996 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.6 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.16 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.26 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.36 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.46 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.55 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.65 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.75 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.85 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.95 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.105 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.115 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.125 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.135 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.145 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.155 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.165 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.175 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.185 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.195 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.205 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.215 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.225 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.235 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.245 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.255 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.265 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.275 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.285 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.295 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.305 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.315 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.325 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.335 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.345 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.355 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.365 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.375 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.385 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.395 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.405 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.415 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.425 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.435 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.445 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.455 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.465 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.475 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.485 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.495 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.505 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.515 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.525 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.535 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.545 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.555 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.565 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.575 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.585 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.595 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.605 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.615 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.625 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.635 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.645 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.655 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.665 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.675 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.685 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.695 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.705 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.715 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.725 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.735 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.745 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.755 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.765 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.775 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.785 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.795 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.805 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.815 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.825 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.835 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.845 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.867 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.874 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.878 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.888 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.898 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.907 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.917 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.927 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.937 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.947 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.957 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.967 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.977 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.987 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:28.997 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.7 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.17 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.27 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.37 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.47 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.57 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.67 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.77 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.87 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.97 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.107 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.117 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.127 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.137 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.147 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.157 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.167 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.177 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.187 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.197 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.207 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.217 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.227 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.238 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.247 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.257 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.267 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.277 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.287 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.297 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.307 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.317 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.327 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.337 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.347 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.357 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.367 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.377 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.387 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.397 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.407 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.417 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.427 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.437 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.447 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.457 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.467 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.477 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.488 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.497 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.507 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.517 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.527 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.537 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.547 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.557 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.567 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.577 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.587 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.597 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.607 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.617 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.627 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.637 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.647 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.657 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.667 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.677 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.687 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.697 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.707 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.717 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.727 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.737 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.747 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.757 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.767 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.777 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.787 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.797 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.807 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.817 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.827 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.837 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.847 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.857 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.867 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.877 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.887 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.897 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.907 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.917 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.927 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.937 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.947 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.957 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.967 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.977 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.987 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:29.998 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.7 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.17 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.27 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.37 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.47 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.57 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.67 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.77 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.87 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.97 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.107 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.117 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.127 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.137 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.147 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.157 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.167 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.177 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.187 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.197 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.207 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.217 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.227 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.237 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.247 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.257 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.267 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.277 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.287 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.297 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.307 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.317 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.327 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.337 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.347 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.358 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.367 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.377 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.387 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.397 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.407 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.417 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.427 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.437 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.447 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.457 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.467 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.477 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.487 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.497 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.507 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.517 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.527 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.537 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.547 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.557 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.567 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.577 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.587 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.597 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.607 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.617 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.627 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.637 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.647 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.657 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.667 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.677 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.687 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.698 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.707 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.717 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.727 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.737 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.747 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.757 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.767 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.778 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.787 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.798 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.807 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.817 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.827 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.837 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.847 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.857 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.867 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.877 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.887 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.897 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.907 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.917 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.927 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.937 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.947 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.957 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.967 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.977 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.987 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:30.997 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.7 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.17 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.27 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.37 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.47 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.57 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.67 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.77 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.88 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.97 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.107 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.118 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.127 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.138 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.147 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.157 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.167 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.177 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.187 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.197 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.207 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.218 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.227 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.237 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.247 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.257 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.267 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.277 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.287 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.297 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.307 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.317 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.327 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.337 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.347 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.357 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.367 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.377 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.387 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.397 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.407 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.417 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.427 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.437 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.447 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.457 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.467 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.477 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.487 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.497 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.507 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.517 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.527 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.537 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.547 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.557 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.567 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.577 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.587 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.597 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.607 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.617 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.627 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.637 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.647 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.657 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.667 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.677 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.687 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.697 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.707 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.717 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.727 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.737 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.747 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.757 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.767 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.777 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.787 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.797 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.807 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.817 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.828 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.837 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.847 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.857 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.867 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.877 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.887 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.897 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.907 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.917 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.927 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.937 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.947 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.957 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.967 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.977 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.987 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:31.997 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.7 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.17 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.27 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.37 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.47 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.57 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.67 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.77 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.87 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.97 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.107 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.118 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.127 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.137 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.147 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.157 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.167 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.177 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.187 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.197 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.207 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.217 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.227 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.237 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.247 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.257 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.267 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.277 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.287 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.297 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.307 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.317 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.327 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.337 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.347 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.357 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.367 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.377 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.387 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.397 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.407 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.417 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.427 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.437 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.447 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.457 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.467 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.477 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.487 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.497 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.507 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.517 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.527 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.537 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.547 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.557 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.567 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.577 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.588 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.597 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.607 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.617 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.627 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.637 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.647 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.657 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.667 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.677 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.687 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.697 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.707 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.717 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.727 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.737 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.747 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.757 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.767 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.777 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.788 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.798 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.807 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.817 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.827 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.837 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.847 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.857 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.867 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.877 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.887 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.897 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.907 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.917 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.927 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.937 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.947 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.957 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.967 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.977 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.987 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:32.997 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.7 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.17 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.27 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.37 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.47 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.57 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.68 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.77 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.87 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.97 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.107 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.117 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.127 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.137 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.147 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.157 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.167 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.177 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.187 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.197 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.207 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.217 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.227 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.237 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.247 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.257 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.267 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.277 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.287 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.297 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.307 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.317 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.327 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.337 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.347 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.357 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.367 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.377 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.387 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.397 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.407 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.417 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.427 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.437 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.447 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.457 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.467 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.477 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.487 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.497 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.507 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.517 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.527 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.537 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.547 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.557 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.567 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.577 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.587 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.598 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.607 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.617 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.627 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.637 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.648 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.657 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.667 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.677 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.687 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.697 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.707 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.717 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.727 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.737 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.747 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.757 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.767 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.777 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.787 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.797 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.807 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.817 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.827 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.837 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.847 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.857 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.867 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.877 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.887 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.897 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.907 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.917 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.927 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.937 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.947 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.957 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.967 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.977 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.987 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:33.997 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.7 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.17 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.28 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.37 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.47 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.57 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.67 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.77 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.87 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.97 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.107 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.117 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.127 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.137 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.147 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.157 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.167 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.177 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.188 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.197 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.207 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.217 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.227 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.237 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.247 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.257 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.267 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.277 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.287 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.297 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.307 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.317 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.327 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.337 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.347 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.357 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.367 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.377 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.387 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.397 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.407 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.417 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.427 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.438 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.447 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.457 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.467 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.477 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.487 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.498 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.507 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.517 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.527 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.537 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.547 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.557 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.567 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.577 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.587 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.597 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.607 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.617 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.627 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.637 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.647 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.657 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.667 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.677 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.687 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.697 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.707 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.717 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.727 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.737 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.747 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.757 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.767 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.777 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.787 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.797 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.807 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.817 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.828 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.837 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.847 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.857 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.867 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.878 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.887 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.897 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.907 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.917 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.927 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.937 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.947 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.957 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.967 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.977 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.987 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:34.997 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.7 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.17 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.27 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.37 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.47 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.57 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.67 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.77 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.87 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.97 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.107 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.117 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.127 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.137 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.147 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.157 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.167 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.177 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.187 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.197 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.207 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.217 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.227 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.237 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.247 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.257 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.267 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.277 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.287 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.297 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.307 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.317 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.327 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.337 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.347 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.357 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.367 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.377 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.387 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.397 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.407 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.417 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.427 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.437 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.447 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.457 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.467 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.477 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.487 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.498 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.507 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.517 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.527 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.537 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.547 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.557 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.567 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.577 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.587 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.597 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.607 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.617 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.627 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.638 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.648 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.657 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.667 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.677 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.687 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.697 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.707 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.717 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.727 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.737 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.747 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.757 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.767 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.777 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.787 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.797 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.807 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.817 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.827 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.837 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.847 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.857 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.867 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.877 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.887 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.897 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.907 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.917 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.927 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.937 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.947 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.958 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.967 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.977 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.987 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:35.997 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.7 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.17 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.27 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.37 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.47 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.57 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.68 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.77 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.87 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.97 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.107 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.117 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.127 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.137 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.147 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.158 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.167 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.177 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.187 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.197 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.207 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.217 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.227 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.237 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.247 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.257 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.267 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.277 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.287 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.297 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.307 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.317 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.327 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.337 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.348 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.357 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.367 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.377 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.387 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.397 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.408 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.417 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.427 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.437 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.447 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.457 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.467 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.477 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.487 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.497 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.507 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.517 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.527 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.537 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.547 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.557 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.567 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.577 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.587 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.597 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.607 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.617 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.627 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.637 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.647 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.657 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.667 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.677 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.687 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.697 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.707 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.717 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.727 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.737 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.747 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.757 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.767 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.777 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.787 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.797 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.807 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.817 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.827 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.837 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.847 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.857 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.867 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.877 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.887 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.897 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.907 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.917 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.927 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.937 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.947 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.957 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.967 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.977 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.987 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:36.997 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.7 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.17 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.28 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.37 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.47 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.57 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.67 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.77 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.87 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.97 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.107 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.117 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.127 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.137 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.147 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.157 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.167 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.177 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.187 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.197 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.207 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.217 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.227 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.237 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.247 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.257 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.267 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.277 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.288 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.297 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.307 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.318 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.327 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.337 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.347 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.357 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.367 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.378 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.387 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.397 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.407 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.417 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.427 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.437 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.447 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.457 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.467 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.477 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.487 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.497 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.507 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.517 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.527 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.537 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.547 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.557 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.567 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.577 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.587 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.597 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.607 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.617 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.627 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.637 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.647 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.657 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.667 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.677 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.687 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.697 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.707 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.717 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.727 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.737 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.747 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.757 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.767 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.777 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.787 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.797 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.807 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.817 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.827 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.837 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.847 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.857 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.867 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.877 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.887 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.897 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.908 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.917 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.927 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.937 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.947 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.957 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.967 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.977 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.987 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:37.997 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.7 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.17 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.27 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.37 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.47 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.57 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.67 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.77 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.87 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.97 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.107 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.117 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.127 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.137 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.147 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.157 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.167 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.177 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.187 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.197 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.208 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.217 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.227 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.237 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.247 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.257 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.267 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.277 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.287 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.297 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.307 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.317 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.327 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.337 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.347 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.357 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.367 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.377 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.387 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.397 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.407 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.417 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.427 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.437 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.447 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.457 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.467 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.477 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.487 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.497 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.507 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.517 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.527 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.537 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.547 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.557 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.567 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.577 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.587 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.597 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.607 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.617 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.627 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.637 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.647 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.657 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.667 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.677 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.687 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.697 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.707 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.717 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.727 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.737 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.747 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.757 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.767 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.777 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.787 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.797 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.807 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:
+[E][2019-4-10 18:6:38.817 @e:\github\fish\hx\serverapp.cpp:102] serverUpdate error:attempt to call a nil value
+stack traceback:

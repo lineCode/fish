@@ -32,6 +32,10 @@ public:
 
 	void SetPath(const char* path);
 
+	void SetEnv(const char* key, int value);
+
+	void SetEnv(const char* key, const char* value);
+
 	void Require(const char* module,int (*func)(lua_State*));
 
 	void Breakout();
