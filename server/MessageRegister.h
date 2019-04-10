@@ -5,6 +5,7 @@
 #include "util/format.h"
 #include "network/Channel.h"
 #include "util/StreamReader.h"
+#include "agent/AgentApp.h"
 
 #define CMD_AUTH (1)
 #define CMD_MAX (1024)
@@ -29,4 +30,18 @@ struct RegisterHandler {
 	static void handler##cmd(Network::Channel* channel, StreamReader& reader); \
 	static RegisterHandler register##cmd(cmd, handler##cmd); \
 	static void handler##cmd(Network::Channel* channel, StreamReader& reader)
+
+
+
+
+#define REGISTER_AGENT_HANDLER(cmd, method) \
+	static void agent_handler_##cmd(Network::Channel* channel, StreamReader& reader) {\
+		AGENT_APP->##method(channel, reader); \
+	}\
+	static RegisterHandler agent_handler_##cmd_register(cmd, agent_handler_##cmd); \
+	
+
 #endif
+
+
+

@@ -55,4 +55,8 @@ int AgentApp::Init(rapidjson::Document& config) {
 	return 0;
 }
 
+void AgentApp::ReqAuth(Network::Channel* channel, StreamReader& reader) {
+
+}
+
 

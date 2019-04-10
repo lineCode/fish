@@ -12,6 +12,7 @@
 #include "network/HttpChannel.h"
 #include "network/ClientManager.h"
 #include "util/Singleton.h"
+#include "util/StreamReader.h"
 #include "document.h" 
 
 
@@ -22,6 +23,8 @@ public:
 	~AgentApp(void);
 
 	virtual int Init(rapidjson::Document& config);
+
+	virtual void ReqAuth(Network::Channel* channel, StreamReader& reader);
 
 private:
 	Network::ClientManager* clientMgr_;
