@@ -9,7 +9,7 @@ local import = require "lib.import"
 table.print = common.Dump
 
 _G.Import = import.Import
-_G.config = json.load("./config")
+_G.config = json.load("./bin/debug/config")
 _G.RPC = Import "rpc"
 
 local log = require "lib.log"

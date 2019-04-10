@@ -49,6 +49,7 @@ protected:
 	Timer* timer_;
 	TaskQueue* queue_;
 	uint64_t now_;
+	std::string boot_;
 	std::string name_;
 	bool stop_;
 

@@ -43,7 +43,7 @@ int ServerApp::Init(std::string boot) {
 
 	lua_->Init(this);
 
-	lua_->SetPath("../../script/?.lua;");
+	lua_->SetPath("./script/?.lua;");
 
 	lua_->Require("fish", LuaFish::Register);
 	lua_->Require("util", LuaUtil::Register);
@@ -56,13 +56,7 @@ int ServerApp::Init(std::string boot) {
 	lua_->Require("nav", luaopen_nav_core);
 	lua_->Require("pathfinder", luaopen_pathfinder_core);
 	
-	lua_->DoFile("../../script/server.lua");
-	
-	OOLUA::Script& script = lua_->GetScript();
-	if (!script.call("ServerInit", boot)) {
-		LOG_ERROR(fmt::format("ServerInit error:{}",OOLUA::get_last_error(script)));
-		return -1;
-	}
+	boot_ = boot;
 
 	return 0;
 }
@@ -82,6 +76,13 @@ int ServerApp::Stop() {
 }
 
 int ServerApp::Run() {
+	lua_->DoFile("./script/server.lua");
+	
+	OOLUA::Script& script = lua_->GetScript();
+	if (!script.call("ServerInit", boot_)) {
+		LOG_ERROR(fmt::format("ServerInit error:{}",OOLUA::get_last_error(script)));
+		return -1;
+	}
 	poller_->Process();
 	return 0; 
 }
