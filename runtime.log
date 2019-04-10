@@ -1,1 +1,2 @@
-[E][2019-1-17 17:48:2 @db/DbMysql.cpp:51] query failed:insert into user (name,level) ('mrq',1) 1064(You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''mrq',1)' at line 1)
+[I][2019-4-10 17:41:20.959 @e:\github\fish\server\bootstrap.cpp:113] starting server:log01_0100 ,type:1, server id:1, host id:100
+[I][2019-4-10 17:41:22.329 @e:\github\fish\server\bootstrap.cpp:114] test

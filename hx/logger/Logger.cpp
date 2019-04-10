@@ -26,6 +26,10 @@ void Logger::WriteLog(const char* file, const char* source, int line, Loggerleve
 	interface_->WriteLog(file, source, line, level, time, content);
 }
 
+void Logger::WriteLog(const char* file, const char* source, int line, Loggerlevel level, double time, std::string& content) {
+	WriteLog(file, source, line, level, time, content.c_str());
+}
+
 void Logger::WriteLog(const char* file, void* data, size_t size) {
 	std::lock_guard<std::mutex> guard(mutex_);
 	interface_->WriteLog(file, data, size);

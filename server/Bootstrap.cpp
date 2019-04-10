@@ -27,9 +27,9 @@ Bootstrap::~Bootstrap(void) {
 }
 
 void Bootstrap::Startup(int argc, const char* argv[]) {
-
+	
 	int serverType = -1;
-	int serverId= - 1;
+	int serverId = - 1;
 	char c;
 	while ((c = getopt(argc, (char*const*)argv, "c:s:i:")) != -1 ) {
 		switch ( c ) {
@@ -61,7 +61,9 @@ void Bootstrap::Startup(int argc, const char* argv[]) {
 	}
 
 	int hostId = config_["hostId"].GetInt();
-	std::string appName = fmt::format("{}{:02}_{:04}", SERVER_TYPE_NAME[serverType], serverId, hostId);
+	std::string serverTypeName = SERVER_TYPE_NAME[serverType];
+
+	std::string appName = fmt::format("{}{:02}_{:04}", serverTypeName, serverId, hostId);
 
 	Util::SetProcessName(appName.c_str());
 
@@ -107,6 +109,8 @@ void Bootstrap::Startup(int argc, const char* argv[]) {
 			Util::Exit("logger addr error");
 		}
 	}
+
+	LOG_INFO(fmt::format("starting server:{} ,type:{}, server id:{}, host id:{}", appName, serverType, serverId, hostId));
 
 	switch (serverType) {
 		case SERVER_TYPE::eLOG: {
