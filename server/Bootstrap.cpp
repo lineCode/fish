@@ -9,6 +9,7 @@
 #include "agent/AgentApp.h"
 #include "login/LoginApp.h"
 #include "util/Util.h"
+#include "time/Timestamp.h"
 #include "Common.h"
 #include <assert.h>
 #include "oolua.h"
@@ -57,8 +58,12 @@ void Bootstrap::Startup(int argc, const char* argv[]) {
 		}
 	}
 
-	if ( appType == -1 || appId == -1 ) {
+	if (appType == -1 || appId == -1) {
 		Util::Exit(std::string("error opt"));
+	}
+
+	if (!config_.IsObject()) {
+		Util::Exit("error load config");
 	}
 
 	appUid = appId * 100 + appType;
@@ -124,7 +129,7 @@ void Bootstrap::Startup(int argc, const char* argv[]) {
 		}
 	}
 
-	LOG_INFO(fmt::format("starting server:{} ,app type:{}, app id:{}, app uid:{}, host id:{}", appName, appType, appId, appUid, hostId));
+	LOG_INFO(fmt::format("starting app name:{},app type:{},app id:{},app uid:{},host id:{}", appName, appType, appId, appUid, hostId));
 
 	ServerApp* app = NULL;
 
@@ -177,21 +182,24 @@ void Bootstrap::Startup(int argc, const char* argv[]) {
 		}
 	}
 
-	LuaFish* lua = app->Lua();
+	{
+		LuaFish* lua = app->Lua();
 
-	OOLUA::Table tblEnv = lua->CreateGlobalTable("env");
-	tblEnv.set("appId", appId);
-	tblEnv.set("appUid", appUid);
-	tblEnv.set("appType", appType);
-	tblEnv.set("appName", appName.c_str());
+		OOLUA::Table tblEnv = lua->CreateGlobalTable("env");
+		tblEnv.set("appId", appId);
+		tblEnv.set("appUid", appUid);
+		tblEnv.set("appType", appType);
+		tblEnv.set("appName", appName.c_str());
+		tblEnv.set("bootTime", Now());
 
-	OOLUA::Table tblAppType = lua->CreateGlobalTable("APP_TYPE");
-	OOLUA::Table tblAppTypeName = lua->CreateGlobalTable("APP_TYPE_NAME");
+		OOLUA::Table tblAppType = lua->CreateGlobalTable("APP_TYPE");
+		OOLUA::Table tblAppTypeName = lua->CreateGlobalTable("APP_TYPE_NAME");
 
-	std::unordered_map<uint32_t, const std::string>::iterator iter = APP_TYPE_NAME.begin();
-	for (; iter != APP_TYPE_NAME.end(); iter++ ) {
-		tblAppType.set(iter->second, iter->first);
-		tblAppTypeName.set(iter->first, iter->second);
+		std::unordered_map<uint32_t, const std::string>::iterator iter = APP_TYPE_NAME.begin();
+		for (; iter != APP_TYPE_NAME.end(); iter++) {
+			tblAppType.set(iter->second, iter->first);
+			tblAppTypeName.set(iter->first, iter->second);
+		}
 	}
 	
 	app->Run();
