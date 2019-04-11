@@ -78,5 +78,12 @@ function _M.GetModule(file)
 	end
 end
 
+function ServerStartup()
+
+end
+
+function ServerShutdown() 
+
+end
 
 return _M

@@ -12,7 +12,7 @@ DbApp::DbApp(Network::EventPoller* poller) : ServerApp("db", poller) {
 DbApp::~DbApp(void) {
 }
 
-int DbApp::Init(rapidjson::Document& config) {
+int DbApp::Init(const rapidjson::Value& config) {
 	LOG_ERROR(fmt::format("DbApp start"));
 
 	lua_->Require("db", DbApp::Register);

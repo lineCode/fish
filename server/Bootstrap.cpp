@@ -5,7 +5,7 @@
 #include "network/Address.h"
 #include "util/Util.h"
 #include "logger/LoggerServer.h"
-//#include "db/DbApp.h"
+#include "db/DbApp.h"
 #include "agent/AgentApp.h"
 #include "login/LoginApp.h"
 #include "util/Util.h"
@@ -140,8 +140,12 @@ void Bootstrap::Startup(int argc, const char* argv[]) {
 			break;
 		}
 		case APP_TYPE::eDB: {
-			// app = new DbApp(poller);
-			// app->Init(config_);
+			DbApp* dbApp = new DbApp(poller);
+			if (!config_.HasMember("db")) {
+				Util::Exit("config db not found");
+			}
+			dbApp->Init(config_["db"]);
+			app = dbApp;
 			break;
 		}
 		case APP_TYPE::eLOGIN: {

@@ -1,6 +1,6 @@
-[I][2019-04-11 11:51:17.677 @e:\github\fish\server\bootstrap.cpp:127] starting server:log01_0100 ,app type:1, app id:1, app uid:101, host id:100
-[E][2019-04-11 11:51:17.694 @./script/lib\co.lua:48] ./script/logger.lua:49: attempt to index a nil value (field 'loggerAddr')
+[I][2019-04-11 13:45:48.440 @e:\github\fish\server\bootstrap.cpp:128] starting app name:log01_0100,app type:1,app id:1,app uid:101,host id:100
+[E][2019-04-11 13:45:48.459 @./script/lib\co.lua:48] ./script/logger.lua:49: attempt to index a nil value (field 'loggerAddr')
 stack traceback:
 	./script/logger.lua:49: in upvalue 'func'
 	./script/lib\co.lua:26: in function <./script/lib\co.lua:25>
-[I][2019-04-11 11:51:17.694 @-:0] server init:logger
+[I][2019-04-11 13:45:48.459 @-:0] server init:logger

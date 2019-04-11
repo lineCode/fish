@@ -19,7 +19,7 @@ public:
 
 	~DbApp(void);
 
-	virtual int Init(rapidjson::Document& config);
+	virtual int Init(const rapidjson::Value& config);
 
 	virtual int Fina();
 

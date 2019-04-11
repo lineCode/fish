@@ -1,7 +1,6 @@
 {
 	"hostId" : 100,
 	"workDir" : "../../",
-	"boot": "login",
 	"logger" : {
 		"path" : "./",
 		"addr" : {
@@ -25,14 +24,6 @@
 		"maxFreq" : 100,
 		"maxAlive" : 30,
 		"warnFlow" : 1024
-	},
-	"clientAddr" : {
-		"ip" : "0.0.0.0",
-		"port" : 4000
-	},
-	"loginAddr" : {
-		"ip" : "0.0.0.0",
-		"port" : 5000
 	},
 	"db" : {
 		"ip" : "127.0.0.1",
