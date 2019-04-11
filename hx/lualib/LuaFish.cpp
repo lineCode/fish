@@ -33,9 +33,6 @@ int LuaFish::Init(ServerApp* app) {
 	lua_State* L = script_.state();
 	luaL_openlibs(L);
 
-	lua_newtable(L);
-	lua_setglobal(L, "env");
-
 	lua_pushlightuserdata(L, app);
 	lua_setfield(L, LUA_REGISTRYINDEX, "app");
 
@@ -93,6 +90,14 @@ int LuaFish::DoFile(std::string& file) {
 	return 0;
 }
 
+OOLUA::Table LuaFish::CreateGlobalTable(const char* name) {
+	lua_State* L = (lua_State*)script_;
+
+	lua_newtable(L);
+	lua_setglobal(L, name);
+	return OOLUA::Table(L, name);
+}
+
 void LuaFish::SetPath(const char* path) {
 	lua_State* L = script_.state();
 	std::string fullpath(path);
@@ -107,22 +112,6 @@ void LuaFish::SetPath(const char* path) {
 	
 	lua_pushstring(L, fullpath.c_str());
 	lua_setfield(L, -2, "path");
-}
-
-void LuaFish::SetEnv(const char* key, int value) {
-	lua_State* L = script_.state();
-	lua_getglobal(L, "env");
-	lua_pushstring(L, key);
-	lua_pushinteger(L, value);
-	lua_settable(L, -3);
-}
-
-void LuaFish::SetEnv(const char* key, const char* value) {
-	lua_State* L = script_.state();
-	lua_getglobal(L, "env");
-	lua_pushstring(L, key);
-	lua_pushstring(L, value);
-	lua_settable(L, -3);
 }
 
 void LuaFish::Require(const char* module, int (*func)(lua_State*)) {

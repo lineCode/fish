@@ -17,6 +17,9 @@ _G.RUNTIME_LOG = log:Create("runtime")
 
 table.print(env)
 
+table.print(APP_TYPE_NAME)
+table.print(APP_TYPE)
+
 local ServerInst = nil
 
 function ServerInit(boot)

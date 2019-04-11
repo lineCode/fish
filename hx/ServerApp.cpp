@@ -83,6 +83,7 @@ int ServerApp::Run() {
 		LOG_ERROR(fmt::format("ServerInit error:{}",OOLUA::get_last_error(script)));
 		return -1;
 	}
+	script.gc();
 	poller_->Process();
 	return 0; 
 }

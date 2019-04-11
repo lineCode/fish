@@ -11,6 +11,7 @@
 #include "util/Util.h"
 #include "Common.h"
 #include <assert.h>
+#include "oolua.h"
 
 #ifdef WIN32
 #include "getopt.h"
@@ -68,9 +69,9 @@ void Bootstrap::Startup(int argc, const char* argv[]) {
 	}
 
 	int hostId = config_["hostId"].GetInt();
-	std::string serverTypeName = SERVER_TYPE_NAME[appType];
+	std::string appTypeName = APP_TYPE_NAME[appType];
 
-	std::string appName = fmt::format("{}{:02}_{:04}", serverTypeName, appId, hostId);
+	std::string appName = fmt::format("{}{:02}_{:04}", appTypeName, appId, hostId);
 
 	Util::SetProcessName(appName.c_str());
 
@@ -89,7 +90,13 @@ void Bootstrap::Startup(int argc, const char* argv[]) {
 		if (loggerCfg.HasMember("path")) {
 			path = loggerCfg["path"].GetString();
 		}
-		logger = new Logger(new LoggerServer(path));
+
+		bool showConsole = true;
+		if (loggerCfg.HasMember("showConsole")) {
+			showConsole = loggerCfg["showConsole"].GetBool();
+		}
+
+		logger = new Logger(new LoggerServer(path, showConsole));
 	} else {
 		if (!loggerCfg.HasMember("addr")) {
 			Util::Exit("logger addr not found");
@@ -171,11 +178,22 @@ void Bootstrap::Startup(int argc, const char* argv[]) {
 	}
 
 	LuaFish* lua = app->Lua();
-	lua->SetEnv("appId", appId);
-	lua->SetEnv("appUid", appUid);
-	lua->SetEnv("appType", appType);
-	lua->SetEnv("appName", appName.c_str());
 
+	OOLUA::Table tblEnv = lua->CreateGlobalTable("env");
+	tblEnv.set("appId", appId);
+	tblEnv.set("appUid", appUid);
+	tblEnv.set("appType", appType);
+	tblEnv.set("appName", appName.c_str());
+
+	OOLUA::Table tblAppType = lua->CreateGlobalTable("APP_TYPE");
+	OOLUA::Table tblAppTypeName = lua->CreateGlobalTable("APP_TYPE_NAME");
+
+	std::unordered_map<uint32_t, const std::string>::iterator iter = APP_TYPE_NAME.begin();
+	for (; iter != APP_TYPE_NAME.end(); iter++ ) {
+		tblAppType.set(iter->second, iter->first);
+		tblAppTypeName.set(iter->first, iter->second);
+	}
+	
 	app->Run();
 	app->Fina();
 

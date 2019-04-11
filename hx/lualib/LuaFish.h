@@ -30,11 +30,9 @@ public:
 
 	int DoFile(std::string& file);
 
+	OOLUA::Table CreateGlobalTable(const char* name);
+
 	void SetPath(const char* path);
-
-	void SetEnv(const char* key, int value);
-
-	void SetEnv(const char* key, const char* value);
 
 	void Require(const char* module,int (*func)(lua_State*));
 
