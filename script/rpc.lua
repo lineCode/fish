@@ -10,42 +10,58 @@ rpcName_ = rpcName_ or nil
 
 channelCtx_ = channelCtx_ or {}
 
-agentMgrChannel_ = agentMgrChannel_ or nil
-sceneMgrChannel_ = sceneMgrChannel_ or nil
-
 loginChannelCtx_ = loginChannelCtx_ or {}
 agentChannelCtx_ = agentChannelCtx_ or {}
 sceneChannelCtx_ = sceneChannelCtx_ or {}
 
-local function AddChannel(id, name, channel)
-	if name == "agentMgr" then
-		agentMgrChannel_ = channel
-	elseif name == "sceneMgr" then
-		sceneMgrChannel_ = channel
-	elseif name == "login" then
-		loginChannelCtx_[id] = channel
-	elseif name == "agent" then
-		agentChannelCtx_[id] = channel
-	elseif name == "scene" then
-		sceneChannelCtx_[id] = channel
+dbChannel_ = dbChannel_
+agentMasterChannel_ = agentMasterChannel_
+loginMasterChannel_ = loginMasterChannel_
+sceneMasterChannel_ = sceneMasterChannel_
+
+local function AddChannel(appId, appType, channel, reconnect)
+	if appType == APP_TYPE.DB then
+		dbChannel_ = channel
+	elseif appType == APP_TYPE.AGENT then
+		agentChannelCtx_[appId] = channel
+	elseif appType == APP_TYPE.AGENT_MASTER then
+		agentMasterChannel_ = channel
+	elseif appType == APP_TYPE.LOGIN then
+		loginChannelCtx_[appId] = channel
+	elseif appType == APP_TYPE.LOGIN_MASTER then
+		loginMasterChannel_ = channel
+	elseif appType == APP_TYPE.SCENE then
+		sceneChannelCtx_[appId] = channel
+	elseif appType == APP_TYPE.SCENE_MASTER then
+		sceneMasterChannel_ = channel
 	end
 
-	channelCtx_[channel] = {id = id, name = name, sessionCtx = {}}
+	local session
+	if reconnect then
+		session = co.GenSession()
+	end
+	channelCtx_[channel] = {appId = appId, appType = appType, session = session, sessionCtx = {}}
+	return session
 end
 
 local function RemoveChannel(channel)
 	local ctx = channelCtx_[channel]
 	channelCtx_[channel] = nil
-	if channel.name == "agentMgr" then
-		agentMgrChannel_ = nil
-	elseif channel.name == "sceneMgr" then
-		sceneMgrChannel_ = nil
-	elseif channel.name == "login" then
-		loginChannelCtx_[channel.id] = nil
-	elseif channel.name == "agent" then
-		agentChannelCtx_[channel.id] = nil
-	elseif channel.name == "scene" then
-		sceneChannelCtx_[channel.id] = nil
+
+	if ctx.appType == APP_TYPE.DB then
+		dbChannel_ = nil
+	elseif ctx.appType == APP_TYPE.AGENT then
+		agentChannelCtx_[ctx.appId] = nil
+	elseif ctx.appType == APP_TYPE.AGENT_MASTER then
+		agentMasterChannel_ = nil
+	elseif ctx.appType == APP_TYPE.LOGIN then
+		loginChannelCtx_[ctx.appId] = nil
+	elseif ctx.appType == APP_TYPE.LOGIN_MASTER then
+		loginMasterChannel_ = nil
+	elseif ctx.appType == APP_TYPE.SCENE then
+		sceneChannelCtx_[ctx.appId] = nil
+	elseif ctx.appType == APP_TYPE.SCENE_MASTER then
+		sceneMasterChannel_ = nil
 	end
 
 	local sessionList = {}
@@ -57,6 +73,10 @@ local function RemoveChannel(channel)
 
 	for _,session in ipairs(sessionList) do
 		co.Wakeup(session, false, "bad channel")
+	end
+
+	if ctx.session then
+		co.Wakeup(ctx.session)
 	end
 end
 
@@ -186,14 +206,46 @@ function Listen(self, addr, id, name)
 	return true
 end
 
-function Connect(self, addr, timeout)
+local function DoConnect(self, addr, reconnect)
+	local function ChannelInit(fd)
+		local channel = socket.Bind(fd, 2, self, "OnData", "OnClose", "OnError")
+		local appUid, appName, appType = CallChannel(channel, "rpc:Register", {env.appUid, env.appName, env.appType})
+		local session = AddChannel(appUid, appName, appType, reconnect)
+		return channel, session
+	end
+
+	if reconnect then
+		while true do
+			local fd, reason = socket.Connect(addr)
+			if not fd then
+				co.Sleep(1)
+			else
+				return ChannelInit(fd)
+			end
+		end
+	end
+
 	local fd, reason = socket.Connect(addr)
 	if not fd then
 		return false, reason
 	end
-	local channel = socket.Bind(fd, 2, self, "OnData", "OnClose", "OnError")
-	local result = CallChannel(channel, "rpc:Register", {env.appUid, env.appName, env.appType}, timeout)
-	AddChannel(result.id, result.name, channel)
+	return ChannelInit(fd)
+end
+
+function Connect(self, addr, reconnect)
+	if not reconnect then
+		return DoConnect(self, addr)
+	end
+
+	local channel, session = DoConnect(self, addr, reconnect)
+	if reconnect then
+		co.Fork(function ()
+			while true do
+				co.Wait(session)
+				channel, session = DoConnect(self, addr, reconnect)
+			end
+		end)
+	end
 	return channel
 end
 
@@ -203,54 +255,92 @@ function Register(self, appId, appName, appType, channel)
 	return {env.appUid, env.appName, env.appType}
 end
 
-function SendAgentMgr(self, method, args, callback)
-	if not agentMgrChannel_ then
-		error("not connect agent mgr")
+function SendAgentMaster(self, method, args, callback)
+	if not agentMasterChannel_ then
+		error("not connect agent master")
 	end
-	SendChannel(agentMgrChannel_, method, args, callback)
+	SendChannel(agentMasterChannel_, method, args, callback)
 end
 
-function CallAgentMgr(self, method, args)
-	if not agentMgrChannel_ then
-		error("not connect agent mgr")
+function CallAgentMaster(self, method, args)
+	if not agentMasterChannel_ then
+		error("no agent master")
 	end
-	return CallChannel(agentMgrChannel_, method, args)
+	return CallChannel(agentMasterChannel_, method, args)
 end
 
-function SendSceneMgr(self, method, args, callback)
-	if not sceneMgrChannel_ then
-		error("not connect scene mgr")
+function SendSceneMaster(self, method, args, callback)
+	if not sceneMasterChannel_ then
+		error("no scene master")
 	end
-	SendChannel(sceneMgrChannel_, method, args, callback)
+	SendChannel(sceneMasterChannel_, method, args, callback)
 end
 
-function CallSceneMgr(self, method, args)
-	if not sceneMgrChannel_ then
-		error("not connect scene mgr")
+function CallSceneMaster(self, method, args)
+	if not sceneMasterChannel_ then
+		error("no scene master")
 	end
-	return CallChannel(sceneMgrChannel_, method, args)
+	return CallChannel(sceneMasterChannel_, method, args)
+end
+
+function SendDb(self, id, method, args, callback)
+	if not dbChannel_ then
+		error("no db")
+	end
+	SendChannel(dbChannel_, method, args, callback)
+end
+
+function CallDb(self, id, method, args)
+	if not dbChannel_ then
+		error("no db")
+	end
+	return CallChannel(dbChannel_, method, args)
 end
 
 function SendLogin(self, id, method, args, callback)
-	SendChannel(loginChannel_, method, args, callback)
+	local channel = loginChannelCtx_[id]
+	if not channel then
+		error(string.format("no such login:%d channel", id))
+	end
+	SendChannel(channel, method, args, callback)
 end
 
 function CallLogin(self, id, method, args)
-	return CallChannel(loginChannel_, method, args)
+	local channel = loginChannelCtx_[id]
+	if not channel then
+		error(string.format("no such login:%d channel", id))
+	end
+	return CallChannel(channel, method, args)
 end
 
-function SendAgent(self, method, args, callback)
-	SendChannel(worldChannel_, method, args, callback)
+function SendAgent(self, id, method, args, callback)
+	local channel = agentChannelCtx_[id]
+	if not channel then
+		error(string.format("no such agent:%d channel", id))
+	end
+	SendChannel(channel, method, args, callback)
 end
 
-function CallAgent(self, method, args)
-	return CallChannel(worldChannel_, method, args)
+function CallAgent(self, id, method, args)
+	local channel = agentChannelCtx_[id]
+	if not channel then
+		error(string.format("no such agent:%d channel", id))
+	end
+	return CallChannel(channel, method, args)
 end
 
-function SendScene(self, method, args, callback)
-	SendChannel(worldChannel_, method, args, callback)
+function SendScene(self, id, method, args, callback)
+	local channel = sceneChannelCtx_[id]
+	if not channel then
+		error(string.format("no such scene:%d channel", id))
+	end
+	SendChannel(channel, method, args, callback)
 end
 
-function CallScene(self, method, args)
-	return CallChannel(worldChannel_, method, args)
+function CallScene(self, id, method, args)
+	local channel = sceneChannelCtx_[id]
+	if not channel then
+		error(string.format("no such scene:%d channel", id))
+	end
+	return CallChannel(channel, method, args)
 end
