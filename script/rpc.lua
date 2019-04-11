@@ -88,37 +88,32 @@ local function CallChannel(channel, method, args, timeout)
 	
 	if timeout then
 		fish.StartTimer(timeout, 0, function ()
-			co.Wakeup(session, false, "timeout")
+			co.Wakeup(session, {false, "timeout"})
 		end)
 	end
 
-	local ok,value = co.Wait(session)
-	if not ok then
-		error(value)
+	local result = co.Wait(session)
+	if not result[1] then
+		error(result[2])
 	end
-	return value
+	return table.unpack(result, 2)
 end
 
-local function RetChannel(channel, session, ...)
-	local ptr,size = encode({ret = true,session = session,args = {...}})
+local function RetChannel(channel, session, args)
+	local ptr,size = encode({ret = true,session = session,args = args})
 	channel:Write(2, ptr,size)
 end
 
 local function RunInCo(channel, session, moduleInst, funcInst, args)
-	local ok
 	local result
 	if moduleInst then
-		ok, result = xpcall(funcInst, debug.traceback, moduleInst, args, channel)
+		result = {xpcall(funcInst, debug.traceback, moduleInst, table.unpack(args), channel)}
 	else
-		ok, result = xpcall(funcInst, debug.traceback, args, channel)
+		result = {xpcall(funcInst, debug.traceback, table.unpack(args), channel)}
 	end
 
 	if session then
-		if ok then
-			RetChannel(channel, session, true, result)
-		else
-			RetChannel(channel, session, false, result)
-		end
+		RetChannel(channel, session, table.unpack(result))
 	end
 end
 
@@ -137,7 +132,7 @@ function OnData(self, channel, data, size)
 				co.Fork(callback, table.unpack(message.args, 2))
 			end
 		else
-			co.Wakeup(message.session, table.unpack(message.args))
+			co.Wakeup(message.session, message.args)
 		end
 	else
 		local moduleInst
@@ -191,21 +186,21 @@ function Listen(self, addr, id, name)
 	return true
 end
 
-function Connect(self, addr, id, name, timeout)
+function Connect(self, addr, timeout)
 	local fd, reason = socket.Connect(addr)
 	if not fd then
 		return false, reason
 	end
 	local channel = socket.Bind(fd, 2, self, "OnData", "OnClose", "OnError")
-	local result = CallChannel(channel, "rpc:Register", {id = id, name = name}, timeout)
+	local result = CallChannel(channel, "rpc:Register", {env.appUid, env.appName, env.appType}, timeout)
 	AddChannel(result.id, result.name, channel)
 	return channel
 end
 
-function Register(self, args, channel)
-	RUNTIME_LOG:ERROR_FM("server:%d,%s register from %d,%s", args.id, args.name, rpcId_, rpcName_)
-	AddChannel(args.id, args.name, channel)
-	return {id = rpcId_, name = rpcName_}
+function Register(self, appId, appName, appType, channel)
+	RUNTIME_LOG:ERROR_FM("[%s]:[%s]", env.appName, appName)
+	AddChannel(appId, appType, channel)
+	return {env.appUid, env.appName, env.appType}
 end
 
 function SendAgentMgr(self, method, args, callback)
