@@ -10,7 +10,10 @@ end
 
 function logger:OnData(channel, data, size)
 	local file, content, sz = util.ParseLoggerMessage(data, size)
-
+	if not file then
+		return
+	end
+	
 	local info = fish.UnPack(source, line)
 
 	local fm = info.fm
