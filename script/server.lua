@@ -17,8 +17,6 @@ _G.RUNTIME_LOG = log:Create("runtime")
 
 table.print(env)
 
-table.print(APP_TYPE_NAME)
-table.print(APP_TYPE)
 
 local ServerInst = nil
 
@@ -37,9 +35,6 @@ end
 
 function ServerUpdate(now)
 	ServerInst:Update(now)
-	while true do
-
-	end
 end
 
 function ServerStop()

@@ -61,7 +61,10 @@ char* RingBuffer::Read(uint32_t size) {
 		head_ += size;
 	} else {
 		result = buff_ + head_;
-		head_ = size - (size_ - head_);
+		head_ += size;
+		if (head_ >= size_) {
+			head_ -= size_;
+		}
 	}
 
 	used_ -= size;

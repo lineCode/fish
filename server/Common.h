@@ -8,9 +8,9 @@
 	MAKE(2, DB, db) \
 	MAKE(3, LOGIN, login) \
 	MAKE(4, AGENT, agent) \
-	MAKE(5, AGENT_MASTER, agentmaster) \
+	MAKE(5, AGENT_MASTER, agentm) \
 	MAKE(6, SCENE, scene) \
-	MAKE(7, SCENE_MASTER, scenemaster) \
+	MAKE(7, SCENE_MASTER, scenem) \
 	MAKE(8, MAX, max) \
 
 
