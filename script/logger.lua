@@ -13,16 +13,16 @@ function logger:OnData(channel, data, size)
 	if not file then
 		return
 	end
-	
-	local info = fish.UnPack(content, sz)
 
-	local fm = info.fm
+	local message = fish.UnPack(content, sz)
+
+	local fm = message.fm
 	if fm then
-		content = string.format(fm,table.unpack(info.log))
+		content = string.format(fm, table.unpack(message.log))
 	else
-		content = table.concat(info.log,"\t")
+		content = table.concat(message.log, "\t")
 	end
-	fish.WriteLog(file, info.source or "-", info.line or "0", info.level, info.time, content)
+	fish.WriteLog(file, message.source or "?", message.line or 0, message.level, message.time, content)
 end
 
 function logger:OnClose(channel)
@@ -35,7 +35,7 @@ end
 
 function Init(self)
 	print("logger init")
-	socket.Listen({ip = config.logger.addr.ip, port = config.logger.addr.port}, logger, "OnAccept")
+	socket.Listen(config.logger.addr, logger, "OnAccept")
 
 	-- common.TimeDiff("test",function ()
 	-- 	for i = 1, 1024*100 do
