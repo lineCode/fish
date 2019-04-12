@@ -46,7 +46,7 @@ end
 
 function Init(self)
 	print("logger init")
-	socket.Listen({ip = config.loggerAddr.ip, port = config.loggerAddr.port}, logger, "OnAccept")
+	socket.Listen({ip = config.logger.addr.ip, port = config.logger.addr.port}, logger, "OnAccept")
 
 	-- common.TimeDiff("test",function ()
 	-- 	for i = 1, 1024*100 do
