@@ -26,7 +26,7 @@ public:
 
 	void WriteLog(const char* file, const char* source, int line, Loggerlevel level, double time, const char* content);
 
-	void WriteLog(const char* file, const char* source, int line, Loggerlevel level, double time, std::string& content);
+	void WriteLog(const char* file, const char* source, int line, Loggerlevel level, double time, std::string content);
 
 	void WriteLog(const char* file, void* data, size_t size);
 

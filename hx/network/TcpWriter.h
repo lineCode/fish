@@ -2,9 +2,8 @@
 #define TCPWRITER_H
 
 #include <stdint.h>
-
+#include <stddef.h>
 #include "network/Writer.h"
-#define NULL 0
 
 namespace Network {
 

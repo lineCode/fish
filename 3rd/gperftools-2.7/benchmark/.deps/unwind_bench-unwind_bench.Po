@@ -24,10 +24,7 @@ benchmark/unwind_bench-unwind_bench.o: benchmark/unwind_bench.cc \
  /usr/include/signal.h /usr/include/bits/signum.h \
  /usr/include/bits/siginfo.h /usr/include/bits/sigaction.h \
  /usr/include/bits/sigcontext.h /usr/include/bits/sigstack.h \
- /usr/include/bits/sigthread.h /usr/include/libunwind.h \
- /usr/include/libunwind-x86_64.h /usr/include/ucontext.h \
- /usr/include/libunwind-dynamic.h /usr/include/libunwind-common.h \
- benchmark/run_benchmark.h
+ /usr/include/bits/sigthread.h benchmark/run_benchmark.h
 
 /usr/include/stdc-predef.h:
 
@@ -130,15 +127,5 @@ src/gperftools/stacktrace.h:
 /usr/include/bits/sigstack.h:
 
 /usr/include/bits/sigthread.h:
-
-/usr/include/libunwind.h:
-
-/usr/include/libunwind-x86_64.h:
-
-/usr/include/ucontext.h:
-
-/usr/include/libunwind-dynamic.h:
-
-/usr/include/libunwind-common.h:
 
 benchmark/run_benchmark.h:

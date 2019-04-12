@@ -26,13 +26,6 @@ HX_INC ?= ./hx
 FISH := $(BIN_PATH)/fish
 FISH_INC ?= ./server
 
-LOGGER := $(BIN_PATH)/logger
-LOGGER_INC ?= ./logger
-
-AGENT := $(BIN_PATH)/agent
-AGENT_INC ?= ./agent
-
-DB := $(BIN_PATH)/db
 DB_INC ?= ./db
 
 TEST := $(BIN_PATH)/test
@@ -51,7 +44,7 @@ ifndef config
 endif
 export config
 
-all: $(LUA_STATICLIB) $(OOLUA_STATICLIB) $(LIBEV_STATICLIB) $(TCMALLOC_STATICLIB) $(HX_STATICLIB) $(FISH) $(LOGGER) $(AGENT) $(DB) $(TEST)
+all: $(LUA_STATICLIB) $(OOLUA_STATICLIB) $(LIBEV_STATICLIB) $(TCMALLOC_STATICLIB) $(HX_STATICLIB) $(FISH) $(TEST)
 
 $(LUA_STATICLIB) :
 	cd $(LUA_INC)&& $(MAKE) linux
@@ -76,18 +69,6 @@ $(HX_STATICLIB) :
 $(FISH) : $(LUA_STATICLIB) $(OOLUA_STATICLIB) $(LIBEV_STATICLIB) $(TCMALLOC_STATICLIB) $(HX_STATICLIB)
 	cd $(FISH_INC) && $(MAKE) 
 	mv $(FISH_INC)/fish $(LIBS_DIR)
-
-$(AGENT) : $(LUA_STATICLIB) $(OOLUA_STATICLIB) $(LIBEV_STATICLIB) $(TCMALLOC_STATICLIB) $(HX_STATICLIB)
-	cd $(AGENT_INC) && $(MAKE) 
-	mv $(AGENT_INC)/agent $(LIBS_DIR) 
-
-$(LOGGER) : $(LUA_STATICLIB) $(OOLUA_STATICLIB) $(LIBEV_STATICLIB) $(TCMALLOC_STATICLIB) $(HX_STATICLIB)
-	cd $(LOGGER_INC) && $(MAKE)
-	mv $(LOGGER_INC)/logger $(LIBS_DIR) 
-
-$(DB) : $(LUA_STATICLIB) $(OOLUA_STATICLIB) $(LIBEV_STATICLIB) $(TCMALLOC_STATICLIB) $(HX_STATICLIB)
-	cd $(DB_INC) && $(MAKE)
-	mv $(DB_INC)/db $(LIBS_DIR) 
 
 $(TEST) : $(LUA_STATICLIB) $(OOLUA_STATICLIB) $(LIBEV_STATICLIB) $(TCMALLOC_STATICLIB) $(HX_STATICLIB)
 	cd $(TEST_INC) && $(MAKE)
@@ -114,9 +95,6 @@ cleanhx:
 
 clean:
 	rm -rf $(FISH) && cd $(FISH_INC) && make clean
-	rm -rf $(AGENT) && cd $(AGENT_INC) && make clean
-	rm -rf $(LOGGER) && cd $(LOGGER_INC) && make clean
-	rm -rf $(DB) && cd $(DB_INC) && make clean
 	rm -rf $(TEST) && cd $(TEST_INC) && make clean
 
 cleantest:

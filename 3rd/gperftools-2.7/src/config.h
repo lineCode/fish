@@ -97,7 +97,7 @@
 #define HAVE_INTTYPES_H 1
 
 /* Define to 1 if you have the <libunwind.h> header file. */
-#define HAVE_LIBUNWIND_H 1
+/* #undef HAVE_LIBUNWIND_H */
 
 /* Define to 1 if you have the <linux/ptrace.h> header file. */
 #define HAVE_LINUX_PTRACE_H 1
