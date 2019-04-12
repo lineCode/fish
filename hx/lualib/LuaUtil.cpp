@@ -1,4 +1,5 @@
 ﻿#include "LuaUtil.h"
+#include "logger/Logger.h"
 #include "ServerApp.h"
 #include "util/StreamReader.h"
 #include "util/linenoise.hpp"
@@ -36,32 +37,23 @@ int LuaUtil::ParseLoggerMessage(lua_State* L) {
 
 	reader >> type >> file;
 
-	lua_pushinteger(L, type);
-	lua_pushlstring(L, file.c_str(), file.length());
-
-	int numArgs;
 	if (type == 0) {
 		std::string source;
 		std::string content;
 		int line, level;
 		double time;
 		reader >> source >> line >> level >> time >> content;
-		lua_pushlstring(L, source.c_str(), source.length());
-		lua_pushinteger(L, line);
-		lua_pushinteger(L, level);
-		lua_pushnumber(L, time);
-		lua_pushlstring(L, content.c_str(), content.length());
-		numArgs = 7;
-	}  else {
-		size_t size;
-		reader >> size;
-		void* ud = reader.Read(size);
-		lua_pushlightuserdata(L, ud);
-		lua_pushinteger(L, size);
-		numArgs = 4;
+		LOGGER->Write(file.c_str(), source.c_str(), line, (Logger::LogLv)level, time, content.c_str());
+		return 0;
 	}
 
-	return numArgs;
+	size_t sz;
+	reader >> sz;
+	void* ud = reader.Read(sz);
+	lua_pushlstring(L, file.c_str(), file.length());
+	lua_pushlightuserdata(L, ud);
+	lua_pushinteger(L, sz);
+	return 3;
 }
 
 static lua_State* gL = NULL;

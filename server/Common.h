@@ -4,14 +4,14 @@
 #include <unordered_map>
 
 #define APP_TYPE_MAP(MAKE) \
-	MAKE(1, LOG, log) \
-	MAKE(2, DB, db) \
-	MAKE(3, LOGIN, login) \
-	MAKE(4, AGENT, agent) \
-	MAKE(5, AGENT_MASTER, agentm) \
-	MAKE(6, SCENE, scene) \
-	MAKE(7, SCENE_MASTER, scenem) \
-	MAKE(8, MAX, max) \
+	MAKE(1, LOG,			log) \
+	MAKE(2, DB,				db) \
+	MAKE(3, LOGIN,			login) \
+	MAKE(4, AGENT,			agent) \
+	MAKE(5, AGENT_MASTER,	agentm) \
+	MAKE(6, SCENE,			scene) \
+	MAKE(7, SCENE_MASTER,	scenem) \
+	MAKE(8, MAX,			max) \
 
 
 enum APP_TYPE
