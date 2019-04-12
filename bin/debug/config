@@ -3,6 +3,7 @@
 	"workDir" : "../../",
 	"logger" : {
 		"path" : "./",
+		"level" : 1,
 		"addr" : {
 			"ip" : "127.0.0.1",
 			"port" : 3000,

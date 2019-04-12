@@ -129,6 +129,14 @@ void Bootstrap::Startup(int argc, const char* argv[]) {
 		}
 	}
 
+	if (loggerCfg.HasMember("level")) {
+		int loglv = loggerCfg["level"].GetInt();
+		if (loglv < Logger::Loggerlevel::eDebug || loglv > Logger::Loggerlevel::eError) {
+			Util::Exit(fmt::format("error logger level:{}", loglv));
+		}
+		Logger::SetLoggerLevel((Logger::Loggerlevel)loglv);
+	}
+
 	LOG_INFO(fmt::format("starting app name:{},app type:{},app id:{},app uid:{},host id:{}", appName, appType, appId, appUid, hostId));
 
 	ServerApp* app = NULL;
