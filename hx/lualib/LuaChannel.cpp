@@ -167,7 +167,7 @@ int LuaChannel::LuaWrite(lua_State* L) {
 	size_t size;
 	switch(vt) {
 		case LUA_TSTRING: {
-			data = (char*) lua_tolstring(L, 3, &size);
+			data = (char*)lua_tolstring(L, 3, &size);
 			break;
 		}
 		case LUA_TLIGHTUSERDATA: {

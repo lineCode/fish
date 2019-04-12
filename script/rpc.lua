@@ -5,19 +5,18 @@ local import = require "lib.import"
 local encode = fish.Pack
 local decode = fish.UnPack
 
-rpcId_ = rpcId_ or nil
-rpcName_ = rpcName_ or nil
-
 channelCtx_ = channelCtx_ or {}
-
-loginChannelCtx_ = loginChannelCtx_ or {}
-agentChannelCtx_ = agentChannelCtx_ or {}
-sceneChannelCtx_ = sceneChannelCtx_ or {}
 
 dbChannel_ = dbChannel_
 agentMasterChannel_ = agentMasterChannel_
 loginMasterChannel_ = loginMasterChannel_
 sceneMasterChannel_ = sceneMasterChannel_
+
+loginChannelCtx_ = loginChannelCtx_ or {}
+agentChannelCtx_ = agentChannelCtx_ or {}
+sceneChannelCtx_ = sceneChannelCtx_ or {}
+
+listener_ = listener_
 
 local function AddChannel(appId, appType, channel, reconnect)
 	if appType == APP_TYPE.DB then
@@ -40,7 +39,10 @@ local function AddChannel(appId, appType, channel, reconnect)
 	if reconnect then
 		session = co.GenSession()
 	end
-	channelCtx_[channel] = {appId = appId, appType = appType, session = session, sessionCtx = {}}
+	local ctx = channelCtx_[channel]
+	ctx.appId = appId
+	ctx.appType = appType
+	ctx.session = session
 	return session
 end
 
@@ -86,9 +88,7 @@ local function SendChannel(channel, method, args, callback)
 	if callback then
 		session = co.GenSession()
 		local ctx = channelCtx_[channel]
-		if ctx then
-			ctx.sessionCtx[session] = callback
-		end
+		ctx.sessionCtx[session] = callback
 	end
 
 	local ptr, size = encode({method = method,session = session,args = args})
@@ -99,9 +99,7 @@ local function CallChannel(channel, method, args, timeout)
 	local session = co.GenSession()
 
 	local ctx = channelCtx_[channel]
-	if ctx then
-		ctx.sessionCtx[session] = false
-	end
+	ctx.sessionCtx[session] = false
 
 	local ptr, size = encode({method = method,session = session,args = args})
 	channel:Write(2, ptr, size)
@@ -140,12 +138,9 @@ end
 function OnData(self, channel, data, size)
 	local message = decode(data, size)
 	if message.ret then
-		local callback
 		local ctx = channelCtx_[channel]
-		if ctx then
-			callback = ctx.sessionCtx[message.session]
-			ctx.sessionCtx[message.session] = nil
-		end
+		local callback = ctx.sessionCtx[message.session]
+		ctx.sessionCtx[message.session] = nil
 
 		if callback then
 			if message.args[1] then
@@ -196,19 +191,22 @@ end
 
 function OnAccept(self, fd, addr)
 	RUNTIME_LOG:ERROR_FM("accept server:%s", addr)
-	socket.Bind(fd, 2, self, "OnData", "OnClose", "OnError")
+	local channel = socket.Bind(fd, 2, self, "OnData", "OnClose", "OnError")
+	channelCtx_[channel] = {sessionCtx = {}}
 end
 
-function Listen(self, addr, id, name)
-	assert(socket.Listen(addr, self, "OnAccept"))
-	rpcId_ = id
-	rpcName_ = name
-	return true
+function Listen(self, addr)
+	if self.listener_ then
+		error("rpc already listen")
+	end
+	self.listener_ = socket.Listen(addr, self, "OnAccept")
+	return self.listener_
 end
 
 local function DoConnect(self, addr, reconnect)
 	local function ChannelInit(fd)
 		local channel = socket.Bind(fd, 2, self, "OnData", "OnClose", "OnError")
+		channelCtx_[channel] = {sessionCtx = {}}
 		local appUid, appName, appType = CallChannel(channel, "rpc:Register", {env.appUid, env.appName, env.appType})
 		local session = AddChannel(appUid, appName, appType, reconnect)
 		return channel, session
