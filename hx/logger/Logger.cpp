@@ -8,7 +8,7 @@
 template <> 
 Logger * Singleton<Logger>::singleton_ = 0;
 
-Logger::Loggerlevel Logger::level_ = eDebug;
+Logger::LogLv Logger::level_ = eDebug;
 
 Logger::Logger(LoggerInterface* logger) {
 	interface_ = logger;
@@ -18,27 +18,27 @@ Logger::~Logger(void) {
 	delete interface_;
 }
 
-void Logger::WriteLog(const char* file, const char* source, int line, Loggerlevel level, double time, const char* content) {
+void Logger::Write(const char* file, const char* source, int line, LogLv level, double time, const char* content) {
 	if (level < Logger::level_) {
 		return;
 	}
 	std::lock_guard<std::mutex> guard(mutex_);
-	interface_->WriteLog(file, source, line, level, time, content);
+	interface_->Write(file, source, line, level, time, content);
 }
 
-void Logger::WriteLog(const char* file, const char* source, int line, Loggerlevel level, double time, std::string content) {
-	WriteLog(file, source, line, level, time, content.c_str());
+void Logger::Write(const char* file, const char* source, int line, LogLv level, double time, std::string content) {
+	Write(file, source, line, level, time, content.c_str());
 }
 
-void Logger::WriteLog(const char* file, void* data, size_t size) {
+void Logger::Write(const char* file, void* data, size_t size) {
 	std::lock_guard<std::mutex> guard(mutex_);
-	interface_->WriteLog(file, data, size);
+	interface_->Write(file, data, size);
 }
 
-void Logger::SetLoggerLevel(Loggerlevel level) {
+void Logger::SetLogLv(LogLv level) {
 	Logger::level_ = level;
 }
 
-Logger::Loggerlevel Logger::GetLoggerLevel() {
+Logger::LogLv Logger::GetLogLv() {
 	return Logger::level_;
 }

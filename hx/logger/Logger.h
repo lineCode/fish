@@ -13,7 +13,7 @@ class ServerApp;
 
 class Logger : public Singleton<Logger> {
 public:
-	enum Loggerlevel {
+	enum LogLv {
 		eDebug = 0,
 		eInfo,
 		eWarn,
@@ -24,18 +24,18 @@ public:
 
 	~Logger(void);
 
-	void WriteLog(const char* file, const char* source, int line, Loggerlevel level, double time, const char* content);
+	void Write(const char* file, const char* source, int line, LogLv level, double time, const char* content);
 
-	void WriteLog(const char* file, const char* source, int line, Loggerlevel level, double time, std::string content);
+	void Write(const char* file, const char* source, int line, LogLv level, double time, std::string content);
 
-	void WriteLog(const char* file, void* data, size_t size);
+	void Write(const char* file, void* data, size_t size);
 
-	static void SetLoggerLevel(Loggerlevel level);
+	static void SetLogLv(LogLv level);
 	
-	static Loggerlevel GetLoggerLevel();
+	static LogLv GetLogLv();
 
 private:
-	static Loggerlevel level_;
+	static LogLv level_;
 
 	std::mutex mutex_;
 
@@ -44,13 +44,13 @@ private:
 
 #define LOGGER 			Logger::GetSingleton()
 
-#define LOG_DEBUG(x) 	LOGGER->WriteLog("runtime",__FILE__,__LINE__,Logger::eDebug,	GetTimeMillis() / 1000,x)
+#define LOG_DEBUG(x) 	LOGGER->Write("runtime",__FILE__,__LINE__,Logger::eDebug,	GetTimeMillis() / 1000,x)
 
-#define LOG_INFO(x) 	LOGGER->WriteLog("runtime",__FILE__,__LINE__,Logger::eInfo,		GetTimeMillis() / 1000,x)
+#define LOG_INFO(x) 	LOGGER->Write("runtime",__FILE__,__LINE__,Logger::eInfo,		GetTimeMillis() / 1000,x)
 
-#define LOG_WARN(x) 	LOGGER->WriteLog("runtime",__FILE__,__LINE__,Logger::eWarn,		GetTimeMillis() / 1000,x)
+#define LOG_WARN(x) 	LOGGER->Write("runtime",__FILE__,__LINE__,Logger::eWarn,		GetTimeMillis() / 1000,x)
 
-#define LOG_ERROR(x) 	LOGGER->WriteLog("runtime",__FILE__,__LINE__,Logger::eError,	GetTimeMillis() / 1000,x)
+#define LOG_ERROR(x) 	LOGGER->Write("runtime",__FILE__,__LINE__,Logger::eError,	GetTimeMillis() / 1000,x)
 
 
 #endif

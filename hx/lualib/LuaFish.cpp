@@ -294,7 +294,7 @@ int LuaFish::WriteLog(lua_State* L) {
 	int level = luaL_checkinteger(L, 4);
 	double time = luaL_checknumber(L, 5);
 	const char* log = luaL_checkstring(L, 6);
-	LOGGER->WriteLog(file, source, line, (Logger::Loggerlevel)level, time, log);
+	LOGGER->Write(file, source, line, (Logger::LogLv)level, time, log);
 	return 0;
 }
 
@@ -302,7 +302,7 @@ int LuaFish::SendLog(lua_State* L) {
 	const char* file = luaL_checkstring(L, 1);
 	void* ud = lua_touserdata(L, 2);
 	size_t size = luaL_checkinteger(L, 3);
-	LOGGER->WriteLog(file, ud, size);
+	LOGGER->Write(file, ud, size);
 	return 0;
 }
 

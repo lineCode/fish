@@ -25,7 +25,7 @@ LoggerClient::~LoggerClient(void) {
 	if (timer_) delete timer_;
 }
 
-void LoggerClient::WriteLog(const char* file, const char* source, int line, int level, double time, const char* content) {
+void LoggerClient::Write(const char* file, const char* source, int line, int level, double time, const char* content) {
 	StreamWriter writer;
 	writer << (int32_t)0 << file << source << line << level << time << content;
 	if (channel_) {
@@ -37,7 +37,7 @@ void LoggerClient::WriteLog(const char* file, const char* source, int line, int 
 	}
 }
 
-void LoggerClient::WriteLog(const char* file, void* data, size_t size) {
+void LoggerClient::Write(const char* file, void* data, size_t size) {
 	StreamWriter writer;
 	writer << (int32_t)1 << file << size;
 	writer.Append((const char*)data, size);

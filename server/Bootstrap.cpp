@@ -131,10 +131,10 @@ void Bootstrap::Startup(int argc, const char* argv[]) {
 
 	if (loggerCfg.HasMember("level")) {
 		int loglv = loggerCfg["level"].GetInt();
-		if (loglv < Logger::Loggerlevel::eDebug || loglv > Logger::Loggerlevel::eError) {
+		if ( loglv < Logger::LogLv::eDebug || loglv > Logger::LogLv::eError ) {
 			Util::Exit(fmt::format("error logger level:{}", loglv));
 		}
-		Logger::SetLoggerLevel((Logger::Loggerlevel)loglv);
+		Logger::SetLogLv((Logger::LogLv)loglv);
 	}
 
 	LOG_INFO(fmt::format("starting app name:{},app type:{},app id:{},app uid:{},host id:{}", appName, appType, appId, appUid, hostId));
@@ -203,6 +203,7 @@ void Bootstrap::Startup(int argc, const char* argv[]) {
 		tblEnv.set("appType", appType);
 		tblEnv.set("appName", appName.c_str());
 		tblEnv.set("bootTime", Now());
+		tblEnv.set("logLv", Logger::GetLogLv());
 
 		OOLUA::Table tblAppType = lua->CreateGlobalTable("APP_TYPE");
 		OOLUA::Table tblAppTypeName = lua->CreateGlobalTable("APP_TYPE_NAME");

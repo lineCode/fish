@@ -6,7 +6,7 @@ local kLOG_LV_WARN 		= 2
 local kLOG_LV_INFO 		= 1
 local kLOG_LV_DEBUG 	= 0
 
-local loggerLevel_ = config.loggerLevel or kLOG_LV_DEBUG
+local logLevel_ = env.logLv
 
 local loggerCtx = {}
 
@@ -22,7 +22,7 @@ function _M:Create(name, depth)
 	end
 
 	local ctx = setmetatable({},{__index = self})
-	ctx.logLevel = loggerLevel_
+	ctx.logLevel = logLevel_
 	ctx.name = name
 	ctx.depth = depth
 
@@ -37,7 +37,7 @@ local function GetDebugInfo(logger)
 end
 
 local Flush
-if fish.GetAppName() == "logger" then
+if env.appType == APP_TYPE.LOGGER then
 	Flush = function(logger, fm, level,...)
 		local source
 		local line
@@ -75,56 +75,56 @@ end
 
 
 function _M:DEBUG(...)
-	if kLOG_LV_DEBUG < loggerLevel_ then
+	if kLOG_LV_DEBUG < logLevel_ then
 		return
 	end
 	return Flush(self,nil,kLOG_LV_DEBUG,...)
 end
 
 function _M:DEBUG_FM(fm,...)
-	if kLOG_LV_DEBUG < loggerLevel_ then
+	if kLOG_LV_DEBUG < logLevel_ then
 		return
 	end
 	return Flush(self,fm,kLOG_LV_DEBUG,...)
 end
 
 function _M:INFO(...)
-	if kLOG_LV_INFO < loggerLevel_ then
+	if kLOG_LV_INFO < logLevel_ then
 		return
 	end
 	return Flush(self,nil,kLOG_LV_INFO,...)
 end
 
 function _M:INFO_FM(fm,...)
-	if kLOG_LV_INFO < loggerLevel_ then
+	if kLOG_LV_INFO < logLevel_ then
 		return
 	end
 	return Flush(self,fm,kLOG_LV_INFO,...)
 end
 
 function _M:WARN(...)
-	if kLOG_LV_WARN < loggerLevel_ then
+	if kLOG_LV_WARN < logLevel_ then
 		return
 	end
 	return Flush(self,nil,kLOG_LV_WARN,...)
 end
 
 function _M:WARN_FM(fm,...)
-	if kLOG_LV_WARN < loggerLevel_ then
+	if kLOG_LV_WARN < logLevel_ then
 		return
 	end
 	return Flush(self,fm,kLOG_LV_WARN,...)
 end
 
 function _M:ERROR(...)
-	if kLOG_LV_ERROR < loggerLevel_ then
+	if kLOG_LV_ERROR < logLevel_ then
 		return
 	end
 	return Flush(self,nil,kLOG_LV_ERROR,...)
 end
 
 function _M:ERROR_FM(fm,...)
-	if kLOG_LV_ERROR < loggerLevel_ then
+	if kLOG_LV_ERROR < logLevel_ then
 		return
 	end
 	return Flush(self,fm,kLOG_LV_ERROR,...)

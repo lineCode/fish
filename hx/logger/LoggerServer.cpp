@@ -24,7 +24,7 @@ LoggerServer::~LoggerServer(void) {
 	}
 }
 
-void LoggerServer::WriteLog(const char* file, const char* source, int line, int level, double time, const char* content) {
+void LoggerServer::Write(const char* file, const char* source, int line, int level, double time, const char* content) {
 	FILE* F = GetFILE(file);
 
 	struct tm stm;
@@ -46,7 +46,7 @@ void LoggerServer::WriteLog(const char* file, const char* source, int line, int 
 	}
 }
 
-void LoggerServer::WriteLog(const char* file, void* data, size_t size) {
+void LoggerServer::Write(const char* file, void* data, size_t size) {
 }
 
 FILE* LoggerServer::GetFILE(const char* file) {

@@ -11,9 +11,9 @@ public:
 	LoggerServer(const char* path, bool show = true);
 	virtual ~LoggerServer();
 
-	virtual void WriteLog(const char* file, const char* source, int line, int level, double time, const char* content);
+	virtual void Write(const char* file, const char* source, int line, int level, double time, const char* content);
 
-	virtual void WriteLog(const char* file, void* data, size_t size);
+	virtual void Write(const char* file, void* data, size_t size);
 
 	virtual FILE* GetFILE(const char* file);
 private:
