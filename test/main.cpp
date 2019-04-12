@@ -4,7 +4,6 @@
 #include "ServerApp.h"
 #include "logger/Logger.h"
 #include "logger/LoggerClient.h"
-#define __GNU_LIBRARY__
 #include "getopt.h"
 #ifdef _WIN32
 #include <WinSock2.h>
@@ -54,7 +53,7 @@ int main(int argc,const char* argv[]) {
 				break;
 		}
 	}
-	ServerApp app(poller);
+	ServerApp app("test",poller);
 	app.Init("test");
 	app.Run();
 	app.Fina();

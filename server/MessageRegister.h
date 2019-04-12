@@ -36,7 +36,7 @@ struct RegisterHandler {
 
 #define REGISTER_AGENT_HANDLER(cmd, method) \
 	static void agent_handler_##cmd(Network::Channel* channel, StreamReader& reader) {\
-		AGENT_APP->##method(channel, reader); \
+		AGENT_APP->method(channel, reader); \
 	}\
 	static RegisterHandler agent_handler_register_##cmd(cmd, agent_handler_##cmd); \
 	

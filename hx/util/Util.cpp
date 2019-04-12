@@ -6,6 +6,9 @@
 #include <string.h>
 #include <iostream>
 
+#ifndef WIN32
+#include <sys/prctl.h>
+#endif
 namespace Util {
 	void Exit(std::string reason) {
 		std::cerr << reason << std::endl;
