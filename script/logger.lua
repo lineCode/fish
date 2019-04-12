@@ -14,7 +14,7 @@ function logger:OnData(channel, data, size)
 		return
 	end
 	
-	local info = fish.UnPack(source, line)
+	local info = fish.UnPack(content, sz)
 
 	local fm = info.fm
 	if fm then
