@@ -37,7 +37,7 @@ local function GetDebugInfo(logger)
 end
 
 local Flush
-if env.appType == APP_TYPE.LOGGER then
+if env.appType == APP_TYPE.LOG then
 	Flush = function(logger, fm, level,...)
 		local source
 		local line
