@@ -24,7 +24,7 @@ function OnData(self, channel, data, size)
 	fish.WriteLog(file, message.source or "?", message.line or 0, message.level, message.time, content)
 end
 
-function OnClose(channel)
+function OnClose(self, channel)
 
 end
 
