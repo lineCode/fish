@@ -2,13 +2,12 @@ local common = require "lib.common"
 local telnet = require "lib.telnet"
 local socket = require "lib.socket"
 
-local logger = {}
 
-function logger:OnAccept(fd, addr)
-	socket.Bind(fd, 2, logger, "OnData", "OnClose", "OnError")
+function OnAccept(self, fd, addr)
+	socket.Bind(fd, 2, self, "OnData", "OnClose", "OnClose")
 end
 
-function logger:OnData(channel, data, size)
+function OnData(self, channel, data, size)
 	local file, content, sz = util.ParseLoggerMessage(data, size)
 	if not file then
 		return
@@ -25,24 +24,13 @@ function logger:OnData(channel, data, size)
 	fish.WriteLog(file, message.source or "?", message.line or 0, message.level, message.time, content)
 end
 
-function logger:OnClose(channel)
-
-end
-
-function logger:OnError(channel)
+function OnClose(channel)
 
 end
 
 function Init(self)
 	print("logger init")
-	socket.Listen(config.logger.addr, logger, "OnAccept")
-
-	-- common.TimeDiff("test",function ()
-	-- 	for i = 1, 1024*100 do
-	-- 		RUNTIME_LOG:ERROR("a b c fuck,asdfasdf2sdfdsfdsf")
-	-- 	end
-	-- end)
-	
+	socket.Listen(config.logger.addr, self, "OnAccept")
 end
 
 function Fina()
