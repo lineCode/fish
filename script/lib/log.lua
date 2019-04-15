@@ -51,7 +51,7 @@ if env.appType == APP_TYPE.LOG then
 		else
 			content = table.concat({...},"\t")
 		end
-		fish.WriteLog(logger.name, source or "?", line or 0, level, fish.Timestamp(), content)
+		fish.WriteLog(logger.name, source or "?", line or -1, level, fish.Timestamp(), content)
 	end
 else
 	Flush = function(logger, fm, level,...)

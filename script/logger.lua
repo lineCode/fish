@@ -21,7 +21,7 @@ function OnData(self, channel, data, size)
 	else
 		content = table.concat(message.log, "\t")
 	end
-	fish.WriteLog(file, message.source or "?", message.line or 0, message.level, message.time, content)
+	fish.WriteLog(file, message.source or "?", message.line or -1, message.level, message.time, content)
 end
 
 function OnClose(self, channel)
@@ -33,10 +33,10 @@ function Init(self)
 	socket.Listen(config.logger.addr, self, "OnAccept")
 end
 
-function Fina()
+function Fina(self)
 	print("logger Fina")
 end
 
-function Update(now)
+function Update(self, now)
 
 end
