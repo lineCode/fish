@@ -8,7 +8,7 @@
 #include "LuaChannel.h"
 #include "LuaHttpChannel.h"
 
-#ifndef WIN32
+#ifdef MEM_USE_TC
 #include "tcmalloc.h"
 #include "heap-profiler.h"
 #include "profiler.h"
@@ -323,7 +323,7 @@ int LuaFish::Dump(lua_State* L) {
 }
 
 int LuaFish::GetMemory(lua_State* L) {
-#ifdef WIN32
+#ifndef MEM_USE_TC 
 	return 0;
 #else
 	size_t allocatedBytes;
@@ -334,7 +334,7 @@ int LuaFish::GetMemory(lua_State* L) {
 }
 
 int LuaFish::FreeMemory(lua_State* L) {
-#ifdef WIN32
+#ifndef MEM_USE_TC 
 	return 0;
 #else
 	MallocExtension::instance()->ReleaseFreeMemory();
@@ -343,7 +343,7 @@ int LuaFish::FreeMemory(lua_State* L) {
 }
 
 int LuaFish::CPUProfilerStart(lua_State* L) {
-#ifdef WIN32
+#ifndef MEM_USE_TC 
 	return 0;
 #else
 	const char* name = luaL_checkstring(L, 1);
@@ -353,7 +353,7 @@ int LuaFish::CPUProfilerStart(lua_State* L) {
 }
 
 int LuaFish::CPUProfilerStop(lua_State* L) {
-#ifdef WIN32
+#ifndef MEM_USE_TC 
 	return 0;
 #else
 	ProfilerStop();
@@ -362,7 +362,7 @@ int LuaFish::CPUProfilerStop(lua_State* L) {
 }
 
 int LuaFish::HeapProfilerStart(lua_State* L) {
-#ifdef WIN32
+#ifndef MEM_USE_TC 
 	return 0;
 #else
 	const char* prefix = luaL_checkstring(L, 1);
@@ -372,7 +372,7 @@ int LuaFish::HeapProfilerStart(lua_State* L) {
 }
 
 int LuaFish::HeapProfilerStop(lua_State* L) {
-#ifdef WIN32
+#ifndef MEM_USE_TC
 	return 0;
 #else
 	::HeapProfilerStop();
@@ -381,7 +381,7 @@ int LuaFish::HeapProfilerStop(lua_State* L) {
 }
 
 int LuaFish::HeapProfilerDump(lua_State* L) {
-#ifdef WIN32
+#ifndef MEM_USE_TC 
 	return 0;
 #else
 	const char* reason = luaL_checkstring(L, 1);

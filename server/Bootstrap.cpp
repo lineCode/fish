@@ -74,7 +74,7 @@ void Bootstrap::Startup(int argc, const char* argv[]) {
 	}
 
 	int hostId = config_["hostId"].GetInt();
-	std::string appTypeName = APP_TYPE_NAME[appType];
+	std::string appTypeName = APP_TYPE_DESC[appType];
 
 	std::string appName = fmt::format("{}{:02}_{:04}", appTypeName, appId, hostId);
 

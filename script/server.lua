@@ -20,6 +20,8 @@ table.print(env)
 
 local ServerInst = nil
 
+table.print(APP_TYPE)
+table.print(APP_TYPE_NAME)
 function ServerInit(boot)
 	ServerInst = Import(boot)
 	co.Fork(ServerInst.Init, ServerInst)

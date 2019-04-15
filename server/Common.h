@@ -21,10 +21,17 @@ enum APP_TYPE
 #undef MAKE
 };
 
-static std::unordered_map<uint32_t, const std::string> APP_TYPE_NAME = {
+static std::unordered_map<uint32_t, const std::string> APP_TYPE_DESC = {
 #define MAKE(num, name, string) { num, #string },
 	APP_TYPE_MAP(MAKE)
 #undef MAKE
 };
+
+static std::unordered_map<uint32_t, const std::string> APP_TYPE_NAME = {
+#define MAKE(num, name, string) { num, #name },
+	APP_TYPE_MAP(MAKE)
+#undef MAKE
+};
+
 
 #endif

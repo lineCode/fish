@@ -40,3 +40,7 @@ end
 function Update(self, now)
 
 end
+
+function Stop(self)
+	fish.Stop()
+end

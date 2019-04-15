@@ -5,9 +5,10 @@ function Init(self)
 	RPC:Listen(config.login, 1, "login")
 
 	while true do
-		co.Sleep(1)
-		RUNTIME_LOG:ERROR("FUCK")
-		print(lfs.attributes("./runtime.log").change)
+		co.Sleep(0.1)
+		for i = 1,10 do
+			RUNTIME_LOG:ERROR("FUCK")
+		end
 	end
 end
 

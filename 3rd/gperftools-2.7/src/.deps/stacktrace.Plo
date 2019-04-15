@@ -75,14 +75,17 @@ src/stacktrace.lo: src/stacktrace.cc /usr/include/stdc-predef.h \
  src/getenv_safe.h src/stacktrace_impl_setup-inl.h \
  src/stacktrace_libgcc-inl.h \
  /usr/lib/gcc/x86_64-redhat-linux/4.8.5/include/unwind.h \
- src/stacktrace_x86-inl.h src/config.h /usr/include/sys/ucontext.h \
- /usr/include/signal.h /usr/include/bits/signum.h \
- /usr/include/bits/siginfo.h /usr/include/bits/sigaction.h \
- /usr/include/bits/sigcontext.h /usr/include/bits/sigstack.h \
- /usr/include/bits/sigthread.h /usr/include/sys/mman.h \
- /usr/include/bits/mman.h src/base/vdso_support.h \
- src/base/elf_mem_image.h /usr/include/link.h /usr/include/elf.h \
- /usr/include/dlfcn.h /usr/include/bits/dlfcn.h \
+ src/stacktrace_libunwind-inl.h /usr/include/libunwind.h \
+ /usr/include/libunwind-x86_64.h /usr/include/ucontext.h \
+ /usr/include/sys/ucontext.h /usr/include/signal.h \
+ /usr/include/bits/signum.h /usr/include/bits/siginfo.h \
+ /usr/include/bits/sigaction.h /usr/include/bits/sigcontext.h \
+ /usr/include/bits/sigstack.h /usr/include/bits/sigthread.h \
+ /usr/include/libunwind-dynamic.h /usr/include/libunwind-common.h \
+ src/base/basictypes.h src/base/logging.h src/stacktrace_x86-inl.h \
+ src/config.h /usr/include/sys/mman.h /usr/include/bits/mman.h \
+ src/base/vdso_support.h src/base/elf_mem_image.h /usr/include/link.h \
+ /usr/include/elf.h /usr/include/dlfcn.h /usr/include/bits/dlfcn.h \
  /usr/include/bits/elfclass.h /usr/include/bits/link.h
 
 /usr/include/stdc-predef.h:
@@ -323,9 +326,13 @@ src/stacktrace_libgcc-inl.h:
 
 /usr/lib/gcc/x86_64-redhat-linux/4.8.5/include/unwind.h:
 
-src/stacktrace_x86-inl.h:
+src/stacktrace_libunwind-inl.h:
 
-src/config.h:
+/usr/include/libunwind.h:
+
+/usr/include/libunwind-x86_64.h:
+
+/usr/include/ucontext.h:
 
 /usr/include/sys/ucontext.h:
 
@@ -342,6 +349,18 @@ src/config.h:
 /usr/include/bits/sigstack.h:
 
 /usr/include/bits/sigthread.h:
+
+/usr/include/libunwind-dynamic.h:
+
+/usr/include/libunwind-common.h:
+
+src/base/basictypes.h:
+
+src/base/logging.h:
+
+src/stacktrace_x86-inl.h:
+
+src/config.h:
 
 /usr/include/sys/mman.h:
 
