@@ -26,6 +26,10 @@
 		"maxAlive" : 30,
 		"warnFlow" : 1024
 	},
+	"login" : {
+		"file": "login.ipc"
+
+	},
 	"db" : {
 		"ip" : "127.0.0.1",
 		"port" : 3306,

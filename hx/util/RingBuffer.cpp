@@ -58,7 +58,7 @@ char* RingBuffer::Read(uint32_t size) {
 		memcpy(cache + len, buff_, size - len);
 		result = cache;
 
-		head_ += size;
+		head_ = size - size_ + head_;
 	} else {
 		result = buff_ + head_;
 		head_ += size;

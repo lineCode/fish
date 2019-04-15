@@ -16,6 +16,7 @@ LuaChannel::LuaChannel(Network::EventPoller* poller,int fd, LuaFish* lua, uint32
 	errorReference_ = LUA_NOREF;
 
 	SetReader(new Network::FastReader(1024, 1024 * 1024));
+	//SetReader(new Network::TcpReader());
 	SetWriter(new Network::TcpWriter());
 }
 
@@ -67,6 +68,7 @@ void LuaChannel::HandleRead() {
 			if (reader_->GetTotal() < (int)need_) {
 				break;
 			}
+			
 
 			char* data = reader_->ReadData(need_);
 			
@@ -78,7 +80,6 @@ void LuaChannel::HandleRead() {
 			if (LUA_OK != lua_pcall(L, 3, 0, 0)) {
 				LOG_ERROR(fmt::format("HandleRead error:{}", lua_tostring(L, -1)));
 			}
-
 			need_ = 0;
 		}
 	}
