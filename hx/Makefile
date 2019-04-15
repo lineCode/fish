@@ -15,8 +15,8 @@ ifeq ($(config),debug)
 		CXXFLAG = -g -std=c++11 -fPIC -Wall -fno-omit-frame-pointer -fno-strict-aliasing -Wno-unused-variable -fsanitize=address
 		CFLAG = -g -fPIC -Wall -fno-strict-aliasing -fsanitize=address
 	else
-		CXXFLAG = -g -std=c++11 -fPIC -Wall -fno-omit-frame-pointer -fno-strict-aliasing -Wno-unused-local-typedefs -Wno-unused-variable 
-		CFLAG = -g -fPIC -Wall -fno-strict-aliasing -Wno-unused-local-typedefs 
+		CXXFLAG = -g -std=c++11 -fPIC -Wall -fno-omit-frame-pointer -fno-strict-aliasing -Wno-unused-local-typedefs -Wno-unused-variable
+		CFLAG = -g -fPIC -Wall -fno-strict-aliasing -Wno-unused-local-typedefs
 	endif
 endif
 
@@ -26,12 +26,15 @@ ifeq ($(config),release)
 		CFLAG = -g -O3 -fPIC -Wall -fno-strict-aliasing -fsanitize=address
 	else
 
-		CXXFLAG = -g -std=c++11 -O3 -fPIC -Wall -fno-omit-frame-pointer -fno-strict-aliasing -Wno-unused-local-typedefs -Wno-unused-variable 
-		CFLAG = -g -O3 -fPIC -Wall -fno-strict-aliasing -Wno-unused-local-typedefs 
+		CXXFLAG = -g -std=c++11 -O3 -fPIC -Wall -fno-omit-frame-pointer -fno-strict-aliasing -Wno-unused-local-typedefs -Wno-unused-variable
+		CFLAG = -g -O3 -fPIC -Wall -fno-strict-aliasing -Wno-unused-local-typedefs
 	endif
 endif
 
 AR = ar
+
+CXXFLAG += $(DEFINE)
+CFLAG += $(DEFINE)
 
 INCLUDE = -I. -I../3rd -I../3rd/libev -I../3rd/lua/src -I../3rd/oolua/include -I../3rd/rapidjson -I../3rd/http-parser -I../3rd/klib -I../3rd/gperftools-2.7/src/gperftools
 TARGET = libhx.a

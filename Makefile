@@ -39,6 +39,10 @@ CC=gcc
 export CC
 export CXX
 
+DEFINE=-DMEM_USE_TC
+
+export DEFINE
+
 ifndef config
 	config=debug
 endif
