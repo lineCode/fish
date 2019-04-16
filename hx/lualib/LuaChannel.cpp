@@ -69,7 +69,6 @@ void LuaChannel::HandleRead() {
 				break;
 			}
 			
-
 			char* data = reader_->ReadData(need_);
 			
 			lua_rawgeti(L, LUA_REGISTRYINDEX, dataReference_);

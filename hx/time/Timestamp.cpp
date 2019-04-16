@@ -16,6 +16,8 @@
 
 static int G_TIMEZONE = 0xffffffff;
 
+int G_TIMEDIFF = 0;
+
 double GetTimeMillis() {
 	struct timeval tv;
 
@@ -43,7 +45,7 @@ double GetTimeMillis() {
 	gettimeofday(&tv, NULL);
 #endif
 
-	return (double)tv.tv_sec * 1000 + (double)tv.tv_usec / 1000;
+	return (double)(tv.tv_sec + G_TIMEDIFF) * 1000 + (double)tv.tv_usec / 1000;
 }
 
 uint64_t Now() {

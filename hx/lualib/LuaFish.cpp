@@ -15,6 +15,7 @@
 #include "malloc_extension.h"
 #endif
 
+extern int G_TIMEDIFF;
 
 using namespace std::placeholders;
 
@@ -36,6 +37,28 @@ int LuaFish::Init(ServerApp* app) {
 	lua_pushlightuserdata(L, app);
 	lua_setfield(L, LUA_REGISTRYINDEX, "app");
 
+	{
+		lua_getglobal(L, "os");
+
+		lua_pushlightuserdata(L, app);
+		lua_getglobal(L, "os");
+		lua_getfield(L, -1, "time");
+		lua_pushcclosure(L, LuaFish::OsTime, 2);
+
+		lua_setfield(L, -2, "time");
+	}
+
+	{
+		lua_getglobal(L, "os");
+
+		lua_pushlightuserdata(L, app);
+		lua_getglobal(L, "os");
+		lua_getfield(L, -1, "date");
+		lua_pushcclosure(L, LuaFish::OsDate, 2);
+
+		lua_setfield(L, -2, "date");
+	}
+	
 	const luaL_Reg metaAcceptor[] = {
         { "Stop", LuaFish::AcceptorClose },
 		{ NULL, NULL },
@@ -243,6 +266,7 @@ int LuaFish::Register(lua_State* L) {
 		{ "SendLog", LuaFish::SendLog },
 		{ "Now", LuaFish::Now },
 		{ "Timestamp", LuaFish::Timestamp},
+		{ "SetTimeDiff", LuaFish::SetTimeDiff},
 		{ "Dump", LuaFish::Dump},
 		{ "GetMemory", LuaFish::GetMemory},
 		{ "FreeMemory", LuaFish::FreeMemory},
@@ -314,6 +338,43 @@ int LuaFish::Now(lua_State* L) {
 
 int LuaFish::Timestamp(lua_State* L) {
 	lua_pushnumber(L, GetTimeMillis() / 1000);
+	return 1;
+}
+
+int LuaFish::SetTimeDiff(lua_State* L) {
+	int timeDiff = luaL_checkinteger(L, 1);
+	G_TIMEDIFF = timeDiff;
+	return 0;
+}
+
+int LuaFish::OsTime(lua_State* L) {
+	ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
+	if ( lua_isnoneornil(L, 1) ) {
+		lua_pushinteger(L, app->Now());
+		return 1;
+	}
+
+	lua_pushvalue(L, lua_upvalueindex(2));
+	lua_pushvalue(L, 1);
+
+	if ( lua_pcall(L, 1, 1, 0) != LUA_OK ) {
+		luaL_error(L, lua_tostring(L, -1));
+	}
+	return 1;
+}
+
+int LuaFish::OsDate(lua_State* L) {
+	ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
+	if ( lua_isnoneornil(L, 1) ) {
+		lua_pushinteger(L, app->Now());
+	}
+
+	lua_pushvalue(L, lua_upvalueindex(2));
+	lua_pushvalue(L, 1);
+
+	if ( lua_pcall(L, 1, 1, 0) != LUA_OK ) {
+		luaL_error(L, lua_tostring(L, -1));
+	}
 	return 1;
 }
 

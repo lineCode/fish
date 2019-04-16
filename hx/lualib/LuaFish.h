@@ -66,6 +66,12 @@ public:
 
 	static int Timestamp(lua_State* L);
 
+	static int SetTimeDiff(lua_State* L);
+
+	static int OsTime(lua_State* L);
+
+	static int OsDate(lua_State* L);
+
 	static int Dump(lua_State* L);
 
 	static int GetMemory(lua_State* L);
