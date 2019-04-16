@@ -5,9 +5,9 @@ function Init(self)
 	RPC:Listen(config.login, 1, "login")
 
 	while true do
-		co.Sleep(0.1)
-		for i = 1,10 do
-			RUNTIME_LOG:ERROR("FUCK")
+		co.Sleep(0.01)
+		for i = 1,500 do
+			RUNTIME_LOG:ERROR_FM("FUCK:%d", 1)
 		end
 	end
 end

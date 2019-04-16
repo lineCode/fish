@@ -16,9 +16,6 @@ RingBuffer::RingBuffer(uint32_t min, uint32_t max) {
 
 RingBuffer::~RingBuffer() {
 	free(buff_);
-	if (cache_) {
-		free(cache_);
-	}
 }
 
 char* RingBuffer::PreWrite(uint32_t& size) {

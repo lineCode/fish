@@ -110,32 +110,16 @@ void LuaChannel::SetReference(int reference) {
 	reference_ = reference;
 }
 
-int LuaChannel::GetReference() {
-	return reference_;
-}
-
 void LuaChannel::SetDataReference(int reference) {
 	dataReference_ = reference;
-}
-
-int LuaChannel::GetDataReference() {
-	return dataReference_;
 }
 
 void LuaChannel::SetCloseReference(int reference) {
 	closeReference_ = reference;
 }
 
-int LuaChannel::GetCloseReference() {
-	return closeReference_;
-}
-
 void LuaChannel::SetErrorReference(int reference) {
 	errorReference_ = reference;
-}
-
-int LuaChannel::GetErrorReference() {
-	return errorReference_;
 }
 
 int LuaChannel::LuaRead(lua_State* L) {
