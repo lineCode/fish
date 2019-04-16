@@ -103,10 +103,11 @@ int hash_find(hash_t *self, const char* name) {
 }
 
 void hash_free(hash_t *self) {
-	char* name;
+	const char* name;
 	int id;
+	(void)id;
 	hash_foreach(self, name, id, {
-		free(name);
+		free((void*)name);
 	});
 	kh_destroy(protocol, self);
 }
