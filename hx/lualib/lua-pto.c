@@ -574,36 +574,36 @@ static inline void
 pack_one(lua_State* L, writer_t* writer, field_t* f, int index, int depth) {
 	switch ( f->type ) {
 		case FTYPE_BOOL: {
-							 pack_bool(L, writer, f, index);
-							 break;
+			pack_bool(L, writer, f, index);
+			break;
 		}
 		case FTYPE_SHORT: {
-							  pack_short(L, writer, f, index);
-							  break;
+			pack_short(L, writer, f, index);
+			break;
 		}
 		case FTYPE_INT: {
-							pack_int(L, writer, f, index);
-							break;
+			pack_int(L, writer, f, index);
+			break;
 		}
 		case FTYPE_FLOAT: {
-							  pack_float(L, writer, f, index);
-							  break;
+			pack_float(L, writer, f, index);
+			break;
 		}
 		case FTYPE_DOUBLE: {
-							   pack_double(L, writer, f, index);
-							   break;
+			pack_double(L, writer, f, index);
+			break;
 		}
 		case FTYPE_STRING: {
-							   pack_string(L, writer, f, index);
-							   break;
+			pack_string(L, writer, f, index);
+			break;
 		}
 		case FTYPE_PROTOCOL: {
-								 pack_field(L, writer, f, index, depth);
-								 break;
+			pack_field(L, writer, f, index, depth);
+			break;
 		}
 		default: {
-					 writer_release(writer);
-					 luaL_error(L, "pack error:invalid name:%s,type:%d", f->name, f->type);
+			writer_release(writer);
+			luaL_error(L, "pack error:invalid name:%s,type:%d", f->name, f->type);
 		}
 	}
 }
@@ -769,35 +769,35 @@ static inline void
 unpack_one(lua_State* L, reader_t* reader, field_t* f, int index, int depth) {
 	switch ( f->type ) {
 		case FTYPE_BOOL: {
-							 unpack_bool(L, reader, f, index);
-							 break;
+			unpack_bool(L, reader, f, index);
+			break;
 		}
 		case FTYPE_SHORT: {
-							  unpack_short(L, reader, f, index);
-							  break;
+			unpack_short(L, reader, f, index);
+			break;
 		}
 		case FTYPE_INT: {
-							unpack_int(L, reader, f, index);
-							break;
+			unpack_int(L, reader, f, index);
+			break;
 		}
 		case FTYPE_FLOAT: {
-							  unpack_float(L, reader, f, index);
-							  break;
+			unpack_float(L, reader, f, index);
+			break;
 		}
 		case FTYPE_DOUBLE: {
-							   unpack_double(L, reader, f, index);
-							   break;
+			unpack_double(L, reader, f, index);
+			break;
 		}
 		case FTYPE_STRING: {
-							   unpack_string(L, reader, f, index);
-							   break;
+			unpack_string(L, reader, f, index);
+			break;
 		}
 		case FTYPE_PROTOCOL: {
-								 unpack_field(L, reader, f, index, depth);
-								 break;
+			unpack_field(L, reader, f, index, depth);
+			break;
 		}
 		default: {
-					 luaL_error(L, "unpack error:invalid name:%s,type:%d", f->name, f->type);
+			luaL_error(L, "unpack error:invalid name:%s,type:%d", f->name, f->type);
 		}
 	}
 }
@@ -859,13 +859,13 @@ ldecode_pto(lua_State* L) {
 	const char* str = NULL;
 	switch ( lua_type(L, 3) ) {
 		case LUA_TSTRING: {
-							  str = lua_tolstring(L, 3, &size);
-							  break;
+			str = lua_tolstring(L, 3, &size);
+			break;
 		}
 		case LUA_TLIGHTUSERDATA:{
-									str = lua_touserdata(L, 3);
-									size = lua_tointeger(L, 4);
-									break;
+			str = lua_touserdata(L, 3);
+			size = lua_tointeger(L, 4);
+			break;
 		}
 		default:
 			luaL_error(L, "decode protocol:%s error,unkown type:%s", pto->name, lua_typename(L, lua_type(L, 3)));
