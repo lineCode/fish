@@ -359,14 +359,15 @@ int LuaFish::OsTime(lua_State* L) {
 
 int LuaFish::OsDate(lua_State* L) {
 	ServerApp* app = (ServerApp*)lua_touserdata(L, lua_upvalueindex(1));
-	if ( lua_isnoneornil(L, 1) ) {
+	if ( lua_isnoneornil(L, 2) ) {
 		lua_pushinteger(L, app->Now());
 	}
 
 	lua_pushvalue(L, lua_upvalueindex(2));
 	lua_pushvalue(L, 1);
+	lua_pushvalue(L, 2);
 
-	if ( lua_pcall(L, 1, 1, 0) != LUA_OK ) {
+	if ( lua_pcall(L, 2, 1, 0) != LUA_OK ) {
 		luaL_error(L, lua_tostring(L, -1));
 	}
 	return 1;
