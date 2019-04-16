@@ -365,7 +365,7 @@ int LuaFish::OsDate(lua_State* L) {
 
 	lua_pushvalue(L, lua_upvalueindex(2));
 	lua_pushvalue(L, 1);
-	lua_pushvalue(L, 2);
+	lua_pushvalue(L, -3);
 
 	if ( lua_pcall(L, 2, 1, 0) != LUA_OK ) {
 		luaL_error(L, lua_tostring(L, -1));
