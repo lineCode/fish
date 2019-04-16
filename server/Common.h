@@ -11,7 +11,8 @@
 	MAKE(5, AGENT_MASTER,	agentm) \
 	MAKE(6, SCENE,			scene) \
 	MAKE(7, SCENE_MASTER,	scenem) \
-	MAKE(8, MAX,			max) \
+	MAKE(8, MASTER,			master) \
+	MAKE(9, MAX,			max) \
 
 
 enum APP_TYPE
