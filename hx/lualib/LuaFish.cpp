@@ -37,27 +37,21 @@ int LuaFish::Init(ServerApp* app) {
 	lua_pushlightuserdata(L, app);
 	lua_setfield(L, LUA_REGISTRYINDEX, "app");
 
+	lua_getglobal(L, "os");
 	{
-		lua_getglobal(L, "os");
-
 		lua_pushlightuserdata(L, app);
-		lua_getglobal(L, "os");
-		lua_getfield(L, -1, "time");
+		lua_getfield(L, -2, "time");
 		lua_pushcclosure(L, LuaFish::OsTime, 2);
-
 		lua_setfield(L, -2, "time");
 	}
 
 	{
-		lua_getglobal(L, "os");
-
 		lua_pushlightuserdata(L, app);
-		lua_getglobal(L, "os");
-		lua_getfield(L, -1, "date");
+		lua_getfield(L, -2, "date");
 		lua_pushcclosure(L, LuaFish::OsDate, 2);
-
 		lua_setfield(L, -2, "date");
 	}
+	lua_pop(L, 1);
 	
 	const luaL_Reg metaAcceptor[] = {
         { "Stop", LuaFish::AcceptorClose },
