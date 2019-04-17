@@ -517,7 +517,7 @@ int LuaFish::Listen(lua_State* L) {
 
 	void* userdata = lua_newuserdata(L, sizeof(Network::Acceptor));
 	luaL_newmetatable(L, "metaAcceptor");
-    lua_setmetatable(L, -2);
+    	lua_setmetatable(L, -2);
 
 	Network::Acceptor* acceptor = new(userdata)Network::Acceptor(app->Poller());
 
@@ -525,7 +525,9 @@ int LuaFish::Listen(lua_State* L) {
 	acceptor->SetUserdata((void*)(long)callback);
 
 	if (acceptor->Listen(addr) < 0) {
-		return 0;
+		lua_pushboolean(L, false);
+		lua_pushstring(L, strerror(errno));
+		return 2;
 	}
 
 	return 1;
@@ -552,15 +554,17 @@ int LuaFish::Connect(lua_State* L) {
 
 	void* userdata = lua_newuserdata(L, sizeof( Network::Connector ));
 	luaL_newmetatable(L, "metaConnector");
-    lua_setmetatable(L, -2);
+    	lua_setmetatable(L, -2);
 
 	Network::Connector* connector = new(userdata)Network::Connector(app->Poller());
 
-    connector->SetCallback(std::bind(&LuaFish::OnConnect, app->Lua(), _1, _2, _3));
+    	connector->SetCallback(std::bind(&LuaFish::OnConnect, app->Lua(), _1, _2, _3));
 	connector->SetUserdata((void*)(long)callback);
 
 	if (connector->Connect(addr) < 0) {
-		return 0;
+		lua_pushboolean(L, false);
+		lua_pushstring(L, strerror(errno));
+		return 2;
 	}
 
 	return 1;

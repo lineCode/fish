@@ -30,7 +30,7 @@ function meta:Close()
 end
 
 function _M.Listen(addr, inst, method)
-	local acceptor = fish.Listen(addr, function (fd, addr)
+	local acceptor, err = fish.Listen(addr, function (fd, addr)
 		inst[method](inst, fd, addr)
 	end)
 
@@ -40,16 +40,17 @@ function _M.Listen(addr, inst, method)
 		acceptorCtx_[acceptor] = ctx
 		return ctx
 	end
+	return false, err
 end
 
 function _M.Connect(addr)
 	local session = co.GenSession()
-	local connector = fish.Connect(addr, function (fd, reason)
+	local connector, err = fish.Connect(addr, function (fd, reason)
 		co.Wakeup(session, fd, reason)
 	end)
 
 	if not connector then
-		return false, "error"
+		return false, err 
 	end
 	local fd, reason = co.Wait(session)
 	if not fd then
