@@ -116,11 +116,11 @@ void Bootstrap::Startup(int argc, const char* argv[]) {
 			Network::Addr addr = Network::Addr::MakeIP4Addr(ip, port);
 			logger = new Logger(new LoggerClient(addr, poller));
 
-		} else if (addrCfg.HasMember("ipc")) {
+		} else if (addrCfg.HasMember("file")) {
 #ifdef WIN32
-			Util::Exit("win32 not support ipc");
+			Util::Exit("win32 not support unix socket");
 #else
-			const char* ipc = addrCfg["ipc"].GetString();
+			const char* ipc = addrCfg["file"].GetString();
 			Network::Addr addr = Network::Addr::MakeUNIXAddr(ipc);
 			logger = new Logger(new LoggerClient(addr, poller));
 #endif

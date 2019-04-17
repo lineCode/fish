@@ -31,7 +31,6 @@ end
 function Init(self)
 	print("logger init")
 	socket.Listen(config.logger.addr, self, "OnAccept")
-	socket.Listen(config.logger.addr, self, "OnAccept")
 end
 
 function Fina(self)

@@ -52,7 +52,7 @@ namespace Network {
 	}
 
 	int SocketConnect(Addr& addr, bool nonblock, bool& connected) { 
-		int fd = socket(addr.Family(), SOCK_STREAM, IPPROTO_TCP);
+		int fd = socket(addr.Family(), SOCK_STREAM, 0);
 		if (fd < 0) {
 			return -1;
 		}
