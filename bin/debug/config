@@ -6,9 +6,7 @@
 		"level" : 1,
 		"showConsole" : true,
 		"addr" : {
-			"ip" : "127.0.0.1",
-			"port" : 3000,
-			"ipc" : "logger.ipc"
+			"file" : "logger.ipc"
 		}
 	},
 	"agentClient" : {
