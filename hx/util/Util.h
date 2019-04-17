@@ -23,6 +23,8 @@ namespace Util {
 	int MessageDecrypt(uint16_t* rseed,uint8_t* message,size_t size);
 
 	void SetProcessName(const char* name);
+
+	int SplitString(const std::string& s, const std::string& delim, std::vector<std::string>& result);
 };
 
 #endif

@@ -16,6 +16,7 @@ public:
 	virtual void Write(const char* file, void* data, size_t size);
 
 	virtual FILE* GetFILE(const char* file);
+
 private:
 	FILEMap fileCtx_;
 	FILE* runtime_;
