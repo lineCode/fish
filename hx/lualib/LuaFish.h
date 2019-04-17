@@ -30,8 +30,6 @@ public:
 
 	int DoFile(std::string& file);
 
-	OOLUA::Table CreateGlobalTable(const char* name);
-
 	void SetPath(const char* path);
 
 	void Require(const char* module,int (*func)(lua_State*));
@@ -39,6 +37,8 @@ public:
 	void Breakout();
 	
 	void CreateMetaTable(const char* name, const luaL_Reg meta[], lua_CFunction gc);
+
+	OOLUA::Table CreateGlobalTable(const char* name);
 
 	uint64_t AllocTimer(Timer*& timer);
 

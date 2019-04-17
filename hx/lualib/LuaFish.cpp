@@ -107,14 +107,6 @@ int LuaFish::DoFile(std::string& file) {
 	return 0;
 }
 
-OOLUA::Table LuaFish::CreateGlobalTable(const char* name) {
-	lua_State* L = (lua_State*)script_;
-
-	lua_newtable(L);
-	lua_setglobal(L, name);
-	return OOLUA::Table(L, name);
-}
-
 void LuaFish::SetPath(const char* path) {
 	lua_State* L = script_.state();
 	std::string fullpath(path);
@@ -151,6 +143,14 @@ void LuaFish::CreateMetaTable(const char* name, const luaL_Reg meta[], lua_CFunc
         	lua_setfield(L, -2, "__gc");
         }
     }
+}
+
+OOLUA::Table LuaFish::CreateGlobalTable(const char* name) {
+	lua_State* L = (lua_State*)script_;
+
+	lua_newtable(L);
+	lua_setglobal(L, name);
+	return OOLUA::Table(L, name);
 }
 
 uint64_t LuaFish::AllocTimer(Timer*& timer) {
