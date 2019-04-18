@@ -62,12 +62,27 @@ void LoggerServer::Write(const char* file, void* data, size_t size) {
 FILE* LoggerServer::GetFILE(const char* file) {
 	FILE* F = NULL;
 	FILEMap::iterator iter = fileCtx_.find(file);
-	if ( iter == fileCtx_.end() ) {
+	if (iter == fileCtx_.end()) {
 		std::string path = fmt::format("{}{}.log", path_, file);
 
-		F = fopen(path.c_str(), "w");
+		std::vector<std::string> result;
+		Util::SplitString(path, "/", result);
+
+		if ( result.empty() ) {
+			F = fopen(path.c_str(), "w");
+		} else {
+
+			std::string subpath;
+			for (int i = 0; i < result.size() - 1; i++) {
+				const std::string& path = result[i];
+				subpath.append(path);
+				subpath.append("/");
+				_mkdir(subpath.c_str());
+			}
+			F = fopen(file.c_str(), "w");
+		}
 		assert(F != NULL);
-	
+
 		fileCtx_[file] = F;
 	} else {
 		F = iter->second;
