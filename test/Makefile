@@ -44,7 +44,7 @@ all:$(TARGET)
 	$(CXX) $(CXXFLAG) $(INCLUDE) -c $< -o $@ 
 
 $(TARGET):$(OBJ) $(STATIC_LIBS)
-	$(CXX) -o $@ $^ -lm -ldl -lrt -lpthread -lstdc++ -lunwind -L/usr/lib64/mysql -lmysqlclient
+	$(CXX) -o $@ $^ -lm -ldl -lrt -lpthread -lstdc++ -lasan -lunwind -L/usr/lib64/mysql -lmysqlclient
 
 clean:
 	rm -rf $(OBJ) $(TARGET)

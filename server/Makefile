@@ -15,7 +15,7 @@ ifeq ($(config),debug)
 	ifeq ($(CXX),clang)
 		CXXFLAG = -g -std=c++11 -fPIC -Wall -fno-omit-frame-pointer -fno-strict-aliasing -Wno-unused-variable -fsanitize=address
 	else
-		CXXFLAG = -g -std=c++11 -fPIC -Wall -fno-omit-frame-pointer -fno-strict-aliasing -Wno-unused-local-typedefs -Wno-unused-variable 
+		CXXFLAG = -g -std=c++11 -fPIC -Wall -fno-omit-frame-pointer -fno-strict-aliasing -Wno-unused-local-typedefs -Wno-unused-variable -fsanitize=address 
 	endif
 endif
 
@@ -36,7 +36,7 @@ DIRS = $(shell find . -maxdepth 3 -type d)
 SRC = $(foreach dir,$(DIRS),$(wildcard $(dir)/*.cpp))
 OBJ = $(patsubst %.cpp, %.o, $(SRC))
 
-STATIC_LIBS = ../bin/debug/libhx.a ../bin/debug/libev.a ../bin/debug/liboolua.a  ../bin/debug/liblua.a ../bin/debug/libtcmalloc_and_profiler.a
+STATIC_LIBS = ../bin/debug/libhx.a ../bin/debug/libev.a ../bin/debug/liboolua.a  ../bin/debug/liblua.a 
 
 all:$(TARGET) 
 
@@ -44,7 +44,7 @@ all:$(TARGET)
 	$(CXX) $(CXXFLAG) $(INCLUDE) -c $< -o $@ 
 
 $(TARGET):$(OBJ) $(STATIC_LIBS)
-	$(CXX) -o $@ $^ -lm -ldl -lrt -lpthread -lstdc++ -lunwind -lmysqlclient -L/usr/lib64/mysql
+	$(CXX) -o $@ $^ -lm -ldl -lrt -lpthread -lstdc++ -lasan -lunwind -lmysqlclient -L/usr/lib64/mysql 
 
 clean:
 	rm -rf $(OBJ) $(TARGET)

@@ -15,8 +15,9 @@ ifeq ($(config),debug)
 		CXXFLAG = -g -std=c++11 -fPIC -Wall -fno-omit-frame-pointer -fno-strict-aliasing -Wno-unused-variable -fsanitize=address
 		CFLAG = -g -fPIC -Wall -fno-strict-aliasing -fsanitize=address
 	else
-		CXXFLAG = -g -std=c++11 -fPIC -Wall -fno-omit-frame-pointer -fno-strict-aliasing -Wno-unused-local-typedefs -Wno-unused-variable
-		CFLAG = -g -fPIC -Wall -fno-strict-aliasing -Wno-unused-local-typedefs
+		CXXFLAG = -g -std=c++11 -fPIC -Wall -fno-omit-frame-pointer -fno-strict-aliasing -Wno-unused-local-typedefs -Wno-unused-variable -fsanitize=address 
+		CFLAG = -g -fPIC -Wall -fno-strict-aliasing -Wno-unused-local-typedefs -fsanitize=address 
+
 	endif
 endif
 

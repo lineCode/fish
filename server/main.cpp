@@ -11,7 +11,6 @@ int main(int argc, const char *argv[])
  	WSADATA wsa_data;
  	WSAStartup(0x0201, &wsa_data);
  #endif
-
  	Bootstrap bootstrap;
  	bootstrap.Startup(argc, argv);
 

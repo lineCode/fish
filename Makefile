@@ -39,7 +39,7 @@ CC=gcc
 export CC
 export CXX
 
-DEFINE=-DMEM_USE_TC
+#DEFINE=-DMEM_USE_TC
 
 export DEFINE
 

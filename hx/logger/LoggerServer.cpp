@@ -8,8 +8,11 @@
 
 #ifdef WIN32
 #include <direct.h>
+#define mkdir _mkdir
 #else
-#include <unistd.h>
+#include <sys/stat.h>
+#define mkdir(path) (mkdir((path), \
+    S_IRUSR | S_IWUSR | S_IXUSR | S_IRGRP | S_IWGRP | S_IXGRP | S_IROTH | S_IXOTH))
 #endif
 
 static const char kLOG_TAG[] = { 'D', 'I', 'W', 'E'};
@@ -62,21 +65,8 @@ FILE* LoggerServer::GetFILE(const char* file) {
 	if ( iter == fileCtx_.end() ) {
 		std::string path = fmt::format("{}{}.log", path_, file);
 
-		std::vector<std::string> result;
-		Util::SplitString(path, "/", result);
-
-		if ( result.empty() ) {
-			F = fopen(path.c_str(), "w");
-			assert(F != NULL);
-		} else {
-			for ( int i = 0; i < result.size() - 1; i++ ) {
-				const std::string& path = result[i];
-				_mkdir(path.c_str());
-			}
-			const std::string& file = result[result.size()];
-			F = fopen(file.c_str(), "w");
-			assert(F != NULL);
-		}
+		F = fopen(path.c_str(), "w");
+		assert(F != NULL);
 	
 		fileCtx_[file] = F;
 	} else {
