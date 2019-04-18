@@ -68,7 +68,7 @@ FILE* LoggerServer::GetFILE(const char* file) {
 		std::vector<std::string> result;
 		Util::SplitString(path, "/", result);
 
-		if ( result.empty() ) {
+		if (result.empty()) {
 			F = fopen(path.c_str(), "w");
 		} else {
 
@@ -77,9 +77,9 @@ FILE* LoggerServer::GetFILE(const char* file) {
 				const std::string& path = result[i];
 				subpath.append(path);
 				subpath.append("/");
-				_mkdir(subpath.c_str());
+				mkdir(subpath.c_str());
 			}
-			F = fopen(file.c_str(), "w");
+			F = fopen(path.c_str(), "w");
 		}
 		assert(F != NULL);
 
